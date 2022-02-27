@@ -1,2 +1,3 @@
 C:\Codes\GitHub\Giera\x64\Debug\Giera.exe
 C:\Codes\GitHub\Giera\x64\Debug\Giera.pdb
+C:\Users\Adam\Documents\Programy C++\Giera\x64\Debug\Giera.exe
