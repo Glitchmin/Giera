@@ -41,8 +41,8 @@ double ValuesRange::getAverage()
 
 double ValuesRange::getRandom()
 {
-	return min;
 	throw "function not finished";
+	return min;
 	//we need random_int(a,b) and random_double(a,b) in calculator
 }
 

@@ -24,9 +24,6 @@
     <ClCompile Include="ValuesRange.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\ValuesRanges.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Position.h">
