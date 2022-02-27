@@ -149,9 +149,12 @@
   <ItemGroup>
     <ClCompile Include="01_hello_SDL.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="Utility\ValuesRanges.cpp" />
+    <ClCompile Include="ValuesRange.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Position.h" />
+    <ClInclude Include="Utility\ValuesRange.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

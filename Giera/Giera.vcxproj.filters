@@ -19,11 +19,20 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Position.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ValuesRange.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\ValuesRanges.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Position.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\ValuesRange.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
