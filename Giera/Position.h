@@ -15,3 +15,5 @@ public:
 	Position operator + (Position const& p1);
 	//TODO rest of the operators
 };
+
+// i am here buhahahaha - ja
