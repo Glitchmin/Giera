@@ -5,7 +5,7 @@ and may not be redistributed without written permission.*/
 #include <SDL.h>
 #include <stdio.h>
 #include <iostream>
-#include "Utility/Position.h"
+#include "Position.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;

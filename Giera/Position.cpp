@@ -1,10 +1,7 @@
-#include "Utility/Position.h"
+#include "Position.h"
 
 Position::Position()
 {
-	x = -1;
-	y = -1;
-	//a moze exception?
 }
 
 Position::Position(double x, double y)

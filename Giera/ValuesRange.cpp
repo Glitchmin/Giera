@@ -1,12 +1,6 @@
-#include "Utility\ValuesRange.h"
+#include "ValuesRange.h"
 #include <stdlib.h>
 
-ValuesRange::ValuesRange()
-{
-	this->max = -1;
-	this->min = -1;
-	//a mo¿e exception?
-}
 
 ValuesRange::ValuesRange(double min, double max)
 {
@@ -41,8 +35,6 @@ double ValuesRange::getAverage()
 
 double ValuesRange::getRandom()
 {
-	throw "function not finished";
-	return min;
-	//we need random_int(a,b) and random_double(a,b) in calculator
+	throw "place Calculator::getRandomDouble here";
 }
 

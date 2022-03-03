@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -148,12 +148,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="01_hello_SDL.cpp" />
+    <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="ValuesRange.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utility\Position.h" />
-    <ClInclude Include="Utility\ValuesRange.h" />
+    <ClInclude Include="AbstractGeometryFigure.h" />
+    <ClInclude Include="LineSegment.h" />
+    <ClInclude Include="Position.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="ValuesRange.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

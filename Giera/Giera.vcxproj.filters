@@ -13,24 +13,51 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{ea9fee92-cd8e-45fc-831f-1e8083312ea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility\Geometry">
+      <UniqueIdentifier>{222079ed-268f-40b7-977d-6b125dc7cb55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{153651e9-5a1d-4b87-9a62-eef1c335a9df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Geometry">
+      <UniqueIdentifier>{94de23bc-b61d-4437-9acb-68554256b992}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LineSegment.cpp">
+      <Filter>Source Files\Utility\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="ValuesRange.cpp">
+      <Filter>Source Files\Utility\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Source Files\Utility\Geometry</Filter>
+    </ClCompile>
     <ClCompile Include="01_hello_SDL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Position.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ValuesRange.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utility\Position.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="LineSegment.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\ValuesRange.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ValuesRange.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractGeometryFigure.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
