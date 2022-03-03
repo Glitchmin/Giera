@@ -10,4 +10,13 @@ public:
 	Rectangle();
 	Rectangle(Position lowerLeft, Position upperRight);
 
+    Position getLowerLeft() const;
+    void setLowerLeft(Position lowerLeft);
+
+    Position getUpperRight() const;
+    void setUpperRight(Position upperRight);
+
+	Position getUpperLeft() const;
+	Position getLowerRight() const;
+
 };

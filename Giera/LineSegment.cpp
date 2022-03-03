@@ -30,3 +30,13 @@ void LineSegment::setEnd(Position end)
     this->end = end;
 }
 
+double LineSegment::getSlope()
+{
+    throw "TO DO";
+}
+
+double LineSegment::getIntercept()
+{
+    throw "TO DO";
+}
+
