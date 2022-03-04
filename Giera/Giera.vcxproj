@@ -148,16 +148,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="01_hello_SDL.cpp" />
+    <ClCompile Include="AbstractTimer.cpp" />
+    <ClCompile Include="GeneralTimer.cpp" />
     <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="SubTimer.cpp" />
     <ClCompile Include="ValuesRange.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractGeometryFigure.h" />
+    <ClInclude Include="AbstractTimer.h" />
+    <ClInclude Include="GeneralTimer.h" />
     <ClInclude Include="LineSegment.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="SubTimer.h" />
     <ClInclude Include="ValuesRange.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
