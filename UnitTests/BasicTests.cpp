@@ -22,11 +22,10 @@ namespace UtilityTests
 			while (SDL_GetTicks() < time + 200) {
 				generalTimer.updateTime();
 				SDL_Delay(2);
-			}
-			Assert::IsTrue(generalTimer.getTime() < 205);
-			Assert::IsTrue(generalTimer.getTime() > 195);
-			std::cout << generalTimer.getTime();
-			Logger::WriteMessage("some text");
+			} 
+			Assert::IsTrue(generalTimer.getTime() < 210);
+			Assert::IsTrue(generalTimer.getTime() > 190);
+			
 		}
 	};
 }

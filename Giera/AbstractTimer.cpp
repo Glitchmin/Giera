@@ -2,7 +2,6 @@
 
 AbstractTimer::AbstractTimer()
 {
-	updateTime();
 	time = 0;
 }
 
@@ -25,5 +24,13 @@ unsigned int AbstractTimer::getTime()
 {
 	return time;
 }
-void AbstractTimer::updateTime() {
+double AbstractTimer::getTempo() const
+{
+	return tempo;
 }
+
+void AbstractTimer::setTempo(double tempo)
+{
+    this->tempo = tempo;
+}
+

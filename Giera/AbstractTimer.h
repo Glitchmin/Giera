@@ -11,6 +11,10 @@ public:
 	void unpause();
 	bool isPaused();
 	unsigned int getTime();
+	double getTempo() const;
+    void setTempo(double tempo);
+
 	virtual void updateTime() = 0;
+
 };
 

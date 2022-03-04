@@ -5,6 +5,7 @@
 class GeneralTimer : public AbstractTimer
 {
 public:
+	GeneralTimer();
 	void updateTime();
 };
 
