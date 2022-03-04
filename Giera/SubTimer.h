@@ -10,5 +10,6 @@ private:
 	std::shared_ptr<GeneralTimer> generalTimer;
 public:
 	void updateTime();
+	SubTimer(std::shared_ptr<GeneralTimer> generalTimer);
 };
 
