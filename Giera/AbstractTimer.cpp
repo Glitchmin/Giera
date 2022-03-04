@@ -25,3 +25,5 @@ unsigned int AbstractTimer::getTime()
 {
 	return time;
 }
+void AbstractTimer::updateTime() {
+}
