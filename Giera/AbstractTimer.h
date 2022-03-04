@@ -2,9 +2,10 @@
 class AbstractTimer
 {
 protected:
-	unsigned int time;
+	double time;
 	unsigned int timeCalculated;
 	double tempo = 1.0;
+	bool paused = false;
 public:
 	AbstractTimer();
 	void pause();

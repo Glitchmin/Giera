@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <SDL.h>
+#include <Windows.h>
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UtilityTests
@@ -14,18 +15,58 @@ namespace UtilityTests
 	TEST_CLASS(TimerTests)
 	{
 	public:
-		TEST_METHOD(GeneralTimerTests)
+		TEST_METHOD(GeneralTimerTestTempo1_0)
 		{
 			GeneralTimer generalTimer;
 			Assert::IsTrue(generalTimer.getTime() < 5);
 			Uint32 time = SDL_GetTicks();
 			while (SDL_GetTicks() < time + 200) {
 				generalTimer.updateTime();
-				SDL_Delay(2);
 			} 
 			Assert::IsTrue(generalTimer.getTime() < 210);
 			Assert::IsTrue(generalTimer.getTime() > 190);
-			
+		}
+		TEST_METHOD(GeneralTimerTestTempo1_5)
+		{
+			GeneralTimer generalTimer;
+			Assert::IsTrue(generalTimer.getTime() < 5);
+			Uint32 time = SDL_GetTicks();
+			generalTimer.setTempo(1.5);
+			while (SDL_GetTicks() < time + 200) {
+				generalTimer.updateTime();
+			}
+			Assert::IsTrue(generalTimer.getTime() < 315);
+			Assert::IsTrue(generalTimer.getTime() > 285);
+		}
+		TEST_METHOD(GeneralTimerTestTempo0_5)
+		{
+			GeneralTimer generalTimer;
+			Assert::IsTrue(generalTimer.getTime() < 5);
+			Uint32 time = SDL_GetTicks();
+			generalTimer.setTempo(0.5);
+			while (SDL_GetTicks() < time + 200) {
+				generalTimer.updateTime();
+			}
+			Assert::IsTrue(generalTimer.getTime() < 105);
+			Assert::IsTrue(generalTimer.getTime() > 95);
+		}
+		TEST_METHOD(GeneralTimerTestPause)
+		{
+			GeneralTimer generalTimer;
+			Assert::IsTrue(generalTimer.getTime() < 5);
+			Uint32 time = SDL_GetTicks();
+			generalTimer.setTempo(2.5);
+			generalTimer.pause();
+			while (SDL_GetTicks() < time + 100) {
+				generalTimer.updateTime();
+			}
+			generalTimer.unpause();
+			time = SDL_GetTicks();
+			while (SDL_GetTicks() < time + 100) {
+				generalTimer.updateTime();
+			}
+			Assert::IsTrue(generalTimer.getTime() < 2.5*105);
+			Assert::IsTrue(generalTimer.getTime() > 2.5*95);
 		}
 	};
 }

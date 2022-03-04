@@ -7,17 +7,17 @@ AbstractTimer::AbstractTimer()
 
 void AbstractTimer::pause()
 {
-	tempo = 0.0;
+	paused = true;
 }
 
 void AbstractTimer::unpause()
 {
-	tempo = 1.0;
+	paused = false;
 }
 
 bool AbstractTimer::isPaused()
 {
-	return (tempo == 0.0);
+	return paused;
 }
 
 unsigned int AbstractTimer::getTime()
