@@ -2,7 +2,7 @@
 
 AbstractTimer::AbstractTimer()
 {
-	time = 0;
+	this->time = 0.0;
 }
 
 void AbstractTimer::pause()
@@ -20,9 +20,9 @@ bool AbstractTimer::isPaused()
 	return paused;
 }
 
-unsigned int AbstractTimer::getTime()
+Time AbstractTimer::getTime()
 {
-	return time;
+	return Time((unsigned int)time);
 }
 double AbstractTimer::getTempo() const
 {

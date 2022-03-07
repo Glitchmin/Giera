@@ -2,11 +2,12 @@
 
 void SubTimer::updateTime()
 {
-	Uint32 currentTime = (*generalTimer).getTime();
+	Time currentTime = generalTimer->getTime();
 	if (paused == false) {
-		time += (currentTime - timeCalculated) * tempo;
+		double timeDiff = ((double)currentTime.getTimeMs() - (double)lastTimeCalculated.getTimeMs()) * tempo;
+		time += timeDiff;
 	}
-	timeCalculated = currentTime;
+	lastTimeCalculated = currentTime;
 }
 
 SubTimer::SubTimer(std::shared_ptr<GeneralTimer> generalTimer)

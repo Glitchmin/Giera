@@ -1,9 +1,10 @@
 #pragma once
+#include "Time.h"
 class AbstractTimer
 {
 protected:
 	double time;
-	unsigned int timeCalculated;
+	Time lastTimeCalculated;
 	double tempo = 1.0;
 	bool paused = false;
 public:
@@ -11,7 +12,7 @@ public:
 	void pause();
 	void unpause();
 	bool isPaused();
-	unsigned int getTime();
+	Time getTime();
 	double getTempo() const;
     void setTempo(double tempo);
 

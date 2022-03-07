@@ -6,9 +6,10 @@ GeneralTimer::GeneralTimer()
 }
 void GeneralTimer::updateTime()
 {
-	Uint32 currentTime = SDL_GetTicks();
+	Time currentTime = Time(SDL_GetTicks());
 	if (paused == false) {
-		time += (currentTime - timeCalculated) * tempo;
+		double timeDiff = ((double)currentTime.getTimeMs() - (double)lastTimeCalculated.getTimeMs()) * tempo;
+		time += timeDiff;
 	}
-	timeCalculated = currentTime;
+	lastTimeCalculated = currentTime;
 }

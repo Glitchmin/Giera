@@ -25,17 +25,14 @@
     <Filter Include="Source Files\Utility\Geometry">
       <UniqueIdentifier>{94de23bc-b61d-4437-9acb-68554256b992}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Utility\Timer">
+    <Filter Include="Header Files\Utility\Time">
       <UniqueIdentifier>{344be7c2-6ea6-453b-bfb4-168aa7f45fb6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Utility\Geometry\Timer">
+    <Filter Include="Source Files\Utility\Time">
       <UniqueIdentifier>{da453829-dd1c-47cf-9564-68fcd74eb48c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ValuesRange.cpp">
-      <Filter>Source Files\Utility\Geometry</Filter>
-    </ClCompile>
     <ClCompile Include="Rectangle.cpp">
       <Filter>Source Files\Utility\Geometry</Filter>
     </ClCompile>
@@ -49,13 +46,19 @@
       <Filter>Source Files\Utility\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="AbstractTimer.cpp">
-      <Filter>Source Files\Utility\Geometry\Timer</Filter>
+      <Filter>Source Files\Utility\Time</Filter>
     </ClCompile>
     <ClCompile Include="GeneralTimer.cpp">
-      <Filter>Source Files\Utility\Geometry\Timer</Filter>
+      <Filter>Source Files\Utility\Time</Filter>
     </ClCompile>
     <ClCompile Include="SubTimer.cpp">
-      <Filter>Source Files\Utility\Geometry\Timer</Filter>
+      <Filter>Source Files\Utility\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Source Files\Utility\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="ValuesRange.cpp">
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,9 +68,6 @@
     <ClInclude Include="ValuesRange.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Position.h">
-      <Filter>Header Files\Utility\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="AbstractGeometryFigure.h">
       <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
@@ -75,13 +75,19 @@
       <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="AbstractTimer.h">
-      <Filter>Header Files\Utility\Timer</Filter>
+      <Filter>Header Files\Utility\Time</Filter>
     </ClInclude>
     <ClInclude Include="GeneralTimer.h">
-      <Filter>Header Files\Utility\Timer</Filter>
+      <Filter>Header Files\Utility\Time</Filter>
     </ClInclude>
     <ClInclude Include="SubTimer.h">
-      <Filter>Header Files\Utility\Timer</Filter>
+      <Filter>Header Files\Utility\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Header Files\Utility\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>Header Files\Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
