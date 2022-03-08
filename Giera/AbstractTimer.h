@@ -8,6 +8,7 @@ protected:
 	Time lastTimeCalculated;
 	double tempo = 1.0;
 	bool paused = false;
+
 public:
 	AbstractTimer();
 	void pause();
@@ -17,7 +18,8 @@ public:
 	double getTempo() const;
     void setTempo(double tempo);
 	void updateTime();
-private:
+
+protected:
 	virtual Time getTimeFromParentTimer() = 0;
 };
 
