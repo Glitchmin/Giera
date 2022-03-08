@@ -19,7 +19,7 @@ namespace UtilityTests
 	TEST_CLASS(TimeTests)
 	{
 	public:
-		//those tests might not be working is launched on a VERY slow (or occupied with something else) device. Just rerun them before drawing conclusions
+		//those tests might not be working if launched on a VERY slow (or occupied with something else) device. Just rerun them before drawing conclusions
 		TEST_METHOD(TimeOperatorsOverloadTest)
 		{
 			Time time1(100);
