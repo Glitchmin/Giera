@@ -13,7 +13,7 @@ public:
 	Time operator - (Time const& t1);
 	Time& operator += (Time const& t1);
 	Time& operator -= (Time const& t1);
-	Time& operator * (double const& d);
+	Time operator * (double const& d);
 	bool operator <(Time const& t1) const;
 	bool operator >(Time const& t1) const;
 };

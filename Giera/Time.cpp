@@ -16,7 +16,7 @@ unsigned int Time::getTimeMs() const
 
 double Time::getTimeS() const
 {
-	return ((double)ms / 100);
+	return ((double)ms / 1000);
 }
 
 Time Time::operator+(Time const& t1)
@@ -42,10 +42,9 @@ Time& Time::operator-=(Time const& t1)
 	return *this;
 }
 
-Time& Time::operator*(double const& d)
+Time Time::operator*(double const& d)
 {
-	this->ms = this->ms * d;
-	return *this;
+	return Time(this->ms * d);
 }
 
 bool Time::operator<(Time const& t1) const

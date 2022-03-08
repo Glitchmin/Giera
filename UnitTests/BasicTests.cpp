@@ -16,10 +16,40 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UtilityTests
 {
-	TEST_CLASS(TimerTests)
+	TEST_CLASS(TimeTests)
 	{
 	public:
 		//those tests might not be working is launched on a VERY slow (or occupied with something else) device. Just rerun them before drawing conclusions
+		TEST_METHOD(TimeOperatorsOverloadTest)
+		{
+			Time time1(100);
+			Time time2(250);
+			Time time3 = time1 + time2;
+			Assert::AreEqual(time3.getTimeMs(), (Uint32)350);
+			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+			Assert::AreEqual(time2.getTimeMs(), (Uint32)250);
+
+			Time time4 = time2 - time1;
+			Assert::AreEqual(time4.getTimeMs(), (Uint32)150);
+			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+			Assert::AreEqual(time2.getTimeMs(), (Uint32)250);
+
+			Time time5(4);
+			time5 += time1;
+			Assert::AreEqual(time5.getTimeMs(), (Uint32)104);
+			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+
+			Time time6(104);
+			time6 -= time1;
+			Assert::AreEqual(time6.getTimeMs(), (Uint32)4);
+			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+
+			Time time7 = time1 * 1.5;
+			Assert::AreEqual(time7.getTimeMs(), (Uint32)150);
+			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+
+			Assert::AreEqual(time1.getTimeS(),0.1);
+		}
 		TEST_METHOD(GeneralTimerTestTempo1_0)
 		{
 			GeneralTimer generalTimer;
@@ -86,7 +116,7 @@ namespace UtilityTests
 			std::shared_ptr <GeneralTimer> generalTimer(new GeneralTimer);
 			Assert::IsTrue(generalTimer->getTime().getTimeMs() < 5);
 			Uint32 time = SDL_GetTicks();
-			std::shared_ptr<SubTimer> subTimer (new SubTimer(generalTimer));
+			std::shared_ptr<SubTimer> subTimer(new SubTimer(generalTimer));
 			while (SDL_GetTicks() < time + 200)
 			{
 				generalTimer->updateTime();

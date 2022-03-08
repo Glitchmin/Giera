@@ -15,22 +15,6 @@ const int SCREEN_HEIGHT = 480;
 
 int main( int argc, char* args[] )
 {
-	Uint32 time = SDL_GetTicks();
-	while (SDL_GetTicks() < time + 200)
-	{
-		SDL_Delay(1);
-	}
-	GeneralTimer generalTimer;
-	Time answer = generalTimer.getTime();
-	std::cout << answer.getTimeMs() << "\n";
-	time = SDL_GetTicks();
-	generalTimer.setTempo(0.5);
-	while (SDL_GetTicks() < time + 200)
-	{
-		generalTimer.updateTime();
-	}
-	std::cout << generalTimer.getTime().getTimeMs();
-
 	//The window we'll be rendering to
 	SDL_Window* window = NULL;
 	
