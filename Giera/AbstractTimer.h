@@ -3,7 +3,8 @@
 class AbstractTimer
 {
 protected:
-	double time;
+	Time time;
+	double calculationRest = 0.0;
 	Time lastTimeCalculated;
 	double tempo = 1.0;
 	bool paused = false;
@@ -15,8 +16,8 @@ public:
 	Time getTime();
 	double getTempo() const;
     void setTempo(double tempo);
-
-	virtual void updateTime() = 0;
-
+	void updateTime();
+private:
+	virtual Time getTimeFromParentTimer() = 0;
 };
 

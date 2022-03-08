@@ -48,15 +48,18 @@ namespace UtilityTests
 		TEST_METHOD(GeneralTimerTestTempo0_5)
 		{
 			GeneralTimer generalTimer;
-			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 5);
+			Time answer = generalTimer.getTime();
+			Assert::IsTrue(answer.getTimeMs() < 5);
 			Uint32 time = SDL_GetTicks();
 			generalTimer.setTempo(0.5);
 			while (SDL_GetTicks() < time + 200)
 			{
 				generalTimer.updateTime();
 			}
-			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 105);
-			Assert::IsTrue(generalTimer.getTime().getTimeMs() > 95);
+			answer = generalTimer.getTime();
+
+			Assert::IsTrue(answer.getTimeMs() < 105);
+			Assert::IsTrue(answer.getTimeMs() > 95);
 		}
 		TEST_METHOD(GeneralTimerTestPause)
 		{

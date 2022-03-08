@@ -2,14 +2,9 @@
 GeneralTimer::GeneralTimer()
 {
 	updateTime();
-	time = 0.0;
+	time = Time(0);
 }
-void GeneralTimer::updateTime()
+Time GeneralTimer::getTimeFromParentTimer()
 {
-	Time currentTime = Time(SDL_GetTicks());
-	if (paused == false) {
-		double timeDiff = ((double)currentTime.getTimeMs() - (double)lastTimeCalculated.getTimeMs()) * tempo;
-		time += timeDiff;
-	}
-	lastTimeCalculated = currentTime;
+	return Time(SDL_GetTicks());
 }

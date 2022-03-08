@@ -1,16 +1,13 @@
 #include "SubTimer.h"
 
-void SubTimer::updateTime()
+Time SubTimer::getTimeFromParentTimer()
 {
-	Time currentTime = generalTimer->getTime();
-	if (paused == false) {
-		double timeDiff = ((double)currentTime.getTimeMs() - (double)lastTimeCalculated.getTimeMs()) * tempo;
-		time += timeDiff;
-	}
-	lastTimeCalculated = currentTime;
+	return generalTimer->getTime();
 }
 
 SubTimer::SubTimer(std::shared_ptr<GeneralTimer> generalTimer)
 {
 	this->generalTimer = generalTimer;
+	updateTime();
+	time = Time(0);
 }

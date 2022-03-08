@@ -7,6 +7,7 @@ and may not be redistributed without written permission.*/
 #include <iostream>
 #include "Position.h"
 #include "GeneralTimer.h";
+#include "Time.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -14,6 +15,22 @@ const int SCREEN_HEIGHT = 480;
 
 int main( int argc, char* args[] )
 {
+	Uint32 time = SDL_GetTicks();
+	while (SDL_GetTicks() < time + 200)
+	{
+		SDL_Delay(1);
+	}
+	GeneralTimer generalTimer;
+	Time answer = generalTimer.getTime();
+	std::cout << answer.getTimeMs() << "\n";
+	time = SDL_GetTicks();
+	generalTimer.setTempo(0.5);
+	while (SDL_GetTicks() < time + 200)
+	{
+		generalTimer.updateTime();
+	}
+	std::cout << generalTimer.getTime().getTimeMs();
+
 	//The window we'll be rendering to
 	SDL_Window* window = NULL;
 	

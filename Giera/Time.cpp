@@ -21,32 +21,30 @@ double Time::getTimeS() const
 
 Time Time::operator+(Time const& t1)
 {
-	Time pos(t1.ms + this->ms);
-	return pos;
+	return Time(this->ms + t1.ms);
 }
 
 Time Time::operator-(Time const& t1)
 {
-	Time pos(this->ms - t1.ms);
-	return pos;
+	return Time(this->ms - t1.ms);
 }
 
 
-Time Time::operator+=(Time const& t1)
+Time& Time::operator+=(Time const& t1)
 {
 	this->ms += t1.ms;
 	return *this;
 }
 
-Time Time::operator-=(Time const& t1)
+Time& Time::operator-=(Time const& t1)
 {
 	this->ms -= t1.ms;
 	return *this;
 }
 
-Time Time::operator*(double const& d)
+Time& Time::operator*(double const& d)
 {
-	this->ms = this->ms*d;
+	this->ms = this->ms * d;
 	return *this;
 }
 

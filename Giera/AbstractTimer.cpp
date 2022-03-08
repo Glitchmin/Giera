@@ -2,7 +2,6 @@
 
 AbstractTimer::AbstractTimer()
 {
-	this->time = 0.0;
 }
 
 void AbstractTimer::pause()
@@ -22,7 +21,7 @@ bool AbstractTimer::isPaused()
 
 Time AbstractTimer::getTime()
 {
-	return Time((unsigned int)time);
+	return time;
 }
 double AbstractTimer::getTempo() const
 {
@@ -31,6 +30,17 @@ double AbstractTimer::getTempo() const
 
 void AbstractTimer::setTempo(double tempo)
 {
-    this->tempo = tempo;
+	this->tempo = tempo;
+}
+
+void AbstractTimer::updateTime()
+{
+	Time currentTime = getTimeFromParentTimer();
+	if (paused == false) {
+		double timeCalculated = ((double)currentTime.getTimeMs() - (double)lastTimeCalculated.getTimeMs()) * tempo + calculationRest;
+		calculationRest = timeCalculated - (unsigned int)timeCalculated;
+		time += Time((unsigned int)timeCalculated);
+	}
+	lastTimeCalculated = currentTime;
 }
 

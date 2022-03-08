@@ -8,8 +8,8 @@ class SubTimer : public AbstractTimer
 {
 private:
 	std::shared_ptr<GeneralTimer> generalTimer;
+	Time getTimeFromParentTimer() override;
 public:
-	void updateTime();
 	SubTimer(std::shared_ptr<GeneralTimer> generalTimer);
 };
 

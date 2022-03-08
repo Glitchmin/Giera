@@ -4,8 +4,9 @@
 //all hail the general!
 class GeneralTimer : public AbstractTimer
 {
+private:
+	Time getTimeFromParentTimer() override;
 public:
 	GeneralTimer();
-	void updateTime();
 };
 
