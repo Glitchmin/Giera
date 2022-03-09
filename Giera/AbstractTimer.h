@@ -13,8 +13,8 @@ public:
 	AbstractTimer();
 	void pause();
 	void unpause();
-	bool isPaused();
-	Time getTime();
+	bool isPaused() const;
+	Time getTime() const;
 	double getTempo() const;
     void setTempo(double tempo);
 	Time updateTime();

@@ -18,12 +18,12 @@ double Time::getTimeS() const
 	return ((double)ms / 1000);
 }
 
-Time Time::operator+(Time const& t1)
+Time Time::operator+(Time const& t1) const
 {
 	return Time(this->ms + t1.ms);
 }
 
-Time Time::operator-(Time const& t1)
+Time Time::operator-(Time const& t1) const
 {
 	return Time(this->ms - t1.ms);
 }
@@ -41,7 +41,7 @@ Time& Time::operator-=(Time const& t1)
 	return *this;
 }
 
-Time Time::operator*(double const& d)
+Time Time::operator*(double const& d) const
 {
 	return Time((unsigned int)this->ms * d);
 }
