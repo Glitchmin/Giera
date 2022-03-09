@@ -35,15 +35,13 @@ void AbstractTimer::setTempo(double tempo)
 
 Time AbstractTimer::updateTime()
 {
-	Time timeChange(0);
 	Time currentTime = getTimeFromParentTimer();
 	if (paused == false) {
 		double timeCalculated = ((double)currentTime.getTimeMs() - (double)lastTimeCalculated.getTimeMs()) * tempo + calculationRest;
 		calculationRest = timeCalculated - (unsigned int)timeCalculated;
-		timeChange = Time((unsigned int)timeCalculated);
 		time += Time((unsigned int)timeCalculated);
 	}
 	lastTimeCalculated = currentTime;
-	return timeChange;
+	return time;
 }
 
