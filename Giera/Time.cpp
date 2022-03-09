@@ -1,5 +1,4 @@
 #include "Time.h"
-
 Time::Time()
 {
 }
@@ -44,7 +43,7 @@ Time& Time::operator-=(Time const& t1)
 
 Time Time::operator*(double const& d)
 {
-	return Time(this->ms * d);
+	return Time((unsigned int)this->ms * d);
 }
 
 bool Time::operator<(Time const& t1) const

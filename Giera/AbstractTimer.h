@@ -17,7 +17,7 @@ public:
 	Time getTime();
 	double getTempo() const;
     void setTempo(double tempo);
-	void updateTime();
+	Time updateTime();
 
 protected:
 	virtual Time getTimeFromParentTimer() = 0;

@@ -25,28 +25,28 @@ namespace UtilityTests
 			Time time1(100);
 			Time time2(250);
 			Time time3 = time1 + time2;
-			Assert::AreEqual(time3.getTimeMs(), (Uint32)350);
-			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
-			Assert::AreEqual(time2.getTimeMs(), (Uint32)250);
+			Assert::AreEqual(time3.getTimeMs(), (unsigned int)350);
+			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
+			Assert::AreEqual(time2.getTimeMs(), (unsigned int)250);
 
 			Time time4 = time2 - time1;
-			Assert::AreEqual(time4.getTimeMs(), (Uint32)150);
-			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
-			Assert::AreEqual(time2.getTimeMs(), (Uint32)250);
+			Assert::AreEqual(time4.getTimeMs(), (unsigned int)150);
+			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
+			Assert::AreEqual(time2.getTimeMs(), (unsigned int)250);
 
 			Time time5(4);
 			time5 += time1;
-			Assert::AreEqual(time5.getTimeMs(), (Uint32)104);
-			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+			Assert::AreEqual(time5.getTimeMs(), (unsigned int)104);
+			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
 
 			Time time6(104);
 			time6 -= time1;
-			Assert::AreEqual(time6.getTimeMs(), (Uint32)4);
-			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+			Assert::AreEqual(time6.getTimeMs(), (unsigned int)4);
+			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
 
 			Time time7 = time1 * 1.5;
-			Assert::AreEqual(time7.getTimeMs(), (Uint32)150);
-			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+			Assert::AreEqual(time7.getTimeMs(), (unsigned int)150);
+			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
 
 			Assert::AreEqual(time1.getTimeS(),0.1);
 		}
@@ -54,7 +54,7 @@ namespace UtilityTests
 		{
 			GeneralTimer generalTimer;
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			while (SDL_GetTicks() < time + 200)
 			{
 				generalTimer.updateTime();
@@ -66,12 +66,14 @@ namespace UtilityTests
 		{
 			GeneralTimer generalTimer;
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			generalTimer.setTempo(1.5);
+			Time timeChange(0);
 			while (SDL_GetTicks() < time + 200)
 			{
-				generalTimer.updateTime();
+				timeChange += generalTimer.updateTime();
 			}
+			Assert::AreEqual(timeChange.getTimeMs(), generalTimer.getTime().getTimeMs());
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 315);
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() > 285);
 		}
@@ -80,7 +82,7 @@ namespace UtilityTests
 			GeneralTimer generalTimer;
 			Time answer = generalTimer.getTime();
 			Assert::IsTrue(answer.getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			generalTimer.setTempo(0.5);
 			while (SDL_GetTicks() < time + 200)
 			{
@@ -95,7 +97,7 @@ namespace UtilityTests
 		{
 			GeneralTimer generalTimer;
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			generalTimer.setTempo(2.5);
 			generalTimer.pause();
 			while (SDL_GetTicks() < time + 100)
@@ -115,7 +117,7 @@ namespace UtilityTests
 		{
 			std::shared_ptr <GeneralTimer> generalTimer(new GeneralTimer);
 			Assert::IsTrue(generalTimer->getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			std::shared_ptr<SubTimer> subTimer(new SubTimer(generalTimer));
 			while (SDL_GetTicks() < time + 200)
 			{
@@ -129,7 +131,7 @@ namespace UtilityTests
 		{
 			std::shared_ptr <GeneralTimer> generalTimer(new GeneralTimer);
 			Assert::IsTrue(generalTimer->getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			std::shared_ptr<SubTimer> subTimer(new SubTimer(generalTimer));
 			generalTimer->setTempo(2.0);
 			subTimer->setTempo(0.5);
@@ -145,7 +147,7 @@ namespace UtilityTests
 		{
 			std::shared_ptr <GeneralTimer> generalTimer(new GeneralTimer);
 			Assert::IsTrue(generalTimer->getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			std::shared_ptr<SubTimer> subTimer(new SubTimer(generalTimer));
 			generalTimer->setTempo(2.0);
 			subTimer->pause();
