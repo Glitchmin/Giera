@@ -60,6 +60,9 @@
     <ClCompile Include="ValuesRange.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LineSegment.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files\Utility\Time</Filter>
     </ClInclude>
     <ClInclude Include="Position.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
   </ItemGroup>
