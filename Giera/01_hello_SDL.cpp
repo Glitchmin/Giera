@@ -16,10 +16,6 @@ const int SCREEN_HEIGHT = 480;
 
 int main( int argc, char* args[] )
 {
-	Logger::setHandler(1, 1);
-	Logger::logError("o kurczaki");
-	Logger::logError("o kurczaki");
-	Logger::logError("o kurczaki");
 	//The window we'll be rendering to
 	SDL_Window* window = NULL;
 	
