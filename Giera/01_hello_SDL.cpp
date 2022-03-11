@@ -8,6 +8,7 @@ and may not be redistributed without written permission.*/
 #include "Position.h"
 #include "GeneralTimer.h";
 #include "Time.h"
+#include "Logger.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -55,6 +56,6 @@ int main( int argc, char* args[] )
 
 	//Quit SDL subsystems
 	SDL_Quit();
-
+	Logger::close();
 	return 0;
 }

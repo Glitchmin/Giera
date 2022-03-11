@@ -151,6 +151,7 @@
     <ClCompile Include="AbstractTimer.cpp" />
     <ClCompile Include="GeneralTimer.cpp" />
     <ClCompile Include="LineSegment.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="SubTimer.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="AbstractTimer.h" />
     <ClInclude Include="GeneralTimer.h" />
     <ClInclude Include="LineSegment.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="SubTimer.h" />
