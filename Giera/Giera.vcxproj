@@ -152,6 +152,7 @@
     <ClCompile Include="GeneralTimer.cpp" />
     <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="MapTile.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="SubTimer.cpp" />
@@ -162,10 +163,14 @@
     <ClInclude Include="AbstractGeometryFigure.h" />
     <ClInclude Include="AbstractTimer.h" />
     <ClInclude Include="GeneralTimer.h" />
+    <ClInclude Include="Geometry.h" />
+    <ClInclude Include="MapTileEnums.h" />
     <ClInclude Include="LineSegment.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="MapTile.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Rotation.h" />
     <ClInclude Include="SubTimer.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="ValuesRange.h" />

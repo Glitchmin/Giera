@@ -31,6 +31,18 @@
     <Filter Include="Source Files\Utility\Time">
       <UniqueIdentifier>{da453829-dd1c-47cf-9564-68fcd74eb48c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic">
+      <UniqueIdentifier>{ddc6c36d-a7e9-42c4-8f89-92016c4d49fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Map">
+      <UniqueIdentifier>{3e21ead6-7438-466e-9eb5-07651a8774a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic">
+      <UniqueIdentifier>{d1865de5-a20f-4452-bf20-c7af95ca3240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Map">
+      <UniqueIdentifier>{b8b87ce5-e3b3-4f71-a6db-69749f815786}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -63,19 +75,13 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="MapTile.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LineSegment.h">
-      <Filter>Header Files\Utility\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="ValuesRange.h">
       <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="AbstractGeometryFigure.h">
-      <Filter>Header Files\Utility\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="AbstractTimer.h">
       <Filter>Header Files\Utility\Time</Filter>
@@ -94,6 +100,27 @@
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTile.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTileEnums.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="LineSegment.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractGeometryFigure.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotation.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
