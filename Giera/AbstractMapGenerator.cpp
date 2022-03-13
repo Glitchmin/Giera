@@ -1,0 +1,1 @@
+#include "AbstractMapGenerator.h"

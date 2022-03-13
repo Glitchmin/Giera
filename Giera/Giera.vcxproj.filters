@@ -78,6 +78,12 @@
     <ClCompile Include="MapTile.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractMapGenerator.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -121,6 +127,18 @@
     </ClInclude>
     <ClInclude Include="Rotation.h">
       <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTypes.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="LandscapeTypes.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractMapGenerator.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
