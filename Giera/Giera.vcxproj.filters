@@ -81,7 +81,7 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractMapGenerator.cpp">
+    <ClCompile Include="GrasslandsGenerator.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
     </ClCompile>
   </ItemGroup>
@@ -138,6 +138,9 @@
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
     <ClInclude Include="AbstractMapGenerator.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GrasslandsGenerator.h">
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
   </ItemGroup>

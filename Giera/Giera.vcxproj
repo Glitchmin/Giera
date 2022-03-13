@@ -148,9 +148,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="01_hello_SDL.cpp" />
-    <ClCompile Include="AbstractMapGenerator.cpp" />
     <ClCompile Include="AbstractTimer.cpp" />
     <ClCompile Include="GeneralTimer.cpp" />
+    <ClCompile Include="GrasslandsGenerator.cpp" />
     <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -167,6 +167,7 @@
     <ClInclude Include="AbstractTimer.h" />
     <ClInclude Include="GeneralTimer.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="GrasslandsGenerator.h" />
     <ClInclude Include="LandscapeTypes.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapTileEnums.h" />
