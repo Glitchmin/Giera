@@ -52,7 +52,7 @@ void MapTile::setTerrainRotation(Rotations terrainRotation)
 
 bool MapTile::canStepOn()
 {
-    return wallType == WallTypes::NULL;
+    return wallType == WallTypes::NONE;
 }
 
 MapTile::MapTile()

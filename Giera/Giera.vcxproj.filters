@@ -84,6 +84,12 @@
     <ClCompile Include="GrasslandsGenerator.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
     </ClCompile>
+    <ClCompile Include="AbstractMapGenerator.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Coordinates.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -141,6 +147,9 @@
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
     <ClInclude Include="GrasslandsGenerator.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Coordinates.h">
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
   </ItemGroup>

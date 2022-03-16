@@ -9,6 +9,7 @@ and may not be redistributed without written permission.*/
 #include "GeneralTimer.h";
 #include "Time.h"
 #include "Logger.h"
+#include "Coordinates.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;

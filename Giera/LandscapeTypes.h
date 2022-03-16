@@ -1,5 +1,5 @@
 #pragma once
-enum LandscapeTypes {
+enum class LandscapeTypes {
 	GRASSLAND,
 	FOREST,
 	CAVE,

@@ -1,5 +1,5 @@
 #pragma once
-enum MapTypes {
+enum class MapTypes {
 	QUEST_MAP,
 	DREAM_MAP,
 	GIERA,

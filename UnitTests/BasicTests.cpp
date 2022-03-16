@@ -8,14 +8,29 @@
 #include "../Giera/SubTimer.cpp"
 #include "../Giera/AbstractTimer.cpp"
 #include "../Giera/Time.cpp"
+#include "../Giera/Coordinates.h"
+#include "../Giera/Coordinates.cpp"
 #include <iostream>
 #include <string>
 #include <SDL.h>
 #include <Windows.h>
+#include <sstream>
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UtilityTests
 {
+	TEST_CLASS(MapTests)
+	{
+	public:
+		TEST_METHOD(CoordinatesOperatorsOverloadTest)
+		{
+			Coordinates c1(1, 2);
+			Coordinates c2(3, 5);
+			Coordinates c3 = c1 + c2;
+			Assert::AreEqual(c3.getX(), 4);
+			Assert::AreEqual(c3.getY(), 7);
+		}
+	};
 	TEST_CLASS(TimeTests)
 	{
 	public:

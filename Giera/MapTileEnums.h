@@ -1,26 +1,26 @@
 #pragma once
-enum WallTypes
+enum class WallTypes
 {
-	NULL = -1,
+	NONE = -1,
 	ROCK,
 	BONFIRE,
 	COUNT
 };
-enum ForegroundTypes
+enum class ForegroundTypes
 {
-	NULL = -1,
+	NONE = -1,
 	GRASS,
 	TALL_GRASS,
 	COUNT
 };
-enum BackgroundTypes
+enum class BackgroundTypes
 {
-	NULL = -1,
+	NONE = -1,
 	GRASS,
 	TALL_GRASS,
 	COUNT
 };
-enum TerrainTypes
+enum class TerrainTypes
 {
 	GRASS,
 	SAND,
