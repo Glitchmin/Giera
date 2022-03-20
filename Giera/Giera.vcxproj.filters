@@ -152,5 +152,8 @@
     <ClInclude Include="Coordinates.h">
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Directions.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

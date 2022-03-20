@@ -178,6 +178,7 @@
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MapTile.h" />
     <ClInclude Include="MapTypes.h" />
+    <ClInclude Include="Directions.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rotation.h" />
