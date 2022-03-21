@@ -4,7 +4,7 @@
 #include <sstream>
 bool Logger::toConsole = true;
 bool Logger::toFile = false;
-LoggingLevels Logger::loggingLevel = DEBUG;
+LoggingLevels Logger::loggingLevel = LoggingLevels::DEBUG;
 std::ofstream Logger::file;
 
 void Logger::setLevel(LoggingLevels level)
@@ -14,19 +14,19 @@ void Logger::setLevel(LoggingLevels level)
 
 void Logger::logDebug(std::string message)
 {
-	emit(DEBUG, message);
+	emit(LoggingLevels::DEBUG, message);
 }
 void Logger::logInfo(std::string message)
 {
-	emit(INFO, message);
+	emit(LoggingLevels::INFO, message);
 }
 void Logger::logWarning(std::string message)
 {
-	emit(WARNING, message);
+	emit(LoggingLevels::WARNING, message);
 }
 void Logger::logError(std::string message)
 {
-	emit(ERROR, message);
+	emit(LoggingLevels::ERROR, message);
 }
 
 void Logger::setHandler(bool toConsole, bool toFile)
@@ -40,16 +40,16 @@ void Logger::emit(LoggingLevels level, std::string message)
 {
 	std::string levelName;
 	switch (level) {
-	case INFO:
+	case LoggingLevels::INFO:
 		levelName = "INFO";
 		break;
-	case DEBUG:
+	case LoggingLevels::DEBUG:
 		levelName = "DEBUG";
 		break;
-	case WARNING:
+	case LoggingLevels::WARNING:
 		levelName = "WARNING";
 		break;
-	case ERROR:
+	case LoggingLevels::ERROR:
 		levelName = "ERROR";
 		break;
 	}
