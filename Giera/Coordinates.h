@@ -9,6 +9,9 @@ private:
 public:
     Coordinates();
     Coordinates(int x, int y);
+
+    bool isInsideMap(unsigned int sizeX, unsigned int sizeY);
+
     int getX() const;
     void setX(int x);
 

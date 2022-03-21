@@ -10,6 +10,11 @@ Coordinates::Coordinates(int x, int y)
     this->y = y;
 }
 
+bool Coordinates::isInsideMap(unsigned int sizeX, unsigned int sizeY)
+{
+    return (x >= 0 && x < sizeX&& y >= 0 && y < sizeY);
+}
+
 int Coordinates::getX() const
 {
     return x;

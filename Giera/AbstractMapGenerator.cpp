@@ -1,6 +1,19 @@
 #include "AbstractMapGenerator.h"
 #include <queue>
 
+Coordinates getMoveCoordinates(Directions direction) {
+	switch (direction) {
+	case Directions::UP:
+		return Coordinates(0, -1);
+	case Directions::RIGHT:
+		return Coordinates(1, 0);
+	case Directions::DOWN:
+		return Coordinates(0, 1);
+	case Directions::LEFT:
+		return Coordinates(-1, 0);
+	}
+}
+
 std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int sizeX, int sizeY, int seed, Directions startDirection, int step_density, int numberOfWalkableTiles)
 {
 	std::vector <std::vector <bool> > boolMap;
@@ -11,14 +24,36 @@ std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int size
 	Coordinates startPos = getCoordinatesFromPos(startDirection, sizeX, sizeY);
 	std::queue <Coordinates> queue;
 	boolMap[startPos.getX()][startPos.getY()] = 0;
+	numberOfWalkableTiles--;
 	queue.push(startPos);
-	int dirX[4] = { 0,1,0,-1 };
-	int dirY[4] = { -1,0,1,0 };
-	while (!queue.empty()) {
-		Coordinates tmp = queue.front();
-		for (int i = 0; i < 4; i++) {
-			//if (Calculator::calculateChange(step_density) && boolMap[newPos] == 1)
+	
+	std::vector<Coordinates> zeroes;
+	zeroes.push_back(startPos);
+
+	Directions directions[4] = { Directions::UP,Directions::RIGHT, Directions::DOWN, Directions::LEFT };
+	while (numberOfWalkableTiles > 0) {
+		while (!queue.empty()) {
+			Coordinates tmp = queue.front();
+			queue.pop();
+			for (int i = 0; i < 4; i++) {
+				Coordinates newPos = getMoveCoordinates(directions[i]) + tmp;
+				//if (newPos.isInsideMap(sizeX, sizeY) && Calculator::calculateChange(step_density) && boolMap[newPos] == 1){
+					boolMap[newPos.getX()][newPos.getY()] = 0;
+					queue.push(newPos);
+					zeroes.push_back(newPos);
+					numberOfWalkableTiles--;
+					if (numberOfWalkableTiles <= 0) {
+						while (!queue.empty()) {
+							queue.pop();
+						}
+					}
+				//}
+			}
 		}
+		/*Coordinates randomZero = zeroes[Calculator::getRandomInt(0, zeroes.size())];
+		if (boolMap[randomZero.getX()][randomZero.getY()] == 0) {
+			queue.push(randomZero);
+		}*/
 	}
 	return boolMap;
 }
