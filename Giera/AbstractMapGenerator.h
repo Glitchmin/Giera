@@ -8,7 +8,7 @@ class AbstractMapGenerator
 {
 protected:
 	ValuesRange walkableTilesRatio;
-	std::vector<std::vector<bool>> calculateBoolBoard(int sizeX, int sizeY,int seed, Directions startDirection, int density, int numberOfWalkableTiles);
+	std::vector<std::vector<bool>> calculateBoolBoard(int sizeX, int sizeY, Directions startDirection, int density, int numberOfWalkableTiles);
 public:
 	virtual void generateMap(std::shared_ptr<Map> map) = 0;
 };

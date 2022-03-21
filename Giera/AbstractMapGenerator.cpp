@@ -1,5 +1,6 @@
 #include "AbstractMapGenerator.h"
 #include <queue>
+#include <algorithm>
 
 Coordinates getMoveCoordinates(Directions direction) {
 	switch (direction) {
@@ -14,7 +15,7 @@ Coordinates getMoveCoordinates(Directions direction) {
 	}
 }
 
-std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int sizeX, int sizeY, int seed, Directions startDirection, int step_density, int numberOfWalkableTiles)
+std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int sizeX, int sizeY, Directions startDirection, int step_density, int numberOfWalkableTiles)
 {
 	std::vector <std::vector <bool> > boolMap;
 	boolMap.resize(sizeX);
@@ -35,6 +36,7 @@ std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int size
 		while (!queue.empty()) {
 			Coordinates tmp = queue.front();
 			queue.pop();
+			
 			for (int i = 0; i < 4; i++) {
 				Coordinates newPos = getMoveCoordinates(directions[i]) + tmp;
 				//if (newPos.isInsideMap(sizeX, sizeY) && Calculator::calculateChange(step_density) && boolMap[newPos] == 1){
