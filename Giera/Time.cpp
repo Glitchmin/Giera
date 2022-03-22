@@ -2,6 +2,7 @@
 #include <iomanip>
 Time::Time()
 {
+	this->ms = 0;
 }
 
 Time::Time(unsigned int value)

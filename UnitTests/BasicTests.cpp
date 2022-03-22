@@ -27,8 +27,8 @@ namespace UtilityTests
 			Coordinates c1(1, 2);
 			Coordinates c2(3, 5);
 			Coordinates c3 = c1 + c2;
-			Assert::AreEqual(c3.getX(), 4);
-			Assert::AreEqual(c3.getY(), 7);
+			Assert::AreEqual(c3.getX(), (unsigned int)4);
+			Assert::AreEqual(c3.getY(), (unsigned int)7);
 		}
 	};
 	TEST_CLASS(TimeTests)

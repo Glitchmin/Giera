@@ -17,6 +17,12 @@ const int SCREEN_HEIGHT = 480;
 
 int main( int argc, char* args[] )
 {
+	GeneralTimer generalTimer;
+	unsigned int time = SDL_GetTicks();
+	while (SDL_GetTicks() < time + 200)
+	{
+		generalTimer.updateTime();
+	}
 	//The window we'll be rendering to
 	SDL_Window* window = NULL;
 	

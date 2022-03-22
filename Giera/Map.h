@@ -20,7 +20,7 @@ private:
 	Directions startDirection;
 public:
 	Map() {
-
+		throw "default constructor";
 	}
 	Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirection, unsigned int sizeX, unsigned int sizeY, int seed);
     unsigned int getSizeX() const;
