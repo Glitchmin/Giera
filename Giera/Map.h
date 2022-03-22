@@ -3,6 +3,7 @@
 #include "MapTypes.h"
 #include "LandscapeTypes.h"
 #include "Directions.h"
+#include "Coordinates.h"
 #include <memory>
 #include <vector>
 #include <map>
@@ -12,8 +13,8 @@ private:
 	unsigned int sizeX;
 	unsigned int sizeY;
 	int seed;
-	std::vector <std::vector <std::shared_ptr<MapTile> > > mapTiles;
-	std::map <std::pair <unsigned int, unsigned int>, std::shared_ptr <MapTile> > mapChanges;
+	std::vector <std::vector  <MapTile> > mapTiles;
+	std::map <Coordinates, MapTile > mapChanges;
 	LandscapeTypes landscapeType;
 	MapTypes mapType;
 	Directions startDirection;
@@ -28,10 +29,11 @@ public:
 	void setStartDirection(Directions startDirection);
     int getSeed() const;
 
-    std::map<std::pair<unsigned int,unsigned int>,std::shared_ptr<MapTile>> getMapChanges() const;
+	void setMapTile(Coordinates c, MapTile mapTile);
+	MapTile getMapTile(Coordinates c) const;
 
+    std::map<Coordinates,MapTile> getMapChanges() const;
     LandscapeTypes getLandscapeType() const;
-
     MapTypes getMapType() const;
 
 

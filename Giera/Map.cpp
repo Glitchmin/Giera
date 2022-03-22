@@ -25,7 +25,18 @@ int Map::getSeed() const
     return seed;
 }
 
-std::map<std::pair<unsigned int,unsigned int>,std::shared_ptr<MapTile>> Map::getMapChanges() const
+void Map::setMapTile(Coordinates c, MapTile mapTile)
+{
+    mapChanges[c] = mapTile;
+    mapTiles[c.getX()][c.getY()] = mapTile;
+}
+
+MapTile Map::getMapTile(Coordinates c) const
+{
+    return mapTiles[c.getX()][c.getY()];
+}
+
+std::map<Coordinates, MapTile> Map::getMapChanges() const
 {
     return mapChanges;
 }

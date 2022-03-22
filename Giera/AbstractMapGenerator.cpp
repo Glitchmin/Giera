@@ -13,7 +13,9 @@ Coordinates getMoveCoordinates(Directions direction) {
 	case Directions::LEFT:
 		return Coordinates(-1, 0);
 	}
+	return Coordinates(0, 0);
 }
+Coordinates getCoordinatesFromPos(Directions startDirection, int sizeX, int sizeY);
 
 std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int sizeX, int sizeY, Directions startDirection, int step_density, int numberOfWalkableTiles)
 {

@@ -2,6 +2,7 @@
 
 Coordinates::Coordinates()
 {
+    throw "default constructor";
 }
 
 Coordinates::Coordinates(int x, int y)
@@ -15,22 +16,22 @@ bool Coordinates::isInsideMap(unsigned int sizeX, unsigned int sizeY)
     return (x >= 0 && x < sizeX&& y >= 0 && y < sizeY);
 }
 
-int Coordinates::getX() const
+unsigned int Coordinates::getX() const
 {
     return x;
 }
 
-void Coordinates::setX(int x)
+void Coordinates::setX(unsigned int x)
 {
     this->x = x;
 }
 
-int Coordinates::getY() const
+unsigned int Coordinates::getY() const
 {
     return y;
 }
 
-void Coordinates::setY(int y)
+void Coordinates::setY(unsigned int y)
 {
     this->y = y;
 }
@@ -58,6 +59,15 @@ Coordinates& Coordinates::operator-=(Coordinates const& c1)
     this->y -= c1.y;
     return *this;
 }
+
+bool Coordinates::operator<(Coordinates const& t1) const
+{
+    if (t1.y == this->y) {
+        return t1.x < this->x;
+    }
+    return t1.y < this->y;
+}
+
 
 std::ostream& operator << (std::ostream& out, const Coordinates& c)
 {
