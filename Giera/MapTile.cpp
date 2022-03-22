@@ -57,10 +57,14 @@ bool MapTile::canStepOn()
 
 MapTile::MapTile()
 {
-    
+    this->terrainType = TerrainTypes::GRASS;
+    this->terrainRotation = Rotations::UP;
+    this->foregroundType = ForegroundTypes::NONE;
+    this->backgroundType = BackgroundTypes::NONE;
+    this->wallType = WallTypes::NONE;
 }
 
-MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType, BackgroundTypes background, WallTypes wallType)
+MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType, BackgroundTypes backgroundType, WallTypes wallType)
 {
     this->terrainType = terrainType;
     this->terrainRotation = terrainRotation;

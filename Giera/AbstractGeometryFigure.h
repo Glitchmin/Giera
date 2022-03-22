@@ -1,3 +1,4 @@
+#pragma once
 #include "Position.h"
 #include "LineSegment.h"
 class AbstractGeometryFigure {

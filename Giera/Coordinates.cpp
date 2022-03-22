@@ -2,7 +2,8 @@
 
 Coordinates::Coordinates()
 {
-    throw "default constructor";
+    this->x = 0;
+    this->y = 0;
 }
 
 Coordinates::Coordinates(int x, int y)

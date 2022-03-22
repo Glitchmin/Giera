@@ -83,12 +83,11 @@ namespace UtilityTests
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 5);
 			unsigned int time = SDL_GetTicks();
 			generalTimer.setTempo(1.5);
-			Time timeChange(0);
 			while (SDL_GetTicks() < time + 200)
 			{
-				timeChange += generalTimer.updateTime();
+				generalTimer.updateTime();
+				Sleep(7);
 			}
-			Assert::AreEqual(timeChange.getTimeMs(), generalTimer.getTime().getTimeMs());
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 315);
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() > 285);
 		}

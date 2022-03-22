@@ -1,5 +1,5 @@
 #pragma once
-enum Rotations {
+enum class Rotations {
 	UP = 0,
 	RIGHT = 90,
 	DOWN = 180,

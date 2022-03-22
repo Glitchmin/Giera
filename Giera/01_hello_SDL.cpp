@@ -6,7 +6,7 @@ and may not be redistributed without written permission.*/
 #include <stdio.h>
 #include <iostream>
 #include "Position.h"
-#include "GeneralTimer.h";
+#include "GeneralTimer.h"
 #include "Time.h"
 #include "Logger.h"
 #include "Coordinates.h"

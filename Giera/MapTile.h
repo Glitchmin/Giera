@@ -11,8 +11,8 @@ private:
 	Rotations terrainRotation;
 public:
     MapTile();
-    MapTile(TerrainTypes terrainType, Rotations terrainRotation = UP, ForegroundTypes foregroundType = ForegroundTypes::NONE,
-        BackgroundTypes background = BackgroundTypes::NONE, WallTypes wallType = WallTypes::NONE);
+    MapTile(TerrainTypes terrainType, Rotations terrainRotation = Rotations::UP, ForegroundTypes foregroundType = ForegroundTypes::NONE,
+        BackgroundTypes backgroundType = BackgroundTypes::NONE, WallTypes wallType = WallTypes::NONE);
 
     WallTypes getWallType() const;
     void setWallType(WallTypes wallType);
