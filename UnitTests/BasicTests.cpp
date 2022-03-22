@@ -4,10 +4,12 @@
 #include "../Giera/GeneralTimer.h"
 #include "../Giera/SubTimer.h"
 #include "../Giera/Time.h"
+#include "../Giera/Calculator.h"
 #include "../Giera/GeneralTimer.cpp"
 #include "../Giera/SubTimer.cpp"
 #include "../Giera/AbstractTimer.cpp"
 #include "../Giera/Time.cpp"
+#include "../Giera/Calculator.cpp"
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -165,6 +167,82 @@ namespace UtilityTests
 			}
 			Assert::IsTrue(subTimer->getTime().getTimeMs() < 210);
 			Assert::IsTrue(subTimer->getTime().getTimeMs() > 190);
+		}
+	};
+	TEST_CLASS(CalculatorTests)
+	{
+	public:
+		//those tests might not be working if launched on a VERY slow (or occupied with something else) device. Just rerun them before drawing conclusions
+		TEST_METHOD(getIntFromDoubleWithProbTest) {
+			srand(time(NULL));
+
+			int wyn, sum = 0;
+
+			for (int i = 0; i < 1000; i++) {
+				wyn = Calculator::getIntFromDoubleWithProb(6.9);
+				Assert::IsTrue(wyn == 6 || wyn == 7);
+				sum += wyn;
+			}
+
+			Assert::IsTrue(sum >= 6800 && sum <= 7000);
+		}
+		TEST_METHOD(calculateChanceTest) {
+			srand(time(NULL));
+
+			int sum = 0;
+			for (int i = 0; i < 1000; i++)
+				sum += Calculator::calculateChance(0.25);
+
+			Assert::IsTrue(sum >= 200 && sum <= 300);
+
+			sum = 0;
+			for (int i = 0; i < 1000; i++)
+				sum += Calculator::calculateChance(0.5);
+
+			Assert::IsTrue(sum >= 450 && sum <= 550);
+
+			sum = 0;
+			for (int i = 0; i < 1000; i++)
+				sum += Calculator::calculateChance(0.75);
+
+			Assert::IsTrue(sum >= 700 && sum <= 800);
+		}
+		TEST_METHOD(getRandomDoubleTest) {
+			srand(time(NULL));
+
+			double wyn = 0;
+			int _min = 0, _max = 0, wow = 0;
+			unsigned int sum[25] = {};
+
+			for (int i = 0; i < 1000; i++) {
+				wyn = Calculator::getRandomDouble(0, 25);
+				Assert::IsTrue(wyn >= 0 && wyn <= 25);
+				if ((int)wyn >= 25) {
+					wow++;  // how many times the double got really close to 25
+					continue;
+				}
+				sum[int(wyn)]++;
+				_min = min(_min, sum[int(wyn)]);
+				_max = max(_max, sum[int(wyn)]);
+			}
+
+			Assert::IsTrue(_max - _min <= 75);
+			Assert::IsTrue(wow < 2); // very not likely to happen even once
+		}
+		TEST_METHOD(getRandomIntTest) {
+			srand(time(NULL));
+
+			int wyn = 0, _min = 0, _max = 0;
+			unsigned int sum[26] = {};
+
+			for (int i = 0; i < 1000; i++) {
+				wyn = Calculator::getRandomInt(0, 25);
+				Assert::IsTrue(wyn >= 0 && wyn <= 25);
+				sum[wyn]++;
+				_min = min(_min, sum[wyn]);
+				_max = max(_max, sum[wyn]);
+			}
+			Assert::IsTrue(_max - _min <= 75);
 		}
 	};
 }
