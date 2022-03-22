@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="01_hello_SDL.cpp" />
     <ClCompile Include="AbstractTimer.cpp" />
+    <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="GeneralTimer.cpp" />
     <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractGeometryFigure.h" />
     <ClInclude Include="AbstractTimer.h" />
+    <ClInclude Include="Calculator.h" />
     <ClInclude Include="GeneralTimer.h" />
     <ClInclude Include="LineSegment.h" />
     <ClInclude Include="Logger.h" />
