@@ -90,6 +90,9 @@
     <ClCompile Include="Coordinates.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Calculator.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -153,6 +156,9 @@
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
     <ClInclude Include="Directions.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Calculator.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
   </ItemGroup>

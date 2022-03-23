@@ -2,8 +2,10 @@
 #include <queue>
 #include <algorithm>
 
-Coordinates getMoveCoordinates(Directions direction) {
-	switch (direction) {
+Coordinates getMoveCoordinates(Directions direction)
+{
+	switch (direction) 
+	{
 	case Directions::UP:
 		return Coordinates(0, -1);
 	case Directions::RIGHT:
@@ -21,7 +23,8 @@ std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int size
 {
 	std::vector <std::vector <bool> > boolMap;
 	boolMap.resize(sizeX);
-	for (std::vector<bool> row : boolMap) {
+	for (std::vector<bool> row : boolMap)
+	{
 		row.resize(sizeY, 1);
 	}
 	Coordinates startPos = getCoordinatesFromPos(startDirection, sizeX, sizeY);
@@ -34,20 +37,24 @@ std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int size
 	zeroes.push_back(startPos);
 
 	Directions directions[4] = { Directions::UP,Directions::RIGHT, Directions::DOWN, Directions::LEFT };
-	while (numberOfWalkableTiles > 0) {
-		while (!queue.empty()) {
+	while (numberOfWalkableTiles > 0)
+	{
+		while (!queue.empty()) 
+		{
 			Coordinates tmp = queue.front();
 			queue.pop();
-			
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 4; i++) 
+			{
 				Coordinates newPos = getMoveCoordinates(directions[i]) + tmp;
 				//if (newPos.isInsideMap(sizeX, sizeY) && Calculator::calculateChange(step_density) && boolMap[newPos] == 1){
 					boolMap[newPos.getX()][newPos.getY()] = 0;
 					queue.push(newPos);
 					zeroes.push_back(newPos);
 					numberOfWalkableTiles--;
-					if (numberOfWalkableTiles <= 0) {
-						while (!queue.empty()) {
+					if (numberOfWalkableTiles <= 0) 
+					{
+						while (!queue.empty()) 
+						{
 							queue.pop();
 						}
 					}
@@ -65,7 +72,8 @@ std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int size
 Coordinates getCoordinatesFromPos(Directions startDirection, int sizeX, int sizeY)
 {
 	Coordinates startPos(0, 0);
-	switch (startDirection) {
+	switch (startDirection) 
+	{
 	case Directions::UP:
 		//startPos.setX(Calculator::GetRandomInt(0,sizeX));
 		break;

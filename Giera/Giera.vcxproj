@@ -150,6 +150,7 @@
     <ClCompile Include="01_hello_SDL.cpp" />
     <ClCompile Include="AbstractMapGenerator.cpp" />
     <ClCompile Include="AbstractTimer.cpp" />
+    <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="GeneralTimer.cpp" />
     <ClCompile Include="GrasslandsGenerator.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="AbstractGeometryFigure.h" />
     <ClInclude Include="AbstractMapGenerator.h" />
     <ClInclude Include="AbstractTimer.h" />
+    <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="GeneralTimer.h" />
     <ClInclude Include="Geometry.h" />
