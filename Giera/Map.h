@@ -4,9 +4,11 @@
 #include "LandscapeTypes.h"
 #include "Directions.h"
 #include "Coordinates.h"
+#include "AbstractMapGenerator.h"
+#include "GrasslandsGenerator.h"
 #include <memory>
 #include <vector>
-#include <map>
+#include <map> 
 class Map
 {
 private:
@@ -18,11 +20,13 @@ private:
 	LandscapeTypes landscapeType;
 	MapTypes mapType;
 	Directions startDirection;
+	static std::vector<std::shared_ptr<AbstractMapGenerator>> generators;
 public:
 	Map() {
 		throw "default constructor";
 	}
-	Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirection, unsigned int sizeX, unsigned int sizeY, int seed);
+	Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirection, 
+		unsigned int sizeX, unsigned int sizeY, int seed);
     unsigned int getSizeX() const;
     unsigned int getSizeY() const;
 	Directions getStartDirection() const;
@@ -36,7 +40,7 @@ public:
     LandscapeTypes getLandscapeType() const;
     MapTypes getMapType() const;
 
-
+	friend class GrasslandsGenerator;
 
 };
 

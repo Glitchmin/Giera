@@ -1,6 +1,7 @@
 #include "Map.h"
 
-Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirection, unsigned int sizeX, unsigned int sizeY, int seed)
+Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirection,
+    unsigned int sizeX, unsigned int sizeY, int seed)
 {
     this->landscapeType = landscapeType;
     this->mapType = mapType;
@@ -9,6 +10,9 @@ Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirecti
     this->sizeY = sizeY;
     this->seed = seed;
 }
+
+std::vector<std::shared_ptr<AbstractMapGenerator>> Map::generators =
+    {std::make_shared<GrasslandsGenerator>(GrasslandsGenerator())};
 
 unsigned int Map::getSizeX() const
 {

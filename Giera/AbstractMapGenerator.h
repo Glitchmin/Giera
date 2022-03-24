@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "ValuesRange.h"
 #include "Directions.h"
+#include "Calculator.h"
 class AbstractMapGenerator
 {
 protected:

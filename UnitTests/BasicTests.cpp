@@ -10,6 +10,14 @@
 #include "../Giera/AbstractTimer.cpp"
 #include "../Giera/Time.cpp"
 #include "../Giera/Calculator.cpp"
+#include "../Giera/Coordinates.h"
+#include "../Giera/Coordinates.cpp"
+#include "../Giera/Map.h"
+#include "../Giera/Map.cpp"
+#include "../Giera/MapTile.cpp"
+#include "../Giera/Directions.h"
+#include "../Giera/LandscapeTypes.h"
+#include "../Giera/MapTypes.h"
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -17,9 +25,9 @@
 #include <sstream>
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace UtilityTests
+namespace MapTests
 {
-	TEST_CLASS(MapTests)
+	TEST_CLASS(CoordinatesTests)
 	{
 	public:
 		TEST_METHOD(CoordinatesOperatorsOverloadTest)
@@ -31,6 +39,37 @@ namespace UtilityTests
 			Assert::AreEqual(c3.getY(), (unsigned int)7);
 		}
 	};
+	TEST_CLASS(MapClassTest)
+	{
+	public:
+		TEST_METHOD(ConstructorTest)
+		{
+			unsigned int sizeX = 10;
+			unsigned int sizeY = 15;
+			int seed = 10;
+			std::shared_ptr<Map> map = std::make_shared<Map>( Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
+				Directions::UP, sizeX, sizeY, seed));
+			Assert::AreEqual(seed, map->getSeed());
+			Assert::AreEqual(sizeX, map->getSizeX());
+			Assert::AreEqual(sizeY, map->getSizeY());
+			Assert::IsTrue(map->getMapChanges().empty());
+			Assert::AreEqual(map->getStartDirection(), Directions::UP);
+			Assert::AreEqual(map->getMapType(), MapTypes::QUEST_MAP);
+			Assert::AreEqual(map->getLandscapeType(), LandscapeTypes::GRASSLAND);
+		}
+	};
+	TEST_CLASS(GeneratorTests)
+	{
+	public:
+		TEST_METHOD(GrasslandsTest1)
+		{
+
+		}
+	};
+}
+
+namespace UtilityTests
+{
 	TEST_CLASS(TimeTests)
 	{
 	public:

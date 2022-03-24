@@ -46,7 +46,8 @@ std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int size
 			for (int i = 0; i < 4; i++) 
 			{
 				Coordinates newPos = getMoveCoordinates(directions[i]) + tmp;
-				//if (newPos.isInsideMap(sizeX, sizeY) && Calculator::calculateChange(step_density) && boolMap[newPos] == 1){
+				if (newPos.isInsideMap(sizeX, sizeY) && Calculator::calculateChance(step_density/(100.0)) && boolMap[newPos.getX()][newPos.getY()] == 1)
+				{
 					boolMap[newPos.getX()][newPos.getY()] = 0;
 					queue.push(newPos);
 					zeroes.push_back(newPos);
@@ -58,13 +59,13 @@ std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int size
 							queue.pop();
 						}
 					}
-				//}
+				}
 			}
 		}
-		/*Coordinates randomZero = zeroes[Calculator::getRandomInt(0, zeroes.size())];
+		Coordinates randomZero = zeroes[Calculator::getRandomInt(0, zeroes.size())];
 		if (boolMap[randomZero.getX()][randomZero.getY()] == 0) {
 			queue.push(randomZero);
-		}*/
+		}
 	}
 	return boolMap;
 }
@@ -75,18 +76,18 @@ Coordinates getCoordinatesFromPos(Directions startDirection, int sizeX, int size
 	switch (startDirection) 
 	{
 	case Directions::UP:
-		//startPos.setX(Calculator::GetRandomInt(0,sizeX));
+		startPos.setX(Calculator::getRandomInt(0,sizeX));
 		break;
 	case Directions::RIGHT:
 		startPos.setX(sizeX - 1);
-		//startPos.setY(Calculator::GetRandomInt(0,sizeY));
+		startPos.setY(Calculator::getRandomInt(0,sizeY));
 		break;
 	case Directions::DOWN:
-		//startPos.setX(Calculator::GetRandomInt(0,sizeX));
+		startPos.setX(Calculator::getRandomInt(0,sizeX));
 		startPos.setY(sizeY - 1);
 		break;
 	case Directions::LEFT:
-		//startPos.setY(Calculator::GetRandomInt(0,sizeY));
+		startPos.setY(Calculator::getRandomInt(0,sizeY));
 		break;
 	}
 	return startPos;
