@@ -1,5 +1,6 @@
 #pragma once
-#include <memory.h>
+#include <memory>
+#include <vector>
 #include "Coordinates.h"
 #include "Map.h"
 #include "ValuesRange.h"

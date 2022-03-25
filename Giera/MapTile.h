@@ -1,6 +1,9 @@
 #pragma once
 #include "MapTileEnums.h"
 #include "Rotation.h"
+#include<iostream>
+
+
 class MapTile
 {
 private:
@@ -30,6 +33,8 @@ public:
     void setTerrainRotation(Rotations terrainRotation);
 
     bool canStepOn();
+
+    friend std::ostream& operator << (std::ostream& out, const MapTile& t);
 
 };
 
