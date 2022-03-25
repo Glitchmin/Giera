@@ -1,4 +1,6 @@
 #include "Map.h"
+#include "AbstractMapGenerator.h"
+#include "GrasslandsGenerator.h"
 
 Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirection,
     unsigned int sizeX, unsigned int sizeY, int seed)

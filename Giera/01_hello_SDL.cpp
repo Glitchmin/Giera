@@ -5,11 +5,14 @@ and may not be redistributed without written permission.*/
 #include <SDL.h>
 #include <stdio.h>
 #include <iostream>
+#include <memory>
 #include "Position.h"
 #include "GeneralTimer.h"
 #include "Time.h"
 #include "Logger.h"
 #include "Coordinates.h"
+#include "Map.h"
+#include "GrasslandsGenerator.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -17,6 +20,9 @@ const int SCREEN_HEIGHT = 480;
 
 int main( int argc, char* args[] )
 {
+	std::shared_ptr <Map> map1(new Map(LandscapeTypes::GRASSLAND,MapTypes::QUEST_MAP, Directions::UP,10,10,50));
+	GrasslandsGenerator generator;
+	generator.generateMap(map1);
 	GeneralTimer generalTimer;
 	unsigned int time = SDL_GetTicks();
 	while (SDL_GetTicks() < time + 200)
