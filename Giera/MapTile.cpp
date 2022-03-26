@@ -76,6 +76,6 @@ MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, Foreground
 std::ostream& operator<<(std::ostream& out, const MapTile& t)
 {
     out <<"(tr=" << (int)t.terrainType <<",tr_r=" << (int)t.terrainRotation 
-        <<"w=" << (int)t.wallType << ",bg=" << (int)t.backgroundType << ",fg=" << (int)t.foregroundType << ")";
+        <<",w=" << (int)t.wallType << ",bg=" << (int)t.backgroundType << ",fg=" << (int)t.foregroundType << ")";
     return out;
 }
