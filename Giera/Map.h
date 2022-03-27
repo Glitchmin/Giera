@@ -35,7 +35,7 @@ public:
     int getSeed() const;
 
 	void setMapTile(Coordinates c, MapTile mapTile);
-	MapTile getMapTile(Coordinates c) const;
+	const MapTile& getMapTile(Coordinates c) const;
 
     std::map<Coordinates,MapTile> getMapChanges() const;
     LandscapeTypes getLandscapeType() const;

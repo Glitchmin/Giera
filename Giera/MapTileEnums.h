@@ -3,6 +3,7 @@ enum class WallTypes
 {
 	NONE = -1,
 	ROCK,
+	BUSH,
 	BONFIRE,
 	COUNT
 };

@@ -8,17 +8,20 @@ void GrasslandsGenerator::generateMap(std::shared_ptr<Map> map)
 {
 	srand(map->getSeed());
 	int numberOfRocks = Calculator::getRandomInt
-	(rockRatio.getMin() * map->sizeX * map->sizeY, rockRatio.getMax() * map->sizeX * map->sizeY);
+	((int)(rockRatio.getMin() * (int)(map->sizeX * map->sizeY)), (int)(rockRatio.getMax() * (int)(map->sizeX * map->sizeY)));
 	int numberOfBushes = Calculator::getRandomInt
-	(bushRatio.getMin() * map->sizeX * map->sizeY, bushRatio.getMax() * map->sizeX * map->sizeY);
-	std::vector <std::vector <bool> > boolMap = calculateBoolBoard(map->sizeX, map->sizeY,
-		map->startDirection, 45, map->sizeX * map->sizeY - (numberOfRocks + numberOfBushes));
-
+	((int)(bushRatio.getMin() * (int)(map->sizeX * map->sizeY)), (int)(bushRatio.getMax() * (int)(map->sizeX * map->sizeY)));
+	std::vector <std::vector <bool> > boolMap = calculateBoolBoard(map->sizeX, map->sizeY, 
+		map->startDirection, 55, (int)(map->sizeX * map->sizeY) - (numberOfRocks + numberOfBushes));
+	int numberOf1 = 0;
+	int numberOf1s2 = map->sizeX * map->sizeY - (numberOfRocks + numberOfBushes);
+	int numberOf1s3 =(numberOfRocks + numberOfBushes);
 	for (int y = 0; y < map->sizeY; y++)
 	{
 		std::stringstream ss;
 		for (int x = 0; x < map->sizeX; x++)
 		{
+			numberOf1 += boolMap[x][y];
 			SetMapTile(boolMap, x, y, map, numberOfRocks, numberOfBushes);
 			ss << x << " " << y << " " << map->mapTiles[x][y] << " ";
 		}
@@ -40,7 +43,7 @@ void GrasslandsGenerator::SetMapTile(std::vector<std::vector<bool>>& boolMap, in
 	}
 	else
 	{
-		if (Calculator::calculateChance((double)numberOfRocks / (numberOfRocks + numberOfBushes)))
+		if (numberOfRocks>Calculator::getRandomInt(0,numberOfRocks+numberOfBushes-1))
 		{
 			numberOfRocks--;
 			map->mapTiles[x][y] = MapTile(TerrainTypes::GRASS,
@@ -50,7 +53,18 @@ void GrasslandsGenerator::SetMapTile(std::vector<std::vector<bool>>& boolMap, in
 		{
 			numberOfBushes--;
 			map->mapTiles[x][y] = MapTile(TerrainTypes::GRASS,
-				getRandomRotation(), ForegroundTypes::GRASS, BackgroundTypes::NONE, WallTypes::ROCK);
+				getRandomRotation(), ForegroundTypes::GRASS, BackgroundTypes::NONE, WallTypes::BUSH);
 		}
 	}
 }
+
+const ValuesRange& GrasslandsGenerator::getRockRatio() const
+{
+    return rockRatio;
+}
+
+const ValuesRange& GrasslandsGenerator::getBushRatio() const
+{
+    return bushRatio;
+}
+

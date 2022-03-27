@@ -42,7 +42,7 @@ void Map::setMapTile(Coordinates c, MapTile mapTile)
     mapTiles[c.getX()][c.getY()] = mapTile;
 }
 
-MapTile Map::getMapTile(Coordinates c) const
+const MapTile& Map::getMapTile(Coordinates c) const
 {
     return mapTiles[c.getX()][c.getY()];
 }

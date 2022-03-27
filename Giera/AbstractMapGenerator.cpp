@@ -1,6 +1,8 @@
 #include "AbstractMapGenerator.h"
 #include <queue>
 #include <algorithm>
+#include <sstream>
+#include "Logger.h"
 
 Coordinates getMoveCoordinates(Directions direction)
 {
@@ -23,7 +25,7 @@ std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int size
 {
 	std::vector <std::vector <bool> > boolMap;
 	boolMap.resize(sizeX);
-	for (std::vector<bool> &row : boolMap)
+	for (std::vector<bool>& row : boolMap)
 	{
 		row.resize(sizeY, 1);
 	}
@@ -41,11 +43,11 @@ std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int size
 	{
 		while (!queue.empty())
 		{
-			Coordinates tmp = queue.front();
+			Coordinates q_front = queue.front();
 			queue.pop();
 			for (int i = 0; i < 4; i++)
 			{
-				Coordinates newPos = getMoveCoordinates(directions[i]) + tmp;
+				Coordinates newPos = getMoveCoordinates(directions[i]) + q_front;
 				if (newPos.isInsideMap(sizeX, sizeY) && Calculator::calculateChance(step_density / (100.0)) && boolMap[newPos.getX()][newPos.getY()] == 1)
 				{
 					boolMap[newPos.getX()][newPos.getY()] = 0;
@@ -58,14 +60,20 @@ std::vector<std::vector<bool>> AbstractMapGenerator::calculateBoolBoard(int size
 						{
 							queue.pop();
 						}
+						break;
 					}
 				}
 			}
 		}
-		Coordinates randomZero = zeroes[Calculator::getRandomInt(0, zeroes.size()-1)];
-		if (boolMap[randomZero.getX()][randomZero.getY()] == 0) {
+		Coordinates randomZero = zeroes[Calculator::getRandomInt(0, (int)zeroes.size() - 1)];
+		if (numberOfWalkableTiles > 0 && boolMap[randomZero.getX()][randomZero.getY()] == 0) {
 			queue.push(randomZero);
 		}
+	}
+	if (numberOfWalkableTiles!=0) {
+		std::stringstream ss;
+		ss << numberOfWalkableTiles;
+		Logger::logError("wrong number of WalkableTiles!" + ss.str());
 	}
 	return boolMap;
 }
