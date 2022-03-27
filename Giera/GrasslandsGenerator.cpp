@@ -1,6 +1,7 @@
 #include "GrasslandsGenerator.h"
 #include "Logger.h"
 #include <sstream>
+#include <memory>
 ValuesRange GrasslandsGenerator::bushRatio = ValuesRange(0.005, 0.01);
 ValuesRange GrasslandsGenerator::rockRatio = ValuesRange(0.01, 0.015);
 
@@ -30,6 +31,7 @@ void GrasslandsGenerator::generateMap(std::shared_ptr<Map> map)
 	}
 }
 
+
 Rotations getRandomRotation() {
 	return static_cast<Rotations> (Calculator::getRandomInt(0, 3));
 }
@@ -58,12 +60,12 @@ void GrasslandsGenerator::SetMapTile(std::vector<std::vector<bool>>& boolMap, in
 	}
 }
 
-const ValuesRange& GrasslandsGenerator::getRockRatio() const
+const ValuesRange& GrasslandsGenerator::getRockRatio()
 {
     return rockRatio;
 }
 
-const ValuesRange& GrasslandsGenerator::getBushRatio() const
+const ValuesRange& GrasslandsGenerator::getBushRatio()
 {
     return bushRatio;
 }

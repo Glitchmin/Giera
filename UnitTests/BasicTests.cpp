@@ -55,7 +55,7 @@ namespace MapTests
 			unsigned int sizeX = 10;
 			unsigned int sizeY = 15;
 			int seed = 10;
-			std::shared_ptr<Map> map = std::make_shared<Map>( Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
+			std::shared_ptr<Map> map = std::make_shared<Map>(Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
 				Directions::UP, sizeX, sizeY, seed));
 			Assert::AreEqual(seed, map->getSeed());
 			Assert::AreEqual(sizeX, map->getSizeX());
@@ -69,29 +69,25 @@ namespace MapTests
 	TEST_CLASS(GeneratorTests)
 	{
 	public:
-		TEST_METHOD(GrasslandsTest1);
-	};
-	inline void GeneratorTests::GrasslandsTest1()
-	{
-		for (int i = 0; i < 100; i++) {
-			std::shared_ptr <Map> map1(new Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP, Directions::UP, 15, 10, i * SDL_GetTicks()));
-			GrasslandsGenerator generator;
-			generator.generateMap(map1);
-			int rocksNumber = 0;
-			int bushesNumber = 0;
-			for (int x = 0; x < map1->getSizeX(); x++) {
-				for (int y = 0; y < map1->getSizeY(); y++) {
-					rocksNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::ROCK);
-					bushesNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::BUSH);
+		TEST_METHOD(GrasslandsTest1) {
+			for (int i = 0; i < 100; i++) {
+				std::shared_ptr <Map> map1(new Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP, Directions::UP, 15, 10, i * SDL_GetTicks()));
+				int rocksNumber = 0;
+				int bushesNumber = 0;
+				for (int x = 0; x < map1->getSizeX(); x++) {
+					for (int y = 0; y < map1->getSizeY(); y++) {
+						rocksNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::ROCK);
+						bushesNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::BUSH);
+					}
 				}
-			}
 
-			Assert::IsTrue(rocksNumber >= (int)(generator.getRockRatio().getMin() * map1->getSizeX() * map1->getSizeY()));
-			Assert::IsTrue(rocksNumber <= (int)(generator.getRockRatio().getMax() * map1->getSizeX() * map1->getSizeY()));
-			Assert::IsTrue(bushesNumber >= (int)(generator.getBushRatio().getMin() * map1->getSizeX() * map1->getSizeY()));
-			Assert::IsTrue(bushesNumber <= (int)(generator.getBushRatio().getMax() * map1->getSizeX() * map1->getSizeY()));
+				Assert::IsTrue(rocksNumber >= (int)(GrasslandsGenerator::getRockRatio().getMin() * map1->getSizeX() * map1->getSizeY()));
+				Assert::IsTrue(rocksNumber <= (int)(GrasslandsGenerator::getRockRatio().getMax() * map1->getSizeX() * map1->getSizeY()));
+				Assert::IsTrue(bushesNumber >= (int)(GrasslandsGenerator::getBushRatio().getMin() * map1->getSizeX() * map1->getSizeY()));
+				Assert::IsTrue(bushesNumber <= (int)(GrasslandsGenerator::getBushRatio().getMax() * map1->getSizeX() * map1->getSizeY()));
+			}
 		}
-	}
+	};
 }
 
 namespace UtilityTests

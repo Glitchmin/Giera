@@ -20,6 +20,19 @@ const int SCREEN_HEIGHT = 480;
 
 int main( int argc, char* args[] )
 {
+	Logger::setLevel(LoggingLevels::INFO);
+	for (int i = 0; i < 100; i++) {
+		std::shared_ptr <Map> map1(new Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP, Directions::UP, 15, 10, i * SDL_GetTicks()));
+		int rocksNumber = 0;
+		int bushesNumber = 0;
+		for (int x = 0; x < map1->getSizeX(); x++) {
+			for (int y = 0; y < map1->getSizeY(); y++) {
+				rocksNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::ROCK);
+				bushesNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::BUSH);
+			}
+		}
+		std::cout << rocksNumber<<" "<<bushesNumber<<std::endl;
+	}
 	//The window we'll be rendering to
 	SDL_Window* window = NULL;
 	

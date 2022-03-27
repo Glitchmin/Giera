@@ -10,8 +10,8 @@ public:
 	void generateMap(std::shared_ptr<Map> map) override;
 	void SetMapTile(std::vector<std::vector<bool>>& boolMap, int x, int y, std::shared_ptr<Map>& map, int& numberOfRocks, int& numberOfBushes);
 
-	const ValuesRange& getRockRatio() const;
-	const ValuesRange& getBushRatio() const;
+	static const ValuesRange& getRockRatio();
+	static const ValuesRange& getBushRatio();
 
 };
 
