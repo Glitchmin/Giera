@@ -11,6 +11,12 @@ Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirecti
     this->sizeX = sizeX;
     this->sizeY = sizeY;
     this->seed = seed;
+    mapTiles.resize(sizeX);
+    for (std::vector<MapTile> &row : mapTiles)
+	{
+        row.resize(sizeY);
+    }
+    generators[(int)landscapeType]->generateMap(*this);
 }
 
 std::vector<std::shared_ptr<AbstractMapGenerator>> Map::generators =
@@ -37,7 +43,7 @@ void Map::setMapTile(Coordinates c, MapTile mapTile)
     mapTiles[c.getX()][c.getY()] = mapTile;
 }
 
-MapTile Map::getMapTile(Coordinates c) const
+const MapTile& Map::getMapTile(Coordinates c) const
 {
     return mapTiles[c.getX()][c.getY()];
 }

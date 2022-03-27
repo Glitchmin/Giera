@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <iomanip>
 bool Logger::toConsole = true;
 bool Logger::toFile = false;
 LoggingLevels Logger::loggingLevel = LoggingLevels::DEBUG;
@@ -55,7 +56,7 @@ void Logger::emit(LoggingLevels level, std::string message)
 	}
 
 	std::stringstream fullMessage;
-	fullMessage << "[" + levelName + "] "
+	fullMessage << "[" + levelName + "] " << std::fixed << std::setprecision(3)
 		<< ((double)SDL_GetTicks()) / 1000.0 << "s " << message << "\n";
 
 	if (level >= loggingLevel && toConsole)
