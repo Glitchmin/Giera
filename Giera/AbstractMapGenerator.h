@@ -12,6 +12,6 @@ protected:
 	ValuesRange walkableTilesRatio;
 	std::vector<std::vector<bool>> calculateBoolBoard(int sizeX, int sizeY, Directions startDirection, int density, int numberOfWalkableTiles);
 public:
-	virtual void generateMap(std::shared_ptr<Map> map) = 0;
+	virtual void generateMap(Map& map) = 0;
 };
 

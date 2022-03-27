@@ -16,7 +16,7 @@ Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirecti
 	{
         row.resize(sizeY);
     }
-    generators[(int)landscapeType]->generateMap(std::make_shared<Map>(*this));
+    generators[(int)landscapeType]->generateMap(*this);
 }
 
 std::vector<std::shared_ptr<AbstractMapGenerator>> Map::generators =
