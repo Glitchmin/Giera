@@ -3,7 +3,7 @@
 std::string FileHander::folderPath = "saves/save1/";
 void FileHander::openFile(std::string fileName, FileModeTypes fileMode)
 {
-	std::string mode;
+	std::string mode = "b";
 	switch (fileMode) {
 	case FileModeTypes::READ_ONLY:
 		mode = "r";
