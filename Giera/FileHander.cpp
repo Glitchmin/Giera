@@ -30,3 +30,13 @@ void FileHander::saveToFile(void* a, size_t size)
 {
 	SDL_RWwrite(rw, a, size, 1);
 }
+
+void FileHander::readFromFile(void* a, size_t size)
+{
+	SDL_RWread(rw, a, size, 1);
+}
+
+void FileHander::closeFile()
+{
+	SDL_RWclose(rw);
+}
