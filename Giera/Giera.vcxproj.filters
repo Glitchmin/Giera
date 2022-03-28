@@ -43,6 +43,12 @@
     <Filter Include="Source Files\GameLogic\Map">
       <UniqueIdentifier>{b8b87ce5-e3b3-4f71-a6db-69749f815786}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utility\FileHandler">
+      <UniqueIdentifier>{7717d4cd-53cb-46cc-984c-db26e1b35259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\FileHandler">
+      <UniqueIdentifier>{34fcc2fc-4c7f-4e25-aa9b-e0c895ff8d5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -92,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="Calculator.cpp">
       <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="FileHander.cpp">
+      <Filter>Source Files\Utility\FileHandler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="Calculator.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHander.h">
+      <Filter>Header Files\Utility\FileHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="FileModesTypes.h">
+      <Filter>Header Files\Utility\FileHandler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

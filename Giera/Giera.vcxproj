@@ -152,6 +152,7 @@
     <ClCompile Include="AbstractTimer.cpp" />
     <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="Coordinates.cpp" />
+    <ClCompile Include="FileHander.cpp" />
     <ClCompile Include="GeneralTimer.cpp" />
     <ClCompile Include="GrasslandsGenerator.cpp" />
     <ClCompile Include="LineSegment.cpp" />
@@ -170,9 +171,11 @@
     <ClInclude Include="AbstractTimer.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />
+    <ClInclude Include="FileHander.h" />
     <ClInclude Include="GeneralTimer.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GrasslandsGenerator.h" />
+    <ClInclude Include="FileModesTypes.h" />
     <ClInclude Include="LandscapeTypes.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapTileEnums.h" />
