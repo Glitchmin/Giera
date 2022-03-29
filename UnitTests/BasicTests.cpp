@@ -26,12 +26,15 @@
 #include "../Giera/Logger.cpp"
 #include "../Giera/AbstractMapGenerator.h"
 #include "../Giera/AbstractMapGenerator.cpp"
+#include "../Giera/FileHandler.cpp"
+#include "../Giera/FileHandler.h"
 #include <iostream>
 #include <string>
 #include <SDL.h>
 #include <Windows.h>
 #include <sstream>
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using Microsoft::VisualStudio::CppUnitTestFramework::Assert;
+using namespace Microsoft::VisualStudio;
 
 namespace MapTests
 {
@@ -92,6 +95,54 @@ namespace MapTests
 
 namespace UtilityTests
 {
+	TEST_CLASS(FileHandlerTest) {
+		TEST_METHOD(AppendAndReadTest)
+		{
+			Logger::setHandler(0, 1);
+			FileHandler fileHandler;
+			fileHandler.openFile("test1", FileModeTypes::WRITE_ONLY);
+			char tmp = 'h';
+			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.closeFile();
+			fileHandler.openFile("test1", FileModeTypes::APPEND);
+			tmp = 'a';
+			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.closeFile();
+			std::string str;
+			fileHandler.openFile("test1", FileModeTypes::READ_ONLY);
+			for (int i = 0; i < 3;i++) {
+				char tmp = 'b';
+				fileHandler.readFromFile(&tmp, sizeof(char));
+				str += tmp;
+			}
+			fileHandler.closeFile();
+			Assert::AreEqual(str.c_str(), "haa");
+		}
+		TEST_METHOD(IntSaveTest)
+		{
+			Logger::setHandler(0, 1);
+			FileHandler fileHandler;
+			fileHandler.openFile("test1", FileModeTypes::WRITE_ONLY);
+			int tmp = 15;
+			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.closeFile();
+			fileHandler.openFile("test1", FileModeTypes::APPEND);
+			tmp = 10;
+			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.closeFile();
+			int ans = 0;
+			fileHandler.openFile("test1", FileModeTypes::READ_ONLY);
+			for (int i = 0; i < 3;i++) {
+				int tmp = 0;
+				fileHandler.readFromFile(&tmp, sizeof(int));
+				ans += tmp;
+			}
+			fileHandler.closeFile();
+			Assert::AreEqual(ans, 10+10+15);
+		}
+	};
 	TEST_CLASS(TimeTests)
 	{
 	public:
