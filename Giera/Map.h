@@ -42,6 +42,7 @@ public:
     MapTypes getMapType() const;
 
 	friend class GrasslandsGenerator;
+	friend class MapFileHandler;
 
 };
 

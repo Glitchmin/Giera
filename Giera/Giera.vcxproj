@@ -158,6 +158,7 @@
     <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapFileHandler.cpp" />
     <ClCompile Include="MapTile.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="FileModesTypes.h" />
     <ClInclude Include="LandscapeTypes.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapFileHandler.h" />
     <ClInclude Include="MapTileEnums.h" />
     <ClInclude Include="LineSegment.h" />
     <ClInclude Include="Logger.h" />
