@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Utility\FileHandler">
       <UniqueIdentifier>{34fcc2fc-4c7f-4e25-aa9b-e0c895ff8d5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\Map\Generators">
+      <UniqueIdentifier>{3e73ce19-ad11-4847-9196-11401ccc92f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Map\Generators">
+      <UniqueIdentifier>{93eb4837-6211-403a-aaef-1e9b125df1e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -87,12 +93,6 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
     </ClCompile>
-    <ClCompile Include="GrasslandsGenerator.cpp">
-      <Filter>Source Files\GameLogic\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="AbstractMapGenerator.cpp">
-      <Filter>Source Files\GameLogic\Map</Filter>
-    </ClCompile>
     <ClCompile Include="Coordinates.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
     </ClCompile>
@@ -101,6 +101,12 @@
     </ClCompile>
     <ClCompile Include="FileHandler.cpp">
       <Filter>Source Files\Utility\FileHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractMapGenerator.cpp">
+      <Filter>Source Files\GameLogic\Map\Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="GrasslandsGenerator.cpp">
+      <Filter>Source Files\GameLogic\Map\Generators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,12 +161,6 @@
     <ClInclude Include="LandscapeTypes.h">
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractMapGenerator.h">
-      <Filter>Header Files\GameLogic\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="GrasslandsGenerator.h">
-      <Filter>Header Files\GameLogic\Map</Filter>
-    </ClInclude>
     <ClInclude Include="Coordinates.h">
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
@@ -175,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="FileHandler.h">
       <Filter>Header Files\Utility\FileHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractMapGenerator.h">
+      <Filter>Header Files\GameLogic\Map\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="GrasslandsGenerator.h">
+      <Filter>Header Files\GameLogic\Map\Generators</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
