@@ -19,6 +19,11 @@ Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirecti
     generators[(int)landscapeType]->generateMap(*this);
 }
 
+void Map::generate()
+{
+    generators[(int)landscapeType]->generateMap(*this);
+}
+
 std::vector<std::shared_ptr<AbstractMapGenerator>> Map::generators =
     {std::make_shared<GrasslandsGenerator>(GrasslandsGenerator())};
 

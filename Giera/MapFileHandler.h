@@ -11,6 +11,7 @@ public:
 	void saveAMap(Map& map);
 	Map& map;
 private:
+	void readMapTile(Coordinates coord, bool isSeed);
 	bool readSaveType();
 	int readVersion();
 	void readInitialData();
