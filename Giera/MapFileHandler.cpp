@@ -3,20 +3,33 @@
 std::string MapFileHandler::filePath = "maps/map";
 static int version;
 
-void MapFileHandler::readAMap(Map& map)
+void MapFileHandler::readMap(Map& map)
 {
 	std::stringstream ss;
 	ss << filePath << (int)map.getMapType();
 	fileHandler.openFile(ss.str(), FileModeTypes::READ_ONLY);
-	readInitialData();
+	bool isSeedSave = readSaveType();
+	int version = readVersion();
 	this->map = map;
+	readInitialData();
 	fileHandler.closeFile();
+}
+
+int MapFileHandler::readVersion()
+{
+	int version;
+	fileHandler.readFromFile(&version, sizeof(int));
+	return version;
+}
+bool MapFileHandler::readSaveType()
+{
+	bool isSeedSave = 0;
+	fileHandler.readFromFile(&isSeedSave, sizeof(bool));
+	return isSeedSave;
 }
 
 void MapFileHandler::readInitialData()
 {
-	bool isSeedSave = 0;
-	fileHandler.readFromFile(&isSeedSave, sizeof(bool));
 	unsigned int sizeX;
 	unsigned int sizeY;
 	fileHandler.readFromFile(&sizeX, sizeof(unsigned int));

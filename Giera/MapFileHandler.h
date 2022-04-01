@@ -7,10 +7,12 @@ public:
 	FileHandler fileHandler;
 	static std::string filePath;
 	static int version;
-	void readAMap(Map& map);
+	void readMap(Map& map);
 	void saveAMap(Map& map);
 	Map& map;
 private:
+	bool readSaveType();
+	int readVersion();
 	void readInitialData();
 	void readTileByTile();
 	void saveTileByTile();
