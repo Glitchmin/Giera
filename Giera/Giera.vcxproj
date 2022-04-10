@@ -158,7 +158,8 @@
     <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="MapFileHandler.cpp" />
+    <ClCompile Include="MapFileHandlerReading.cpp" />
+    <ClCompile Include="MapFileHandlerSaving.cpp" />
     <ClCompile Include="MapTile.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />

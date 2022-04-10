@@ -12,9 +12,13 @@ public:
 	Map& map;
 private:
 	void readMapTile(Coordinates coord, bool isSeed, int version);
+	void saveMapTile(Coordinates coord, bool isSeed, int version);
 	bool readSaveType(int version);
+	void saveSaveType(int version);
 	int readVersion();
+	void saveVersion();
 	void readInitialData(int version);
+	void saveInitialData(int version);
 	void readTileByTile(int version);
 	void saveTileByTile(int version);
 	void readBySeed(int version);

@@ -22,6 +22,7 @@ private:
 	MapTypes mapType;
 	Directions startDirection;
 	static std::vector<std::shared_ptr<AbstractMapGenerator>> generators;
+	bool isSavedBySeed;
 public:
 	Map() {
 		throw "default constructor";

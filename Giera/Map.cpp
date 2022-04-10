@@ -11,6 +11,7 @@ Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirecti
     this->sizeX = sizeX;
     this->sizeY = sizeY;
     this->seed = seed;
+    this->isSavedBySeed = (mapType == MapTypes::GIERA) || (mapType == MapTypes::VILLAGE_2);
     mapTiles.resize(sizeX);
     for (std::vector<MapTile> &row : mapTiles)
 	{

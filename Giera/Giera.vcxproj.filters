@@ -108,7 +108,10 @@
     <ClCompile Include="GrasslandsGenerator.cpp">
       <Filter>Source Files\GameLogic\Map\Generators</Filter>
     </ClCompile>
-    <ClCompile Include="MapFileHandler.cpp">
+    <ClCompile Include="MapFileHandlerReading.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapFileHandlerSaving.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
     </ClCompile>
   </ItemGroup>

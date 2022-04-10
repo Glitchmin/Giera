@@ -10,13 +10,17 @@ void MapFileHandler::readMap(Map& map)
 	fileHandler.openFile(ss.str(), FileModeTypes::READ_ONLY);
 	int version = readVersion();
 	std::stringstream ss;
-	ss << "opening with "<<version<<" version";
+	ss << "opening with "<<version<<" version for reading";
 	Logger::logInfo(ss.str());
 	bool isSeedSave = readSaveType(version);
 	this->map = map;
 	readInitialData(version);
 	if (isSeedSave) {
 		readBySeed(version);
+	}
+	else
+	{
+		readTileByTile(version);
 	}
 	fileHandler.closeFile();
 }
@@ -29,9 +33,8 @@ int MapFileHandler::readVersion()
 }
 bool MapFileHandler::readSaveType(int version)
 {
-	bool isSeedSave = 0;
-	fileHandler.readFromFile(&isSeedSave, sizeof(bool));
-	return isSeedSave;
+	fileHandler.readFromFile(&map.isSavedBySeed, sizeof(bool));
+	return map.isSavedBySeed;
 }
 
 void MapFileHandler::readInitialData(int version)
