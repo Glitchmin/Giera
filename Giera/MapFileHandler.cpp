@@ -12,11 +12,11 @@ void MapFileHandler::readMap(Map& map)
 	std::stringstream ss;
 	ss << "opening with "<<version<<" version";
 	Logger::logInfo(ss.str());
-	bool isSeedSave = readSaveType();
+	bool isSeedSave = readSaveType(version);
 	this->map = map;
-	readInitialData();
+	readInitialData(version);
 	if (isSeedSave) {
-		readBySeed();
+		readBySeed(version);
 	}
 	fileHandler.closeFile();
 }
@@ -27,14 +27,14 @@ int MapFileHandler::readVersion()
 	fileHandler.readFromFile(&version, sizeof(int));
 	return version;
 }
-bool MapFileHandler::readSaveType()
+bool MapFileHandler::readSaveType(int version)
 {
 	bool isSeedSave = 0;
 	fileHandler.readFromFile(&isSeedSave, sizeof(bool));
 	return isSeedSave;
 }
 
-void MapFileHandler::readInitialData()
+void MapFileHandler::readInitialData(int version)
 {
 	fileHandler.readFromFile(&map.sizeX, sizeof(unsigned int));
 	fileHandler.readFromFile(&map.sizeY, sizeof(unsigned int));
@@ -42,7 +42,18 @@ void MapFileHandler::readInitialData()
 
 }
 
-void MapFileHandler::readMapTile(Coordinates coord, bool isSeed)
+void MapFileHandler::readTileByTile(int version)
+{
+	for (int x = 0; x < map.sizeX; x++) 
+	{
+		for (int y = 0; y < map.sizeY; y++) 
+		{
+			readMapTile(Coordinates(x, y), 0, version);
+		}
+	}
+}
+
+void MapFileHandler::readMapTile(Coordinates coord, bool isSeed, int version)
 {
 	fileHandler.readFromFile(
 		&map.mapTiles[coord.getX()][coord.getY()], sizeof(MapTile));
@@ -52,15 +63,16 @@ void MapFileHandler::readMapTile(Coordinates coord, bool isSeed)
 	}
 }
 
-void MapFileHandler::readBySeed()
+void MapFileHandler::readBySeed(int version)
 {
 	fileHandler.readFromFile(&map.seed, sizeof(int));
 	int mapChangesSize;
 	map.generate();
 	fileHandler.readFromFile(&mapChangesSize, sizeof(int));
-	for (int i = 0; i < mapChangesSize;i++) {
+	for (int i = 0; i < mapChangesSize;i++) 
+	{
 		Coordinates coord;
 		fileHandler.readFromFile(&coord, sizeof(Coordinates));
-		readMapTile(coord, 1);
+		readMapTile(coord, 1, version);
 	}
 }
