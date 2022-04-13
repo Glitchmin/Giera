@@ -29,6 +29,7 @@ public:
 	}
 	Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirection, 
 		unsigned int sizeX, unsigned int sizeY, int seed);
+	Map(MapTypes mapType);
 	void generate();
 	unsigned int getSizeX() const;
     unsigned int getSizeY() const;

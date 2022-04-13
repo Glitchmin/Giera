@@ -32,6 +32,9 @@ void FileHandler::saveToFile(void* a, size_t size)
 {
 	if (rw != NULL)
 	{
+		std::stringstream ss;
+		ss << size;
+		Logger::logInfo("saving something with " + ss.str() + " size");
 		SDL_RWwrite(rw, a, size, 1);
 	}
 }
@@ -40,6 +43,9 @@ void FileHandler::readFromFile(void* a, size_t size)
 {
 	if (rw != NULL)
 	{
+		std::stringstream ss;
+		ss << size;
+		Logger::logInfo("reading something with " + ss.str()+" size");
 		SDL_RWread(rw, a, size, 1);
 	}
 }

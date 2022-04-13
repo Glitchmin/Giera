@@ -1,7 +1,5 @@
 #include "MapFileHandler.h"
 #include <sstream>
-std::string MapFileHandler::filePath = "maps/map";
-int MapFileHandler::version = 1;
 
 void MapFileHandler::saveMap(Map& map)
 {
@@ -9,19 +7,17 @@ void MapFileHandler::saveMap(Map& map)
 	ss << filePath << (int)map.getMapType();
 	fileHandler.openFile(ss.str(), FileModeTypes::WRITE_ONLY);
 	saveVersion();
-	std::stringstream ss;
 	ss << "opening with " << version << " version for saving";
 	Logger::logInfo(ss.str());
-	saveSaveType(version);
-	this->map = map;
-	saveInitialData(version);
+	saveSaveType(map,version);
+	saveInitialData(map, version);
 	if (map.isSavedBySeed)
 	{
-		saveBySeed(version);
+		saveBySeed(map, version);
 	}
 	else
 	{
-		saveTileByTile(version);
+		saveTileByTile(map, version);
 	}
 	fileHandler.closeFile();
 }
@@ -30,37 +26,41 @@ void MapFileHandler::saveVersion()
 {
 	fileHandler.saveToFile(&version, sizeof(int));
 }
-void MapFileHandler::saveSaveType(int version)
+void MapFileHandler::saveSaveType(Map& map, int version)
 {
 	fileHandler.saveToFile(&map.isSavedBySeed, sizeof(bool));
 }
 
-void MapFileHandler::saveInitialData(int version)
+void MapFileHandler::saveInitialData(Map& map, int version)
 {
 	fileHandler.saveToFile(&map.sizeX, sizeof(unsigned int));
+	std::stringstream ss;
+	ss << map.sizeX;
+	Logger::logInfo(ss.str()+"saved");
 	fileHandler.saveToFile(&map.sizeY, sizeof(unsigned int));
 	fileHandler.saveToFile(&map.landscapeType, sizeof(LandscapeTypes));
+	fileHandler.saveToFile(&map.startDirection, sizeof(Directions));
 
 }
 
-void MapFileHandler::saveTileByTile(int version)
+void MapFileHandler::saveTileByTile(Map& map, int version)
 {
 	for (int x = 0; x < map.sizeX; x++)
 	{
 		for (int y = 0; y < map.sizeY; y++)
 		{
-			saveMapTile(Coordinates(x, y), 0, version);
+			saveMapTile(map, Coordinates(x, y), 0, version);
 		}
 	}
 }
 
-void MapFileHandler::saveMapTile(Coordinates coord, bool isSeed, int version)
+void MapFileHandler::saveMapTile(Map& map, Coordinates coord, bool isSeed, int version)
 {
 	fileHandler.saveToFile(
 		&map.mapTiles[coord.getX()][coord.getY()], sizeof(MapTile));
 }
 
-void MapFileHandler::saveBySeed(int version)
+void MapFileHandler::saveBySeed(Map& map, int version)
 {
 	fileHandler.saveToFile(&map.seed, sizeof(int));
 	int mapChangesSize = map.mapChanges.size();
@@ -69,6 +69,6 @@ void MapFileHandler::saveBySeed(int version)
 	{
 		Coordinates coord = mapChange.first;
 		fileHandler.saveToFile(&coord, sizeof(Coordinates));
-		saveMapTile(coord, 1, version);
+		saveMapTile(map, coord, 1, version);
 	}
 }

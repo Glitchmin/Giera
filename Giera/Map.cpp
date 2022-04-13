@@ -20,6 +20,11 @@ Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirecti
     generators[(int)landscapeType]->generateMap(*this);
 }
 
+Map::Map(MapTypes mapType)
+{
+    this->mapType = mapType;
+}
+
 void Map::generate()
 {
     generators[(int)landscapeType]->generateMap(*this);

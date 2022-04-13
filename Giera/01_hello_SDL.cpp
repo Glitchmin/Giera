@@ -6,6 +6,7 @@ and may not be redistributed without written permission.*/
 #include <stdio.h>
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include "Position.h"
 #include "GeneralTimer.h"
 #include "Time.h"
@@ -13,6 +14,7 @@ and may not be redistributed without written permission.*/
 #include "Coordinates.h"
 #include "Map.h"
 #include "GrasslandsGenerator.h"
+#include "MapFileHandler.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;

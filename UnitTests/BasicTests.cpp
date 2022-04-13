@@ -28,6 +28,9 @@
 #include "../Giera/AbstractMapGenerator.cpp"
 #include "../Giera/FileHandler.cpp"
 #include "../Giera/FileHandler.h"
+#include "../Giera/MapFileHandler.h"
+#include "../Giera/MapFileHandlerSaving.cpp"
+#include "../Giera/MapFileHandlerReading.cpp"
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -53,6 +56,44 @@ namespace MapTests
 	TEST_CLASS(MapClassTest)
 	{
 	public:
+		TEST_METHOD(MapFileHandlerTestsTilebyTile)
+		{
+			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::GIERA,
+				Directions::UP, 10, 15, SDL_GetTicks());
+			MapFileHandler mapFileHandler;
+			mapFileHandler.saveMap(map);
+			auto map2 = mapFileHandler.readMap(MapTypes::GIERA);
+			for (int x=0; x<map.getSizeX();x++)
+			{
+				for (int y=0;y< map.getSizeY();y++)
+				{
+					std::stringstream ss;
+					ss << map.getMapTile(Coordinates(x, y));
+					std::stringstream ss2;
+					ss2 << map2.getMapTile(Coordinates(x, y));
+					Assert::AreEqual(ss.str(), ss2.str());
+ 				}
+			}
+		}
+		TEST_METHOD(MapFileHandlerTestsSeed)
+		{
+			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
+				Directions::UP, 10, 15, SDL_GetTicks());
+			MapFileHandler mapFileHandler;
+			mapFileHandler.saveMap(map);
+			auto map2 = mapFileHandler.readMap(MapTypes::QUEST_MAP);
+			for (int x = 0; x < map.getSizeX();x++)
+			{
+				for (int y = 0;y < map.getSizeY();y++)
+				{
+					std::stringstream ss;
+					ss << map.getMapTile(Coordinates(x, y));
+					std::stringstream ss2;
+					ss2 << map2.getMapTile(Coordinates(x, y));
+					Assert::AreEqual(ss.str(), ss2.str());
+				}
+			}
+		}
 		TEST_METHOD(ConstructorTest)
 		{
 			unsigned int sizeX = 10;

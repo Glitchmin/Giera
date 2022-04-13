@@ -3,26 +3,30 @@
 std::string MapFileHandler::filePath = "maps/map";
 int MapFileHandler::version = 1;
 
-void MapFileHandler::readMap(Map& map)
+Map MapFileHandler::readMap(MapTypes mapType)
 {
 	std::stringstream ss;
-	ss << filePath << (int)map.getMapType();
+	ss << filePath << (int)mapType;
 	fileHandler.openFile(ss.str(), FileModeTypes::READ_ONLY);
 	int version = readVersion();
-	std::stringstream ss;
 	ss << "opening with "<<version<<" version for reading";
 	Logger::logInfo(ss.str());
-	bool isSeedSave = readSaveType(version);
-	this->map = map;
-	readInitialData(version);
+	Logger::logInfo("save type");
+	Map map(mapType);
+	Logger::logInfo("map created");
+	bool isSeedSave = readSaveType(map, version);
+	readInitialData(map, version);
+	Logger::logInfo("initial data");
 	if (isSeedSave) {
-		readBySeed(version);
+		readBySeed(map, version);
 	}
 	else
 	{
-		readTileByTile(version);
+		readTileByTile(map, version);
 	}
+	Logger::logInfo("all data");
 	fileHandler.closeFile();
+	return map;
 }
 
 int MapFileHandler::readVersion()
@@ -31,32 +35,38 @@ int MapFileHandler::readVersion()
 	fileHandler.readFromFile(&version, sizeof(int));
 	return version;
 }
-bool MapFileHandler::readSaveType(int version)
+bool MapFileHandler::readSaveType(Map & map,int version)
 {
 	fileHandler.readFromFile(&map.isSavedBySeed, sizeof(bool));
 	return map.isSavedBySeed;
 }
 
-void MapFileHandler::readInitialData(int version)
+void MapFileHandler::readInitialData(Map& map, int version)
 {
 	fileHandler.readFromFile(&map.sizeX, sizeof(unsigned int));
 	fileHandler.readFromFile(&map.sizeY, sizeof(unsigned int));
+	map.mapTiles.resize(map.sizeX);
+	for (std::vector<MapTile>& row : map.mapTiles)
+	{
+		row.resize(map.sizeY);
+	}
 	fileHandler.readFromFile(&map.landscapeType, sizeof(LandscapeTypes));
+	fileHandler.readFromFile(&map.startDirection, sizeof(Directions));
 
 }
 
-void MapFileHandler::readTileByTile(int version)
+void MapFileHandler::readTileByTile(Map& map, int version)
 {
 	for (int x = 0; x < map.sizeX; x++) 
 	{
 		for (int y = 0; y < map.sizeY; y++) 
 		{
-			readMapTile(Coordinates(x, y), 0, version);
+			readMapTile(map, Coordinates(x, y), 0, version);
 		}
 	}
 }
 
-void MapFileHandler::readMapTile(Coordinates coord, bool isSeed, int version)
+void MapFileHandler::readMapTile(Map& map, Coordinates coord, bool isSeed, int version)
 {
 	fileHandler.readFromFile(
 		&map.mapTiles[coord.getX()][coord.getY()], sizeof(MapTile));
@@ -66,7 +76,7 @@ void MapFileHandler::readMapTile(Coordinates coord, bool isSeed, int version)
 	}
 }
 
-void MapFileHandler::readBySeed(int version)
+void MapFileHandler::readBySeed(Map& map, int version)
 {
 	fileHandler.readFromFile(&map.seed, sizeof(int));
 	int mapChangesSize;
@@ -76,6 +86,6 @@ void MapFileHandler::readBySeed(int version)
 	{
 		Coordinates coord;
 		fileHandler.readFromFile(&coord, sizeof(Coordinates));
-		readMapTile(coord, 1, version);
+		readMapTile(map, coord, 1, version);
 	}
 }
