@@ -55,6 +55,12 @@
     <Filter Include="Source Files\GameLogic\Map\Generators">
       <UniqueIdentifier>{93eb4837-6211-403a-aaef-1e9b125df1e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\Map\MapElements">
+      <UniqueIdentifier>{5afcf085-c400-4a60-b463-c77b81a10828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Map\MapElements">
+      <UniqueIdentifier>{40d2ec31-e875-405f-9577-5c214ae9e92a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -113,6 +119,21 @@
     </ClCompile>
     <ClCompile Include="MapFileHandlerSaving.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractMapElement.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Foreground.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +211,21 @@
     </ClInclude>
     <ClInclude Include="MapFileHandler.h">
       <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractMapElement.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Foreground.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
