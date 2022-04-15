@@ -138,6 +138,9 @@
     <ClCompile Include="MapElementsHandler.cpp">
       <Filter>Source Files\GameLogic\Map\MapElements</Filter>
     </ClCompile>
+    <ClCompile Include="MapElementsFileHandler.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -231,6 +234,9 @@
       <Filter>Header Files\GameLogic\Map\MapElements</Filter>
     </ClInclude>
     <ClInclude Include="MapElementsHandler.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="MapElementsFileHandler.h">
       <Filter>Header Files\GameLogic\Map\MapElements</Filter>
     </ClInclude>
   </ItemGroup>

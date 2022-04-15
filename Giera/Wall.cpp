@@ -10,9 +10,11 @@ std::string Wall::getFileName()
 Wall::Wall() {
 	throw "default constructor";
 }
-Wall::Wall(AbstractGeometryFigure& hitbox) {
+Wall::Wall(
+	std::unique_ptr<AbstractGeometryFigure>& hitbox) {
+	//will clear the passed pointer
 	this->elementID = wCounter++;
-	this->hitbox = std::make_unique<AbstractGeometryFigure>(hitbox);
+	this->hitbox = std::move(hitbox);
 }
 const std::unique_ptr<AbstractGeometryFigure>&
 	Wall::getHitbox() const

@@ -11,7 +11,7 @@ private:
     std::unique_ptr<AbstractGeometryFigure> hitbox;
 public:
     Wall();
-    Wall(AbstractGeometryFigure& hitbox);
+    Wall(std::unique_ptr<AbstractGeometryFigure>&);
     std::string getFileName() override;
     const std::unique_ptr<AbstractGeometryFigure>& getHitbox() const;
 

@@ -59,7 +59,7 @@ namespace MapTests
 		TEST_METHOD(MapFileHandlerTestsTilebyTile)
 		{
 			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::GIERA,
-				Directions::UP, 10, 15, SDL_GetTicks());
+				Directions::NORTH, 10, 15, SDL_GetTicks());
 			MapFileHandler mapFileHandler;
 			mapFileHandler.saveMap(map);
 			auto map2 = mapFileHandler.readMap(MapTypes::GIERA);
@@ -78,7 +78,9 @@ namespace MapTests
 		TEST_METHOD(MapFileHandlerTestsSeed)
 		{
 			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
-				Directions::UP, 10, 15, SDL_GetTicks());
+				Directions::NORTH, 10, 15, SDL_GetTicks());
+			map.setMapTile(Coordinates(3, 3),
+				MapTile(TerrainTypes::SAND, Rotations::RIGHT, ForegroundTypes::TALL_GRASS, BackgroundTypes::GRASS, WallTypes::BUSH));
 			MapFileHandler mapFileHandler;
 			mapFileHandler.saveMap(map);
 			auto map2 = mapFileHandler.readMap(MapTypes::QUEST_MAP);
@@ -100,12 +102,12 @@ namespace MapTests
 			unsigned int sizeY = 15;
 			int seed = 10;
 			std::shared_ptr<Map> map = std::make_shared<Map>(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
-				Directions::UP, sizeX, sizeY, seed);
+				Directions::NORTH, sizeX, sizeY, seed);
 			Assert::AreEqual(seed, map->getSeed());
 			Assert::AreEqual(sizeX, map->getSizeX());
 			Assert::AreEqual(sizeY, map->getSizeY());
 			Assert::IsTrue(map->getMapChanges().empty());
-			Assert::AreEqual((int)map->getStartDirection(), (int)Directions::UP);
+			Assert::AreEqual((int)map->getStartDirection(), (int)Directions::NORTH);
 			Assert::AreEqual((int)map->getMapType(), (int)MapTypes::QUEST_MAP);
 			Assert::AreEqual((int)map->getLandscapeType(), (int)LandscapeTypes::GRASSLAND);
 		}
@@ -115,7 +117,7 @@ namespace MapTests
 	public:
 		TEST_METHOD(GrasslandsTest1) {
 			for (int i = 0; i < 100; i++) {
-				auto map1 = std::make_shared<Map>(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP, Directions::UP, 15, 10, i * SDL_GetTicks());
+				auto map1 = std::make_shared<Map>(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP, Directions::NORTH, 15, 10, i * SDL_GetTicks());
 				int rocksNumber = 0;
 				int bushesNumber = 0;
 				for (int x = 0; x < map1->getSizeX(); x++) {

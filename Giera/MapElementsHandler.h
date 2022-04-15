@@ -5,6 +5,7 @@
 #include "Background.h"
 #include "Terrain.h"
 #include "MapTileEnums.h"
+#include "MapElementsFileHandler.h"
 
 using std::unique_ptr;
 using std::vector;
@@ -17,9 +18,15 @@ private:
 	vector <unique_ptr<Terrain>> terrains;
 	vector <unique_ptr<Wall>> walls;
 public:
-	unique_ptr <Background>& getBackground(BackgroundTypes);
-	unique_ptr <Foreground>& getForeground(ForegroundTypes);
-	unique_ptr <Terrain>& getTerrain(TerrainTypes);
-	unique_ptr <Wall>& getWall(WallTypes);
+	unique_ptr <Background>& 
+		getBackground(BackgroundTypes backgroundType);
+	unique_ptr <Foreground>& 
+		getForeground(ForegroundTypes foregroundType);
+	unique_ptr <Terrain>& 
+		getTerrain(TerrainTypes terrainType);
+	unique_ptr <Wall>& 
+		getWall(WallTypes wallType);
+
+	friend class MapElementsFileHandler;
 };
 

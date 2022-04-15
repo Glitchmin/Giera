@@ -15,7 +15,7 @@ class Map
 private:
 	unsigned int sizeX;
 	unsigned int sizeY;
-	int seed;
+	unsigned int seed;
 	std::vector <std::vector  <MapTile> > mapTiles;
 	std::map <Coordinates, MapTile > mapChanges;
 	LandscapeTypes landscapeType;

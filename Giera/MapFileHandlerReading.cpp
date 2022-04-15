@@ -1,7 +1,7 @@
 #include "MapFileHandler.h"
 #include <sstream>
 std::string MapFileHandler::filePath = "maps/map";
-int MapFileHandler::version = 1;
+unsigned int MapFileHandler::version = 1;
 
 Map MapFileHandler::readMap(MapTypes mapType)
 {
@@ -35,13 +35,13 @@ int MapFileHandler::readVersion()
 	fileHandler.readFromFile(&version, sizeof(int));
 	return version;
 }
-bool MapFileHandler::readSaveType(Map & map,int version)
+bool MapFileHandler::readSaveType(Map & map,unsigned int version)
 {
 	fileHandler.readFromFile(&map.isSavedBySeed, sizeof(bool));
 	return map.isSavedBySeed;
 }
 
-void MapFileHandler::readInitialData(Map& map, int version)
+void MapFileHandler::readInitialData(Map& map,unsigned int version)
 {
 	fileHandler.readFromFile(&map.sizeX, sizeof(unsigned int));
 	fileHandler.readFromFile(&map.sizeY, sizeof(unsigned int));
@@ -55,7 +55,7 @@ void MapFileHandler::readInitialData(Map& map, int version)
 
 }
 
-void MapFileHandler::readTileByTile(Map& map, int version)
+void MapFileHandler::readTileByTile(Map& map,unsigned int version)
 {
 	for (int x = 0; x < map.sizeX; x++) 
 	{
@@ -66,7 +66,7 @@ void MapFileHandler::readTileByTile(Map& map, int version)
 	}
 }
 
-void MapFileHandler::readMapTile(Map& map, Coordinates coord, bool isSeed, int version)
+void MapFileHandler::readMapTile(Map& map, Coordinates coord, bool isSeed, unsigned int version)
 {
 	fileHandler.readFromFile(
 		&map.mapTiles[coord.getX()][coord.getY()], sizeof(MapTile));
@@ -76,7 +76,7 @@ void MapFileHandler::readMapTile(Map& map, Coordinates coord, bool isSeed, int v
 	}
 }
 
-void MapFileHandler::readBySeed(Map& map, int version)
+void MapFileHandler::readBySeed(Map& map,unsigned int version)
 {
 	fileHandler.readFromFile(&map.seed, sizeof(int));
 	int mapChangesSize;

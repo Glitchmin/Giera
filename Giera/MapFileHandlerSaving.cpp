@@ -9,15 +9,15 @@ void MapFileHandler::saveMap(Map& map)
 	saveVersion();
 	ss << "opening with " << version << " version for saving";
 	Logger::logInfo(ss.str());
-	saveSaveType(map,version);
-	saveInitialData(map, version);
+	saveSaveType(map);
+	saveInitialData(map);
 	if (map.isSavedBySeed)
 	{
-		saveBySeed(map, version);
+		saveBySeed(map);
 	}
 	else
 	{
-		saveTileByTile(map, version);
+		saveTileByTile(map);
 	}
 	fileHandler.closeFile();
 }
@@ -26,12 +26,12 @@ void MapFileHandler::saveVersion()
 {
 	fileHandler.saveToFile(&version, sizeof(int));
 }
-void MapFileHandler::saveSaveType(Map& map, int version)
+void MapFileHandler::saveSaveType(Map& map)
 {
 	fileHandler.saveToFile(&map.isSavedBySeed, sizeof(bool));
 }
 
-void MapFileHandler::saveInitialData(Map& map, int version)
+void MapFileHandler::saveInitialData(Map& map)
 {
 	fileHandler.saveToFile(&map.sizeX, sizeof(unsigned int));
 	std::stringstream ss;
@@ -43,24 +43,24 @@ void MapFileHandler::saveInitialData(Map& map, int version)
 
 }
 
-void MapFileHandler::saveTileByTile(Map& map, int version)
+void MapFileHandler::saveTileByTile(Map& map)
 {
 	for (int x = 0; x < map.sizeX; x++)
 	{
 		for (int y = 0; y < map.sizeY; y++)
 		{
-			saveMapTile(map, Coordinates(x, y), 0, version);
+			saveMapTile(map, Coordinates(x, y), 0);
 		}
 	}
 }
 
-void MapFileHandler::saveMapTile(Map& map, Coordinates coord, bool isSeed, int version)
+void MapFileHandler::saveMapTile(Map& map, Coordinates coord, bool isSeed)
 {
 	fileHandler.saveToFile(
 		&map.mapTiles[coord.getX()][coord.getY()], sizeof(MapTile));
 }
 
-void MapFileHandler::saveBySeed(Map& map, int version)
+void MapFileHandler::saveBySeed(Map& map)
 {
 	fileHandler.saveToFile(&map.seed, sizeof(int));
 	int mapChangesSize = map.mapChanges.size();
@@ -69,6 +69,6 @@ void MapFileHandler::saveBySeed(Map& map, int version)
 	{
 		Coordinates coord = mapChange.first;
 		fileHandler.saveToFile(&coord, sizeof(Coordinates));
-		saveMapTile(map, coord, 1, version);
+		saveMapTile(map, coord, 1);
 	}
 }

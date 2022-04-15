@@ -4,24 +4,24 @@
 class MapFileHandler
 {
 public:
-	FileHandler fileHandler;
-	static std::string filePath;
-	static int version;
 	Map readMap(MapTypes mapType);
 	void saveMap(Map& map);
 private:
-	void readMapTile(Map& map, Coordinates coord, bool isSeed, int version);
-	void saveMapTile(Map& map, Coordinates coord, bool isSeed, int version);
-	bool readSaveType(Map& map, int version);
-	void saveSaveType(Map& map, int version);
+	FileHandler fileHandler;
+	static std::string filePath;
+	static unsigned int version;
+	void readMapTile(Map& map, Coordinates coord, bool isSeed, unsigned int version);
+	void saveMapTile(Map& map, Coordinates coord, bool isSeed);
+	bool readSaveType(Map& map, unsigned int version);
+	void saveSaveType(Map& map);
 	int readVersion();
 	void saveVersion();
-	void readInitialData(Map& map, int version);
-	void saveInitialData(Map& map, int version);
-	void readTileByTile(Map& map, int version);
-	void saveTileByTile(Map& map, int version);
-	void readBySeed(Map& map, int version);
-	void saveBySeed(Map& map, int version);
+	void readInitialData(Map& map, unsigned int version);
+	void saveInitialData(Map& map);
+	void readTileByTile(Map& map, unsigned int version);
+	void saveTileByTile(Map& map);
+	void readBySeed(Map& map, unsigned int version);
+	void saveBySeed(Map& map);
 
 };
 
