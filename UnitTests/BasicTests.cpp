@@ -99,8 +99,8 @@ namespace MapTests
 			unsigned int sizeX = 10;
 			unsigned int sizeY = 15;
 			int seed = 10;
-			std::shared_ptr<Map> map = std::make_shared<Map>(Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
-				Directions::UP, sizeX, sizeY, seed));
+			std::shared_ptr<Map> map = std::make_shared<Map>(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
+				Directions::UP, sizeX, sizeY, seed);
 			Assert::AreEqual(seed, map->getSeed());
 			Assert::AreEqual(sizeX, map->getSizeX());
 			Assert::AreEqual(sizeY, map->getSizeY());
@@ -115,7 +115,7 @@ namespace MapTests
 	public:
 		TEST_METHOD(GrasslandsTest1) {
 			for (int i = 0; i < 100; i++) {
-				std::shared_ptr <Map> map1(new Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP, Directions::UP, 15, 10, i * SDL_GetTicks()));
+				auto map1 = std::make_shared<Map>(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP, Directions::UP, 15, 10, i * SDL_GetTicks());
 				int rocksNumber = 0;
 				int bushesNumber = 0;
 				for (int x = 0; x < map1->getSizeX(); x++) {
@@ -282,10 +282,10 @@ namespace UtilityTests
 		}
 		TEST_METHOD(SubTimerTest)
 		{
-			std::shared_ptr <GeneralTimer> generalTimer(new GeneralTimer);
+			auto generalTimer = std::make_shared<GeneralTimer>();
 			Assert::IsTrue(generalTimer->getTime().getTimeMs() < 5);
 			unsigned int time = SDL_GetTicks();
-			std::shared_ptr<SubTimer> subTimer(new SubTimer(generalTimer));
+			auto subTimer = std::make_shared<SubTimer>(generalTimer);
 			while (SDL_GetTicks() < time + 200)
 			{
 				generalTimer->updateTime();
