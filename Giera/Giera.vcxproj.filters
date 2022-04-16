@@ -141,6 +141,9 @@
     <ClCompile Include="MapElementsFileHandler.cpp">
       <Filter>Source Files\GameLogic\Map\MapElements</Filter>
     </ClCompile>
+    <ClCompile Include="AbstractGeometryFigure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -171,9 +174,6 @@
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
     <ClInclude Include="Rectangle.h">
-      <Filter>Header Files\Utility\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Geometry.h">
       <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="LineSegment.h">

@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="01_hello_SDL.cpp" />
+    <ClCompile Include="AbstractGeometryFigure.cpp" />
     <ClCompile Include="AbstractMapElement.cpp" />
     <ClCompile Include="AbstractMapGenerator.cpp" />
     <ClCompile Include="AbstractTimer.cpp" />
@@ -185,7 +186,6 @@
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Foreground.h" />
     <ClInclude Include="GeneralTimer.h" />
-    <ClInclude Include="Geometry.h" />
     <ClInclude Include="GrasslandsGenerator.h" />
     <ClInclude Include="FileModesTypes.h" />
     <ClInclude Include="LandscapeTypes.h" />

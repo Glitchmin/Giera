@@ -11,5 +11,8 @@ protected:
 	Time refreshTime;
 public:
 	virtual std::string getFileName()=0;
+	AbstractMapElement();
+	AbstractMapElement(unsigned int framesNumber, Time refreshTime);
+	friend class MapElementsFileHandler;
 };
 

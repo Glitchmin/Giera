@@ -15,5 +15,6 @@ public:
     std::string getFileName() override;
     const std::unique_ptr<AbstractGeometryFigure>& getHitbox() const;
 
+    friend class MapElementsFileHandler;
 };
 

@@ -9,5 +9,7 @@ private:
 public:
     std::string getFileName() override;
     Background();
+    Background(unsigned int framesNumber, Time refreshTime);
+    
 };
 

@@ -11,3 +11,9 @@ std::string Background::getFileName()
 Background::Background() {
 	this->elementID = bgCounter++;
 }
+
+Background::Background(unsigned int framesNumber, Time refreshTime):
+	AbstractMapElement(framesNumber, refreshTime)
+{
+	this->elementID = bgCounter++;
+}
