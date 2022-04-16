@@ -15,20 +15,23 @@ class Map
 private:
 	unsigned int sizeX;
 	unsigned int sizeY;
-	int seed;
+	unsigned int seed;
 	std::vector <std::vector  <MapTile> > mapTiles;
 	std::map <Coordinates, MapTile > mapChanges;
 	LandscapeTypes landscapeType;
 	MapTypes mapType;
 	Directions startDirection;
 	static std::vector<std::shared_ptr<AbstractMapGenerator>> generators;
+	bool isSavedBySeed;
 public:
 	Map() {
 		throw "default constructor";
 	}
 	Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirection, 
 		unsigned int sizeX, unsigned int sizeY, int seed);
-    unsigned int getSizeX() const;
+	Map(MapTypes mapType);
+	void generate();
+	unsigned int getSizeX() const;
     unsigned int getSizeY() const;
 	Directions getStartDirection() const;
 	void setStartDirection(Directions startDirection);
@@ -42,6 +45,7 @@ public:
     MapTypes getMapType() const;
 
 	friend class GrasslandsGenerator;
+	friend class MapFileHandler;
 
 };
 

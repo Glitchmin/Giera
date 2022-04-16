@@ -70,7 +70,8 @@ void Logger::emit(LoggingLevels level, std::string message)
 			file.open("log/log.txt", std::ios::in | std::ios::out | std::ofstream::trunc);
 		}
 		if (file.is_open() == false) {
-			std::cout << "Could not open a log file" << std::endl;
+			std::cout << "Could not open a log file, opening a LogError.txt file instead" << std::endl;
+			file.open("logError.txt", std::ios::in | std::ios::out | std::ofstream::trunc);
 		}
 		if (file.good())
 		{
@@ -78,7 +79,7 @@ void Logger::emit(LoggingLevels level, std::string message)
 		}
 		else
 		{
-			std::cout << "Could not acces a log file" << std::endl;
+			std::cout << "Could not access a log file" << std::endl;
 		}
 	}
 }

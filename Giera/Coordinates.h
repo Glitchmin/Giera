@@ -8,7 +8,7 @@ private:
 
 public:
     Coordinates();
-    Coordinates(int x, int y);
+    Coordinates(unsigned int x, unsigned int y);
 
     bool isInsideMap(unsigned int sizeX, unsigned int sizeY);
 

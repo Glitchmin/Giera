@@ -11,11 +11,22 @@ Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirecti
     this->sizeX = sizeX;
     this->sizeY = sizeY;
     this->seed = seed;
+    this->isSavedBySeed = (mapType == MapTypes::GIERA) || (mapType == MapTypes::VILLAGE_2);
     mapTiles.resize(sizeX);
     for (std::vector<MapTile> &row : mapTiles)
 	{
         row.resize(sizeY);
     }
+    generators[(int)landscapeType]->generateMap(*this);
+}
+
+Map::Map(MapTypes mapType)
+{
+    this->mapType = mapType;
+}
+
+void Map::generate()
+{
     generators[(int)landscapeType]->generateMap(*this);
 }
 

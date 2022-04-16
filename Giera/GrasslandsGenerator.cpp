@@ -36,9 +36,10 @@ Rotations getRandomRotation() {
 	return static_cast<Rotations> (Calculator::getRandomInt(0, 3));
 }
 
-void GrasslandsGenerator::SetMapTile(std::vector<std::vector<bool>>& boolMap, int x, int y, Map& map, int& numberOfRocks, int& numberOfBushes)
+void GrasslandsGenerator::SetMapTile(std::vector<std::vector<bool>>& boolBoard,
+	int x, int y, Map& map, int& numberOfRocks, int& numberOfBushes)
 {
-	if (boolMap[x][y] == 0)
+	if (boolBoard[x][y] == 0)
 	{
 		map.mapTiles[x][y] = MapTile(TerrainTypes::GRASS,
 			getRandomRotation(), ForegroundTypes::GRASS, BackgroundTypes::GRASS, WallTypes::NONE);
