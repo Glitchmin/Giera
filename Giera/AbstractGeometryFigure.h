@@ -10,5 +10,5 @@ public:
 	virtual bool checkLineSegmentIntersect(LineSegment lineSegment) = 0;
 	virtual Position getLineSegmentIntersect(LineSegment lineSegment) = 0;
 	static std::unique_ptr<AbstractGeometryFigure>
-		readFromFile(FileHandler& fileHandler) {};
+		readFromFile(FileHandler& fileHandler) { return nullptr; };
 };
