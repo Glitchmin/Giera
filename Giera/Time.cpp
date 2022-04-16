@@ -1,6 +1,8 @@
 #include "Time.h"
+#include <iomanip>
 Time::Time()
 {
+	this->ms = 0;
 }
 
 Time::Time(unsigned int value)
@@ -54,5 +56,11 @@ bool Time::operator<(Time const& t1) const
 bool Time::operator>(Time const& t1) const
 {
 	return this->ms < t1.ms;
+}
+
+std::ostream& operator << (std::ostream& out, const Time& t)
+{
+	out <<std::setprecision(1)<<std::fixed<<  t.getTimeS()<<"s";
+	return out;
 }
 

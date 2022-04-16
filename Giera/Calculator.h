@@ -1,10 +1,9 @@
 #pragma once
-class Calculator
+namespace Calculator
 {
-public:
-	static unsigned int getIntFromDoubleWithProb(double value);
-	static bool calculateChance(double value);
-	static double getRandomDouble(double min, double max);
-	static int getRandomInt(int min, int max);
-};
+	unsigned int getIntFromDoubleWithProb(double value);
+	bool calculateChance(double value);
+	double getRandomDouble(double min, double max);
+	int getRandomInt(int min, int max);
+}
 

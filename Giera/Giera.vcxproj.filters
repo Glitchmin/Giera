@@ -31,6 +31,36 @@
     <Filter Include="Source Files\Utility\Time">
       <UniqueIdentifier>{da453829-dd1c-47cf-9564-68fcd74eb48c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic">
+      <UniqueIdentifier>{ddc6c36d-a7e9-42c4-8f89-92016c4d49fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Map">
+      <UniqueIdentifier>{3e21ead6-7438-466e-9eb5-07651a8774a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic">
+      <UniqueIdentifier>{d1865de5-a20f-4452-bf20-c7af95ca3240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Map">
+      <UniqueIdentifier>{b8b87ce5-e3b3-4f71-a6db-69749f815786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility\FileHandler">
+      <UniqueIdentifier>{7717d4cd-53cb-46cc-984c-db26e1b35259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\FileHandler">
+      <UniqueIdentifier>{34fcc2fc-4c7f-4e25-aa9b-e0c895ff8d5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Map\Generators">
+      <UniqueIdentifier>{3e73ce19-ad11-4847-9196-11401ccc92f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Map\Generators">
+      <UniqueIdentifier>{93eb4837-6211-403a-aaef-1e9b125df1e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Map\MapElements">
+      <UniqueIdentifier>{5afcf085-c400-4a60-b463-c77b81a10828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Map\MapElements">
+      <UniqueIdentifier>{40d2ec31-e875-405f-9577-5c214ae9e92a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -63,22 +93,61 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="MapTile.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Coordinates.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
     <ClCompile Include="Calculator.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="FileHandler.cpp">
+      <Filter>Source Files\Utility\FileHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractMapGenerator.cpp">
+      <Filter>Source Files\GameLogic\Map\Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="GrasslandsGenerator.cpp">
+      <Filter>Source Files\GameLogic\Map\Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="MapFileHandlerReading.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapFileHandlerSaving.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractMapElement.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Foreground.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="MapElementsHandler.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="MapElementsFileHandler.cpp">
+      <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractGeometryFigure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LineSegment.h">
-      <Filter>Header Files\Utility\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="ValuesRange.h">
       <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="AbstractGeometryFigure.h">
-      <Filter>Header Files\Utility\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="AbstractTimer.h">
       <Filter>Header Files\Utility\Time</Filter>
@@ -98,8 +167,77 @@
     <ClInclude Include="Logger.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="MapTile.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTileEnums.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="LineSegment.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractGeometryFigure.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotation.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTypes.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="LandscapeTypes.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Coordinates.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Directions.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
     <ClInclude Include="Calculator.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="FileModesTypes.h">
+      <Filter>Header Files\Utility\FileHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHandler.h">
+      <Filter>Header Files\Utility\FileHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractMapGenerator.h">
+      <Filter>Header Files\GameLogic\Map\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="GrasslandsGenerator.h">
+      <Filter>Header Files\GameLogic\Map\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="MapFileHandler.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractMapElement.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Foreground.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="MapElementsHandler.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="MapElementsFileHandler.h">
+      <Filter>Header Files\GameLogic\Map\MapElements</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

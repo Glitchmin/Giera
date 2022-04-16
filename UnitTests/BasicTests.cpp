@@ -10,14 +10,182 @@
 #include "../Giera/AbstractTimer.cpp"
 #include "../Giera/Time.cpp"
 #include "../Giera/Calculator.cpp"
+#include "../Giera/Coordinates.h"
+#include "../Giera/Coordinates.cpp"
+#include "../Giera/Map.h"
+#include "../Giera/Map.cpp"
+#include "../Giera/MapTile.cpp"
+#include "../Giera/Directions.h"
+#include "../Giera/LandscapeTypes.h"
+#include "../Giera/MapTypes.h"
+#include "../Giera/ValuesRange.h"
+#include "../Giera/ValuesRange.cpp"
+#include "../Giera/GrasslandsGenerator.h"
+#include "../Giera/GrasslandsGenerator.cpp"
+#include "../Giera/Logger.h"
+#include "../Giera/Logger.cpp"
+#include "../Giera/AbstractMapGenerator.h"
+#include "../Giera/AbstractMapGenerator.cpp"
+#include "../Giera/FileHandler.cpp"
+#include "../Giera/FileHandler.h"
+#include "../Giera/MapFileHandler.h"
+#include "../Giera/MapFileHandlerSaving.cpp"
+#include "../Giera/MapFileHandlerReading.cpp"
 #include <iostream>
 #include <string>
 #include <SDL.h>
 #include <Windows.h>
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+#include <sstream>
+using Microsoft::VisualStudio::CppUnitTestFramework::Assert;
+using namespace Microsoft::VisualStudio;
+
+namespace MapTests
+{
+	TEST_CLASS(CoordinatesTests)
+	{
+	public:
+		TEST_METHOD(CoordinatesOperatorsOverloadTest)
+		{
+			Coordinates c1(1, 2);
+			Coordinates c2(3, 5);
+			Coordinates c3 = c1 + c2;
+			Assert::AreEqual(c3.getX(), (unsigned int)4);
+			Assert::AreEqual(c3.getY(), (unsigned int)7);
+		}
+	};
+	TEST_CLASS(MapClassTest)
+	{
+	public:
+		TEST_METHOD(MapFileHandlerTestsTilebyTile)
+		{
+			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::GIERA,
+				Directions::NORTH, 10, 15, SDL_GetTicks());
+			MapFileHandler mapFileHandler;
+			mapFileHandler.saveMap(map);
+			auto map2 = mapFileHandler.readMap(MapTypes::GIERA);
+			for (int x=0; x<map.getSizeX();x++)
+			{
+				for (int y=0;y< map.getSizeY();y++)
+				{
+					std::stringstream ss;
+					ss << map.getMapTile(Coordinates(x, y));
+					std::stringstream ss2;
+					ss2 << map2.getMapTile(Coordinates(x, y));
+					Assert::AreEqual(ss.str(), ss2.str());
+ 				}
+			}
+		}
+		TEST_METHOD(MapFileHandlerTestsSeed)
+		{
+			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
+				Directions::NORTH, 10, 15, SDL_GetTicks());
+			map.setMapTile(Coordinates(3, 3),
+				MapTile(TerrainTypes::SAND, Rotations::RIGHT, ForegroundTypes::TALL_GRASS, BackgroundTypes::GRASS, WallTypes::BUSH));
+			MapFileHandler mapFileHandler;
+			mapFileHandler.saveMap(map);
+			auto map2 = mapFileHandler.readMap(MapTypes::QUEST_MAP);
+			for (int x = 0; x < map.getSizeX();x++)
+			{
+				for (int y = 0;y < map.getSizeY();y++)
+				{
+					std::stringstream ss;
+					ss << map.getMapTile(Coordinates(x, y));
+					std::stringstream ss2;
+					ss2 << map2.getMapTile(Coordinates(x, y));
+					Assert::AreEqual(ss.str(), ss2.str());
+				}
+			}
+		}
+		TEST_METHOD(ConstructorTest)
+		{
+			unsigned int sizeX = 10;
+			unsigned int sizeY = 15;
+			int seed = 10;
+			std::shared_ptr<Map> map = std::make_shared<Map>(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
+				Directions::NORTH, sizeX, sizeY, seed);
+			Assert::AreEqual(seed, map->getSeed());
+			Assert::AreEqual(sizeX, map->getSizeX());
+			Assert::AreEqual(sizeY, map->getSizeY());
+			Assert::IsTrue(map->getMapChanges().empty());
+			Assert::AreEqual((int)map->getStartDirection(), (int)Directions::NORTH);
+			Assert::AreEqual((int)map->getMapType(), (int)MapTypes::QUEST_MAP);
+			Assert::AreEqual((int)map->getLandscapeType(), (int)LandscapeTypes::GRASSLAND);
+		}
+	};
+	TEST_CLASS(GeneratorTests)
+	{
+	public:
+		TEST_METHOD(GrasslandsTest1) {
+			for (int i = 0; i < 100; i++) {
+				auto map1 = std::make_shared<Map>(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP, Directions::NORTH, 15, 10, i * SDL_GetTicks());
+				int rocksNumber = 0;
+				int bushesNumber = 0;
+				for (int x = 0; x < map1->getSizeX(); x++) {
+					for (int y = 0; y < map1->getSizeY(); y++) {
+						rocksNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::ROCK);
+						bushesNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::BUSH);
+					}
+				}
+
+				Assert::IsTrue(rocksNumber >= (int)(GrasslandsGenerator::getRockRatio().getMin() * map1->getSizeX() * map1->getSizeY()));
+				Assert::IsTrue(rocksNumber <= (int)(GrasslandsGenerator::getRockRatio().getMax() * map1->getSizeX() * map1->getSizeY()));
+				Assert::IsTrue(bushesNumber >= (int)(GrasslandsGenerator::getBushRatio().getMin() * map1->getSizeX() * map1->getSizeY()));
+				Assert::IsTrue(bushesNumber <= (int)(GrasslandsGenerator::getBushRatio().getMax() * map1->getSizeX() * map1->getSizeY()));
+			}
+		}
+	};
+}
 
 namespace UtilityTests
 {
+	TEST_CLASS(FileHandlerTest) {
+		TEST_METHOD(AppendAndReadTest)
+		{
+			Logger::setHandler(0, 1);
+			FileHandler fileHandler;
+			fileHandler.openFile("test1", FileModeTypes::WRITE_ONLY);
+			char tmp = 'h';
+			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.closeFile();
+			fileHandler.openFile("test1", FileModeTypes::APPEND);
+			tmp = 'a';
+			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.closeFile();
+			std::string str;
+			fileHandler.openFile("test1", FileModeTypes::READ_ONLY);
+			for (int i = 0; i < 3;i++) {
+				char tmp = 'b';
+				fileHandler.readFromFile(&tmp, sizeof(char));
+				str += tmp;
+			}
+			fileHandler.closeFile();
+			Assert::AreEqual(str.c_str(), "haa");
+		}
+		TEST_METHOD(IntSaveTest)
+		{
+			Logger::setHandler(0, 1);
+			FileHandler fileHandler;
+			fileHandler.openFile("test1", FileModeTypes::WRITE_ONLY);
+			int tmp = 15;
+			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.closeFile();
+			fileHandler.openFile("test1", FileModeTypes::APPEND);
+			tmp = 10;
+			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.closeFile();
+			int ans = 0;
+			fileHandler.openFile("test1", FileModeTypes::READ_ONLY);
+			for (int i = 0; i < 3;i++) {
+				int tmp = 0;
+				fileHandler.readFromFile(&tmp, sizeof(int));
+				ans += tmp;
+			}
+			fileHandler.closeFile();
+			Assert::AreEqual(ans, 10+10+15);
+		}
+	};
 	TEST_CLASS(TimeTests)
 	{
 	public:
@@ -70,12 +238,11 @@ namespace UtilityTests
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 5);
 			unsigned int time = SDL_GetTicks();
 			generalTimer.setTempo(1.5);
-			Time timeChange(0);
 			while (SDL_GetTicks() < time + 200)
 			{
-				timeChange += generalTimer.updateTime();
+				generalTimer.updateTime();
+				Sleep(7);
 			}
-			Assert::AreEqual(timeChange.getTimeMs(), generalTimer.getTime().getTimeMs());
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 315);
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() > 285);
 		}
@@ -117,10 +284,10 @@ namespace UtilityTests
 		}
 		TEST_METHOD(SubTimerTest)
 		{
-			std::shared_ptr <GeneralTimer> generalTimer(new GeneralTimer);
+			auto generalTimer = std::make_shared<GeneralTimer>();
 			Assert::IsTrue(generalTimer->getTime().getTimeMs() < 5);
 			unsigned int time = SDL_GetTicks();
-			std::shared_ptr<SubTimer> subTimer(new SubTimer(generalTimer));
+			auto subTimer = std::make_shared<SubTimer>(generalTimer);
 			while (SDL_GetTicks() < time + 200)
 			{
 				generalTimer->updateTime();

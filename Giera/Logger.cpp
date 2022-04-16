@@ -2,9 +2,10 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <iomanip>
 bool Logger::toConsole = true;
 bool Logger::toFile = false;
-LoggingLevels Logger::loggingLevel = DEBUG;
+LoggingLevels Logger::loggingLevel = LoggingLevels::DEBUG;
 std::ofstream Logger::file;
 
 void Logger::setLevel(LoggingLevels level)
@@ -14,19 +15,19 @@ void Logger::setLevel(LoggingLevels level)
 
 void Logger::logDebug(std::string message)
 {
-	emit(DEBUG, message);
+	emit(LoggingLevels::DEBUG, message);
 }
 void Logger::logInfo(std::string message)
 {
-	emit(INFO, message);
+	emit(LoggingLevels::INFO, message);
 }
 void Logger::logWarning(std::string message)
 {
-	emit(WARNING, message);
+	emit(LoggingLevels::WARNING, message);
 }
 void Logger::logError(std::string message)
 {
-	emit(ERROR, message);
+	emit(LoggingLevels::ERROR, message);
 }
 
 void Logger::setHandler(bool toConsole, bool toFile)
@@ -40,22 +41,22 @@ void Logger::emit(LoggingLevels level, std::string message)
 {
 	std::string levelName;
 	switch (level) {
-	case INFO:
+	case LoggingLevels::INFO:
 		levelName = "INFO";
 		break;
-	case DEBUG:
+	case LoggingLevels::DEBUG:
 		levelName = "DEBUG";
 		break;
-	case WARNING:
+	case LoggingLevels::WARNING:
 		levelName = "WARNING";
 		break;
-	case ERROR:
+	case LoggingLevels::ERROR:
 		levelName = "ERROR";
 		break;
 	}
 
 	std::stringstream fullMessage;
-	fullMessage << "[" + levelName + "] "
+	fullMessage << "[" + levelName + "] " << std::fixed << std::setprecision(3)
 		<< ((double)SDL_GetTicks()) / 1000.0 << "s " << message << "\n";
 
 	if (level >= loggingLevel && toConsole)
@@ -69,7 +70,8 @@ void Logger::emit(LoggingLevels level, std::string message)
 			file.open("log/log.txt", std::ios::in | std::ios::out | std::ofstream::trunc);
 		}
 		if (file.is_open() == false) {
-			std::cout << "Could not open a log file" << std::endl;
+			std::cout << "Could not open a log file, opening a LogError.txt file instead" << std::endl;
+			file.open("logError.txt", std::ios::in | std::ios::out | std::ofstream::trunc);
 		}
 		if (file.good())
 		{
@@ -77,7 +79,7 @@ void Logger::emit(LoggingLevels level, std::string message)
 		}
 		else
 		{
-			std::cout << "Could not acces a log file" << std::endl;
+			std::cout << "Could not access a log file" << std::endl;
 		}
 	}
 }

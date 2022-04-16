@@ -148,29 +148,65 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="01_hello_SDL.cpp" />
+    <ClCompile Include="AbstractGeometryFigure.cpp" />
+    <ClCompile Include="AbstractMapElement.cpp" />
+    <ClCompile Include="AbstractMapGenerator.cpp" />
     <ClCompile Include="AbstractTimer.cpp" />
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Calculator.cpp" />
+    <ClCompile Include="Coordinates.cpp" />
+    <ClCompile Include="FileHandler.cpp" />
+    <ClCompile Include="Foreground.cpp" />
     <ClCompile Include="GeneralTimer.cpp" />
+    <ClCompile Include="GrasslandsGenerator.cpp" />
     <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapElementsFileHandler.cpp" />
+    <ClCompile Include="MapElementsHandler.cpp" />
+    <ClCompile Include="MapFileHandlerReading.cpp" />
+    <ClCompile Include="MapFileHandlerSaving.cpp" />
+    <ClCompile Include="MapTile.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="SubTimer.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="ValuesRange.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractGeometryFigure.h" />
+    <ClInclude Include="AbstractMapElement.h" />
+    <ClInclude Include="AbstractMapGenerator.h" />
     <ClInclude Include="AbstractTimer.h" />
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Calculator.h" />
+    <ClInclude Include="Coordinates.h" />
+    <ClInclude Include="FileHandler.h" />
+    <ClInclude Include="Foreground.h" />
     <ClInclude Include="GeneralTimer.h" />
+    <ClInclude Include="GrasslandsGenerator.h" />
+    <ClInclude Include="FileModesTypes.h" />
+    <ClInclude Include="LandscapeTypes.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapElementsFileHandler.h" />
+    <ClInclude Include="MapElementsHandler.h" />
+    <ClInclude Include="MapFileHandler.h" />
+    <ClInclude Include="MapTileEnums.h" />
     <ClInclude Include="LineSegment.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="MapTile.h" />
+    <ClInclude Include="MapTypes.h" />
+    <ClInclude Include="Directions.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Rotation.h" />
     <ClInclude Include="SubTimer.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="ValuesRange.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

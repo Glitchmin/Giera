@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <fstream>
 
-enum LoggingLevels {
+enum class LoggingLevels {
 	DEBUG,
 	INFO,
 	WARNING,
