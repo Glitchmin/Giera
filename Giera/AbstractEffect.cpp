@@ -43,10 +43,6 @@ shared_ptr<AbstractNPC> AbstractEffect::getTargetNPC() const
     return targetNPC;
 }
 
-shared_ptr<AbstractNPC> AbstractEffect::setTargetNPC() const
-{
-    return shared_ptr<AbstractNPC>();
-}
 
 shared_ptr<AbstractNPC> AbstractEffect::getOriginNPC() const
 {

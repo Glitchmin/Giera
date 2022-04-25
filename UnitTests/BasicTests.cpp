@@ -218,6 +218,12 @@ namespace UtilityTests
 			Assert::AreEqual(time7.getTimeMs(), (unsigned int)150);
 			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
 
+			Time time8(100);
+			Time time9(150);
+			time8 -= time9;
+			Assert::AreEqual(time8.getTimeMs(), (unsigned int)0);
+			Assert::AreEqual(time9.getTimeMs(), (unsigned int)150);
+
 			Assert::AreEqual(time1.getTimeS(),0.1);
 		}
 		TEST_METHOD(GeneralTimerTestTempo1_0)
