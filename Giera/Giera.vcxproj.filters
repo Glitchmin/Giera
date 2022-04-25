@@ -61,12 +61,18 @@
     <Filter Include="Source Files\GameLogic\Map\MapElements">
       <UniqueIdentifier>{40d2ec31-e875-405f-9577-5c214ae9e92a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\Damage &amp; Effects">
+      <UniqueIdentifier>{ff4237e3-bae5-46c2-95b8-eb3184aec4ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Damage &amp; Effects">
+      <UniqueIdentifier>{9e774bb6-e82c-4aa9-adb6-f68a9596e4a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
       <Filter>Source Files\Utility\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="01_hello_SDL.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Position.cpp">
@@ -140,9 +146,6 @@
     </ClCompile>
     <ClCompile Include="MapElementsFileHandler.cpp">
       <Filter>Source Files\GameLogic\Map\MapElements</Filter>
-    </ClCompile>
-    <ClCompile Include="AbstractGeometryFigure.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="MapElementsFileHandler.h">
       <Filter>Header Files\GameLogic\Map\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageTypes.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
