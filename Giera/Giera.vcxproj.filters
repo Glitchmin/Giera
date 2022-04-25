@@ -67,6 +67,12 @@
     <Filter Include="Source Files\GameLogic\Damage &amp; Effects">
       <UniqueIdentifier>{9e774bb6-e82c-4aa9-adb6-f68a9596e4a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\NPC">
+      <UniqueIdentifier>{1e9c47af-e93b-4931-9c59-087e85b7f931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\NPC">
+      <UniqueIdentifier>{75173c39-0fe0-4c32-b867-4025a418ade5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -146,6 +152,15 @@
     </ClCompile>
     <ClCompile Include="MapElementsFileHandler.cpp">
       <Filter>Source Files\GameLogic\Map\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Damage.cpp">
+      <Filter>Source Files\GameLogic\Damage &amp; Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>Source Files\GameLogic\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Lifesteal.cpp">
+      <Filter>Source Files\GameLogic\Damage &amp; Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +258,15 @@
       <Filter>Header Files\GameLogic\Map\MapElements</Filter>
     </ClInclude>
     <ClInclude Include="DamageTypes.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Damage.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractNPC.h">
+      <Filter>Header Files\GameLogic\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Lifesteal.h">
       <Filter>Header Files\GameLogic\Damage &amp; Effects</Filter>
     </ClInclude>
   </ItemGroup>

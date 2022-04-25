@@ -147,6 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Damage.cpp" />
+    <ClCompile Include="Lifesteal.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="AbstractMapElement.cpp" />
     <ClCompile Include="AbstractMapGenerator.cpp" />
@@ -166,6 +168,7 @@
     <ClCompile Include="MapFileHandlerReading.cpp" />
     <ClCompile Include="MapFileHandlerSaving.cpp" />
     <ClCompile Include="MapTile.cpp" />
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="SubTimer.cpp" />
@@ -182,6 +185,7 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />
+    <ClInclude Include="Damage.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Foreground.h" />
     <ClInclude Include="GeneralTimer.h" />
@@ -189,6 +193,7 @@
     <ClInclude Include="FileModesTypes.h" />
     <ClInclude Include="DamageTypes.h" />
     <ClInclude Include="LandscapeTypes.h" />
+    <ClInclude Include="Lifesteal.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapElementsFileHandler.h" />
     <ClInclude Include="MapElementsHandler.h" />
@@ -199,6 +204,7 @@
     <ClInclude Include="MapTile.h" />
     <ClInclude Include="MapTypes.h" />
     <ClInclude Include="Directions.h" />
+    <ClInclude Include="AbstractNPC.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rotation.h" />
