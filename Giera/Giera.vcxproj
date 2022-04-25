@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractEffect.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
     <ClCompile Include="main.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractEffect.h" />
     <ClInclude Include="AbstractGeometryFigure.h" />
     <ClInclude Include="AbstractMapElement.h" />
     <ClInclude Include="AbstractMapGenerator.h" />

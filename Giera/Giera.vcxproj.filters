@@ -73,6 +73,18 @@
     <Filter Include="Source Files\GameLogic\NPC">
       <UniqueIdentifier>{75173c39-0fe0-4c32-b867-4025a418ade5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\Damage &amp; Effects\Effects">
+      <UniqueIdentifier>{729f2746-7050-4cde-937e-6d63d419c784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Damage &amp; Effects\Effects">
+      <UniqueIdentifier>{b77595c8-6423-42f8-bc15-575842f0448c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Damage &amp; Effects\Damage">
+      <UniqueIdentifier>{bd7a8c82-c981-48d6-bef4-bad4bf7ba2e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Damage &amp; Effects\Effects\Damage">
+      <UniqueIdentifier>{08e8ba03-383f-4954-b00f-03d8b2011825}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -153,14 +165,17 @@
     <ClCompile Include="MapElementsFileHandler.cpp">
       <Filter>Source Files\GameLogic\Map\MapElements</Filter>
     </ClCompile>
-    <ClCompile Include="Damage.cpp">
-      <Filter>Source Files\GameLogic\Damage &amp; Effects</Filter>
-    </ClCompile>
     <ClCompile Include="NPC.cpp">
       <Filter>Source Files\GameLogic\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="AbstractEffect.cpp">
+      <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Damage.cpp">
+      <Filter>Source Files\GameLogic\Damage &amp; Effects\Damage</Filter>
+    </ClCompile>
     <ClCompile Include="Lifesteal.cpp">
-      <Filter>Source Files\GameLogic\Damage &amp; Effects</Filter>
+      <Filter>Source Files\GameLogic\Damage &amp; Effects\Damage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,17 +272,20 @@
     <ClInclude Include="MapElementsFileHandler.h">
       <Filter>Header Files\GameLogic\Map\MapElements</Filter>
     </ClInclude>
-    <ClInclude Include="DamageTypes.h">
-      <Filter>Header Files\GameLogic\Damage &amp; Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="Damage.h">
-      <Filter>Header Files\GameLogic\Damage &amp; Effects</Filter>
-    </ClInclude>
     <ClInclude Include="AbstractNPC.h">
       <Filter>Header Files\GameLogic\NPC</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractEffect.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
+    </ClInclude>
     <ClInclude Include="Lifesteal.h">
-      <Filter>Header Files\GameLogic\Damage &amp; Effects</Filter>
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects\Damage</Filter>
+    </ClInclude>
+    <ClInclude Include="Damage.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects\Damage</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageTypes.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects\Damage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

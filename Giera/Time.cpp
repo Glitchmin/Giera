@@ -27,7 +27,7 @@ Time Time::operator+(Time const& t1) const
 
 Time Time::operator-(Time const& t1) const
 {
-	return Time(this->ms - t1.ms);
+	return (t1.ms > this->ms) ? Time(0) : Time(this->ms - t1.ms);
 }
 
 
@@ -39,7 +39,7 @@ Time& Time::operator+=(Time const& t1)
 
 Time& Time::operator-=(Time const& t1)
 {
-	this->ms -= t1.ms;
+	this->ms = (t1.ms > this->ms)? 0 : this->ms-t1.ms;
 	return *this;
 }
 
