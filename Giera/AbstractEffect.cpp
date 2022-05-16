@@ -14,8 +14,8 @@ AbstractEffect::AbstractEffect(Time duration, bool isBuff, short level, shared_p
 
 bool AbstractEffect::subtractFromTimeLeft(Time amount)
 {
-    duration -= amount;
-    return duration.getTimeMs() <= 0;
+    timeLeft -= amount;
+    return timeLeft.getTimeMs() <= 0;
 }
 
 Time AbstractEffect::getDuration() const

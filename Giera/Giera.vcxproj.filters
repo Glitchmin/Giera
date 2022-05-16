@@ -82,7 +82,7 @@
     <Filter Include="Source Files\GameLogic\Damage &amp; Effects\Damage">
       <UniqueIdentifier>{bd7a8c82-c981-48d6-bef4-bad4bf7ba2e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GameLogic\Damage &amp; Effects\Effects\Damage">
+    <Filter Include="Header Files\GameLogic\Damage &amp; Effects\Damage">
       <UniqueIdentifier>{08e8ba03-383f-4954-b00f-03d8b2011825}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -176,6 +176,9 @@
     </ClCompile>
     <ClCompile Include="Lifesteal.cpp">
       <Filter>Source Files\GameLogic\Damage &amp; Effects\Damage</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageEffect.cpp">
+      <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -279,13 +282,16 @@
       <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClInclude>
     <ClInclude Include="Lifesteal.h">
-      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects\Damage</Filter>
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Damage</Filter>
     </ClInclude>
     <ClInclude Include="Damage.h">
-      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects\Damage</Filter>
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Damage</Filter>
     </ClInclude>
     <ClInclude Include="DamageTypes.h">
-      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects\Damage</Filter>
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Damage</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageEffect.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

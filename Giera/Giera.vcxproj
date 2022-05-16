@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="AbstractEffect.cpp" />
     <ClCompile Include="Damage.cpp" />
+    <ClCompile Include="DamageEffect.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="AbstractMapElement.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Damage.h" />
+    <ClInclude Include="DamageEffect.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Foreground.h" />
     <ClInclude Include="GeneralTimer.h" />
