@@ -7,6 +7,7 @@ AbstractEffect::AbstractEffect()
 AbstractEffect::AbstractEffect(Time duration, bool isBuff, short level, shared_ptr<AbstractNPC> targetNPC, shared_ptr<AbstractNPC> originNPC)
 {
     this->duration = duration;
+    this->timeLeft = duration;
     this->level = level;
     this->targetNPC = targetNPC;
     this->originNPC = originNPC;

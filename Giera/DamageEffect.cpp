@@ -1,13 +1,20 @@
 #include "DamageEffect.h"
 
+using std::move;
+
 Damage DamageEffect::getDamage() const
 {
     return *damage;
 }
 
 DamageEffect::DamageEffect(unique_ptr<Damage> damage, Time duration, bool isBuff, short level,
-    shared_ptr<AbstractNPC> targetNPC, shared_ptr<AbstractNPC> originNPC, double damageIncrease)
+    shared_ptr<AbstractNPC> targetNPC, shared_ptr<AbstractNPC> originNPC, Time tickrate,double damageIncrease) :
+    AbstractEffect(duration, isBuff, level, targetNPC, originNPC)
 {
+    this->damage = move (damage);
+    this->tickrate = tickrate;
+    this->timeUntilTick = tickrate;
+    this->damageIncrease = damageIncrease;
 }
 
 bool DamageEffect::subtractFromTimeLeft(Time amount)
@@ -17,6 +24,7 @@ bool DamageEffect::subtractFromTimeLeft(Time amount)
     if (timeUntilTick.getTimeMs() == 0) {
         //TODO: deal dmg to NPC
         timeUntilTick += tickrate;
+        damage->multiply(damageIncrease);
     }
     return timeLeft.getTimeMs() == 0;
 }
@@ -28,8 +36,13 @@ double DamageEffect::calculateTotalDamage()
     if (damageIncrease == 1) {
         return ticks * damage->getValue();
     }
-    ans *= damage->getValue() * (1 - pow(damageIncrease, ticks)) / (1 - damageIncrease);
+    ans += damage->getValue() * (1 - pow(damageIncrease, ticks)) / (1 - damageIncrease);
     return ans;
+}
+
+Time DamageEffect::getTimeUntilTick() const
+{
+    return timeUntilTick;
 }
 
 Time DamageEffect::getTickrate() const
