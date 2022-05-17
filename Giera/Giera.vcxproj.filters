@@ -180,6 +180,9 @@
     <ClCompile Include="DamageEffect.cpp">
       <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="StatChangingEffect.cpp">
+      <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -291,6 +294,12 @@
       <Filter>Header Files\GameLogic\Damage &amp; Effects\Damage</Filter>
     </ClInclude>
     <ClInclude Include="DamageEffect.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC_AttributeTypes.h">
+      <Filter>Header Files\GameLogic\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="StatChangingEffect.h">
       <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClInclude>
   </ItemGroup>

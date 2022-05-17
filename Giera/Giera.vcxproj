@@ -173,6 +173,7 @@
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="StatChangingEffect.cpp" />
     <ClCompile Include="SubTimer.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="GrasslandsGenerator.h" />
     <ClInclude Include="FileModesTypes.h" />
     <ClInclude Include="DamageTypes.h" />
+    <ClInclude Include="NPC_AttributeTypes.h" />
     <ClInclude Include="LandscapeTypes.h" />
     <ClInclude Include="Lifesteal.h" />
     <ClInclude Include="Map.h" />
@@ -212,6 +214,7 @@
     <ClInclude Include="Position.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rotation.h" />
+    <ClInclude Include="StatChangingEffect.h" />
     <ClInclude Include="SubTimer.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Time.h" />
