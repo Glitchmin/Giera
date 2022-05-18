@@ -39,6 +39,8 @@
 #include "../Giera/AbstractEffect.cpp"
 #include "../Giera/AbstractEffect.h"
 #include "../Giera/AbstractNPC.h"
+#include "../Giera/StatChangingEffect.h"
+#include "../Giera/StatChangingEffect.cpp"
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -144,7 +146,7 @@ namespace MapTests
 	};
 }
 
-namespace DamageEffectsTests
+namespace DamageAndEffectsTests
 {
 	TEST_CLASS(DamageClassTest) {
 		TEST_METHOD(ConstructorTest)
@@ -196,11 +198,35 @@ namespace DamageEffectsTests
 				}
 				lastTimeUntilTick = damageEffect.getTimeUntilTick();
 				generalTimer.updateTime();
-				std::stringstream ss;
-				ss << lastTimeCalc.getTimeS();
-				CppUnitTestFramework::Logger::WriteMessage(ss.str().c_str());
 			}
 			Assert::AreEqual(7.0, sum);
+		}
+	};
+	TEST_CLASS(StatChangingEffectTest) {
+		TEST_METHOD(ConstructorTest) {
+			StatChangingEffect statChangingEffect(Time(1000), 1, 1, shared_ptr<AbstractNPC>(nullptr),
+				shared_ptr<AbstractNPC>(nullptr), 10, 15, Time(500), NPC_AttributeTypes::HP);
+			Assert::AreEqual(10.0, statChangingEffect.getCurrentValue());
+			Assert::AreEqual(Time(1000).getTimeMs(), statChangingEffect.getTimeLeft().getTimeMs());
+			Assert::AreEqual((int)NPC_AttributeTypes::HP, (int)statChangingEffect.getAttributeType());
+		}
+		TEST_METHOD(ValueChangeTest) {
+			StatChangingEffect statChangingEffect(Time(1000), 1, 1, shared_ptr<AbstractNPC>(nullptr),
+				shared_ptr<AbstractNPC>(nullptr), 10, 15, Time(500), NPC_AttributeTypes::HP);
+			GeneralTimer generalTimer;
+			Time lastTimeCalc = generalTimer.getTime();
+			double sum = 0.0;
+			double past_value = 9.9;
+			while (statChangingEffect.subtractFromTimeLeft(generalTimer.getTime() - lastTimeCalc) == 0) {
+				lastTimeCalc = generalTimer.getTime();
+				Sleep(Calculator::getRandomInt(5, 10));
+				if (generalTimer.getTime() < Time(500)) {
+					Assert::IsTrue(statChangingEffect.getCurrentValue() > past_value);
+				}
+				Assert::IsTrue(statChangingEffect.getCurrentValue() >= past_value);
+				generalTimer.updateTime();
+			}
+			
 		}
 	};
 }

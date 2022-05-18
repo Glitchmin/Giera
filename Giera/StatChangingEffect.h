@@ -15,9 +15,8 @@ public:
         weak_ptr<AbstractNPC> originNPC, double initialPercentValue, 
         double finalPercentValue, Time timeToReachFinal, NPC_AttributeTypes atrributeType);
     void applyStatChange();
-
-private:
-    double calculateCurrentValue();
+    double getCurrentValue();
+    NPC_AttributeTypes getAttributeType() const;
 
 };
 

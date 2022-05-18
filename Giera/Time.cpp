@@ -55,7 +55,7 @@ bool Time::operator<(Time const& t1) const
 
 bool Time::operator>(Time const& t1) const
 {
-	return this->ms < t1.ms;
+	return this->ms > t1.ms;
 }
 
 std::ostream& operator << (std::ostream& out, const Time& t)

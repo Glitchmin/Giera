@@ -19,13 +19,21 @@ void StatChangingEffect::applyStatChange()
 
 
 
-double StatChangingEffect::calculateCurrentValue()
+double StatChangingEffect::getCurrentValue()
 {
 	Time fromStart = duration - timeLeft;
+	std::cout << fromStart<<" "<<timeToReachFinal << "\n";
 	if (fromStart > timeToReachFinal) {
+		std::cout << "czek";
 		return finalPercentValue;
 	}
 	return initialPercentValue +
 		((double)fromStart.getTimeMs() / (double)timeToReachFinal.getTimeMs()) *
 		(finalPercentValue - initialPercentValue);
 }
+
+NPC_AttributeTypes StatChangingEffect::getAttributeType() const
+{
+    return attributeType;
+}
+
