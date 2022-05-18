@@ -8,14 +8,16 @@ private:
     double initialPercentValue;
     double finalPercentValue;
     Time timeToReachFinal;
-    NPC_AttributeTypes atrributeType;
+    NPC_AttributeTypes attributeType;
 
 public:
-    StatChangingEffect();
-    void changeStat();
+    StatChangingEffect(Time duration, bool isBuff, short level, weak_ptr<AbstractNPC> targetNPC,
+        weak_ptr<AbstractNPC> originNPC, double initialPercentValue, 
+        double finalPercentValue, Time timeToReachFinal, NPC_AttributeTypes atrributeType);
+    void applyStatChange();
 
 private:
-    double calculateCurrentStat();
+    double calculateCurrentValue();
 
 };
 

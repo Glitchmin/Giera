@@ -8,7 +8,7 @@ Damage DamageEffect::getDamage() const
 }
 
 DamageEffect::DamageEffect(unique_ptr<Damage> damage, Time duration, bool isBuff, short level,
-    shared_ptr<AbstractNPC> targetNPC, shared_ptr<AbstractNPC> originNPC, Time tickrate,double damageIncrease) :
+    weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC, Time tickrate,double damageIncrease) :
     AbstractEffect(duration, isBuff, level, targetNPC, originNPC)
 {
     this->damage = move (damage);

@@ -38,6 +38,7 @@
 #include "../Giera/DamageEffect.cpp"
 #include "../Giera/AbstractEffect.cpp"
 #include "../Giera/AbstractEffect.h"
+#include "../Giera/AbstractNPC.h"
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -160,7 +161,8 @@ namespace DamageEffectsTests
 	TEST_CLASS(DamageEffectTest) {
 		TEST_METHOD(ConstructorTest) {
 			auto damage = std::make_unique<Damage>(2.0, DamageTypes::POISON, nullptr);
-			DamageEffect damageEffect(move(damage), Time(1000), 0, 1, nullptr, nullptr, Time(300));
+			DamageEffect damageEffect(move(damage), Time(1000),
+				0, 1, std::shared_ptr<AbstractNPC>(nullptr), std::shared_ptr<AbstractNPC>(nullptr), Time(300));
 			Assert::AreEqual(2.0, damageEffect.getDamage().getValue());
 			Assert::AreEqual((unsigned int)1000, damageEffect.getDuration().getTimeMs());
 			Assert::AreEqual((unsigned int)1000, damageEffect.getTimeLeft().getTimeMs());
@@ -170,15 +172,18 @@ namespace DamageEffectsTests
 		}
 		TEST_METHOD(TotalDamageTest) {
 			auto damage = std::make_unique<Damage>(2.0, DamageTypes::POISON, nullptr);
-			DamageEffect damageEffect(move(damage),Time(1000),0,1,nullptr,nullptr,Time(300));
+			DamageEffect damageEffect(move(damage),Time(1000),
+				0,1, std::shared_ptr<AbstractNPC>(nullptr), shared_ptr<AbstractNPC>(nullptr),Time(300));
 			damage = std::make_unique<Damage>(1.0, DamageTypes::POISON, nullptr);
 			Assert::AreEqual(6.0,damageEffect.calculateTotalDamage());
-			damageEffect = DamageEffect(move(damage), Time(1000), 0, 1, nullptr, nullptr, Time(300),2);
+			damageEffect = DamageEffect(move(damage), Time(1000), 
+				0, 1, std::shared_ptr<AbstractNPC>(nullptr), shared_ptr<AbstractNPC>(nullptr), Time(300),2);
 			Assert::AreEqual(7.0, damageEffect.calculateTotalDamage());
 		}
 		TEST_METHOD(RealDamageTest) {
 			auto damage = std::make_unique<Damage>(1.0, DamageTypes::POISON, nullptr);
-			auto damageEffect = DamageEffect(move(damage), Time(1000), 0, 1, nullptr, nullptr, Time(300), 2);
+			auto damageEffect = DamageEffect(move(damage), Time(1000),
+				0, 1, std::shared_ptr<AbstractNPC>(nullptr), shared_ptr<AbstractNPC>(nullptr), Time(300), 2);
 			GeneralTimer generalTimer;
 			Time lastTimeCalc = generalTimer.getTime();
 			Time lastTimeUntilTick = damageEffect.getTimeUntilTick();

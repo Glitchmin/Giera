@@ -4,7 +4,7 @@ AbstractEffect::AbstractEffect()
 {
 }
 
-AbstractEffect::AbstractEffect(Time duration, bool isBuff, short level, shared_ptr<AbstractNPC> targetNPC, shared_ptr<AbstractNPC> originNPC)
+AbstractEffect::AbstractEffect(Time duration, bool isBuff, short level, weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC)
 {
     this->duration = duration;
     this->timeLeft = duration;
@@ -39,19 +39,19 @@ short AbstractEffect::getLevel() const
     return level;
 }
 
-shared_ptr<AbstractNPC> AbstractEffect::getTargetNPC() const
+weak_ptr<AbstractNPC> AbstractEffect::getTargetNPC() const
 {
     return targetNPC;
 }
 
 
-shared_ptr<AbstractNPC> AbstractEffect::getOriginNPC() const
+weak_ptr<AbstractNPC> AbstractEffect::getOriginNPC() const
 {
     return originNPC;
 }
 
 
-void AbstractEffect::setTargetNPC(shared_ptr<AbstractNPC> targetNPC)
+void AbstractEffect::setTargetNPC(weak_ptr<AbstractNPC> targetNPC)
 {
     this->targetNPC = targetNPC;
 }
