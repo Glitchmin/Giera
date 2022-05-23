@@ -197,6 +197,7 @@
     <ClInclude Include="GrasslandsGenerator.h" />
     <ClInclude Include="FileModesTypes.h" />
     <ClInclude Include="DamageTypes.h" />
+    <ClInclude Include="ModifiersTypes.h" />
     <ClInclude Include="NPC_AttributeTypes.h" />
     <ClInclude Include="LandscapeTypes.h" />
     <ClInclude Include="Lifesteal.h" />

@@ -85,6 +85,12 @@
     <Filter Include="Header Files\GameLogic\Damage &amp; Effects\Damage">
       <UniqueIdentifier>{08e8ba03-383f-4954-b00f-03d8b2011825}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\Items">
+      <UniqueIdentifier>{5f1dac92-1dad-4fa1-9b12-64b39159cb97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Items">
+      <UniqueIdentifier>{ae26101e-21a3-42b4-89a1-13c0fc7cd8f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -301,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="StatChangingEffect.h">
       <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ModifiersTypes.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
