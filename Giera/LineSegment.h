@@ -8,15 +8,16 @@ private:
 
 public:
     LineSegment();
-	LineSegment(Position start, Position end);
+	LineSegment(const Position& start, const Position& end);
 
     Position getStart() const;
-    void setStart(Position start);
+    void setStart(const Position& start);
 
     Position getEnd() const;
-    void setEnd(Position end);
+    void setEnd(const Position& end);
 
     double getSlope();
     double getIntercept();
 
+    double distance(const Position& position) const;
 };

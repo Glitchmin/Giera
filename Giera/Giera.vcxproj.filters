@@ -60,6 +60,9 @@
     <ClCompile Include="ValuesRange.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Source Files\Utility\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LineSegment.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="Position.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

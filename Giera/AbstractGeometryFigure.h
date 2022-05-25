@@ -1,8 +1,21 @@
 #include "Position.h"
 #include "LineSegment.h"
+
+
+enum class FigureType {
+	ABSTRACT,
+	RECTANGLE,
+	SPHERE
+};
+
 class AbstractGeometryFigure {
-	virtual Position getCenter() = 0;
-	virtual double getArea() = 0;
-	virtual bool checkLineSegmentIntersect(LineSegment lineSegment) = 0;
-	virtual Position getLineSegmentIntersect(LineSegment lineSegment) = 0;
+protected:
+	FigureType type;
+public:
+	virtual Position getCenter()const = 0;
+	virtual double getArea()const = 0;
+	virtual bool checkLineSegmentIntersect(const LineSegment& lineSegment)const = 0;
+	virtual Position getLineSegmentIntersect(const LineSegment& lineSegment)const = 0;
+
+	FigureType getType() const { return type; }
 };

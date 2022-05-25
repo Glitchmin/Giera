@@ -15,8 +15,4 @@ public:
 
     Position getUpperRight() const;
     void setUpperRight(Position upperRight);
-
-	Position getUpperLeft() const;
-	Position getLowerRight() const;
-
 };
