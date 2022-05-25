@@ -158,7 +158,6 @@
     <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="Foreground.cpp" />
-    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="GeneralTimer.cpp" />
     <ClCompile Include="GrasslandsGenerator.cpp" />
     <ClCompile Include="LineSegment.cpp" />
@@ -172,6 +171,7 @@
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+	<ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SubTimer.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -189,7 +189,6 @@
     <ClInclude Include="Damage.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Foreground.h" />
-    <ClInclude Include="Sphere.h" />
     <ClInclude Include="GeneralTimer.h" />
     <ClInclude Include="GrasslandsGenerator.h" />
     <ClInclude Include="FileModesTypes.h" />
@@ -210,6 +209,7 @@
     <ClInclude Include="Position.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rotation.h" />
+	<ClInclude Include="Sphere.h" />
     <ClInclude Include="SubTimer.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Time.h" />
