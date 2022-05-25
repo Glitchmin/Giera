@@ -4,18 +4,188 @@
 #include "../Giera/GeneralTimer.h"
 #include "../Giera/SubTimer.h"
 #include "../Giera/Time.h"
+#include "../Giera/Calculator.h"
 #include "../Giera/GeneralTimer.cpp"
 #include "../Giera/SubTimer.cpp"
 #include "../Giera/AbstractTimer.cpp"
 #include "../Giera/Time.cpp"
+#include "../Giera/Calculator.cpp"
+#include "../Giera/Coordinates.h"
+#include "../Giera/Coordinates.cpp"
+#include "../Giera/Map.h"
+#include "../Giera/Map.cpp"
+#include "../Giera/MapTile.cpp"
+#include "../Giera/Directions.h"
+#include "../Giera/LandscapeTypes.h"
+#include "../Giera/MapTypes.h"
+#include "../Giera/ValuesRange.h"
+#include "../Giera/ValuesRange.cpp"
+#include "../Giera/GrasslandsGenerator.h"
+#include "../Giera/GrasslandsGenerator.cpp"
+#include "../Giera/Logger.h"
+#include "../Giera/Logger.cpp"
+#include "../Giera/AbstractMapGenerator.h"
+#include "../Giera/AbstractMapGenerator.cpp"
+#include "../Giera/FileHandler.cpp"
+#include "../Giera/FileHandler.h"
+#include "../Giera/MapFileHandler.h"
+#include "../Giera/MapFileHandlerSaving.cpp"
+#include "../Giera/MapFileHandlerReading.cpp"
 #include <iostream>
 #include <string>
 #include <SDL.h>
 #include <Windows.h>
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+#include <sstream>
+using Microsoft::VisualStudio::CppUnitTestFramework::Assert;
+using namespace Microsoft::VisualStudio;
+
+namespace MapTests
+{
+	TEST_CLASS(CoordinatesTests)
+	{
+	public:
+		TEST_METHOD(CoordinatesOperatorsOverloadTest)
+		{
+			Coordinates c1(1, 2);
+			Coordinates c2(3, 5);
+			Coordinates c3 = c1 + c2;
+			Assert::AreEqual(c3.getX(), (unsigned int)4);
+			Assert::AreEqual(c3.getY(), (unsigned int)7);
+		}
+	};
+	TEST_CLASS(MapClassTest)
+	{
+	public:
+		TEST_METHOD(MapFileHandlerTestsTilebyTile)
+		{
+			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::GIERA,
+				Directions::NORTH, 10, 15, SDL_GetTicks());
+			MapFileHandler mapFileHandler;
+			mapFileHandler.saveMap(map);
+			auto map2 = mapFileHandler.readMap(MapTypes::GIERA);
+			for (int x=0; x<map.getSizeX();x++)
+			{
+				for (int y=0;y< map.getSizeY();y++)
+				{
+					std::stringstream ss;
+					ss << map.getMapTile(Coordinates(x, y));
+					std::stringstream ss2;
+					ss2 << map2.getMapTile(Coordinates(x, y));
+					Assert::AreEqual(ss.str(), ss2.str());
+ 				}
+			}
+		}
+		TEST_METHOD(MapFileHandlerTestsSeed)
+		{
+			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
+				Directions::NORTH, 10, 15, SDL_GetTicks());
+			map.setMapTile(Coordinates(3, 3),
+				MapTile(TerrainTypes::SAND, Rotations::RIGHT, ForegroundTypes::TALL_GRASS, BackgroundTypes::GRASS, WallTypes::BUSH));
+			MapFileHandler mapFileHandler;
+			mapFileHandler.saveMap(map);
+			auto map2 = mapFileHandler.readMap(MapTypes::QUEST_MAP);
+			for (int x = 0; x < map.getSizeX();x++)
+			{
+				for (int y = 0;y < map.getSizeY();y++)
+				{
+					std::stringstream ss;
+					ss << map.getMapTile(Coordinates(x, y));
+					std::stringstream ss2;
+					ss2 << map2.getMapTile(Coordinates(x, y));
+					Assert::AreEqual(ss.str(), ss2.str());
+				}
+			}
+		}
+		TEST_METHOD(ConstructorTest)
+		{
+			unsigned int sizeX = 10;
+			unsigned int sizeY = 15;
+			int seed = 10;
+			std::shared_ptr<Map> map = std::make_shared<Map>(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
+				Directions::NORTH, sizeX, sizeY, seed);
+			Assert::AreEqual(seed, map->getSeed());
+			Assert::AreEqual(sizeX, map->getSizeX());
+			Assert::AreEqual(sizeY, map->getSizeY());
+			Assert::IsTrue(map->getMapChanges().empty());
+			Assert::AreEqual((int)map->getStartDirection(), (int)Directions::NORTH);
+			Assert::AreEqual((int)map->getMapType(), (int)MapTypes::QUEST_MAP);
+			Assert::AreEqual((int)map->getLandscapeType(), (int)LandscapeTypes::GRASSLAND);
+		}
+	};
+	TEST_CLASS(GeneratorTests)
+	{
+	public:
+		TEST_METHOD(GrasslandsTest1) {
+			for (int i = 0; i < 100; i++) {
+				auto map1 = std::make_shared<Map>(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP, Directions::NORTH, 15, 10, i * SDL_GetTicks());
+				int rocksNumber = 0;
+				int bushesNumber = 0;
+				for (int x = 0; x < map1->getSizeX(); x++) {
+					for (int y = 0; y < map1->getSizeY(); y++) {
+						rocksNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::ROCK);
+						bushesNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::BUSH);
+					}
+				}
+
+				Assert::IsTrue(rocksNumber >= (int)(GrasslandsGenerator::getRockRatio().getMin() * map1->getSizeX() * map1->getSizeY()));
+				Assert::IsTrue(rocksNumber <= (int)(GrasslandsGenerator::getRockRatio().getMax() * map1->getSizeX() * map1->getSizeY()));
+				Assert::IsTrue(bushesNumber >= (int)(GrasslandsGenerator::getBushRatio().getMin() * map1->getSizeX() * map1->getSizeY()));
+				Assert::IsTrue(bushesNumber <= (int)(GrasslandsGenerator::getBushRatio().getMax() * map1->getSizeX() * map1->getSizeY()));
+			}
+		}
+	};
+}
 
 namespace UtilityTests
 {
+	TEST_CLASS(FileHandlerTest) {
+		TEST_METHOD(AppendAndReadTest)
+		{
+			Logger::setHandler(0, 1);
+			FileHandler fileHandler;
+			fileHandler.openFile("test1", FileModeTypes::WRITE_ONLY);
+			char tmp = 'h';
+			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.closeFile();
+			fileHandler.openFile("test1", FileModeTypes::APPEND);
+			tmp = 'a';
+			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.closeFile();
+			std::string str;
+			fileHandler.openFile("test1", FileModeTypes::READ_ONLY);
+			for (int i = 0; i < 3;i++) {
+				char tmp = 'b';
+				fileHandler.readFromFile(&tmp, sizeof(char));
+				str += tmp;
+			}
+			fileHandler.closeFile();
+			Assert::AreEqual(str.c_str(), "haa");
+		}
+		TEST_METHOD(IntSaveTest)
+		{
+			Logger::setHandler(0, 1);
+			FileHandler fileHandler;
+			fileHandler.openFile("test1", FileModeTypes::WRITE_ONLY);
+			int tmp = 15;
+			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.closeFile();
+			fileHandler.openFile("test1", FileModeTypes::APPEND);
+			tmp = 10;
+			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.closeFile();
+			int ans = 0;
+			fileHandler.openFile("test1", FileModeTypes::READ_ONLY);
+			for (int i = 0; i < 3;i++) {
+				int tmp = 0;
+				fileHandler.readFromFile(&tmp, sizeof(int));
+				ans += tmp;
+			}
+			fileHandler.closeFile();
+			Assert::AreEqual(ans, 10+10+15);
+		}
+	};
 	TEST_CLASS(TimeTests)
 	{
 	public:
@@ -25,28 +195,28 @@ namespace UtilityTests
 			Time time1(100);
 			Time time2(250);
 			Time time3 = time1 + time2;
-			Assert::AreEqual(time3.getTimeMs(), (Uint32)350);
-			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
-			Assert::AreEqual(time2.getTimeMs(), (Uint32)250);
+			Assert::AreEqual(time3.getTimeMs(), (unsigned int)350);
+			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
+			Assert::AreEqual(time2.getTimeMs(), (unsigned int)250);
 
 			Time time4 = time2 - time1;
-			Assert::AreEqual(time4.getTimeMs(), (Uint32)150);
-			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
-			Assert::AreEqual(time2.getTimeMs(), (Uint32)250);
+			Assert::AreEqual(time4.getTimeMs(), (unsigned int)150);
+			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
+			Assert::AreEqual(time2.getTimeMs(), (unsigned int)250);
 
 			Time time5(4);
 			time5 += time1;
-			Assert::AreEqual(time5.getTimeMs(), (Uint32)104);
-			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+			Assert::AreEqual(time5.getTimeMs(), (unsigned int)104);
+			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
 
 			Time time6(104);
 			time6 -= time1;
-			Assert::AreEqual(time6.getTimeMs(), (Uint32)4);
-			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+			Assert::AreEqual(time6.getTimeMs(), (unsigned int)4);
+			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
 
 			Time time7 = time1 * 1.5;
-			Assert::AreEqual(time7.getTimeMs(), (Uint32)150);
-			Assert::AreEqual(time1.getTimeMs(), (Uint32)100);
+			Assert::AreEqual(time7.getTimeMs(), (unsigned int)150);
+			Assert::AreEqual(time1.getTimeMs(), (unsigned int)100);
 
 			Assert::AreEqual(time1.getTimeS(),0.1);
 		}
@@ -54,7 +224,7 @@ namespace UtilityTests
 		{
 			GeneralTimer generalTimer;
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			while (SDL_GetTicks() < time + 200)
 			{
 				generalTimer.updateTime();
@@ -66,11 +236,12 @@ namespace UtilityTests
 		{
 			GeneralTimer generalTimer;
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			generalTimer.setTempo(1.5);
 			while (SDL_GetTicks() < time + 200)
 			{
 				generalTimer.updateTime();
+				Sleep(7);
 			}
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 315);
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() > 285);
@@ -80,7 +251,7 @@ namespace UtilityTests
 			GeneralTimer generalTimer;
 			Time answer = generalTimer.getTime();
 			Assert::IsTrue(answer.getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			generalTimer.setTempo(0.5);
 			while (SDL_GetTicks() < time + 200)
 			{
@@ -95,7 +266,7 @@ namespace UtilityTests
 		{
 			GeneralTimer generalTimer;
 			Assert::IsTrue(generalTimer.getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			generalTimer.setTempo(2.5);
 			generalTimer.pause();
 			while (SDL_GetTicks() < time + 100)
@@ -113,10 +284,10 @@ namespace UtilityTests
 		}
 		TEST_METHOD(SubTimerTest)
 		{
-			std::shared_ptr <GeneralTimer> generalTimer(new GeneralTimer);
+			auto generalTimer = std::make_shared<GeneralTimer>();
 			Assert::IsTrue(generalTimer->getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
-			std::shared_ptr<SubTimer> subTimer(new SubTimer(generalTimer));
+			unsigned int time = SDL_GetTicks();
+			auto subTimer = std::make_shared<SubTimer>(generalTimer);
 			while (SDL_GetTicks() < time + 200)
 			{
 				generalTimer->updateTime();
@@ -129,7 +300,7 @@ namespace UtilityTests
 		{
 			std::shared_ptr <GeneralTimer> generalTimer(new GeneralTimer);
 			Assert::IsTrue(generalTimer->getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			std::shared_ptr<SubTimer> subTimer(new SubTimer(generalTimer));
 			generalTimer->setTempo(2.0);
 			subTimer->setTempo(0.5);
@@ -145,7 +316,7 @@ namespace UtilityTests
 		{
 			std::shared_ptr <GeneralTimer> generalTimer(new GeneralTimer);
 			Assert::IsTrue(generalTimer->getTime().getTimeMs() < 5);
-			Uint32 time = SDL_GetTicks();
+			unsigned int time = SDL_GetTicks();
 			std::shared_ptr<SubTimer> subTimer(new SubTimer(generalTimer));
 			generalTimer->setTempo(2.0);
 			subTimer->pause();
@@ -163,6 +334,82 @@ namespace UtilityTests
 			}
 			Assert::IsTrue(subTimer->getTime().getTimeMs() < 210);
 			Assert::IsTrue(subTimer->getTime().getTimeMs() > 190);
+		}
+	};
+	TEST_CLASS(CalculatorTests)
+	{
+	public:
+		//those tests might not be working if launched on a VERY slow (or occupied with something else) device. Just rerun them before drawing conclusions
+		TEST_METHOD(getIntFromDoubleWithProbTest) {
+			srand(time(NULL));
+
+			int wyn, sum = 0;
+
+			for (int i = 0; i < 1000; i++) {
+				wyn = Calculator::getIntFromDoubleWithProb(6.9);
+				Assert::IsTrue(wyn == 6 || wyn == 7);
+				sum += wyn;
+			}
+
+			Assert::IsTrue(sum >= 6800 && sum <= 7000);
+		}
+		TEST_METHOD(calculateChanceTest) {
+			srand(time(NULL));
+
+			int sum = 0;
+			for (int i = 0; i < 1000; i++)
+				sum += Calculator::calculateChance(0.25);
+
+			Assert::IsTrue(sum >= 200 && sum <= 300);
+
+			sum = 0;
+			for (int i = 0; i < 1000; i++)
+				sum += Calculator::calculateChance(0.5);
+
+			Assert::IsTrue(sum >= 450 && sum <= 550);
+
+			sum = 0;
+			for (int i = 0; i < 1000; i++)
+				sum += Calculator::calculateChance(0.75);
+
+			Assert::IsTrue(sum >= 700 && sum <= 800);
+		}
+		TEST_METHOD(getRandomDoubleTest) {
+			srand(time(NULL));
+
+			double wyn = 0;
+			int _min = 0, _max = 0, wow = 0;
+			unsigned int sum[25] = {};
+
+			for (int i = 0; i < 1000; i++) {
+				wyn = Calculator::getRandomDouble(0, 25);
+				Assert::IsTrue(wyn >= 0 && wyn <= 25);
+				if ((int)wyn >= 25) {
+					wow++;  // how many times the double got really close to 25
+					continue;
+				}
+				sum[int(wyn)]++;
+				_min = min(_min, sum[int(wyn)]);
+				_max = max(_max, sum[int(wyn)]);
+			}
+
+			Assert::IsTrue(_max - _min <= 75);
+			Assert::IsTrue(wow < 2); // very not likely to happen even once
+		}
+		TEST_METHOD(getRandomIntTest) {
+			srand(time(NULL));
+
+			int wyn = 0, _min = 0, _max = 0;
+			unsigned int sum[26] = {};
+
+			for (int i = 0; i < 1000; i++) {
+				wyn = Calculator::getRandomInt(0, 25);
+				Assert::IsTrue(wyn >= 0 && wyn <= 25);
+				sum[wyn]++;
+				_min = min(_min, sum[wyn]);
+				_max = max(_max, sum[wyn]);
+			}
+			Assert::IsTrue(_max - _min <= 75);
 		}
 	};
 }

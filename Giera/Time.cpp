@@ -1,7 +1,8 @@
 #include "Time.h"
-
+#include <iomanip>
 Time::Time()
 {
+	this->ms = 0;
 }
 
 Time::Time(unsigned int value)
@@ -19,12 +20,12 @@ double Time::getTimeS() const
 	return ((double)ms / 1000);
 }
 
-Time Time::operator+(Time const& t1)
+Time Time::operator+(Time const& t1) const
 {
 	return Time(this->ms + t1.ms);
 }
 
-Time Time::operator-(Time const& t1)
+Time Time::operator-(Time const& t1) const
 {
 	return Time(this->ms - t1.ms);
 }
@@ -42,9 +43,9 @@ Time& Time::operator-=(Time const& t1)
 	return *this;
 }
 
-Time Time::operator*(double const& d)
+Time Time::operator*(double const& d) const
 {
-	return Time(this->ms * d);
+	return Time((unsigned int)this->ms * d);
 }
 
 bool Time::operator<(Time const& t1) const
@@ -55,5 +56,11 @@ bool Time::operator<(Time const& t1) const
 bool Time::operator>(Time const& t1) const
 {
 	return this->ms < t1.ms;
+}
+
+std::ostream& operator << (std::ostream& out, const Time& t)
+{
+	out <<std::setprecision(1)<<std::fixed<<  t.getTimeS()<<"s";
+	return out;
 }
 

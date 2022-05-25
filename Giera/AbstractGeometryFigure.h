@@ -1,5 +1,8 @@
+#pragma once
 #include "Position.h"
 #include "LineSegment.h"
+#include <memory>
+#include "FileHandler.h"
 
 
 enum class FigureType {
@@ -17,5 +20,7 @@ public:
 	virtual bool checkLineSegmentIntersect(const LineSegment& lineSegment)const = 0;
 	virtual Position getLineSegmentIntersect(const LineSegment& lineSegment)const = 0;
 
+	static std::unique_ptr<AbstractGeometryFigure>
+		readFromFile(FileHandler& fileHandler) { return nullptr; };
 	FigureType getType() const { return type; }
 };

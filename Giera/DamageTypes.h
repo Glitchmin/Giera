@@ -1,0 +1,13 @@
+#pragma once
+enum class DamageTypes {
+	SLASHING,
+	PIERCING,
+	BLUDGEONING,
+	FIRE,
+	FROST,
+	LIGHTNING,
+	LIFE,
+	POISON,
+	HEALING,
+	COUNT
+};

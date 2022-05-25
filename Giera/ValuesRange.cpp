@@ -2,6 +2,12 @@
 #include <stdlib.h>
 
 
+ValuesRange::ValuesRange()
+{
+	this->min = 0;
+	this->max = 1;
+}
+
 ValuesRange::ValuesRange(double min, double max)
 {
 	this->min = min;

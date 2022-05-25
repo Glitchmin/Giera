@@ -5,9 +5,16 @@ and may not be redistributed without written permission.*/
 #include <SDL.h>
 #include <stdio.h>
 #include <iostream>
+#include <memory>
+#include <sstream>
 #include "Position.h"
-#include "GeneralTimer.h";
+#include "GeneralTimer.h"
 #include "Time.h"
+#include "Logger.h"
+#include "Coordinates.h"
+#include "Map.h"
+#include "GrasslandsGenerator.h"
+#include "MapFileHandler.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -55,6 +62,6 @@ int main( int argc, char* args[] )
 
 	//Quit SDL subsystems
 	SDL_Quit();
-
+	Logger::close();
 	return 0;
 }

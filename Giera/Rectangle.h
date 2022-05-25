@@ -10,7 +10,10 @@ public:
 	Rectangle();
 	Rectangle(Position lowerLeft, Position upperRight);
 
-    Position getLowerLeft() const;
+	static std::unique_ptr<AbstractGeometryFigure>
+		readFromFile(FileHandler& fileHandler);
+
+	Position getLowerLeft() const;
     void setLowerLeft(Position lowerLeft);
 
     Position getUpperRight() const;
