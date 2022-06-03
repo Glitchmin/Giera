@@ -7,7 +7,7 @@ private:
     double probability;
     double percentStolen;
 public:
-    Lifesteal(double value, DamageTypes damageType, shared_ptr<AbstractNPC> damageDealer,
+    Lifesteal(double value, DamageTypes damageType, weak_ptr<AbstractNPC> damageDealer,
         double percentStolen, double probability = 1.0);
 
     double getProbability() const;

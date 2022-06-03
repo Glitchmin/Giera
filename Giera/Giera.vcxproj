@@ -170,6 +170,7 @@
     <ClCompile Include="MapFileHandlerReading.cpp" />
     <ClCompile Include="MapFileHandlerSaving.cpp" />
     <ClCompile Include="MapTile.cpp" />
+    <ClCompile Include="ModifiersHandler.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="GrasslandsGenerator.h" />
     <ClInclude Include="FileModesTypes.h" />
     <ClInclude Include="DamageTypes.h" />
+    <ClInclude Include="ModifiersHandler.h" />
     <ClInclude Include="ModifiersTypes.h" />
     <ClInclude Include="NPC_AttributeTypes.h" />
     <ClInclude Include="LandscapeTypes.h" />

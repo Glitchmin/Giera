@@ -189,6 +189,9 @@
     <ClCompile Include="StatChangingEffect.cpp">
       <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="ModifiersHandler.cpp">
+      <Filter>Source Files\GameLogic\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -309,6 +312,9 @@
       <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClInclude>
     <ClInclude Include="ModifiersTypes.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ModifiersHandler.h">
       <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
   </ItemGroup>
