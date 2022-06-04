@@ -1,6 +1,6 @@
 #pragma once
 enum class ItemTypes {
-	WEAPON,
+	MELEE_WEAPON,
 	RANGED_WEAPON,
 	SHIELD,
 	ARMOR,

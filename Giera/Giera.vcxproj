@@ -149,8 +149,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractBaseGearItem.cpp" />
     <ClCompile Include="AbstractBaseItem.cpp" />
+    <ClCompile Include="AbstractBaseWeapon.cpp" />
     <ClCompile Include="AbstractEffect.cpp" />
+    <ClCompile Include="BaseMeleeWeapon.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DamageEffect.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
@@ -184,13 +187,16 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractBaseGearItem.h" />
     <ClInclude Include="AbstractBaseItem.h" />
+    <ClInclude Include="AbstractBaseWeapon.h" />
     <ClInclude Include="AbstractEffect.h" />
     <ClInclude Include="AbstractGeometryFigure.h" />
     <ClInclude Include="AbstractMapElement.h" />
     <ClInclude Include="AbstractMapGenerator.h" />
     <ClInclude Include="AbstractTimer.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="BaseMeleeWeapon.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Damage.h" />

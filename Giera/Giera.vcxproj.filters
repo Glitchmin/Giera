@@ -198,6 +198,15 @@
     <ClCompile Include="AbstractBaseItem.cpp">
       <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
     </ClCompile>
+    <ClCompile Include="AbstractBaseGearItem.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractBaseWeapon.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseMeleeWeapon.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -328,6 +337,15 @@
     </ClInclude>
     <ClInclude Include="ItemTypes.h">
       <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractBaseGearItem.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractBaseWeapon.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseMeleeWeapon.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
