@@ -9,11 +9,12 @@ using std::string;
 class ModifiersHandler
 {
 private:
-	static vector <string> names;
-	static vector <string> positiveKeywords;
-	static vector <string> negativeKeywords;
-	static vector <int> critChance;
-	static vector <int> percentages;
+	static inline vector <string> names{ "Damage","Armor Piercing",	"Attack Speed",
+		"Crit Chance", "Crit Damage","Movement Speed", "Dodge Speed"};
+	static inline vector <string> positiveKeywords;
+	static inline vector <string> negativeKeywords;
+	static inline vector <int> critChance;
+	static inline vector <int> percentages;
 
 public:
 	static const string& getName(ModifiersTypes modifierType);

@@ -120,9 +120,6 @@
     <ClCompile Include="ValuesRange.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>Source Files\Utility</Filter>
-    </ClCompile>
     <ClCompile Include="MapTile.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
     </ClCompile>
