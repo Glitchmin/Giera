@@ -45,6 +45,7 @@
 #include <SDL.h>
 #include <Windows.h>
 #include <sstream>
+#include <filesystem>
 using Microsoft::VisualStudio::CppUnitTestFramework::Assert;
 using namespace Microsoft::VisualStudio;
 
@@ -86,6 +87,9 @@ namespace MapTests
 		}
 		TEST_METHOD(MapFileHandlerTestsSeed)
 		{
+			stringstream ss;
+			ss << std::filesystem::current_path();
+			CppUnitTestFramework::Logger::WriteMessage(ss.str().c_str());
 			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
 				Directions::NORTH, 10, 15, SDL_GetTicks());
 			map.setMapTile(Coordinates(3, 3),
@@ -150,18 +154,18 @@ namespace DamageAndEffectsTests
 	TEST_CLASS(DamageClassTest) {
 		TEST_METHOD(ConstructorTest)
 		{
-			auto damage = std::make_unique<Damage>(2.0, DamageTypes::POISON, nullptr);
+			auto damage = std::make_unique<Damage>(2.0, DamageTypes::POISON, std::shared_ptr<AbstractNPC>(nullptr));
 			Assert::AreEqual(2.0, damage->getValue());
 		}
 		TEST_METHOD(MultiplyTest) {
-			auto damage = std::make_unique<Damage>(2.0, DamageTypes::POISON, nullptr);
+			auto damage = std::make_unique<Damage>(2.5, DamageTypes::POISON, std::shared_ptr<AbstractNPC>(nullptr));
 			damage->multiply(3);
 			Assert::AreEqual(7.5, damage->getValue());
 		}
 	};
 	TEST_CLASS(DamageEffectTest) {
 		TEST_METHOD(ConstructorTest) {
-			auto damage = std::make_unique<Damage>(2.0, DamageTypes::POISON, nullptr);
+			auto damage = std::make_unique<Damage>(2.0, DamageTypes::POISON, std::shared_ptr<AbstractNPC>(nullptr));
 			DamageEffect damageEffect(move(damage), Time(1000),
 				0, 1, std::shared_ptr<AbstractNPC>(nullptr), std::shared_ptr<AbstractNPC>(nullptr), Time(300));
 			Assert::AreEqual(2.0, damageEffect.getDamage().getValue());
@@ -172,17 +176,17 @@ namespace DamageAndEffectsTests
 			Assert::AreEqual(1.0, damageEffect.getDamageIncrease());
 		}
 		TEST_METHOD(TotalDamageTest) {
-			auto damage = std::make_unique<Damage>(2.0, DamageTypes::POISON, nullptr);
+			auto damage = std::make_unique<Damage>(2.0, DamageTypes::POISON, std::shared_ptr<AbstractNPC>(nullptr));
 			DamageEffect damageEffect(move(damage),Time(1000),
 				0,1, std::shared_ptr<AbstractNPC>(nullptr), std::shared_ptr<AbstractNPC>(nullptr),Time(300));
-			damage = std::make_unique<Damage>(1.0, DamageTypes::POISON, nullptr);
+			damage = std::make_unique<Damage>(1.0, DamageTypes::POISON, std::shared_ptr<AbstractNPC>(nullptr));
 			Assert::AreEqual(6.0,damageEffect.calculateTotalDamage());
 			damageEffect = DamageEffect(move(damage), Time(1000), 
 				0, 1, std::shared_ptr<AbstractNPC>(nullptr), std::shared_ptr<AbstractNPC>(nullptr), Time(300),2);
 			Assert::AreEqual(7.0, damageEffect.calculateTotalDamage());
 		}
 		TEST_METHOD(RealDamageTest) {
-			auto damage = std::make_unique<Damage>(1.0, DamageTypes::POISON, nullptr);
+			auto damage = std::make_unique<Damage>(1.0, DamageTypes::POISON, std::shared_ptr<AbstractNPC>(nullptr));
 			auto damageEffect = DamageEffect(move(damage), Time(1000),
 				0, 1, std::shared_ptr<AbstractNPC>(nullptr), std::shared_ptr<AbstractNPC>(nullptr), Time(300), 2);
 			GeneralTimer generalTimer;
