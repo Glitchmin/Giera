@@ -91,6 +91,12 @@
     <Filter Include="Source Files\GameLogic\Items">
       <UniqueIdentifier>{ae26101e-21a3-42b4-89a1-13c0fc7cd8f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameLogic\Items\BaseItems">
+      <UniqueIdentifier>{a8bc5534-4a5b-44c2-a280-a4cec2a029da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Items\BaseItems">
+      <UniqueIdentifier>{ade51aeb-426c-4dc0-a784-79f67c418917}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -188,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="ModifiersHandler.cpp">
       <Filter>Source Files\GameLogic\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractBaseItem.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +321,12 @@
       <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
     <ClInclude Include="ModifiersHandler.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractBaseItem.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemTypes.h">
       <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
   </ItemGroup>
