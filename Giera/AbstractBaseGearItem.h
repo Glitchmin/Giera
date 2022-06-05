@@ -1,6 +1,8 @@
 #pragma once
+#include <vector>
 #include "AbstractBaseItem.h"
 #include "ModifiersTypes.h"
+using std::vector;
 
 typedef short item_mod_t;
 
@@ -8,10 +10,9 @@ class AbstractBaseGearItem :
     public AbstractBaseItem
 {
 protected:
-    item_mod_t modifiers[(int)ModifiersTypes::COUNT_MODIFIERS];
-    
+    vector<item_mod_t> modifiers;
+
 public:
-    void setModifier(ModifiersTypes modifierType, item_mod_t value);
     item_mod_t getModifier(ModifiersTypes modifierType) const;
 };
 

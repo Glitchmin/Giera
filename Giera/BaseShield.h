@@ -1,5 +1,6 @@
 #pragma once
 #include "AbstractBaseGearItem.h"
+#include "Shield.h"
 class BaseShield :
     public AbstractBaseGearItem
 {
@@ -12,7 +13,7 @@ protected:
 public:
     BaseShield();
     ItemTypes getItemType() override;
-    //TODO generateShield();
+    shared_ptr <Shield> generateShield();
     //TODO override input stream operator
 };
 

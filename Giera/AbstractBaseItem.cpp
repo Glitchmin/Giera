@@ -12,7 +12,7 @@ item_size_t AbstractBaseItem::getHeight() const
 
 ValuesRange AbstractBaseItem::getBaseValue() const
 {
-    return baseValue;
+    return value;
 }
 
 string AbstractBaseItem::getName() const

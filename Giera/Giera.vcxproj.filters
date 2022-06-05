@@ -97,6 +97,12 @@
     <Filter Include="Header Files\GameLogic\Items\BaseItems">
       <UniqueIdentifier>{ade51aeb-426c-4dc0-a784-79f67c418917}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\Items\NormalItems">
+      <UniqueIdentifier>{56e77bb9-c668-4a49-a9f5-4a90cd3be562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Items\NormalItems">
+      <UniqueIdentifier>{c1a675e8-dbaf-4c54-ae79-567ee72a75f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -227,6 +233,15 @@
     </ClCompile>
     <ClCompile Include="BaseReadable.cpp">
       <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
+    <ClCompile Include="Shield.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractItem.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractGearItem.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -388,6 +403,15 @@
     </ClInclude>
     <ClInclude Include="BaseReadable.h">
       <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="Shield.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractItem.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractGearItem.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

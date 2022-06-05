@@ -1,29 +1,31 @@
 #pragma once
 #include <string>
-#include <memory>
 #include "ValuesRange.h"
 #include "ItemTypes.h"
-#include "Calculator.h"
 using std::string;
-using std::shared_ptr;
-using std::make_shared;
 
 typedef unsigned int item_size_t;
-class AbstractBaseItem
+class AbstractItem
 {
 protected:
 	item_size_t width;
 	item_size_t height;
-	ValuesRange value;
+	int value;
 	string name;
 	string description;
+	inline static string folderPath = "files/textures";
 
 public:
+	AbstractItem(item_size_t width, item_size_t heigth, int Value, string& name,
+		string& description);
     item_size_t getWidth() const;
     item_size_t getHeight() const;
-    ValuesRange getBaseValue() const;
+    int getValue() const;
     string getName() const;
     string getDescription() const;
+
+	virtual string getPath() = 0;
 	virtual ItemTypes getItemType() = 0;
+
 };
 

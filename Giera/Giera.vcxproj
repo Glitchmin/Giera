@@ -153,6 +153,8 @@
     <ClCompile Include="AbstractBaseItem.cpp" />
     <ClCompile Include="AbstractBaseWeapon.cpp" />
     <ClCompile Include="AbstractEffect.cpp" />
+    <ClCompile Include="AbstractGearItem.cpp" />
+    <ClCompile Include="AbstractItem.cpp" />
     <ClCompile Include="BaseArmor.cpp" />
     <ClCompile Include="BaseArrow.cpp" />
     <ClCompile Include="BaseFood.cpp" />
@@ -186,6 +188,7 @@
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Shield.cpp" />
     <ClCompile Include="StatChangingEffect.cpp" />
     <ClCompile Include="SubTimer.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -198,7 +201,9 @@
     <ClInclude Include="AbstractBaseItem.h" />
     <ClInclude Include="AbstractBaseWeapon.h" />
     <ClInclude Include="AbstractEffect.h" />
+    <ClInclude Include="AbstractGearItem.h" />
     <ClInclude Include="AbstractGeometryFigure.h" />
+    <ClInclude Include="AbstractItem.h" />
     <ClInclude Include="AbstractMapElement.h" />
     <ClInclude Include="AbstractMapGenerator.h" />
     <ClInclude Include="AbstractTimer.h" />
@@ -241,6 +246,7 @@
     <ClInclude Include="Position.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rotation.h" />
+    <ClInclude Include="Shield.h" />
     <ClInclude Include="StatChangingEffect.h" />
     <ClInclude Include="SubTimer.h" />
     <ClInclude Include="Terrain.h" />
