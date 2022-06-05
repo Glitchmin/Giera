@@ -154,8 +154,12 @@
     <ClCompile Include="AbstractBaseWeapon.cpp" />
     <ClCompile Include="AbstractEffect.cpp" />
     <ClCompile Include="BaseArmor.cpp" />
+    <ClCompile Include="BaseArrow.cpp" />
+    <ClCompile Include="BaseFood.cpp" />
     <ClCompile Include="BaseMeleeWeapon.cpp" />
+    <ClCompile Include="BaseMisc.cpp" />
     <ClCompile Include="BaseRangedWeapon.cpp" />
+    <ClCompile Include="BaseReadable.cpp" />
     <ClCompile Include="BaseShield.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DamageEffect.cpp" />
@@ -200,8 +204,12 @@
     <ClInclude Include="AbstractTimer.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BaseArmor.h" />
+    <ClInclude Include="BaseArrow.h" />
+    <ClInclude Include="BaseFood.h" />
     <ClInclude Include="BaseMeleeWeapon.h" />
+    <ClInclude Include="BaseMisc.h" />
     <ClInclude Include="BaseRangedWeapon.h" />
+    <ClInclude Include="BaseReadable.h" />
     <ClInclude Include="BaseShield.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />

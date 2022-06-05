@@ -216,6 +216,18 @@
     <ClCompile Include="BaseArmor.cpp">
       <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
     </ClCompile>
+    <ClCompile Include="BaseFood.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseArrow.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseMisc.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseReadable.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -363,6 +375,18 @@
       <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
     </ClInclude>
     <ClInclude Include="BaseArmor.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseFood.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseArrow.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseMisc.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseReadable.h">
       <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
     </ClInclude>
   </ItemGroup>
