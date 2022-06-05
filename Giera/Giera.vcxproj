@@ -154,6 +154,7 @@
     <ClCompile Include="AbstractBaseWeapon.cpp" />
     <ClCompile Include="AbstractEffect.cpp" />
     <ClCompile Include="BaseMeleeWeapon.cpp" />
+    <ClCompile Include="BaseRangedWeapon.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DamageEffect.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="AbstractTimer.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BaseMeleeWeapon.h" />
+    <ClInclude Include="BaseRangedWeapon.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Damage.h" />

@@ -207,6 +207,9 @@
     <ClCompile Include="BaseMeleeWeapon.cpp">
       <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
     </ClCompile>
+    <ClCompile Include="BaseRangedWeapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="BaseMeleeWeapon.h">
       <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseRangedWeapon.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
