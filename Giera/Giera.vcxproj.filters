@@ -208,7 +208,13 @@
       <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
     </ClCompile>
     <ClCompile Include="BaseRangedWeapon.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseShield.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseArmor.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -351,7 +357,13 @@
       <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
     </ClInclude>
     <ClInclude Include="BaseRangedWeapon.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseShield.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseArmor.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
