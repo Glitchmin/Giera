@@ -413,5 +413,8 @@
     <ClInclude Include="AbstractGearItem.h">
       <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
     </ClInclude>
+    <ClInclude Include="ShieldTypes.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

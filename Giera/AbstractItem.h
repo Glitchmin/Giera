@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
+#include <sstream>
 #include "ValuesRange.h"
 #include "ItemTypes.h"
 using std::string;
+using std::stringstream;
 
 typedef unsigned int item_size_t;
 class AbstractItem

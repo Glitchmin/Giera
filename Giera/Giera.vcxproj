@@ -247,6 +247,7 @@
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rotation.h" />
     <ClInclude Include="Shield.h" />
+    <ClInclude Include="ShieldTypes.h" />
     <ClInclude Include="StatChangingEffect.h" />
     <ClInclude Include="SubTimer.h" />
     <ClInclude Include="Terrain.h" />

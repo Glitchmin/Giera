@@ -1,6 +1,7 @@
 #pragma once
 #include "AbstractGearItem.h"
 #include "Time.h"
+#include "ShieldTypes.h"
 class Shield :
     public AbstractGearItem
 {
@@ -9,15 +10,16 @@ class Shield :
 protected:
     double armor;
     Time timeToRaise;
+    ShieldTypes shieldType;
 
     inline static string shieldPath = "/shield";
 
 public:
-    Shield(item_size_t width, item_size_t heigth, int value, string& name,
-        string& description,vector<item_mod_t>& modifiers, double armor, Time timeToRaise);
+    Shield(item_size_t width, item_size_t heigth, int value,
+        string& name, string& description,vector<item_mod_t>& modifiers,
+        double armor, Time timeToRaise, ShieldTypes shieldType);
     ItemTypes getItemType() override;
     string getPath() override;
-    //TODO generateShield();
-    //TODO override input stream operator
+    //TODO override input/output stream operator
 };
 

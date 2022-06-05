@@ -10,6 +10,7 @@ class BaseShield :
 protected:
     ValuesRange armor;
     ValuesRange timeToRaise;
+    ShieldTypes shieldType;
 public:
     BaseShield();
     ItemTypes getItemType() override;
