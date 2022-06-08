@@ -1,6 +1,6 @@
 #include "AbstractItem.h"
 
-AbstractItem::AbstractItem(item_size_t width, item_size_t heigth, int value, string& name, string& description)
+AbstractItem::AbstractItem(item_size_t width, item_size_t height, int value, string& name, string& description)
 {
     this->width = width;
     this->height = height;

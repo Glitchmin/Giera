@@ -15,7 +15,7 @@ protected:
     inline static string shieldPath = "/shield";
 
 public:
-    Shield(item_size_t width, item_size_t heigth, int value,
+    Shield(item_size_t width, item_size_t height, int value,
         string& name, string& description,vector<item_mod_t>& modifiers,
         double armor, Time timeToRaise, ShieldTypes shieldType);
     ItemTypes getItemType() override;

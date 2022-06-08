@@ -1,5 +1,5 @@
 #include "AbstractGearItem.h"
-AbstractGearItem::AbstractGearItem(item_size_t width, item_size_t heigth, int value, string& name,
+AbstractGearItem::AbstractGearItem(item_size_t width, item_size_t height, int value, string& name,
     string& description, vector<item_mod_t> &modifiers) : AbstractItem(width, height, value, name, description)
 {
     this->modifiers = modifiers;

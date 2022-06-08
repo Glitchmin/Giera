@@ -15,3 +15,13 @@ DamageTypes AbstractBaseWeapon::getDamageType() const
     return damageType;
 }
 
+ValuesRange AbstractBaseWeapon::getLifestealValue() const
+{
+    return lifestealValue;
+}
+
+ValuesRange AbstractBaseWeapon::getLifestealProbability() const
+{
+    return lifestealProbability;
+}
+

@@ -1,6 +1,6 @@
 #include "Shield.h"
 
-Shield::Shield(item_size_t width, item_size_t heigth, int value, string& name,
+Shield::Shield(item_size_t width, item_size_t height, int value, string& name,
     string& description, vector<item_mod_t>& modifiers, double armor, 
     Time timeToRaise, ShieldTypes shieldType)
     : AbstractGearItem(width, height, value, name, description, modifiers)

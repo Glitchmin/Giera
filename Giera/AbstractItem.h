@@ -18,7 +18,7 @@ protected:
 	inline static string folderPath = "files/textures";
 
 public:
-	AbstractItem(item_size_t width, item_size_t heigth, int Value, string& name,
+	AbstractItem(item_size_t width, item_size_t height, int Value, string& name,
 		string& description);
     item_size_t getWidth() const;
     item_size_t getHeight() const;

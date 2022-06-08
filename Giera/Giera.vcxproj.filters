@@ -243,6 +243,30 @@
     <ClCompile Include="AbstractGearItem.cpp">
       <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
     </ClCompile>
+    <ClCompile Include="AbstractWeapon.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
+    </ClCompile>
+    <ClCompile Include="Armor.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
+    </ClCompile>
+    <ClCompile Include="Food.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeWeapon.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
+    </ClCompile>
+    <ClCompile Include="RangedWeapon.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
+    </ClCompile>
+    <ClCompile Include="Readable.cpp">
+      <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -415,6 +439,30 @@
     </ClInclude>
     <ClInclude Include="ShieldTypes.h">
       <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractWeapon.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+    </ClInclude>
+    <ClInclude Include="Armor.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+    </ClInclude>
+    <ClInclude Include="Food.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeWeapon.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedWeapon.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+    </ClInclude>
+    <ClInclude Include="Readable.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
