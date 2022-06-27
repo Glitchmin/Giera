@@ -1,4 +1,7 @@
 #pragma once
+#include <iostream>
+using std::istream;
+using std::ostream;
 class ValuesRange {
 private:
 	double min, max;
@@ -14,4 +17,14 @@ public:
 
     double getAverage();
     double getRandom();
+    friend istream& operator>>(istream& is, ValuesRange vr)
+    {
+        is >> vr.min >> vr.max;
+        return is;
+    }
+    friend ostream& operator<<(ostream& is, ValuesRange vr)
+    {
+        is << vr.min << vr.max;
+        return is;
+    }
 };

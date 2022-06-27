@@ -25,3 +25,8 @@ string AbstractBaseItem::getDescription() const
     return description;
 }
 
+istream& operator>>(istream& is, AbstractBaseItem& it)
+{
+    is >> it.name >> it.description >> it.value >> it.width >> it.height;
+    return is;
+}

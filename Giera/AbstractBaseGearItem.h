@@ -3,6 +3,8 @@
 #include "AbstractBaseItem.h"
 #include "ModifiersTypes.h"
 using std::vector;
+using std::ostream;
+using std::istream;
 
 typedef short item_mod_t;
 
@@ -14,5 +16,6 @@ protected:
 
 public:
     item_mod_t getModifier(ModifiersTypes modifierType) const;
+    friend istream& operator>>(istream& is, AbstractBaseGearItem& it);
 };
 

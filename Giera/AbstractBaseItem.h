@@ -25,5 +25,6 @@ public:
     string getName() const;
     string getDescription() const;
 	virtual ItemTypes getItemType() = 0;
+	friend istream& operator>>(istream& is, AbstractBaseItem& it);
 };
 

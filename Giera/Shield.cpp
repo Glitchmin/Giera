@@ -18,6 +18,6 @@ ItemTypes Shield::getItemType()
 string Shield::getPath()
 {
     stringstream ss;
-    return folderPath + shieldPath+;
+    return folderPath + shieldPath;
     //TODO
 }

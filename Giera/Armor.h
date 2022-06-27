@@ -11,5 +11,4 @@ public:
 
     //TODO override input stream operator
 };
-};
 

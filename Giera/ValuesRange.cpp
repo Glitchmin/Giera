@@ -1,4 +1,5 @@
 #include "ValuesRange.h"
+#include "Calculator.h"
 #include <stdlib.h>
 
 
@@ -41,6 +42,6 @@ double ValuesRange::getAverage()
 
 double ValuesRange::getRandom()
 {
-	throw "place Calculator::getRandomDouble here";
+	return Calculator::getRandomDouble(min, max);
 }
 
