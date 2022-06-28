@@ -1,5 +1,9 @@
 #pragma once
 #include <iostream>
+
+using std::istream;
+using std::ostream;
+
 class Time
 {
 private:
@@ -16,6 +20,7 @@ public:
 	Time operator * (double const& d) const;
 	bool operator <(Time const& t1) const;
 	bool operator >(Time const& t1) const;
-	friend std::ostream& operator << (std::ostream& out, const Time& t);
+	friend ostream& operator << (ostream& out, const Time& t);
+	friend istream& operator>>(istream& is, Time& t);
 };
 

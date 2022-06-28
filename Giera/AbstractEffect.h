@@ -1,8 +1,11 @@
 #pragma once
+#include <iostream>
 #include "Time.h"
 #include "AbstractNPC.h"
 
 using std::weak_ptr;
+using std::istream;
+using std::ostream;
 
 class AbstractEffect
 {
@@ -31,5 +34,6 @@ public:
     void setTargetNPC(weak_ptr<AbstractNPC> targetNPC);
     weak_ptr<AbstractNPC> getOriginNPC() const;
 
+	friend istream& operator>>(istream& is, AbstractEffect& ef);
 };
 

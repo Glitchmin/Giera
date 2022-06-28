@@ -56,3 +56,7 @@ void AbstractEffect::setTargetNPC(weak_ptr<AbstractNPC> targetNPC)
     this->targetNPC = targetNPC;
 }
 
+istream& operator>>(istream& is, AbstractEffect& ef)
+{
+    is >> ef.isBuff >> ef.duration >> ef.level;
+}

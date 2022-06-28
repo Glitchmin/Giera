@@ -13,4 +13,5 @@ istream& operator>>(istream& is, AbstractBaseGearItem& it)
     {
         is >> it.modifiers[i];
     }
+    return is;
 }

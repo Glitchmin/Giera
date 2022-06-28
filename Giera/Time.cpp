@@ -64,3 +64,9 @@ std::ostream& operator << (std::ostream& out, const Time& t)
 	return out;
 }
 
+istream& operator>>(istream& is, Time& t)
+{
+	is >> t.ms;
+	return is;
+}
+
