@@ -1,10 +1,12 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <string>
 #include "AbstractBaseItem.h"
 #include "AbstractEffect.h"
 using std::shared_ptr;
 using std::vector;
+using std::istream;
 class BaseFood :
     public AbstractBaseItem
 {
@@ -15,6 +17,6 @@ public:
     BaseFood();
 
     //TODO generateFood();
-    //TODO override input stream operator
+    friend istream& operator >> (istream& is, BaseFood& f);
 };
 

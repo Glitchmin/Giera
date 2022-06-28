@@ -17,12 +17,12 @@ public:
 
     double getAverage();
     double getRandom();
-    friend istream& operator>>(istream& is, ValuesRange vr)
+    friend istream& operator>>(istream& is, ValuesRange& vr)
     {
         is >> vr.min >> vr.max;
         return is;
     }
-    friend ostream& operator<<(ostream& is, ValuesRange vr)
+    friend ostream& operator<<(ostream& is, ValuesRange& vr)
     {
         is << vr.min << vr.max;
         return is;
