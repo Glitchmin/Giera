@@ -1,64 +1,43 @@
 #include "FileHandler.h"
 #include <sstream>
-std::string FileHandler::folderPath = "save_files/";
-std::string FileHandler::fileExtension = ".txt";
-void FileHandler::openFile(std::string fileName, FileModeTypes fileMode)
+#include <fstream>
+FileHandler::FileHandler(string fileName, FileModeTypes fileMode)
 {
-	std::string mode = "b";
+	openFile(fileName, fileMode);
+}
+FileHandler::~FileHandler()
+{
+	closeFile();
+}
+void FileHandler::openFile(string fileName, FileModeTypes fileMode)
+{
+	int mode = 0;
 	switch (fileMode) {
-	case FileModeTypes::READ_ONLY:
-		mode = "r";
+	case FileModeTypes::READ:
+		mode = ios_base::out;
 		break;
-	case FileModeTypes::WRITE_ONLY:
-		mode = "w";
+	case FileModeTypes::WRITE:
+		mode = ios_base::in;
 		break;
 	case FileModeTypes::APPEND:
-		mode = "a";
+		mode = ios_base::app;
 		break;
 	case FileModeTypes::READ_WRITE:
-		mode = "r+";
+		mode = ios_base::in | ios_base::out;
 		break;
 	}
-	rw = SDL_RWFromFile((folderPath + fileName+fileExtension).c_str(),mode.c_str());
-	if (rw == NULL) 
+	fs = fstream(fileName, mode);
+	if (!fs.is_open()) 
 	{
-		Logger::logError("could open file: " + folderPath + fileName+ fileExtension +" in mode "+mode);
+		Logger::logError("could open file: " + folderPath + fileName+ fileExtension +" in mode ",mode);
 		return;
 	}
-	Logger::logInfo("opened" + folderPath + fileName + fileExtension + " in mode " + mode);
+	Logger::logInfo("opened" + folderPath + fileName + fileExtension + " in mode ", mode);
 }
 
-void FileHandler::saveToFile(void* a, size_t size)
-{
-	if (rw != NULL)
-	{
-		std::stringstream ss;
-		ss << size;
-		Logger::logInfo("saving something with " + ss.str() + " size");
-		SDL_RWwrite(rw, a, size, 1);
-	}
-}
 
-void FileHandler::readFromFile(void* a, size_t size)
-{
-	if (rw != NULL)
-	{
-		std::stringstream ss;
-		ss << size;
-		Logger::logInfo("reading something with " + ss.str()+" size");
-		SDL_RWread(rw, a, size, 1);
-	}
-}
-
-void FileHandler::rewind()
-{
-	SDL_RWseek(rw, 0, RW_SEEK_SET);
-}
 
 void FileHandler::closeFile()
 {
-	if (rw != NULL)
-	{
-		SDL_RWclose(rw);
-	}
+	fs.close();
 }

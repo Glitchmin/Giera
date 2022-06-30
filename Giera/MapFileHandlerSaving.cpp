@@ -5,7 +5,7 @@ void MapFileHandler::saveMap(Map& map)
 {
 	std::stringstream ss;
 	ss << filePath << (int)map.getMapType();
-	fileHandler.openFile(ss.str(), FileModeTypes::WRITE_ONLY);
+	fileHandler.openFile(ss.str(), FileModeTypes::WRITE);
 	saveVersion();
 	ss << "opening with " << version << " version for saving";
 	Logger::logInfo(ss.str());
@@ -24,22 +24,24 @@ void MapFileHandler::saveMap(Map& map)
 
 void MapFileHandler::saveVersion()
 {
-	fileHandler.saveToFile(&version, sizeof(int));
+	fileHandler.saveToFile(version);
 }
 void MapFileHandler::saveSaveType(Map& map)
 {
-	fileHandler.saveToFile(&map.isSavedBySeed, sizeof(bool));
+	fileHandler.saveToFile(map.isSavedBySeed);
 }
 
 void MapFileHandler::saveInitialData(Map& map)
 {
-	fileHandler.saveToFile(&map.sizeX, sizeof(unsigned int));
+	fileHandler.saveToFile(map.sizeX);
 	std::stringstream ss;
 	ss << map.sizeX;
 	Logger::logInfo(ss.str()+"saved");
-	fileHandler.saveToFile(&map.sizeY, sizeof(unsigned int));
-	fileHandler.saveToFile(&map.landscapeType, sizeof(LandscapeTypes));
-	fileHandler.saveToFile(&map.startDirection, sizeof(Directions));
+	fileHandler.saveToFile(map.sizeY);
+	int tmp = (int)map.landscapeType;
+	fileHandler.saveToFile(tmp);
+	tmp = (int)map.startDirection;
+	fileHandler.saveToFile(tmp);
 
 }
 
@@ -56,19 +58,18 @@ void MapFileHandler::saveTileByTile(Map& map)
 
 void MapFileHandler::saveMapTile(Map& map, Coordinates coord, bool isSeed)
 {
-	fileHandler.saveToFile(
-		&map.mapTiles[coord.getX()][coord.getY()], sizeof(MapTile));
+	fileHandler.saveToFile(map.mapTiles[coord.getX()][coord.getY()]);
 }
 
 void MapFileHandler::saveBySeed(Map& map)
 {
-	fileHandler.saveToFile(&map.seed, sizeof(int));
+	fileHandler.saveToFile(map.seed);
 	int mapChangesSize = map.mapChanges.size();
-	fileHandler.saveToFile(&mapChangesSize, sizeof(int));
+	fileHandler.saveToFile(mapChangesSize);
 	for (auto const& mapChange : map.mapChanges) 
 	{
 		Coordinates coord = mapChange.first;
-		fileHandler.saveToFile(&coord, sizeof(Coordinates));
+		fileHandler.saveToFile(coord);
 		saveMapTile(map, coord, 1);
 	}
 }

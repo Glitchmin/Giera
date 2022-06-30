@@ -23,6 +23,7 @@ public:
 	Coordinates& operator += (Coordinates const& c1);
 	Coordinates& operator -= (Coordinates const& c1);
     friend std::ostream& operator << (std::ostream& out, const Coordinates& c);
+    friend std::istream& operator >> (std::istream& in, Coordinates& c);
     bool operator<(Coordinates const& t1) const;
 
 };

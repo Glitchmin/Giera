@@ -72,8 +72,14 @@ bool Coordinates::operator<(Coordinates const& t1) const
 
 std::ostream& operator << (std::ostream& out, const Coordinates& c)
 {
-    out << "(" << c.x << "," << c.y << ")";
+    out << c.x << " " << c.y;
     return out;
+}
+
+std::istream& operator >> (std::istream& in, Coordinates& c)
+{
+    in >> c.x >> c.y;
+    return in;
 }
 
 

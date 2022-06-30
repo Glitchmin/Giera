@@ -40,6 +40,8 @@
 #include "../Giera/AbstractNPC.h"
 #include "../Giera/StatChangingEffect.h"
 #include "../Giera/StatChangingEffect.cpp"
+#include "../Giera/BaseFood.cpp"
+#include "../Giera/BaseFood.h"
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -48,6 +50,17 @@
 #include <filesystem>
 using Microsoft::VisualStudio::CppUnitTestFramework::Assert;
 using namespace Microsoft::VisualStudio;
+
+namespace ItemsTests {
+	TEST_CLASS(BaseItemsInputTest)
+	{
+	public:
+		TEST_METHOD(BaseFoodInputTest)
+		{
+			BaseFood bf;
+		}
+	};
+}
 
 namespace MapTests
 {
@@ -241,7 +254,7 @@ namespace UtilityTests
 		{
 			Logger::setHandler(0, 1);
 			FileHandler fileHandler;
-			fileHandler.openFile("test1", FileModeTypes::WRITE_ONLY);
+			fileHandler.openFile("test1", FileModeTypes::WRITE);
 			char tmp = 'h';
 			fileHandler.saveToFile(&tmp, sizeof(char));
 			fileHandler.closeFile();
@@ -251,7 +264,7 @@ namespace UtilityTests
 			fileHandler.saveToFile(&tmp, sizeof(char));
 			fileHandler.closeFile();
 			std::string str;
-			fileHandler.openFile("test1", FileModeTypes::READ_ONLY);
+			fileHandler.openFile("test1", FileModeTypes::READ);
 			for (int i = 0; i < 3;i++) {
 				char tmp = 'b';
 				fileHandler.readFromFile(&tmp, sizeof(char));
@@ -264,7 +277,7 @@ namespace UtilityTests
 		{
 			Logger::setHandler(0, 1);
 			FileHandler fileHandler;
-			fileHandler.openFile("test1", FileModeTypes::WRITE_ONLY);
+			fileHandler.openFile("test1", FileModeTypes::WRITE);
 			int tmp = 15;
 			fileHandler.saveToFile(&tmp, sizeof(int));
 			fileHandler.closeFile();
@@ -274,7 +287,7 @@ namespace UtilityTests
 			fileHandler.saveToFile(&tmp, sizeof(int));
 			fileHandler.closeFile();
 			int ans = 0;
-			fileHandler.openFile("test1", FileModeTypes::READ_ONLY);
+			fileHandler.openFile("test1", FileModeTypes::READ);
 			for (int i = 0; i < 3;i++) {
 				int tmp = 0;
 				fileHandler.readFromFile(&tmp, sizeof(int));

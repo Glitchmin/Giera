@@ -15,6 +15,7 @@ protected:
     vector <ValuesRange> values; //for dmg effects only
 public:
     BaseFood();
+    ItemTypes getItemType();
 
     //TODO generateFood();
     friend istream& operator >> (istream& is, BaseFood& f);

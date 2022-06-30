@@ -4,6 +4,11 @@ BaseFood::BaseFood()
 {
 }
 
+ItemTypes BaseFood::getItemType()
+{
+    return ItemTypes::FOOD;
+}
+
 istream& operator>>(istream& is, BaseFood& f)
 {
     int ef_num;
@@ -11,7 +16,7 @@ istream& operator>>(istream& is, BaseFood& f)
     f.effects.resize(ef_num);
     for (int i = 0; i < ef_num; i++) 
     {
-        f.effects[i] = make_shared<BaseFood>();
+        f.effects[i] = make_shared<AbstractEffect>();
         is >> *f.effects[i];
         string tmp;
         if (tmp[0] != '-')

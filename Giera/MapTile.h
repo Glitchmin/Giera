@@ -3,6 +3,8 @@
 #include "Rotation.h"
 #include<iostream>
 
+using std::istream;
+using std::ostream;
 
 class MapTile
 {
@@ -34,7 +36,8 @@ public:
 
     bool canStepOn();
 
-    friend std::ostream& operator << (std::ostream& out, const MapTile& t);
+    friend ostream& operator << (ostream& out, const MapTile& t);
+    friend istream& operator >> (istream& is, MapTile& t);
 
 };
 
