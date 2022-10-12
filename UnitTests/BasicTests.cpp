@@ -81,6 +81,11 @@ namespace MapTests
 	public:
 		TEST_METHOD(MapFileHandlerTestsTilebyTile)
 		{
+
+			stringstream ss;
+			ss << std::filesystem::current_path();
+			CppUnitTestFramework::Logger::WriteMessage(ss.str().c_str());
+			Logger::setHandler(0, 1);
 			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::GIERA,
 				Directions::NORTH, 10, 15, SDL_GetTicks());
 			MapFileHandler mapFileHandler;
@@ -252,22 +257,26 @@ namespace UtilityTests
 	TEST_CLASS(FileHandlerTest) {
 		TEST_METHOD(AppendAndReadTest)
 		{
+			stringstream ss;
+			ss << std::filesystem::current_path();
+			CppUnitTestFramework::Logger::WriteMessage(ss.str().c_str());
+			Logger::setLevel(LoggingLevels::DEBUG);
 			Logger::setHandler(0, 1);
-			FileHandler fileHandler;
-			fileHandler.openFile("test1", FileModeTypes::WRITE);
+			FileHandler fileHandler("test1", FileModeTypes::WRITE);
 			char tmp = 'h';
-			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.saveToFile(tmp);
 			fileHandler.closeFile();
 			fileHandler.openFile("test1", FileModeTypes::APPEND);
 			tmp = 'a';
-			fileHandler.saveToFile(&tmp, sizeof(char));
-			fileHandler.saveToFile(&tmp, sizeof(char));
+			fileHandler.saveToFile(tmp);
+			fileHandler.saveToFile(tmp);
 			fileHandler.closeFile();
 			std::string str;
+			
 			fileHandler.openFile("test1", FileModeTypes::READ);
 			for (int i = 0; i < 3;i++) {
-				char tmp = 'b';
-				fileHandler.readFromFile(&tmp, sizeof(char));
+				string tmp = "b";
+				fileHandler.readFromFile(tmp);
 				str += tmp;
 			}
 			fileHandler.closeFile();
@@ -276,21 +285,20 @@ namespace UtilityTests
 		TEST_METHOD(IntSaveTest)
 		{
 			Logger::setHandler(0, 1);
-			FileHandler fileHandler;
-			fileHandler.openFile("test1", FileModeTypes::WRITE);
+			FileHandler fileHandler("test1", FileModeTypes::WRITE);
 			int tmp = 15;
-			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.saveToFile(tmp);
 			fileHandler.closeFile();
 			fileHandler.openFile("test1", FileModeTypes::APPEND);
 			tmp = 10;
-			fileHandler.saveToFile(&tmp, sizeof(int));
-			fileHandler.saveToFile(&tmp, sizeof(int));
+			fileHandler.saveToFile(tmp);
+			fileHandler.saveToFile(tmp);
 			fileHandler.closeFile();
 			int ans = 0;
 			fileHandler.openFile("test1", FileModeTypes::READ);
 			for (int i = 0; i < 3;i++) {
 				int tmp = 0;
-				fileHandler.readFromFile(&tmp, sizeof(int));
+				fileHandler.readFromFile(tmp);
 				ans += tmp;
 			}
 			fileHandler.closeFile();

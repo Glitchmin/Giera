@@ -5,6 +5,9 @@ FileHandler::FileHandler(string fileName, FileModeTypes fileMode)
 {
 	openFile(fileName, fileMode);
 }
+FileHandler::FileHandler()
+{
+}
 FileHandler::~FileHandler()
 {
 	closeFile();
@@ -14,10 +17,10 @@ void FileHandler::openFile(string fileName, FileModeTypes fileMode)
 	int mode = 0;
 	switch (fileMode) {
 	case FileModeTypes::READ:
-		mode = ios_base::out;
+		mode = ios_base::in;
 		break;
 	case FileModeTypes::WRITE:
-		mode = ios_base::in;
+		mode = ios_base::out;
 		break;
 	case FileModeTypes::APPEND:
 		mode = ios_base::app;
@@ -26,13 +29,13 @@ void FileHandler::openFile(string fileName, FileModeTypes fileMode)
 		mode = ios_base::in | ios_base::out;
 		break;
 	}
-	fs = fstream(fileName, mode);
+	fs = fstream(folderPath+fileName + fileExtension, mode);
 	if (!fs.is_open()) 
 	{
-		Logger::logError("could open file: " + folderPath + fileName+ fileExtension +" in mode ",mode);
+		Logger::logError("could not open file: " + folderPath + fileName+ fileExtension +" in mode ",mode);
 		return;
 	}
-	Logger::logInfo("opened" + folderPath + fileName + fileExtension + " in mode ", mode);
+	Logger::logInfo("opened " + folderPath + fileName + fileExtension + " in mode ", mode);
 }
 
 

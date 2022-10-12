@@ -5,9 +5,10 @@ void MapFileHandler::saveMap(Map& map)
 {
 	std::stringstream ss;
 	ss << filePath << (int)map.getMapType();
-	fileHandler.openFile(ss.str(), FileModeTypes::WRITE);
+	fileHandler = make_unique<FileHandler>(ss.str(), FileModeTypes::WRITE);
+	fileHandler->openFile(ss.str(), FileModeTypes::WRITE);
 	saveVersion();
-	ss << "opening with " << version << " version for saving";
+	ss << " opening with " << version << " version for saving";
 	Logger::logInfo(ss.str());
 	saveSaveType(map);
 	saveInitialData(map);
@@ -19,29 +20,29 @@ void MapFileHandler::saveMap(Map& map)
 	{
 		saveTileByTile(map);
 	}
-	fileHandler.closeFile();
+	fileHandler->closeFile();
 }
 
 void MapFileHandler::saveVersion()
 {
-	fileHandler.saveToFile(version);
+	fileHandler->saveToFile(version);
 }
 void MapFileHandler::saveSaveType(Map& map)
 {
-	fileHandler.saveToFile(map.isSavedBySeed);
+	fileHandler->saveToFile(map.isSavedBySeed);
 }
 
 void MapFileHandler::saveInitialData(Map& map)
 {
-	fileHandler.saveToFile(map.sizeX);
+	fileHandler->saveToFile(map.sizeX);
 	std::stringstream ss;
 	ss << map.sizeX;
 	Logger::logInfo(ss.str()+"saved");
-	fileHandler.saveToFile(map.sizeY);
-	int tmp = (int)map.landscapeType;
-	fileHandler.saveToFile(tmp);
+	fileHandler->saveToFile(map.sizeY);
+	auto tmp = (int)map.landscapeType;
+	fileHandler->saveToFile(tmp);
 	tmp = (int)map.startDirection;
-	fileHandler.saveToFile(tmp);
+	fileHandler->saveToFile(tmp);
 
 }
 
@@ -51,25 +52,25 @@ void MapFileHandler::saveTileByTile(Map& map)
 	{
 		for (int y = 0; y < map.sizeY; y++)
 		{
-			saveMapTile(map, Coordinates(x, y), 0);
+			saveMapTile(map, Coordinates(x, y), false);
 		}
 	}
 }
 
 void MapFileHandler::saveMapTile(Map& map, Coordinates coord, bool isSeed)
 {
-	fileHandler.saveToFile(map.mapTiles[coord.getX()][coord.getY()]);
+	fileHandler->saveToFile(map.mapTiles[coord.getX()][coord.getY()]);
 }
 
 void MapFileHandler::saveBySeed(Map& map)
 {
-	fileHandler.saveToFile(map.seed);
+	fileHandler->saveToFile(map.seed);
 	int mapChangesSize = map.mapChanges.size();
-	fileHandler.saveToFile(mapChangesSize);
+	fileHandler->saveToFile(mapChangesSize);
 	for (auto const& mapChange : map.mapChanges) 
 	{
 		Coordinates coord = mapChange.first;
-		fileHandler.saveToFile(coord);
-		saveMapTile(map, coord, 1);
+		fileHandler->saveToFile(coord);
+		saveMapTile(map, coord, true);
 	}
 }

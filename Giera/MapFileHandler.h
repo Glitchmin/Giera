@@ -1,15 +1,20 @@
 #pragma once
 #include "FileHandler.h"
 #include "Map.h"
+using std::unique_ptr;
+using std::make_unique;
 class MapFileHandler
 {
 public:
 	Map readMap(MapTypes mapType);
 	void saveMap(Map& map);
+	MapFileHandler(){
+	}
 private:
-	FileHandler fileHandler;
-	static std::string filePath;
-	static unsigned int version;
+	unique_ptr<FileHandler> fileHandler;
+	static inline std::string filePath= "maps/map";
+	//static inline std::string filePath= "map";
+	static inline unsigned int version=1;
 	void readMapTile(Map& map, Coordinates coord, bool isSeed, unsigned int version);
 	void saveMapTile(Map& map, Coordinates coord, bool isSeed);
 	bool readSaveType(Map& map, unsigned int version);
@@ -24,4 +29,7 @@ private:
 	void saveBySeed(Map& map);
 
 };
+
+
+
 
