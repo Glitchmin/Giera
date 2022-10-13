@@ -161,6 +161,7 @@
     <ClCompile Include="BaseArmor.cpp" />
     <ClCompile Include="BaseArrow.cpp" />
     <ClCompile Include="BaseFood.cpp" />
+    <ClCompile Include="BaseItemHandler.cpp" />
     <ClCompile Include="BaseMeleeWeapon.cpp" />
     <ClCompile Include="BaseMisc.cpp" />
     <ClCompile Include="BaseRangedWeapon.cpp" />
@@ -224,6 +225,8 @@
     <ClInclude Include="BaseArmor.h" />
     <ClInclude Include="BaseArrow.h" />
     <ClInclude Include="BaseFood.h" />
+    <ClInclude Include="BaseItemHandler.h" />
+    <ClInclude Include="BaseItems.h" />
     <ClInclude Include="BaseMeleeWeapon.h" />
     <ClInclude Include="BaseMisc.h" />
     <ClInclude Include="BaseRangedWeapon.h" />
@@ -247,6 +250,7 @@
     <ClInclude Include="MiscTypes.h" />
     <ClInclude Include="ModifiersHandler.h" />
     <ClInclude Include="ModifiersTypes.h" />
+    <ClInclude Include="NormalItems.h" />
     <ClInclude Include="NPC_AttributeTypes.h" />
     <ClInclude Include="LandscapeTypes.h" />
     <ClInclude Include="Lifesteal.h" />

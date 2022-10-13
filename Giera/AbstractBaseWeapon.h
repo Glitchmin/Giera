@@ -1,8 +1,10 @@
 #pragma once
 #include "AbstractBaseGearItem.h"
 #include "DamageTypes.h"
+#include "Damage.h"
 
 using std::unique_ptr;
+using std::make_unique;
 
 class AbstractBaseWeapon :
     public AbstractBaseGearItem

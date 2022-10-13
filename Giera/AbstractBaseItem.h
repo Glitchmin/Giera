@@ -4,6 +4,7 @@
 #include "ValuesRange.h"
 #include "ItemTypes.h"
 #include "Calculator.h"
+#include "NormalItems.h"
 using std::string;
 using std::shared_ptr;
 using std::make_shared;
@@ -25,6 +26,7 @@ public:
     string getName() const;
     string getDescription() const;
 	virtual ItemTypes getItemType() = 0;
+	virtual shared_ptr<AbstractItem> generate()=0;
 	friend istream& operator>>(istream& is, AbstractBaseItem& it);
 };
 

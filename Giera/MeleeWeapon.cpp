@@ -19,3 +19,8 @@ Time MeleeWeapon::getAttackSpeed() const
     return attackSpeed;
 }
 
+string MeleeWeapon::getPath()
+{
+	return "melee";
+}
+

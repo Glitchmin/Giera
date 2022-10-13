@@ -1,0 +1,9 @@
+#pragma once
+#include "Armor.h"
+#include "Arrow.h"
+#include "Food.h"
+#include "MeleeWeapon.h"
+#include "Misc.h"
+#include "RangedWeapon.h"
+#include "Readable.h"
+#include "Shield.h"
