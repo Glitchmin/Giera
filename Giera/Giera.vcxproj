@@ -217,7 +217,9 @@
     <ClInclude Include="AbstractTimer.h" />
     <ClInclude Include="AbstractWeapon.h" />
     <ClInclude Include="Armor.h" />
+    <ClInclude Include="ArmorTypes.h" />
     <ClInclude Include="Arrow.h" />
+    <ClInclude Include="ArrowTypes.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BaseArmor.h" />
     <ClInclude Include="BaseArrow.h" />
@@ -233,6 +235,7 @@
     <ClInclude Include="DamageEffect.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Food.h" />
+    <ClInclude Include="FoodTypes.h" />
     <ClInclude Include="Foreground.h" />
     <ClInclude Include="GeneralTimer.h" />
     <ClInclude Include="GrasslandsGenerator.h" />
@@ -241,6 +244,7 @@
     <ClInclude Include="ItemTypes.h" />
     <ClInclude Include="MeleeWeapon.h" />
     <ClInclude Include="Misc.h" />
+    <ClInclude Include="MiscTypes.h" />
     <ClInclude Include="ModifiersHandler.h" />
     <ClInclude Include="ModifiersTypes.h" />
     <ClInclude Include="NPC_AttributeTypes.h" />
@@ -270,6 +274,7 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="ValuesRange.h" />
     <ClInclude Include="Wall.h" />
+    <ClInclude Include="WeaponTypes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

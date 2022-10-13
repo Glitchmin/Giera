@@ -464,5 +464,20 @@
     <ClInclude Include="Readable.h">
       <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
     </ClInclude>
+    <ClInclude Include="WeaponTypes.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmorTypes.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowTypes.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="FoodTypes.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="MiscTypes.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
