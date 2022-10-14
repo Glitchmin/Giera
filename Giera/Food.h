@@ -10,12 +10,11 @@ class Food :
 {
 protected:
     vector<shared_ptr<AbstractEffect>> effects;
-    vector <double> values; //for dmg effects only
 public:
-    Food(item_size_t width, item_size_t height, int Value, string& name,
-        string& description, vector<shared_ptr<AbstractEffect>> effects,
-        vector <double> values);
-
+    Food(item_size_t width, item_size_t height, int value, string& name,
+        string& description, vector<shared_ptr<AbstractEffect>> effects);
+    ItemTypes getItemType();
+    string getPath();
     //TODO override input stream operator
 };
 

@@ -9,6 +9,15 @@ ItemTypes BaseFood::getItemType()
     return ItemTypes::FOOD;
 }
 
+shared_ptr<AbstractItem> BaseFood::generate()
+{
+    //TODO set effects values for DamageEffects
+    for (ValuesRange& a : values) {
+        //effects.;
+    }
+    return make_shared<Food>(width,height,value.getRandom(),name,description,effects);
+}
+
 istream& operator>>(istream& is, BaseFood& f)
 {
     int ef_num;

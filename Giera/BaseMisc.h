@@ -6,8 +6,7 @@ class BaseMisc :
 public:
     BaseMisc();
     ItemTypes getItemType() override;
-
-    //TODO generateMisc();
+    shared_ptr<AbstractItem> generate();
     //TODO override input stream operator
 };
 

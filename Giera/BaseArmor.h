@@ -7,8 +7,7 @@ protected:
     ValuesRange armor;
 public:
     BaseArmor();
-
-    //TODO generateArmor();
+    shared_ptr<AbstractItem> generate();
     //TODO override input stream operator
 };
 

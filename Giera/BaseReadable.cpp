@@ -8,3 +8,8 @@ ItemTypes BaseReadable::getItemType()
 {
     return ItemTypes::READABLE;
 }
+
+shared_ptr<AbstractItem> BaseReadable::generate()
+{
+    return make_shared<Readable>(width,height,value.getRandom(),name,description,text);
+}

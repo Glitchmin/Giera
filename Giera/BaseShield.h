@@ -14,7 +14,7 @@ protected:
 public:
     BaseShield();
     ItemTypes getItemType() override;
-    shared_ptr <Shield> generateShield();
+    shared_ptr <AbstractItem> generate();
     //TODO override input stream operator
 };
 

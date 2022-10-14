@@ -9,7 +9,7 @@ public:
     BaseReadable();
     ItemTypes getItemType() override;
 
-    //TODO generateReadable();
+    shared_ptr<AbstractItem> generate();
     //TODO override input stream operator
 };
 

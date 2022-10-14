@@ -12,7 +12,7 @@ class AbstractGearItem :
 protected:
     vector <item_mod_t> modifiers;
     AbstractGearItem(item_size_t width, item_size_t height, int value,
-        string& name, string& description, vector<item_mod_t>& modifiers);
+        string& name, string& description, vector<item_mod_t> modifiers);
 public:
     item_mod_t getModifier(ModifiersTypes modifierType) const;
 };

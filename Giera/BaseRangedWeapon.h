@@ -9,7 +9,7 @@ protected:
 public:
     BaseRangedWeapon();
     ItemTypes getItemType() override;
-    //TODO generateWeapon();
+    shared_ptr<AbstractItem> generate();
     //TODO override input stream operator
 };
 

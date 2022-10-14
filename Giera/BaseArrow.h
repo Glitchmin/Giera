@@ -5,6 +5,7 @@
 #include "AbstractBaseItem.h"
 #include "DamageTypes.h"
 using std::shared_ptr;
+using std::make_unique;
 using std::vector;
 
 class BaseArrow :
@@ -18,7 +19,7 @@ protected:
 public:
     BaseArrow();
     ItemTypes getItemType() override;
-
+    shared_ptr <AbstractItem> generate();
     //TODO generateArrow();
     //TODO override input stream operator
 };
