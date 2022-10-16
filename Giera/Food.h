@@ -13,8 +13,7 @@ protected:
 public:
     Food(item_size_t width, item_size_t height, int value, string& name,
         string& description, vector<shared_ptr<AbstractEffect>> effects);
-    ItemTypes getItemType();
-    string getPath();
+    ItemTypes getItemType() override;
     //TODO override input stream operator
 };
 

@@ -15,7 +15,6 @@ protected:
 	int value;
 	string name;
 	string description;
-	inline static string folderPath = "files/textures";
 
 public:
 	AbstractItem(item_size_t width, item_size_t height, int Value, string& name,
@@ -26,7 +25,6 @@ public:
     string getName() const;
     string getDescription() const;
 
-	virtual string getPath() = 0;
 	virtual ItemTypes getItemType() = 0;
 
 };

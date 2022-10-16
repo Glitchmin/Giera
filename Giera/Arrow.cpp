@@ -13,7 +13,3 @@ ItemTypes Arrow::getItemType()
 	return ItemTypes::ARROW;
 }
 
-string Arrow::getPath()
-{
-	return "arrow";
-}

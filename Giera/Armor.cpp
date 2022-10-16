@@ -7,11 +7,6 @@ Armor::Armor(item_size_t width, item_size_t height, int value, string& name,
     this->armor = armor;
 }
 
-string Armor::getPath()
-{
-    return "armor";
-}
-
 ItemTypes Armor::getItemType()
 {
     return ItemTypes::ARMOR;

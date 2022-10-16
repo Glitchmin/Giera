@@ -13,7 +13,6 @@ public:
         unique_ptr<Damage>& damage, Time attackSpeed);
     ItemTypes getItemType() override;
     Time getAttackSpeed() const;
-    string getPath();
     //TODO override input stream operator
 
 };

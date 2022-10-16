@@ -19,7 +19,6 @@ public:
         string& name, string& description,vector<item_mod_t> modifiers,
         double armor, Time timeToRaise, ShieldTypes shieldType);
     ItemTypes getItemType() override;
-    string getPath() override;
     //TODO override input/output stream operator
 };
 

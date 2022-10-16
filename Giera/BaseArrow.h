@@ -20,7 +20,6 @@ public:
     BaseArrow();
     ItemTypes getItemType() override;
     shared_ptr <AbstractItem> generate();
-    //TODO generateArrow();
     //TODO override input stream operator
 };
 

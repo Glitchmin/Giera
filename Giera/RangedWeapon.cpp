@@ -13,8 +13,3 @@ ItemTypes RangedWeapon::getItemType()
 {
 	return ItemTypes::RANGED_WEAPON;
 }
-
-string RangedWeapon::getPath()
-{
-	return "ranged";
-}

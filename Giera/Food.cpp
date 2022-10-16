@@ -11,8 +11,3 @@ ItemTypes Food::getItemType()
 {
 	return ItemTypes::FOOD;
 }
-
-string Food::getPath()
-{
-	return "food";
-}

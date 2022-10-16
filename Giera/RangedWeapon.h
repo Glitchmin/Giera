@@ -12,7 +12,6 @@ public:
         string& name, string& description, vector<item_mod_t> modifiers,
         unique_ptr<Damage>& damage, Time drawSpeed, double arrowVelocity);
     ItemTypes getItemType() override;
-    string getPath();
     //TODO generateWeapon();
     //TODO override input stream operator
 };

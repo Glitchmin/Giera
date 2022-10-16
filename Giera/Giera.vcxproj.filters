@@ -267,6 +267,12 @@
     <ClCompile Include="Readable.cpp">
       <Filter>Source Files\GameLogic\Items\NormalItems</Filter>
     </ClCompile>
+    <ClCompile Include="BaseItemFileHandler.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseItemHandler.cpp">
+      <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -477,6 +483,18 @@
       <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
     <ClInclude Include="MiscTypes.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseItemFileHandler.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseItemHandler.h">
+      <Filter>Header Files\GameLogic\Items\BaseItems</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseItems.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalItems.h">
       <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
   </ItemGroup>

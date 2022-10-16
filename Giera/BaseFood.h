@@ -16,8 +16,6 @@ protected:
 public:
     BaseFood();
     ItemTypes getItemType();
-
-    //TODO generateFood();
     shared_ptr<AbstractItem> generate();
     friend istream& operator >> (istream& is, BaseFood& f);
 };

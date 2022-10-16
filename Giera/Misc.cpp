@@ -9,8 +9,3 @@ ItemTypes Misc::getItemType()
 {
     return ItemTypes::MISC;
 }
-
-string Misc::getPath()
-{
-    return "misc";
-}

@@ -161,6 +161,7 @@
     <ClCompile Include="BaseArmor.cpp" />
     <ClCompile Include="BaseArrow.cpp" />
     <ClCompile Include="BaseFood.cpp" />
+    <ClCompile Include="BaseItemFileHandler.cpp" />
     <ClCompile Include="BaseItemHandler.cpp" />
     <ClCompile Include="BaseMeleeWeapon.cpp" />
     <ClCompile Include="BaseMisc.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="BaseArmor.h" />
     <ClInclude Include="BaseArrow.h" />
     <ClInclude Include="BaseFood.h" />
+    <ClInclude Include="BaseItemFileHandler.h" />
     <ClInclude Include="BaseItemHandler.h" />
     <ClInclude Include="BaseItems.h" />
     <ClInclude Include="BaseMeleeWeapon.h" />
