@@ -15,3 +15,29 @@ ItemTypes Shield::getItemType()
     return ItemTypes::SHIELD;
 }
 
+
+double Shield::getArmor() const
+{
+    return armor;
+}
+
+void Shield::setArmor(double armor)
+{
+    this->armor = armor;
+}
+
+Time Shield::getTimeToRaise() const
+{
+    return timeToRaise;
+}
+
+void Shield::setTimeToRaise(Time timeToRaise)
+{
+    this->timeToRaise = timeToRaise;
+}
+
+ShieldTypes Shield::getShieldType() const
+{
+    return shieldType;
+}
+

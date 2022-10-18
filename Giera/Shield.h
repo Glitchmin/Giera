@@ -19,6 +19,14 @@ public:
         string& name, string& description,vector<item_mod_t> modifiers,
         double armor, Time timeToRaise, ShieldTypes shieldType);
     ItemTypes getItemType() override;
+
+    double getArmor() const;
+    void setArmor(double armor);
+    Time getTimeToRaise() const;
+    void setTimeToRaise(Time timeToRaise);
+    ShieldTypes getShieldType() const;
+
     //TODO override input/output stream operator
+
 };
 

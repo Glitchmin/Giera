@@ -15,6 +15,6 @@ public:
     BaseShield();
     ItemTypes getItemType() override;
     shared_ptr <AbstractItem> generate();
-    //TODO override input stream operator
+    friend istream& operator>>(istream& is, BaseShield& it);
 };
 

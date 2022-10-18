@@ -14,7 +14,7 @@ public:
 private:
 	unique_ptr<FileHandler> fileHandler;
 	static inline vector <string> baseItemFilenames{"Melee","Ranged","Shield", "Armor",
-	"BaseFood","BaseArrow","BaseMisc","BaseReadable"};
+	"Food","Arrow","Misc","Readable"};
 	static inline string filePath = "baseItems/";
 	static inline unsigned int version = 1;
 	shared_ptr<AbstractBaseItem> readBaseItem();

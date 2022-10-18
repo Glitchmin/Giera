@@ -8,6 +8,7 @@ protected:
 public:
     BaseArmor();
     shared_ptr<AbstractItem> generate();
+    ItemTypes getItemType() override;
     //TODO override input stream operator
 };
 

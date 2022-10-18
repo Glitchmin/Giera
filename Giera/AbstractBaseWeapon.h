@@ -18,14 +18,10 @@ protected:
     ValuesRange lifestealProbability;
 public:
     ValuesRange getDamage() const;
-
     ValuesRange getArmorPiercing() const;
-
     DamageTypes getDamageType() const;
-
     ValuesRange getLifestealValue() const;
-
     ValuesRange getLifestealProbability() const;
-
+    friend istream& operator>>(istream& is, AbstractBaseWeapon& it);
 };
 

@@ -25,3 +25,10 @@ ValuesRange AbstractBaseWeapon::getLifestealProbability() const
     return lifestealProbability;
 }
 
+istream& operator>>(istream& is, AbstractBaseWeapon& it)
+{
+    int tmp;
+    is >> (AbstractBaseGearItem&)it>> it.damage >> tmp >>it.armorPiercing>>it.lifestealValue>>it.lifestealProbability;
+    it.damageType = (DamageTypes)tmp;
+    return is;
+}

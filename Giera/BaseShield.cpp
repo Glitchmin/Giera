@@ -15,3 +15,12 @@ shared_ptr<AbstractItem> BaseShield::generate()
         modifiers, armor.getRandom(),Time((unsigned int)(timeToRaise.getRandom()*1000)),
         shieldType);
 }
+
+istream& operator>>(istream& is, BaseShield& it)
+{
+    int tmp;
+    is >> (AbstractBaseGearItem&)it >> it.armor >> it.timeToRaise >> tmp;
+    it.shieldType = (ShieldTypes)tmp;
+    return is;
+}
+
