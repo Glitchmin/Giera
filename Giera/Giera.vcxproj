@@ -269,6 +269,7 @@
     <ClInclude Include="AbstractNPC.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="RangedWeapon.h" />
+    <ClInclude Include="RangedWeaponTypes.h" />
     <ClInclude Include="Readable.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rotation.h" />
@@ -280,7 +281,7 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="ValuesRange.h" />
     <ClInclude Include="Wall.h" />
-    <ClInclude Include="WeaponTypes.h" />
+    <ClInclude Include="MeleeWeaponTypes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

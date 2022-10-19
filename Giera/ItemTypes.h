@@ -1,5 +1,6 @@
 #pragma once
-#include "WeaponTypes.h"
+#include "MeleeWeaponTypes.h"
+#include "RangedWeaponTypes.h"
 #include "ShieldTypes.h"
 #include "ArmorTypes.h"
 #include "ArrowTypes.h"

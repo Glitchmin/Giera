@@ -7,13 +7,23 @@ void BaseItemFileHandler::readBaseItems(vector<vector<shared_ptr<AbstractBaseIte
 		string& filename = baseItemFilenames[i];
 		std::stringstream ss;
 		ss << filePath << filename;
-		fileHandler = make_unique<FileHandler>(ss.str(), FileModeTypes::READ);
+		fileHandler = make_unique<FileHandler>(ss.str(), FileModeTypes::READ,".csv");
 		fileHandler->openFile(ss.str(), FileModeTypes::READ);
+		string fillers = "";
+		fileHandler->readFromFile(fillers);
 		int version = readVersion();
 		ss << " opening with " << version << " version for reading";
 		Logger::logInfo(ss.str());
+		fileHandler->readFromFile(fillers);
 		int itemsNumber;
 		fileHandler->readFromFile(itemsNumber);
+
+		fileHandler->readFromFile(fillers);
+		int blankFieldsNumber;
+		fileHandler->readFromFile(blankFieldsNumber);
+		for (int j = 0; j < 2*blankFieldsNumber+6;j++) {
+			fileHandler->readFromFile(fillers);
+		}
 		for (int j = 0; j < itemsNumber;j++) 
 		{
 			baseItems[i].push_back(readBaseItem());
@@ -40,18 +50,32 @@ shared_ptr<AbstractBaseItem> BaseItemFileHandler::readBaseItem()
 			fH->readFromFile(*ans);
 			break;
 		case ItemTypes::ARROW:
+			ans = make_shared<BaseArrow>();
+			fH->readFromFile(*ans);
 			break;
 		case ItemTypes::FOOD:
+			ans = make_shared<BaseFood>();
+			fH->readFromFile(*ans);
 			break;
 		case ItemTypes::MELEE_WEAPON:
+			ans = make_shared<BaseMeleeWeapon>();
+			fH->readFromFile(*ans);
 			break;
 		case ItemTypes::MISC:
+			ans = make_shared<BaseMisc>();
+			fH->readFromFile(*ans);
 			break;
 		case ItemTypes::RANGED_WEAPON:
+			ans = make_shared<BaseRangedWeapon>();
+			fH->readFromFile(*ans);
 			break;
 		case ItemTypes::READABLE:
+			ans = make_shared<BaseReadable>();
+			fH->readFromFile(*ans);
 			break;
 		case ItemTypes::ARMOR:
+			ans = make_shared<BaseArmor>();
+			fH->readFromFile(*ans);
 			break;
 		default:
 			Logger::logError("unindetified baseItem type");

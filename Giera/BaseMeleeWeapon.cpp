@@ -15,3 +15,11 @@ shared_ptr<AbstractItem> BaseMeleeWeapon::generate()
 	return make_shared<MeleeWeapon>(width, height, value.getRandom(),name,description,modifiers,
 		tmp,Time(attackSpeed.getAverage()));
 }
+
+istream& operator>>(istream& is, BaseMeleeWeapon& it)
+{
+	int tmp;
+	is >> (AbstractBaseWeapon&)it >> it.attackSpeed >> tmp;
+	it.weaponType = (MeleeWeaponTypes) tmp;
+	return is;
+}

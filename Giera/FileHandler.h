@@ -12,12 +12,11 @@ class FileHandler
 {
 private:
 	fstream fs;
-	//static inline string folderPath = "";
 	static inline string folderPath = "save_files/";
-	static inline string fileExtension = ".txt";
+	string fileExtension;
 
 public:
-	FileHandler(string fileName, FileModeTypes fileMode);
+	FileHandler(string fileName, FileModeTypes fileMode, string fileExtension=".txt");
 	FileHandler();
 	~FileHandler();
 	void openFile(string fileName, FileModeTypes fileMode);

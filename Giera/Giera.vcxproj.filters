@@ -470,7 +470,7 @@
     <ClInclude Include="Readable.h">
       <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
     </ClInclude>
-    <ClInclude Include="WeaponTypes.h">
+    <ClInclude Include="MeleeWeaponTypes.h">
       <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
     <ClInclude Include="ArmorTypes.h">
@@ -495,6 +495,9 @@
       <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
     <ClInclude Include="NormalItems.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedWeaponTypes.h">
       <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
   </ItemGroup>

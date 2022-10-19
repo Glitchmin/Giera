@@ -1,8 +1,7 @@
 #pragma once
-enum class WeaponTypes {
+enum class MeleeWeaponTypes {
 	LUFREWOP_SWORD,
 	SWORD_2,
 	CLUB_8,
-	BOW_4,
 	COUNT
 };
