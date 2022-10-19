@@ -6,10 +6,11 @@ class BaseRangedWeapon :
 protected:
     ValuesRange drawSpeed;
     ValuesRange arrowSpeed; //m/s
+    RangedWeaponTypes weaponType;
 public:
     BaseRangedWeapon();
     ItemTypes getItemType() override;
     shared_ptr<AbstractItem> generate();
-    //TODO override input stream operator
+    friend istream& operator>>(istream& is, BaseRangedWeapon& it);
 };
 

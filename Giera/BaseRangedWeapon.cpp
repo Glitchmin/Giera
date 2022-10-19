@@ -15,3 +15,11 @@ shared_ptr<AbstractItem> BaseRangedWeapon::generate()
     return make_shared<RangedWeapon>(width,height,value.getRandom(),name,description,modifiers,tmp,
         Time(drawSpeed.getRandom()),arrowSpeed.getAverage());
 }
+
+istream& operator>>(istream& is, BaseRangedWeapon& it)
+{
+    int tmp;
+    is >> (AbstractBaseWeapon&)it >> it.drawSpeed >> it.arrowSpeed >> tmp;
+    it.weaponType = (RangedWeaponTypes)tmp;
+    return is;
+}
