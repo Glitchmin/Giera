@@ -37,3 +37,10 @@ NPC_AttributeTypes StatChangingEffect::getAttributeType() const
     return attributeType;
 }
 
+istream& operator>>(istream& is, StatChangingEffect& ef)
+{
+	int tmp;
+	is >> ef.initialPercentValue >> ef.finalPercentValue >> ef.timeToReachFinal >> tmp;
+	ef.attributeType = (NPC_AttributeTypes)tmp;
+	return is;
+}

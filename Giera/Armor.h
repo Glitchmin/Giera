@@ -10,5 +10,8 @@ public:
         string& description, vector<item_mod_t> modifiers, double armor);
     //TODO override input stream operator
     ItemTypes getItemType() override;
+    double getArmor() const;
+    void setArmor(double armor);
+
 };
 

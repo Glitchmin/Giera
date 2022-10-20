@@ -18,5 +18,7 @@ public:
     double getCurrentValue();
     NPC_AttributeTypes getAttributeType() const;
 
+    friend istream& operator>>(istream& is, StatChangingEffect& ef);
+
 };
 

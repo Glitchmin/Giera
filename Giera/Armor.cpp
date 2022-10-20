@@ -11,3 +11,14 @@ ItemTypes Armor::getItemType()
 {
     return ItemTypes::ARMOR;
 }
+
+double Armor::getArmor() const
+{
+    return armor;
+}
+
+void Armor::setArmor(double armor)
+{
+    this->armor = armor;
+}
+

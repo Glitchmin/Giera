@@ -5,10 +5,11 @@ class BaseArmor :
 {
 protected:
     ValuesRange armor;
+    ArmorTypes armorType;
 public:
     BaseArmor();
     shared_ptr<AbstractItem> generate();
     ItemTypes getItemType() override;
-    //TODO override input stream operator
+    friend istream& operator>>(istream& is, BaseArmor& it);
 };
 

@@ -2,9 +2,9 @@
 
 using std::move;
 
-Damage DamageEffect::getDamage() const
+const unique_ptr <Damage>& DamageEffect::getDamage() const
 {
-    return *damage;
+    return damage;
 }
 
 DamageEffect::DamageEffect(unique_ptr<Damage> damage, Time duration, bool isBuff, short level,
@@ -55,3 +55,11 @@ double DamageEffect::getDamageIncrease() const
     return damageIncrease;
 }
 
+istream& operator>>(istream& is, DamageEffect& ef)
+{
+    double dmgVal;
+    int dmgType;
+    is >> dmgVal >> dmgType >> ef.tickrate >> ef.damageIncrease;
+    ef.damage = make_unique<Damage>(dmgVal, (DamageTypes)dmgType, std::shared_ptr<AbstractNPC>(nullptr));
+    return is;
+}

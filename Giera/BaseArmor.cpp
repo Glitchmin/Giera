@@ -13,3 +13,11 @@ ItemTypes BaseArmor::getItemType()
 {
     return ItemTypes::SHIELD;
 }
+
+istream& operator>>(istream& is, BaseArmor& it)
+{
+    int tmp;
+    is >> (AbstractBaseGearItem&)it >> it.armor >> tmp;
+    it.armorType = (ArmorTypes)tmp;
+    return is;
+}

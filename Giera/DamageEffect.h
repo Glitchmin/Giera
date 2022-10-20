@@ -2,6 +2,7 @@
 #include "AbstractEffect.h"
 #include "Damage.h"
 using std::unique_ptr;
+using std::make_unique;
 class DamageEffect :  public AbstractEffect
 {
 private:
@@ -10,16 +11,16 @@ private:
 	Time timeUntilTick;
 	double damageIncrease; //multiplication after every tick
 public:
-	DamageEffect(unique_ptr<Damage> damage, Time duration,
-		bool isBuff, short level, weak_ptr<AbstractNPC> targetNPC,
-		weak_ptr<AbstractNPC> originNPC, Time tickrate,double damageIncrease = 1.0);
+	DamageEffect(unique_ptr<Damage> damage, Time duration, bool isBuff, short level,
+		weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC, Time tickrate, double damageIncrease=1.0);
 	bool subtractFromTimeLeft(Time amount);
 	double calculateTotalDamage();
 
-    Damage getDamage() const;
+    const unique_ptr<Damage>& getDamage() const;
     Time getTickrate() const;
 	Time getTimeUntilTick() const;
     double getDamageIncrease() const;
 
+	friend istream& operator>>(istream& is, DamageEffect& ef);
 };
 
