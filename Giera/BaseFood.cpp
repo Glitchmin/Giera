@@ -1,5 +1,6 @@
 #include "BaseFood.h"
-
+#include "Logger.h"
+using std::dynamic_pointer_cast;
 BaseFood::BaseFood()
 {
 }
@@ -20,20 +21,34 @@ shared_ptr<AbstractItem> BaseFood::generate()
 
 istream& operator>>(istream& is, BaseFood& f)
 {
-    int ef_num;
-    is >> ef_num;
-    f.effects.resize(ef_num);
-    for (int i = 0; i < ef_num; i++) 
+    int eff_nr;
+    int tmp;
+    is >> (AbstractBaseItem&) f >>eff_nr >> tmp;
+    f.foodType = (FoodTypes)tmp;
+    string filler;
+    for (int i = 0;i < 10;i++) {
+        is >> filler;
+    }
+    for (int i = 0; i < eff_nr;i++)
     {
-        f.effects[i] = make_shared<AbstractEffect>();
-        is >> *f.effects[i];
-        string tmp;
-        if (tmp[0] != '-')
+        bool isDmgEffect;
+        is >> isDmgEffect;
+        ValuesRange valR;
+        shared_ptr<AbstractEffect> eff;
+        if (isDmgEffect)
         {
-            double tmp2;
-            is >> tmp2;
-            f.values.push_back(ValuesRange(stod(tmp), tmp2));
+            auto eff2 = make_shared<DamageEffect>();
+            is >> *eff2;
+            is >> valR;
+            eff = eff2;
+            f.values.push_back(valR);
         }
+        else {
+            auto eff2 = make_shared<StatChangingEffect>();
+            is >> *eff2;
+            eff = eff2;
+        }
+        f.effects.push_back(eff);
     }
     return is;
 }

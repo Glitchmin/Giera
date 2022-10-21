@@ -3,7 +3,8 @@
 #include <vector>
 #include <string>
 #include "AbstractBaseItem.h"
-#include "AbstractEffect.h"
+#include "DamageEffect.h"
+#include "StatChangingEffect.h"
 using std::shared_ptr;
 using std::vector;
 using std::istream;
@@ -13,6 +14,7 @@ class BaseFood :
 protected:
     vector<shared_ptr<AbstractEffect>> effects;
     vector <ValuesRange> values; //for dmg effects only
+    FoodTypes foodType;
 public:
     BaseFood();
     ItemTypes getItemType();

@@ -1,5 +1,9 @@
 #include "StatChangingEffect.h"
 
+StatChangingEffect::StatChangingEffect()
+{
+}
+
 StatChangingEffect::StatChangingEffect(Time duration, bool isBuff, short level,
 	weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC,
 	double initialPercentValue, double finalPercentValue, Time timeToReachFinal,
@@ -40,7 +44,7 @@ NPC_AttributeTypes StatChangingEffect::getAttributeType() const
 istream& operator>>(istream& is, StatChangingEffect& ef)
 {
 	int tmp;
-	is >> ef.initialPercentValue >> ef.finalPercentValue >> ef.timeToReachFinal >> tmp;
+	is >> (AbstractEffect&)ef>> ef.initialPercentValue >> ef.finalPercentValue >> ef.timeToReachFinal >> tmp;
 	ef.attributeType = (NPC_AttributeTypes)tmp;
 	return is;
 }

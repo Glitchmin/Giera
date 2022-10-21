@@ -7,6 +7,10 @@ const unique_ptr <Damage>& DamageEffect::getDamage() const
     return damage;
 }
 
+DamageEffect::DamageEffect() {
+
+}
+
 DamageEffect::DamageEffect(unique_ptr<Damage> damage, Time duration, bool isBuff, short level,
     weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC, Time tickrate,double damageIncrease) :
     AbstractEffect(duration, isBuff, level, targetNPC, originNPC)
@@ -59,7 +63,7 @@ istream& operator>>(istream& is, DamageEffect& ef)
 {
     double dmgVal;
     int dmgType;
-    is >> dmgVal >> dmgType >> ef.tickrate >> ef.damageIncrease;
+    is >> (AbstractEffect&)ef >> dmgVal >> dmgType >> ef.tickrate >> ef.damageIncrease;
     ef.damage = make_unique<Damage>(dmgVal, (DamageTypes)dmgType, std::shared_ptr<AbstractNPC>(nullptr));
     return is;
 }

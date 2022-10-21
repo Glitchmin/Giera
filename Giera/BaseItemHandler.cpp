@@ -7,5 +7,6 @@ BaseItemHandler::BaseItemHandler()
 	auto tmp = (baseItems[(int)ItemTypes::ARMOR][0]->generate());
 	auto tmp2 = std::dynamic_pointer_cast<Armor>(tmp);
 	Logger::logInfo((int)tmp->getItemType());
-	Logger::logInfo(tmp2->getDescription());
+	Logger::logInfo(tmp2->getArmor());
+	
 }

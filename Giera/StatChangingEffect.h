@@ -11,6 +11,7 @@ private:
     NPC_AttributeTypes attributeType;
 
 public:
+    StatChangingEffect();
     StatChangingEffect(Time duration, bool isBuff, short level, weak_ptr<AbstractNPC> targetNPC,
         weak_ptr<AbstractNPC> originNPC, double initialPercentValue, 
         double finalPercentValue, Time timeToReachFinal, NPC_AttributeTypes atrributeType);

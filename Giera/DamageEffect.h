@@ -11,6 +11,7 @@ private:
 	Time timeUntilTick;
 	double damageIncrease; //multiplication after every tick
 public:
+	DamageEffect();
 	DamageEffect(unique_ptr<Damage> damage, Time duration, bool isBuff, short level,
 		weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC, Time tickrate, double damageIncrease=1.0);
 	bool subtractFromTimeLeft(Time amount);
