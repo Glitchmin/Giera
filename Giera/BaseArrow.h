@@ -16,10 +16,12 @@ protected:
     DamageTypes damageType;
     ValuesRange armorPiercing;
     vector<shared_ptr<AbstractEffect>> effects;
+    vector<ValuesRange> values;
+    ArrowTypes arrowType;
 public:
     BaseArrow();
     ItemTypes getItemType() override;
     shared_ptr <AbstractItem> generate();
-    //TODO override input stream operator
+    friend istream& operator>>(istream& is, BaseArrow& it);
 };
 

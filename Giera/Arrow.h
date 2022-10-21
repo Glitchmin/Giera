@@ -19,6 +19,10 @@ public:
     Arrow(item_size_t width, item_size_t height, int Value, string& name,
         string& description, unique_ptr<Damage>& damage, vector<shared_ptr<AbstractEffect>> effects);
     ItemTypes getItemType() override;
+
+    const unique_ptr<Damage>& getDamage() const;
+
     //TODO override input stream operator
+
 };
 

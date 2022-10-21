@@ -13,3 +13,9 @@ ItemTypes Arrow::getItemType()
 	return ItemTypes::ARROW;
 }
 
+
+const unique_ptr<Damage>& Arrow::getDamage() const
+{
+    return damage;
+}
+

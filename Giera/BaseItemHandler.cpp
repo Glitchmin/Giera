@@ -4,9 +4,9 @@ BaseItemHandler::BaseItemHandler()
 {
 	BaseItemFileHandler baseItemFileHandler;
 	baseItemFileHandler.readBaseItems(baseItems);
-	auto tmp = (baseItems[(int)ItemTypes::ARMOR][0]->generate());
-	auto tmp2 = std::dynamic_pointer_cast<Armor>(tmp);
+	auto tmp = (baseItems[(int)ItemTypes::READABLE][0]->generate());
+	auto tmp2 = std::dynamic_pointer_cast<Readable>(tmp);
 	Logger::logInfo((int)tmp->getItemType());
-	Logger::logInfo(tmp2->getArmor());
+	Logger::logInfo(tmp2->getText());
 	
 }

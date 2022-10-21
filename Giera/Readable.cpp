@@ -11,3 +11,10 @@ ItemTypes Readable::getItemType()
 {
 	return ItemTypes::READABLE;
 }
+
+const string& Readable::getText() const
+{
+	return text;
+}
+
+

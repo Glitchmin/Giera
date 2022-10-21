@@ -9,8 +9,9 @@ public:
     Readable(item_size_t width, item_size_t height, int Value, string& name,
         string& description, string& text);
     ItemTypes getItemType() override;
-
+    const string& getText() const;
     //TODO generateReadable();
     //TODO override input stream operator
+
 };
 
