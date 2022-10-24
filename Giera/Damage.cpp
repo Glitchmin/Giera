@@ -5,9 +5,10 @@ Damage::Damage()
 	
 }
 
-Damage::Damage(double value, DamageTypes damageType, weak_ptr<AbstractNPC> damageDealer)
+Damage::Damage(double value, double ap, DamageTypes damageType, weak_ptr<AbstractNPC> damageDealer)
 {
     this->value = value;
+    this->ap = ap;
     this->damageType = damageType;
     this->damageDealer = damageDealer;
 }

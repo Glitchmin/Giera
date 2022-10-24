@@ -64,6 +64,6 @@ istream& operator>>(istream& is, DamageEffect& ef)
     double dmgVal;
     int dmgType;
     is >> (AbstractEffect&)ef >> dmgVal >> dmgType >> ef.tickrate >> ef.damageIncrease;
-    ef.damage = make_unique<Damage>(dmgVal, (DamageTypes)dmgType, std::shared_ptr<AbstractNPC>(nullptr));
+    ef.damage = make_unique<Damage>(dmgVal,-1, (DamageTypes)dmgType);
     return is;
 }

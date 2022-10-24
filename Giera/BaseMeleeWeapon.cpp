@@ -11,7 +11,7 @@ ItemTypes BaseMeleeWeapon::getItemType()
 
 shared_ptr<AbstractItem> BaseMeleeWeapon::generate()
 {
-	auto tmp = make_unique<Damage>(damage.getRandom(), damageType, std::shared_ptr<AbstractNPC>(nullptr));
+	auto tmp = make_unique<Damage>(damage.getRandom(), armorPiercing.getRandom(), damageType);
 	return make_shared<MeleeWeapon>(width, height, value.getRandom(),name,description,modifiers,
 		tmp,Time(attackSpeed.getAverage()));
 }

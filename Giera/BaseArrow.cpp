@@ -13,7 +13,7 @@ ItemTypes BaseArrow::getItemType()
 
 shared_ptr<AbstractItem> BaseArrow::generate()
 {
-    auto dmg_ptr = make_unique<Damage>(damage.getRandom(), damageType, std::shared_ptr<AbstractNPC>(nullptr));
+    auto dmg_ptr = make_unique<Damage>(damage.getRandom(),armorPiercing.getRandom(), damageType);
     return make_shared<Arrow>(width,height,value.getRandom(),name,description,dmg_ptr,effects);
 }
 
