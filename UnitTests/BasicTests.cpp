@@ -40,14 +40,36 @@
 #include "../Giera/AbstractNPC.h"
 #include "../Giera/StatChangingEffect.h"
 #include "../Giera/StatChangingEffect.cpp"
-#include "../Giera/BaseFood.cpp"
-#include "../Giera/AbstractBaseItem.h"
-#include "../Giera/AbstractBaseItem.cpp"
-#include "../Giera/AbstractItem.h"
+#include "../Giera/BaseItemHandler.h"
+#include "../Giera/BaseItemHandler.cpp"
+#include "../Giera/BaseItemFileHandler.h"
+#include "../Giera/BaseItemFileHandler.cpp"
+
+#include "../Giera/NormalItems.h"
 #include "../Giera/AbstractItem.cpp"
-#include "../Giera/BaseFood.h"
-#include "../Giera/Food.h"
+#include "../Giera/AbstractGearItem.cpp"
+#include "../Giera/AbstractWeapon.cpp"
+#include "../Giera/Armor.cpp"
+#include "../Giera/Arrow.cpp"
 #include "../Giera/Food.cpp"
+#include "../Giera/MeleeWeapon.cpp"
+#include "../Giera/RangedWeapon.cpp"
+#include "../Giera/Misc.cpp"
+#include "../Giera/Readable.cpp"
+#include "../Giera/Shield.cpp"
+
+#include "../Giera/BaseItems.h"
+#include "../Giera/AbstractBaseItem.cpp"
+#include "../Giera/AbstractBaseGearItem.cpp"
+#include "../Giera/AbstractBaseWeapon.cpp"
+#include "../Giera/BaseArmor.cpp"
+#include "../Giera/BaseArrow.cpp"
+#include "../Giera/BaseFood.cpp"
+#include "../Giera/BaseMeleeWeapon.cpp"
+#include "../Giera/BaseRangedWeapon.cpp"
+#include "../Giera/BaseMisc.cpp"
+#include "../Giera/BaseReadable.cpp"
+#include "../Giera/BaseShield.cpp"
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -63,7 +85,7 @@ namespace ItemsTests {
 	public:
 		TEST_METHOD(BaseFoodInputTest)
 		{
-			BaseFood bf;
+			BaseItemHandler baseItemHandler;
 		}
 	};
 }
