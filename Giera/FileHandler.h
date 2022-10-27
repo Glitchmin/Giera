@@ -12,7 +12,7 @@ class FileHandler
 {
 private:
 	fstream fs;
-	static inline string folderPath = "save_files/";
+	static inline string folderPath = "../../save_files/";
 	string fileExtension;
 
 public:
