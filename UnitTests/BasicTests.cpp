@@ -83,9 +83,21 @@ namespace ItemsTests {
 	TEST_CLASS(BaseItemsInputTest)
 	{
 	public:
-		TEST_METHOD(BaseFoodInputTest)
+		TEST_METHOD(BaseArmorInputTest)
 		{
+			Logger::setHandler(0, 1);
 			BaseItemHandler baseItemHandler;
+			auto arm = baseItemHandler.generate<Armor>(ItemTypes::ARMOR, (int)ArmorTypes::ARMOR_1);
+			Assert::AreEqual("body_block", arm->getName().c_str());
+			Assert::AreEqual("blocks_your_body", arm->getDescription().c_str());
+			Assert::IsTrue(arm->getValue()>=1.0 && arm->getValue()<=2.0);
+			Assert::AreEqual((item_size_t)2,arm->getWidth());
+			Assert::AreEqual((item_size_t)5,arm->getHeight());
+			for (int i = 0;i < (int)ModifiersTypes::COUNT_MODIFIERS;i++) 
+			{
+				Assert::AreEqual((item_mod_t)0,arm->getModifier((ModifiersTypes) 0));
+			}
+			Assert::IsTrue(arm->getArmor() >= 1.5 && arm->getArmor() <= 2.0);
 		}
 	};
 }

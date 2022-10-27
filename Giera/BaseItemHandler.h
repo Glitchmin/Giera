@@ -13,7 +13,13 @@ class BaseItemHandler
 {
 public:
 	BaseItemHandler();
+	template <class T> shared_ptr<T> generate(ItemTypes itemType, int itemSubtype);
 private:
 	vector <vector <shared_ptr<AbstractBaseItem>>> baseItems;
 };
+
+template <class T> shared_ptr<T> BaseItemHandler::generate(ItemTypes itemType, int itemSubtype) {
+	auto tmp = (baseItems[(int)itemType][itemSubtype]->generate());
+	 return std::dynamic_pointer_cast<T>(tmp);
+}
 
