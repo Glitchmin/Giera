@@ -23,6 +23,11 @@ double Damage::getValue() const
     return value;
 }
 
+double Damage::getAp() const
+{
+    return ap;
+}
+
 DamageTypes Damage::getDamageType() const
 {
     return damageType;
@@ -32,4 +37,6 @@ weak_ptr<AbstractNPC> Damage::getDamageDealer() const
 {
     return damageDealer;
 }
+
+
 

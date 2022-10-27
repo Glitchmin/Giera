@@ -95,9 +95,28 @@ namespace ItemsTests {
 			Assert::AreEqual((item_size_t)5,arm->getHeight());
 			for (int i = 0;i < (int)ModifiersTypes::COUNT_MODIFIERS;i++) 
 			{
-				Assert::AreEqual((item_mod_t)0,arm->getModifier((ModifiersTypes) 0));
+				Assert::AreEqual((item_mod_t)0,arm->getModifier((ModifiersTypes) i));
 			}
 			Assert::IsTrue(arm->getArmor() >= 1.5 && arm->getArmor() <= 2.0);
+		}
+
+		TEST_METHOD(BaseMeleeInputTest) {
+			Logger::setHandler(0, 1);
+			BaseItemHandler baseItemHandler;
+			auto mel = baseItemHandler.generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, (int)MeleeWeaponTypes::LUFREWOP_SWORD);
+			Assert::AreEqual("world_destroyer", mel->getName().c_str());
+			Assert::AreEqual("destroys_your_world", mel->getDescription().c_str());
+			Assert::IsTrue(mel->getValue() >= 10 && mel->getValue() <= 30);
+			Assert::AreEqual((item_size_t)6, mel->getWidth());
+			Assert::AreEqual((item_size_t)5, mel->getHeight());
+			for (int i = 0; i < (int)ModifiersTypes::COUNT_MODIFIERS; i++) {
+				Assert::AreEqual((item_mod_t)i, mel->getModifier((ModifiersTypes)i));
+			}
+			Assert::IsTrue(mel->getDamage()->getValue() >= 1.0 && mel->getDamage()->getValue() <= 2.0);
+			Assert::AreEqual((int)DamageTypes::SLASHING, (int)mel->getDamage()->getDamageType());
+			Assert::IsTrue(mel->getDamage()->getAp() >= 1 && mel->getDamage()->getAp() <= 1.5);
+			//add lifesteal
+			Assert::IsTrue(mel->getAttackSpeed().getTimeMs() >= 69 && mel->getAttackSpeed().getTimeMs() <= 420);
 		}
 	};
 }

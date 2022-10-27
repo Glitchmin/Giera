@@ -1,6 +1,6 @@
 #pragma once
 #include "AbstractTimer.h"
-//all hail the general!
+//All hail the General!   o/
 class GeneralTimer : public AbstractTimer
 {
 private:

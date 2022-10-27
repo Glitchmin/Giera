@@ -14,15 +14,15 @@ protected:
 	weak_ptr <AbstractNPC> damageDealer;
 public:
 	Damage();
-	Damage(double value, double ap, DamageTypes damageType, 
+	Damage(double value, double ap, DamageTypes damageType,
 		weak_ptr<AbstractNPC> damageDealer = std::shared_ptr<AbstractNPC>(nullptr));
 	void multiply(double multiplier);
 
-    double getValue() const;
+	double getValue() const;
 
-    DamageTypes getDamageType() const;
+	double getAp() const;
 
-    weak_ptr<AbstractNPC> getDamageDealer() const;
+	DamageTypes getDamageType() const;
 
+	weak_ptr<AbstractNPC> getDamageDealer() const;
 };
-
