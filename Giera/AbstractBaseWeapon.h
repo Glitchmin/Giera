@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractBaseGearItem.h"
 #include "DamageTypes.h"
-#include "Damage.h"
+#include "Lifesteal.h"
 
 using std::unique_ptr;
 using std::make_unique;
@@ -13,7 +13,6 @@ protected:
     ValuesRange damage;
     ValuesRange armorPiercing;
     DamageTypes damageType;
-
     ValuesRange lifestealValue;
     ValuesRange lifestealProbability;
 public:

@@ -11,7 +11,15 @@ ItemTypes BaseMeleeWeapon::getItemType()
 
 shared_ptr<AbstractItem> BaseMeleeWeapon::generate()
 {
-	auto tmp = make_unique<Damage>(damage.getRandom(), armorPiercing.getRandom(), damageType);
+	unique_ptr<Damage> tmp;
+	if (lifestealProbability.getMax() > 0.0 || lifestealValue.getMax() > 0.0)
+	{
+		tmp = make_unique<Lifesteal>(damage.getRandom(), armorPiercing.getRandom(), damageType,lifestealValue.getRandom(),lifestealProbability.getRandom());
+	}
+	else 
+	{
+		tmp = make_unique<Damage>(damage.getRandom(), armorPiercing.getRandom(), damageType);
+	}
 	return make_shared<MeleeWeapon>(width, height, value.getRandom(),name,description,modifiers,
 		tmp,Time(attackSpeed.getAverage()));
 }

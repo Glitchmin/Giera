@@ -18,6 +18,11 @@ void Damage::multiply(double multiplier)
 	value *= multiplier;
 }
 
+bool Damage::isLifesteal()
+{
+    return false;
+}
+
 double Damage::getValue() const
 {
     return value;

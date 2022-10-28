@@ -1,10 +1,15 @@
 #include "Lifesteal.h"
 
-Lifesteal::Lifesteal(double value,double ap, DamageTypes damageType, weak_ptr<AbstractNPC> damageDealer, double percentStolen, double probability):
+Lifesteal::Lifesteal(double value,double ap, DamageTypes damageType, double percentStolen, double probability, weak_ptr<AbstractNPC> damageDealer):
     Damage(value,ap, damageType, damageDealer)
 {
     this->percentStolen = percentStolen;
     this->probability = probability;
+}
+
+bool Lifesteal::isLifesteal()
+{
+    return true;
 }
 
 double Lifesteal::getProbability() const

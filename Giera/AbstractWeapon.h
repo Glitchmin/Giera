@@ -9,6 +9,7 @@ class AbstractWeapon :
 {
 protected:
     unique_ptr<Damage> damage;
+
 public:
     AbstractWeapon(item_size_t width, item_size_t height, int value,
         string& name, string& description, vector<item_mod_t> modifiers,

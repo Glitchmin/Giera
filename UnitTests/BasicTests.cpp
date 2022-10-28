@@ -32,6 +32,8 @@
 #include "../Giera/MapFileHandlerReading.cpp"
 #include "../Giera/Damage.cpp"
 #include "../Giera/Damage.h"
+#include "../Giera/Lifesteal.h"
+#include "../Giera/Lifesteal.cpp"
 #include "../Giera/DamageTypes.h"
 #include "../Giera/DamageEffect.h"
 #include "../Giera/DamageEffect.cpp"
@@ -115,8 +117,21 @@ namespace ItemsTests {
 			Assert::IsTrue(mel->getDamage()->getValue() >= 1.0 && mel->getDamage()->getValue() <= 2.0);
 			Assert::AreEqual((int)DamageTypes::SLASHING, (int)mel->getDamage()->getDamageType());
 			Assert::IsTrue(mel->getDamage()->getAp() >= 1 && mel->getDamage()->getAp() <= 1.5);
-			//add lifesteal
+			Assert::IsFalse(mel->getDamage()->isLifesteal());
 			Assert::IsTrue(mel->getAttackSpeed().getTimeMs() >= 69 && mel->getAttackSpeed().getTimeMs() <= 420);
+		}
+		TEST_METHOD(BaseArrowInputTest) {
+			BaseItemHandler baseItemHandler;
+			auto arr = baseItemHandler.generate<Arrow>(ItemTypes::ARROW, (int)ArrowTypes::ARROW_1);
+			Assert::AreEqual("penetrator", arr->getName().c_str());
+			Assert::AreEqual("penetrates_your_soul", arr->getDescription().c_str());
+			Assert::IsTrue(arr->getValue() >= 21 && arr->getValue() <= 37);
+			Assert::AreEqual((item_size_t)1, arr->getWidth());
+			Assert::AreEqual((item_size_t)2, arr->getHeight());
+			Assert::IsTrue(arr->getDamage()->getValue() >= 1.5 && arr->getDamage()->getValue() <= 2.5);
+			Assert::AreEqual((int)DamageTypes::PIERCING, (int)arr->getDamage()->getDamageType());
+			Assert::IsTrue(arr->getDamage()->getAp() >= 0.5 && arr->getDamage()->getAp() <= 1.5);
+			//TODO effects test after tests rework
 		}
 	};
 }

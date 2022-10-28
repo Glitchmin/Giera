@@ -17,6 +17,7 @@ public:
 	Damage(double value, double ap, DamageTypes damageType,
 		weak_ptr<AbstractNPC> damageDealer = std::shared_ptr<AbstractNPC>(nullptr));
 	void multiply(double multiplier);
+	virtual bool isLifesteal();
 
 	double getValue() const;
 
