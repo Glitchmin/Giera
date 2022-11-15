@@ -1,7 +1,10 @@
 #include "BaseItemFileHandler.h"
 
-void BaseItemFileHandler::readBaseItems(vector<vector<shared_ptr<AbstractBaseItem>>>& baseItems)
+void BaseItemFileHandler::readBaseItems(vector <vector <shared_ptr<AbstractBaseItem>>> & baseItems)
 {
+	if (baseItems.size() == baseItemFilenames.size()) {
+		return;
+	}
 	baseItems.resize(baseItemFilenames.size());
 	for (int i = 0; i < baseItemFilenames.size();i++) {
 		string& filename = baseItemFilenames[i];
@@ -17,7 +20,6 @@ void BaseItemFileHandler::readBaseItems(vector<vector<shared_ptr<AbstractBaseIte
 		fileHandler->readFromFile(fillers);
 		int itemsNumber;
 		fileHandler->readFromFile(itemsNumber);
-
 		fileHandler->readFromFile(fillers);
 		int blankFieldsNumber;
 		fileHandler->readFromFile(blankFieldsNumber);

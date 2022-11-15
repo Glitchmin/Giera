@@ -88,8 +88,8 @@ namespace ItemsTests {
 		TEST_METHOD(BaseArmorInputTest)
 		{
 			Logger::setHandler(0, 1);
-			BaseItemHandler baseItemHandler;
-			auto arm = baseItemHandler.generate<Armor>(ItemTypes::ARMOR, (int)ArmorTypes::ARMOR_1);
+			BaseItemHandler::initialize();
+			auto arm = BaseItemHandler::generate<Armor>(ItemTypes::ARMOR, (int)ArmorTypes::ARMOR_1);
 			Assert::AreEqual("body_block", arm->getName().c_str());
 			Assert::AreEqual("blocks_your_body", arm->getDescription().c_str());
 			Assert::IsTrue(arm->getValue()>=1.0 && arm->getValue()<=2.0);
@@ -104,8 +104,7 @@ namespace ItemsTests {
 
 		TEST_METHOD(BaseMeleeInputTest) {
 			Logger::setHandler(0, 1);
-			BaseItemHandler baseItemHandler;
-			auto mel = baseItemHandler.generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, (int)MeleeWeaponTypes::LUFREWOP_SWORD);
+			auto mel = BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, (int)MeleeWeaponTypes::LUFREWOP_SWORD);
 			Assert::AreEqual("world_destroyer", mel->getName().c_str());
 			Assert::AreEqual("destroys_your_world", mel->getDescription().c_str());
 			Assert::IsTrue(mel->getValue() >= 10 && mel->getValue() <= 30);
@@ -121,8 +120,7 @@ namespace ItemsTests {
 			Assert::IsTrue(mel->getAttackSpeed().getTimeMs() >= 69 && mel->getAttackSpeed().getTimeMs() <= 420);
 		}
 		TEST_METHOD(BaseArrowInputTest) {
-			BaseItemHandler baseItemHandler;
-			auto arr = baseItemHandler.generate<Arrow>(ItemTypes::ARROW, (int)ArrowTypes::ARROW_1);
+			auto arr = BaseItemHandler::generate<Arrow>(ItemTypes::ARROW, (int)ArrowTypes::ARROW_1);
 			Assert::AreEqual("penetrator", arr->getName().c_str());
 			Assert::AreEqual("penetrates_your_soul", arr->getDescription().c_str());
 			Assert::IsTrue(arr->getValue() >= 21 && arr->getValue() <= 37);

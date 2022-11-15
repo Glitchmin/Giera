@@ -1,6 +1,7 @@
 #pragma once
 #include "FileHandler.h"
 #include "BaseItems.h"
+#include "BaseItemHandler.h"
 #include <memory.h>
 #include <vector>
 using std::shared_ptr;
@@ -10,7 +11,7 @@ using std::vector;
 class BaseItemFileHandler
 {
 public:
-	void readBaseItems(vector<vector<shared_ptr<AbstractBaseItem>>>& baseItems);
+	void readBaseItems(vector <vector <shared_ptr<AbstractBaseItem>>> &baseItems);
 private:
 	unique_ptr<FileHandler> fileHandler;
 	static inline vector <string> baseItemFilenames{"Melee","Ranged","Shield", "Armor",

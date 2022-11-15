@@ -1,11 +1,8 @@
 #include "BaseItemHandler.h"
+#include "BaseItemFileHandler.h"
 
-BaseItemHandler::BaseItemHandler()
+void BaseItemHandler::initialize()
 {
 	BaseItemFileHandler baseItemFileHandler;
-	baseItemFileHandler.readBaseItems(baseItems);	
+	baseItemFileHandler.readBaseItems(baseItems);
 }
-
-
-
-
