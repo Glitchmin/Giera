@@ -1,4 +1,5 @@
 #include "DamageEffect.h"
+#include "Logger.h"
 
 using std::move;
 using std::make_shared;
@@ -48,8 +49,9 @@ double DamageEffect::calculateTotalDamage()
 
 shared_ptr<AbstractEffect> DamageEffect::generate()
 {
-    return make_shared<DamageEffect>(
-        make_unique<Damage>(*damage),duration, isBuff, level, targetNPC, originNPC, tickrate, damageIncrease);
+       return  make_shared<DamageEffect>(
+        make_unique<Damage>(*damage), Time(duration.getTimeMs()), isBuff, level,
+           targetNPC, originNPC, Time(tickrate.getTimeMs()), damageIncrease);;
 }
 
 Time DamageEffect::getTimeUntilTick() const

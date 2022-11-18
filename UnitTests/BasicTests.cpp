@@ -72,6 +72,11 @@
 #include "../Giera/BaseMisc.cpp"
 #include "../Giera/BaseReadable.cpp"
 #include "../Giera/BaseShield.cpp"
+
+#include "../Giera/EffectsFileHandler.h"
+#include "../Giera/EffectsFileHandler.cpp"
+#include "../Giera/EffectsHandler.h"
+#include "../Giera/EffectsHandler.cpp"
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -320,6 +325,19 @@ namespace DamageAndEffectsTests
 				generalTimer.updateTime();
 			}
 			
+		}
+	};
+	TEST_CLASS(EffectsHandlerTest) {
+		TEST_METHOD(DamageEffectTest) {
+			auto eff = EffectsHandler::getEffect<DamageEffect>(EffectTypes::DAMAGE_EFFECT, 0);
+			Assert::AreEqual(false, eff->IsBuff());
+			Assert::AreEqual((unsigned int) 1000, eff->getDuration().getTimeMs());
+			Assert::AreEqual((short)3, eff->getLevel());
+			Assert::AreEqual((double)1.5, eff->getDamage()->getValue());
+			Assert::AreEqual(2, (int)eff->getDamage()->getDamageType());
+			Assert::AreEqual((unsigned int)100, eff->getTickrate().getTimeMs());
+			Assert::AreEqual(1.2, eff->getDamageIncrease());
+
 		}
 	};
 }

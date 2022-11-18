@@ -11,6 +11,7 @@ AbstractEffect::AbstractEffect(Time duration, bool isBuff, short level, weak_ptr
     this->level = level;
     this->targetNPC = targetNPC;
     this->originNPC = originNPC;
+    this->isBuff = isBuff;
 }
 
 bool AbstractEffect::subtractFromTimeLeft(Time amount)
