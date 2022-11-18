@@ -11,7 +11,6 @@ void BaseItemFileHandler::readBaseItems(vector <vector <shared_ptr<AbstractBaseI
 		std::stringstream ss;
 		ss << filePath << filename;
 		fileHandler = make_unique<FileHandler>(ss.str(), FileModeTypes::READ,".csv");
-		fileHandler->openFile(ss.str(), FileModeTypes::READ);
 		string fillers = "";
 		fileHandler->readFromFile(fillers);
 		int version = readVersion();

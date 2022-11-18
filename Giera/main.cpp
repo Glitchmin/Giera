@@ -15,7 +15,6 @@ and may not be redistributed without written permission.*/
 #include "Map.h"
 #include "GrasslandsGenerator.h"
 #include "MapFileHandler.h"
-#include "BaseItemHandler.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;

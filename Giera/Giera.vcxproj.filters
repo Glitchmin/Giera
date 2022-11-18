@@ -273,6 +273,12 @@
     <ClCompile Include="BaseItemHandler.cpp">
       <Filter>Source Files\GameLogic\Items\BaseItems</Filter>
     </ClCompile>
+    <ClCompile Include="EffectsHandler.cpp">
+      <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectsFileHandler.cpp">
+      <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -499,6 +505,18 @@
     </ClInclude>
     <ClInclude Include="RangedWeaponTypes.h">
       <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectsHandler.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectTypes.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectsFileHandler.h">
+      <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects.h">
+      <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

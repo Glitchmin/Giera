@@ -1,5 +1,7 @@
 #include "StatChangingEffect.h"
 
+using std::make_shared;
+
 StatChangingEffect::StatChangingEffect()
 {
 }
@@ -14,6 +16,11 @@ StatChangingEffect::StatChangingEffect(Time duration, bool isBuff, short level,
 	this->finalPercentValue = finalPercentValue;
 	this->timeToReachFinal = timeToReachFinal;
 	this->attributeType = attributeType;
+}
+
+shared_ptr<AbstractEffect> StatChangingEffect::generate()
+{
+	return make_shared<StatChangingEffect>(*this);
 }
 
 void StatChangingEffect::applyStatChange()

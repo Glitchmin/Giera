@@ -2,6 +2,7 @@
 #include "AbstractEffect.h"
 #include "Damage.h"
 using std::unique_ptr;
+using std::shared_ptr;
 using std::make_unique;
 class DamageEffect :  public AbstractEffect
 {
@@ -14,6 +15,8 @@ public:
 	DamageEffect();
 	DamageEffect(unique_ptr<Damage> damage, Time duration, bool isBuff, short level,
 		weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC, Time tickrate, double damageIncrease=1.0);
+	shared_ptr<AbstractEffect> generate() override;
+
 	bool subtractFromTimeLeft(Time amount);
 	double calculateTotalDamage();
 

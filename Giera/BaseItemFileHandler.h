@@ -21,6 +21,5 @@ private:
 	shared_ptr<AbstractBaseItem> readBaseItem();
 	int readVersion();
 	void saveVersion();
-
 };
 

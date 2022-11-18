@@ -1,6 +1,7 @@
 #include "DamageEffect.h"
 
 using std::move;
+using std::make_shared;
 
 const unique_ptr <Damage>& DamageEffect::getDamage() const
 {
@@ -10,6 +11,7 @@ const unique_ptr <Damage>& DamageEffect::getDamage() const
 DamageEffect::DamageEffect() {
 
 }
+
 
 DamageEffect::DamageEffect(unique_ptr<Damage> damage, Time duration, bool isBuff, short level,
     weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC, Time tickrate,double damageIncrease) :
@@ -42,6 +44,12 @@ double DamageEffect::calculateTotalDamage()
     }
     ans += damage->getValue() * (1 - pow(damageIncrease, ticks)) / (1 - damageIncrease);
     return ans;
+}
+
+shared_ptr<AbstractEffect> DamageEffect::generate()
+{
+    return make_shared<DamageEffect>(
+        make_unique<Damage>(*damage),duration, isBuff, level, targetNPC, originNPC, tickrate, damageIncrease);
 }
 
 Time DamageEffect::getTimeUntilTick() const
