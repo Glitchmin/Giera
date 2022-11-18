@@ -15,7 +15,7 @@ and may not be redistributed without written permission.*/
 #include "Map.h"
 #include "GrasslandsGenerator.h"
 #include "MapFileHandler.h"
-#include "EffectsHandler.h"
+#include "BaseItemHandler.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -23,8 +23,7 @@ const int SCREEN_HEIGHT = 480;
 
 int main( int argc, char* args[] )
 {
-	auto eff = EffectsHandler::getEffect<DamageEffect>(EffectTypes::DAMAGE_EFFECT, 0);
-	std::cout << eff->IsBuff();
+	BaseItemHandler::initialize();
 	//The window we'll be rendering to
 	SDL_Window* window = NULL;
 	

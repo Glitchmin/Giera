@@ -1,5 +1,6 @@
 #include "BaseFood.h"
 #include "Logger.h"
+#include "EffectsHandler.h"
 using std::dynamic_pointer_cast;
 BaseFood::BaseFood()
 {
@@ -12,9 +13,10 @@ ItemTypes BaseFood::getItemType()
 
 shared_ptr<AbstractItem> BaseFood::generate()
 {
-    //TODO set effects values for DamageEffects
-    for (ValuesRange& a : values) {
-        //effects.;
+    vector <shared_ptr<AbstractEffect>> effects;
+    for (auto& ef : this->effects) 
+    {
+        effects.push_back(ef->generate());
     }
     return make_shared<Food>(width,height,value.getRandom(),name,description,effects);
 }
@@ -26,29 +28,15 @@ istream& operator>>(istream& is, BaseFood& f)
     is >> (AbstractBaseItem&) f >>eff_nr >> tmp;
     f.foodType = (FoodTypes)tmp;
     string filler;
-    for (int i = 0;i < 10;i++) {
+    for (int i = 0;i < 2;i++) {
         is >> filler;
     }
     for (int i = 0; i < eff_nr;i++)
     {
-        bool isDmgEffect;
-        is >> isDmgEffect;
-        ValuesRange valR;
-        shared_ptr<AbstractEffect> eff;
-        if (isDmgEffect)
-        {
-            auto eff2 = make_shared<DamageEffect>();
-            is >> *eff2;
-            is >> valR;
-            eff = eff2;
-            f.values.push_back(valR);
-        }
-        else {
-            auto eff2 = make_shared<StatChangingEffect>();
-            is >> *eff2;
-            eff = eff2;
-        }
-        f.effects.push_back(eff);
+        int effectType, effectID;
+        is >> effectType >> effectID;
+
+        f.effects.push_back(EffectsHandler::getEffect<AbstractEffect>((EffectTypes)effectType, effectID));
     }
     return is;
 }

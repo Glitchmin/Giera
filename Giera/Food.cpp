@@ -11,3 +11,7 @@ ItemTypes Food::getItemType()
 {
 	return ItemTypes::FOOD;
 }
+const vector<shared_ptr<AbstractEffect>>& Food::getEffects()
+{
+	return effects;
+}

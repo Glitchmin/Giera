@@ -1,6 +1,7 @@
 #include "BaseArrow.h"
 #include "DamageEffect.h"
 #include "StatChangingEffect.h"
+#include "EffectsHandler.h"
 
 BaseArrow::BaseArrow()
 {
@@ -13,6 +14,11 @@ ItemTypes BaseArrow::getItemType()
 
 shared_ptr<AbstractItem> BaseArrow::generate()
 {
+    vector <shared_ptr<AbstractEffect>> effects;
+    for (auto& ef : this->effects)
+    {
+        effects.push_back(ef->generate());
+    }
     auto dmg_ptr = make_unique<Damage>(damage.getRandom(),armorPiercing.getRandom(), damageType);
     return make_shared<Arrow>(width,height,value.getRandom(),name,description,dmg_ptr,effects);
 }
@@ -25,29 +31,15 @@ istream& operator>>(istream& is, BaseArrow& it)
     it.damageType = (DamageTypes)tmp2;
     it.arrowType = (ArrowTypes)tmp;
     string filler;
-    for (int i = 0;i < 10;i++) {
+    for (int i = 0;i < 2;i++) {
         is >> filler;
     }
     for (int i = 0; i < eff_nr;i++)
     {
-        bool isDmgEffect;
-        is >> isDmgEffect;
-        ValuesRange valR;
-        shared_ptr<AbstractEffect> eff;
-        if (isDmgEffect)
-        {
-            auto eff2 = make_shared<DamageEffect>();
-            is >> *eff2;
-            is >> valR;
-            eff = eff2;
-            it.values.push_back(valR);
-        }
-        else {
-            auto eff2 = make_shared<StatChangingEffect>();
-            is >> *eff2;
-            eff = eff2;
-        }
-        it.effects.push_back(eff);
+        int effectType, effectID;
+        is >> effectType >> effectID;
+
+        it.effects.push_back(EffectsHandler::getEffect<AbstractEffect>((EffectTypes)effectType,effectID));
     }
     return is;
 }

@@ -21,7 +21,7 @@ public:
     ItemTypes getItemType() override;
 
     const unique_ptr<Damage>& getDamage() const;
-
+    const vector<shared_ptr<AbstractEffect>>& getEffects() const;
     //TODO override input stream operator
 
 };

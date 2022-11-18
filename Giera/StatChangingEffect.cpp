@@ -48,6 +48,20 @@ NPC_AttributeTypes StatChangingEffect::getAttributeType() const
     return attributeType;
 }
 
+
+double StatChangingEffect::getInitialPercentValue() const 
+{
+	return initialPercentValue;
+}
+double StatChangingEffect::getFinalPercentValue() const 
+{
+	return finalPercentValue;
+}
+Time StatChangingEffect::getTimeToReachFinal() const
+{
+	return Time(timeToReachFinal.getTimeMs());
+}
+
 istream& operator>>(istream& is, StatChangingEffect& ef)
 {
 	int tmp;

@@ -13,7 +13,6 @@ class BaseFood :
 {
 protected:
     vector<shared_ptr<AbstractEffect>> effects;
-    vector <ValuesRange> values; //for dmg effects only
     FoodTypes foodType;
 public:
     BaseFood();

@@ -19,3 +19,9 @@ const unique_ptr<Damage>& Arrow::getDamage() const
     return damage;
 }
 
+
+const vector<shared_ptr<AbstractEffect>>& Arrow::getEffects() const
+{
+	return effects;
+}
+

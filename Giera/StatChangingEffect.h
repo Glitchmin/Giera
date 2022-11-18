@@ -19,7 +19,9 @@ public:
     void applyStatChange();
     double getCurrentValue();
     NPC_AttributeTypes getAttributeType() const;
-
+    double getInitialPercentValue() const;
+    double getFinalPercentValue() const;
+    Time getTimeToReachFinal() const;
     friend istream& operator>>(istream& is, StatChangingEffect& ef);
 
 };

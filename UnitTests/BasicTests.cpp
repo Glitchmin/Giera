@@ -134,7 +134,35 @@ namespace ItemsTests {
 			Assert::IsTrue(arr->getDamage()->getValue() >= 1.5 && arr->getDamage()->getValue() <= 2.5);
 			Assert::AreEqual((int)DamageTypes::PIERCING, (int)arr->getDamage()->getDamageType());
 			Assert::IsTrue(arr->getDamage()->getAp() >= 0.5 && arr->getDamage()->getAp() <= 1.5);
-			//TODO effects test after tests rework
+			Assert::IsTrue(arr->getEffects().size() == 1);
+			auto eff = dynamic_pointer_cast<DamageEffect>(arr->getEffects()[0]);
+			
+			Assert::AreEqual(false, eff->IsBuff());
+			Assert::AreEqual((unsigned int)1000, eff->getDuration().getTimeMs());
+			Assert::AreEqual((short)3, eff->getLevel());
+			Assert::AreEqual((double)1.5, eff->getDamage()->getValue());
+			Assert::AreEqual(2, (int)eff->getDamage()->getDamageType());
+			Assert::AreEqual((unsigned int)100, eff->getTickrate().getTimeMs());
+			Assert::AreEqual(1.2, eff->getDamageIncrease());
+		}
+		TEST_METHOD(BaseFoodTests) {
+			auto food = BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES);
+			Assert::AreEqual("borowkis", food->getName().c_str());
+			Assert::AreEqual("smakowite_boroweczki", food->getDescription().c_str());
+			Assert::IsTrue(food->getValue() >= 1 && food->getValue() <= 2);
+			Assert::AreEqual((item_size_t)1, food->getWidth());
+			Assert::AreEqual((item_size_t)1, food->getHeight());
+			Assert::IsTrue(food->getEffects().size()==1);
+			
+			auto eff = dynamic_pointer_cast<DamageEffect>(food->getEffects()[0]);
+
+			Assert::AreEqual(true, eff->IsBuff());
+			Assert::AreEqual((unsigned int)1500, eff->getDuration().getTimeMs());
+			Assert::AreEqual((short)4, eff->getLevel());
+			Assert::AreEqual((double)1.5, eff->getDamage()->getValue());
+			Assert::AreEqual((int)DamageTypes::HEALING, (int)eff->getDamage()->getDamageType());
+			Assert::AreEqual((unsigned int)200, eff->getTickrate().getTimeMs());
+			Assert::AreEqual(1.5, eff->getDamageIncrease());
 		}
 	};
 }
@@ -338,6 +366,16 @@ namespace DamageAndEffectsTests
 			Assert::AreEqual((unsigned int)100, eff->getTickrate().getTimeMs());
 			Assert::AreEqual(1.2, eff->getDamageIncrease());
 
+		}
+		TEST_METHOD(StatChangingEffectTest) {
+			auto eff = EffectsHandler::getEffect<StatChangingEffect>(EffectTypes::STAT_CHANGING_EFFECT, 0);
+			Assert::AreEqual(true, eff->IsBuff());
+			Assert::AreEqual((unsigned int)800, eff->getDuration().getTimeMs());
+			Assert::AreEqual((short)1, eff->getLevel());
+			Assert::AreEqual((double)50, eff->getInitialPercentValue());
+			Assert::AreEqual((double)80, eff->getFinalPercentValue());
+			Assert::AreEqual((unsigned int)200, eff->getTimeToReachFinal().getTimeMs());
+			Assert::AreEqual(0, (int)eff->getAttributeType());
 		}
 	};
 }

@@ -14,6 +14,7 @@ public:
     Food(item_size_t width, item_size_t height, int value, string& name,
         string& description, vector<shared_ptr<AbstractEffect>> effects);
     ItemTypes getItemType() override;
+    const vector<shared_ptr<AbstractEffect>>& getEffects();
     //TODO override input stream operator
 };
 
