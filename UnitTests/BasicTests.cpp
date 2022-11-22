@@ -164,6 +164,32 @@ namespace ItemsTests {
 			Assert::AreEqual((unsigned int)200, eff->getTickrate().getTimeMs());
 			Assert::AreEqual(1.5, eff->getDamageIncrease());
 		}
+		TEST_METHOD(BaseMiscTests) {
+			auto misc = BaseItemHandler::generate<Misc>(ItemTypes::MISC, (int)MiscTypes::MISC_1);
+			Assert::AreEqual("a_stone", misc->getName().c_str());
+			Assert::AreEqual("low_value", misc->getDescription().c_str());
+			Assert::IsTrue(misc->getValue() >= 1 && misc->getValue() <= 2);
+			Assert::AreEqual((item_size_t)1, misc->getWidth());
+			Assert::AreEqual((item_size_t)1, misc->getHeight());
+		}
+		TEST_METHOD(RangedWeaponTests) {
+			auto rang = BaseItemHandler::generate<RangedWeapon>(ItemTypes::RANGED_WEAPON, (int)RangedWeaponTypes::BOW_1);
+			Assert::AreEqual("THE_ARROW_YEETER", rang->getName().c_str());
+			Assert::AreEqual("yeets_arrows", rang->getDescription().c_str());
+			Assert::IsTrue(rang->getValue() >= 4 && rang->getValue() <= 12);
+			Assert::AreEqual((item_size_t)2, rang->getWidth());
+			Assert::AreEqual((item_size_t)5, rang->getHeight());
+			for (int i = 0; i < (int)ModifiersTypes::COUNT_MODIFIERS; i++) {
+				Assert::AreEqual((item_mod_t)i, rang->getModifier((ModifiersTypes)i));
+			}
+			Assert::IsTrue(rang->getDamage()->getValue() >= 0.5 && rang->getDamage()->getValue() <= 2.5);
+			Assert::IsTrue(rang->getDamage()->getAp() >= 1.0 && rang->getDamage()->getValue() <= 1.5);
+			Assert::IsFalse(rang->getDamage()->isLifesteal());
+			Assert::AreEqual(0,(int)rang->getDamage()->getDamageType());
+			Assert::IsTrue(rang->getDrawTime().getTimeMs() >= 1000 && rang->getDrawTime().getTimeMs() <= 1500);
+			Assert::IsTrue(rang->getArrowVelocity() >= 2.0 && rang->getArrowVelocity() <= 4.0);
+
+		}
 	};
 }
 
