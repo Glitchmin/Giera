@@ -11,8 +11,16 @@ ItemTypes BaseRangedWeapon::getItemType()
 
 shared_ptr<AbstractItem> BaseRangedWeapon::generate()
 {
-    auto tmp = make_unique<Damage>(damage.getRandom(),armorPiercing.getRandom(), damageType);
-    return make_shared<RangedWeapon>(width,height,value.getRandom(),name,description,modifiers,tmp,
+    unique_ptr<Damage> dmg;
+    if (lifestealProbability.getMax() > 0.0 || lifestealValue.getMax() > 0.0)
+    {
+        dmg = make_unique<Lifesteal>(damage.getRandom(), armorPiercing.getRandom(), damageType, lifestealValue.getRandom(), lifestealProbability.getRandom());
+    }
+    else
+    {
+        dmg = make_unique<Damage>(damage.getRandom(), armorPiercing.getRandom(), damageType);
+    }
+    return make_shared<RangedWeapon>(width,height,value.getRandom(),name,description,modifiers,dmg,
         Time(drawSpeed.getRandom()),arrowSpeed.getAverage());
 }
 

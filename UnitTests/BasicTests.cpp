@@ -124,6 +124,26 @@ namespace ItemsTests {
 			Assert::IsFalse(mel->getDamage()->isLifesteal());
 			Assert::IsTrue(mel->getAttackSpeed().getTimeMs() >= 69 && mel->getAttackSpeed().getTimeMs() <= 420);
 		}
+		TEST_METHOD(BaseMeleeLifestealInputTest) {
+			Logger::setHandler(0, 1);
+			auto mel = BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, (int)MeleeWeaponTypes::SWORD_2);
+			Assert::AreEqual("lifestealer", mel->getName().c_str());
+			Assert::AreEqual("steals_your_life", mel->getDescription().c_str());
+			Assert::IsTrue(mel->getDamage()->isLifesteal());
+			auto lfst = dynamic_cast<Lifesteal&> (*mel->getDamage());
+			Assert::IsTrue(lfst.getProbability()>=70 && lfst.getProbability()<=80);
+			Assert::IsTrue(lfst.getPercentStolen()>=50 && lfst.getPercentStolen()<=75);
+		}
+		TEST_METHOD(BaseRangedLifestealInputTest) {
+			Logger::setHandler(0, 1);
+			auto mel = BaseItemHandler::generate<RangedWeapon>(ItemTypes::RANGED_WEAPON, (int)RangedWeaponTypes::BOW_2);
+			Assert::AreEqual("bow_of_lifesteal", mel->getName().c_str());
+			Assert::AreEqual("yeets_lifesteal", mel->getDescription().c_str());
+			Assert::IsTrue(mel->getDamage()->isLifesteal());
+			auto lfst = dynamic_cast<Lifesteal&> (*mel->getDamage());
+			Assert::IsTrue(lfst.getProbability() >= 10 && lfst.getProbability() <= 20);
+			Assert::IsTrue(lfst.getPercentStolen() >= 80 && lfst.getPercentStolen() <= 90);
+		}
 		TEST_METHOD(BaseArrowInputTest) {
 			auto arr = BaseItemHandler::generate<Arrow>(ItemTypes::ARROW, (int)ArrowTypes::ARROW_1);
 			Assert::AreEqual("penetrator", arr->getName().c_str());

@@ -11,17 +11,17 @@ ItemTypes BaseMeleeWeapon::getItemType()
 
 shared_ptr<AbstractItem> BaseMeleeWeapon::generate()
 {
-	unique_ptr<Damage> tmp;
+	unique_ptr<Damage> dmg;
 	if (lifestealProbability.getMax() > 0.0 || lifestealValue.getMax() > 0.0)
 	{
-		tmp = make_unique<Lifesteal>(damage.getRandom(), armorPiercing.getRandom(), damageType,lifestealValue.getRandom(),lifestealProbability.getRandom());
+		dmg = make_unique<Lifesteal>(damage.getRandom(), armorPiercing.getRandom(), damageType,lifestealValue.getRandom(),lifestealProbability.getRandom());
 	}
 	else 
 	{
-		tmp = make_unique<Damage>(damage.getRandom(), armorPiercing.getRandom(), damageType);
+		dmg = make_unique<Damage>(damage.getRandom(), armorPiercing.getRandom(), damageType);
 	}
 	return make_shared<MeleeWeapon>(width, height, value.getRandom(),name,description,modifiers,
-		tmp,Time(attackSpeed.getAverage()));
+		dmg,Time(attackSpeed.getAverage()));
 }
 
 istream& operator>>(istream& is, BaseMeleeWeapon& it)
