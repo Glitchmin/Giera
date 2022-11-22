@@ -6,6 +6,7 @@
 #include "ArrowTypes.h"
 #include "FoodTypes.h"
 #include "MiscTypes.h"
+#include "ReadableTypes.h"
 enum class ItemTypes {
 	MELEE_WEAPON,
 	RANGED_WEAPON,

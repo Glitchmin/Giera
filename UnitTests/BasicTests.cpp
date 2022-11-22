@@ -183,13 +183,35 @@ namespace ItemsTests {
 				Assert::AreEqual((item_mod_t)i, rang->getModifier((ModifiersTypes)i));
 			}
 			Assert::IsTrue(rang->getDamage()->getValue() >= 0.5 && rang->getDamage()->getValue() <= 2.5);
-			Assert::IsTrue(rang->getDamage()->getAp() >= 1.0 && rang->getDamage()->getValue() <= 1.5);
-			Assert::IsFalse(rang->getDamage()->isLifesteal());
+			Assert::IsTrue(rang->getDamage()->getAp() >= 1.0 && rang->getDamage()->getAp() <= 1.5);
+			Assert::IsTrue(rang->getDamage()->isLifesteal()==false);
 			Assert::AreEqual(0,(int)rang->getDamage()->getDamageType());
 			Assert::IsTrue(rang->getDrawTime().getTimeMs() >= 1000 && rang->getDrawTime().getTimeMs() <= 1500);
 			Assert::IsTrue(rang->getArrowVelocity() >= 2.0 && rang->getArrowVelocity() <= 4.0);
-
 		}
+		TEST_METHOD(ReadableTests) {
+			auto readable = BaseItemHandler::generate<Readable>(ItemTypes::READABLE, (int)ReadableTypes::BUUK);
+			Assert::AreEqual("a_book", readable->getName().c_str());
+			Assert::AreEqual("lol", readable->getDescription().c_str());
+			Assert::IsTrue(readable->getValue() >= 1.0 && readable->getValue() <= 2.0);
+			Assert::AreEqual((item_size_t)1, readable->getWidth());
+			Assert::AreEqual((item_size_t)2, readable->getHeight());
+			Assert::AreEqual("witaj_podrozny", readable->getText().c_str());
+		}
+		TEST_METHOD(ShieldTests) {
+			auto shield = BaseItemHandler::generate<Shield>(ItemTypes::SHIELD, (int)ShieldTypes::SHIELD_1);
+			Assert::AreEqual("cock_block", shield->getName().c_str());
+			Assert::AreEqual("blocks_your_cock", shield->getDescription().c_str());
+			Assert::IsTrue(shield->getValue() >= 1.0 && shield->getValue() <= 1.0);
+			Assert::AreEqual((item_size_t)2, shield->getWidth());
+			Assert::AreEqual((item_size_t)5, shield->getHeight());
+			for (int i = 0; i < (int)ModifiersTypes::COUNT_MODIFIERS; i++) {
+				Assert::AreEqual((item_mod_t)0, shield->getModifier((ModifiersTypes)i));
+			}
+			Assert::IsTrue(shield->getArmor() >= 1.0 && shield->getArmor() <= 2.0);
+			Assert::IsTrue(shield->getTimeToRaise().getTimeMs() >= 1500 && shield->getTimeToRaise().getTimeMs() <= 2000);
+		}
+
 	};
 }
 

@@ -12,7 +12,7 @@ ItemTypes BaseShield::getItemType()
 shared_ptr<AbstractItem> BaseShield::generate()
 {
     return make_shared<Shield>(width, height, (int)value.getRandom(),name, description,
-        modifiers, armor.getRandom(),Time((unsigned int)(timeToRaise.getRandom()*1000)),
+        modifiers, armor.getRandom(),Time((unsigned int)(timeToRaise.getRandom())),
         shieldType);
 }
 

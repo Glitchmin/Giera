@@ -518,5 +518,8 @@
     <ClInclude Include="Effects.h">
       <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClInclude>
+    <ClInclude Include="ReadableTypes.h">
+      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
