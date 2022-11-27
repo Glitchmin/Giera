@@ -298,7 +298,16 @@
       <Filter>Source Files\GameLogic\Spells\Modifiers</Filter>
     </ClCompile>
     <ClCompile Include="AbstractSpell.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameLogic\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="ThownSpell.cpp">
+      <Filter>Source Files\GameLogic\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="PointSpell.cpp">
+      <Filter>Source Files\GameLogic\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="SelfSpell.cpp">
+      <Filter>Source Files\GameLogic\Spells</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -552,7 +561,16 @@
       <Filter>Header Files\GameLogic\Spells\Modifiers</Filter>
     </ClInclude>
     <ClInclude Include="AbstractSpell.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameLogic\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="ThownSpell.h">
+      <Filter>Header Files\GameLogic\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="PointSpell.h">
+      <Filter>Header Files\GameLogic\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="SelfSpell.h">
+      <Filter>Header Files\GameLogic\Spells</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
