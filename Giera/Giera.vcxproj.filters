@@ -572,5 +572,8 @@
     <ClInclude Include="SelfSpell.h">
       <Filter>Header Files\GameLogic\Spells</Filter>
     </ClInclude>
+    <ClInclude Include="NPCTypes.h">
+      <Filter>Header Files\GameLogic\NPC</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
