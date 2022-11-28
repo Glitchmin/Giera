@@ -176,6 +176,7 @@
     <ClCompile Include="EffectsHandler.cpp" />
     <ClCompile Include="ExplosionSpellModifer.cpp" />
     <ClCompile Include="Food.cpp" />
+    <ClCompile Include="ItemSpawner.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="AbstractMapElement.cpp" />
@@ -206,6 +207,7 @@
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="SelfSpell.cpp" />
     <ClCompile Include="Shield.cpp" />
+    <ClCompile Include="SpawningDetails.cpp" />
     <ClCompile Include="StatChangingEffect.cpp" />
     <ClCompile Include="SubTimer.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -261,6 +263,7 @@
     <ClInclude Include="FileModesTypes.h" />
     <ClInclude Include="DamageTypes.h" />
     <ClInclude Include="EffectTypes.h" />
+    <ClInclude Include="ItemSpawner.h" />
     <ClInclude Include="ItemTypes.h" />
     <ClInclude Include="MeleeWeapon.h" />
     <ClInclude Include="Misc.h" />
@@ -294,6 +297,7 @@
     <ClInclude Include="SelfSpell.h" />
     <ClInclude Include="Shield.h" />
     <ClInclude Include="ShieldTypes.h" />
+    <ClInclude Include="SpawningDetails.h" />
     <ClInclude Include="SpellModifiersTypes.h" />
     <ClInclude Include="StatChangingEffect.h" />
     <ClInclude Include="SubTimer.h" />
