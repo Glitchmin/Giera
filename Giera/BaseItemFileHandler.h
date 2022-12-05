@@ -9,7 +9,7 @@ using std::shared_ptr;
 using std::unique_ptr;
 using std::vector;
 
-class BaseItemFileHandler:public AbstractEntityFileLoader<AbstractBaseItem>
+class BaseItemFileHandler: public AbstractEntityFileLoader<AbstractBaseItem>
 {
 private:
 	static inline vector <string> baseItemFilenames{"Melee","Ranged","Shield", "Armor",

@@ -4,5 +4,5 @@
 void EffectsHandler::initialize()
 {
 	EffectsFileHandler ef;
-	ef.readEffects(EffectsHandler::effects);
+	ef.readEntities(EffectsHandler::effects);
 }
