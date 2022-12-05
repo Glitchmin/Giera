@@ -221,6 +221,7 @@
     <ClInclude Include="AbstractBaseItem.h" />
     <ClInclude Include="AbstractBaseWeapon.h" />
     <ClInclude Include="AbstractEffect.h" />
+    <ClInclude Include="AbstractEntityFileLoader.h" />
     <ClInclude Include="AbstractGearItem.h" />
     <ClInclude Include="AbstractGeometryFigure.h" />
     <ClInclude Include="AbstractItem.h" />

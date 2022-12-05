@@ -60,6 +60,7 @@
 #include "../Giera/Readable.cpp"
 #include "../Giera/Shield.cpp"
 
+#include "../Giera/AbstractEntityFileLoader.h"
 #include "../Giera/BaseItems.h"
 #include "../Giera/AbstractBaseItem.cpp"
 #include "../Giera/AbstractBaseGearItem.cpp"

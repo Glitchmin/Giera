@@ -587,5 +587,8 @@
     <ClInclude Include="ItemSpawner.h">
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractEntityFileLoader.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

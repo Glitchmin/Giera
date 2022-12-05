@@ -4,7 +4,7 @@
 void BaseItemHandler::initialize()
 {
 	BaseItemFileHandler baseItemFileHandler;
-	baseItemFileHandler.readBaseItems(baseItems);
+	baseItemFileHandler.readEntities(baseItems);
 }
 
 shared_ptr<AbstractBaseItem> BaseItemHandler::getBaseItem(ItemTypes itemType, int itemSubtype)
