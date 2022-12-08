@@ -115,6 +115,12 @@
     <Filter Include="Source Files\GameLogic\Spells\Modifiers">
       <UniqueIdentifier>{c56a5a05-aa44-4739-adba-4fd886ab807a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\Board">
+      <UniqueIdentifier>{dcf1ed7a-48ba-45d8-9235-ffaa16dd9517}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Board">
+      <UniqueIdentifier>{ff4e36fa-1392-4539-b493-2fbc506c7ccc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -314,6 +320,9 @@
     </ClCompile>
     <ClCompile Include="ItemSpawner.cpp">
       <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Source Files\GameLogic\Board</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -589,6 +598,9 @@
     </ClInclude>
     <ClInclude Include="AbstractEntityFileLoader.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Header Files\GameLogic\Board</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

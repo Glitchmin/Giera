@@ -170,6 +170,7 @@
     <ClCompile Include="BaseRangedWeapon.cpp" />
     <ClCompile Include="BaseReadable.cpp" />
     <ClCompile Include="BaseShield.cpp" />
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DamageEffect.cpp" />
     <ClCompile Include="EffectsFileHandler.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="BaseRangedWeapon.h" />
     <ClInclude Include="BaseReadable.h" />
     <ClInclude Include="BaseShield.h" />
+    <ClInclude Include="Board.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Damage.h" />
