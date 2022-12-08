@@ -9,6 +9,7 @@
 #include <map> 
 
 class AbstractMapGenerator;
+class MapTile;
 
 class Map
 {

@@ -2,6 +2,7 @@
 #include "SpawningDetails.h"
 #include "Coordinates.h"
 #include "Board.h"
+class Board;
 class ItemSpawner
 {
 protected:

@@ -2,6 +2,7 @@
 #include "AbstractNPC.h"
 #include "Map.h"
 #include "NormalItems.h"
+class Map;
 class Board
 {
 public:

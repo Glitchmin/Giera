@@ -1,7 +1,10 @@
 #pragma once
 #include "MapTileEnums.h"
 #include "Rotation.h"
+#include "ItemSpawner.h"
 #include<iostream>
+
+class ItemSpawner;
 
 using std::istream;
 using std::ostream;
@@ -13,11 +16,12 @@ private:
 	ForegroundTypes foregroundType;
 	BackgroundTypes backgroundType;
 	TerrainTypes terrainType;
+    vector <ItemSpawner> itemSpawners;
 	Rotations terrainRotation;
 public:
     MapTile();
     MapTile(TerrainTypes terrainType, Rotations terrainRotation = Rotations::UP, ForegroundTypes foregroundType = ForegroundTypes::NONE,
-        BackgroundTypes backgroundType = BackgroundTypes::NONE, WallTypes wallType = WallTypes::NONE);
+        BackgroundTypes backgroundType = BackgroundTypes::NONE, WallTypes wallType = WallTypes::NONE, vector <ItemSpawner> itemSpawners = {});
 
     WallTypes getWallType() const;
     void setWallType(WallTypes wallType);

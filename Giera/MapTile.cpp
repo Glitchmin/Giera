@@ -64,13 +64,15 @@ MapTile::MapTile()
     this->wallType = WallTypes::NONE;
 }
 
-MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType, BackgroundTypes backgroundType, WallTypes wallType)
+MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType, 
+    BackgroundTypes backgroundType, WallTypes wallType, vector <ItemSpawner> itemSpawners)
 {
     this->terrainType = terrainType;
     this->terrainRotation = terrainRotation;
     this->foregroundType = foregroundType;
     this->backgroundType = backgroundType;
     this->wallType = wallType;
+    this->itemSpawners = itemSpawners;
 }
 
 std::ostream& operator<<(std::ostream& out, const MapTile& t)
