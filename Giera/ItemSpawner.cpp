@@ -1,11 +1,11 @@
 #include "ItemSpawner.h"
 
-void ItemSpawner::generateSingleItem(Coordinates& coord)
+void ItemSpawner::generateSingleItem(Coordinates& coord, Board& board)
 {
 	int i = 0;
 	while (true) {
 		if (Calculator::calculateChance(items[i].getChance())) {
-			//TODO add to board items[i].getItem()->generate();
+			board.addItem(coord, items[i].getItem()->generate());
 			return;
 		}
 		i++;
@@ -13,11 +13,11 @@ void ItemSpawner::generateSingleItem(Coordinates& coord)
 	}
 }
 
-void ItemSpawner::generateMultipleItems(Coordinates& coord)
+void ItemSpawner::generateMultipleItems(Coordinates& coord, Board& board)
 {
 	for (SpawningDetails& sD : items) {
 		if (Calculator::calculateChance(sD.getChance())) {
-			//TODO Board.addItem(sD.getItem()->generate());
+			board.addItem(coord,sD.getItem()->generate());
 		}
 	}
 }
@@ -33,11 +33,11 @@ ItemSpawner::ItemSpawner(vector<SpawningDetails>& items, bool isMultiple, double
 	this->radius = radius;
 }
 
-void ItemSpawner::generateItems(Coordinates& coord)
+void ItemSpawner::generateItems(Coordinates& coord, Board& board)
 {
 	if (isMultiple) {
-		generateMultipleItems(coord);
+		generateMultipleItems(coord, board);
 		return;
 	}
-	generateSingleItem(coord);
+	generateSingleItem(coord,board);
 }

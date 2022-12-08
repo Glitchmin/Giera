@@ -10,3 +10,8 @@ Board::Board(unique_ptr<Map> map, shared_ptr<AbstractNPC> player)
 	npcs.push_back(player);
 	
 }
+
+void Board::addItem(Coordinates coords, shared_ptr<AbstractItem> item)
+{
+	items[coords.getX()][coords.getY()].push_back(item);
+}
