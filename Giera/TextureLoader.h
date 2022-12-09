@@ -17,9 +17,9 @@ public:
     static void setRenderer(SDL_Renderer* renderer);
 
 private:
-	static inline unordered_map <string, Texture> textureMap{};
+	static inline unordered_map <string, shared_ptr <Texture> > textureMap{};
 	static inline SDL_Renderer* renderer = nullptr;
-	static Texture loadTexture(string& textureName);
+	static shared_ptr <Texture> loadTexture(string& textureName);
 	friend class Texture;
 };
 

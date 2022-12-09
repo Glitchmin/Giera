@@ -16,10 +16,11 @@ and may not be redistributed without written permission.*/
 #include "GrasslandsGenerator.h"
 #include "MapFileHandler.h"
 #include "BaseItemHandler.h"
+#include "TextureLoader.h"
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 640;
 
 int main( int argc, char* args[] )
 {
@@ -32,37 +33,34 @@ int main( int argc, char* args[] )
 	//Initialize SDL 
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
 	{
-		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+		Logger::logError ("SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
 	}
 	else
 	{
-		//Create window
 		window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( window == NULL )
 		{
-			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
+			Logger::logError( "Couldn't create window!", SDL_GetError());
 		}
 		else
 		{
-			//Get window surface
-			screenSurface = SDL_GetWindowSurface( window );
-
-			//Fill the surface white
-			SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) );
-			
-			//Update the surface
-			SDL_UpdateWindowSurface( window );
-
+			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+			SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+			TextureLoader::setRenderer(renderer);
+			string textureName = "../../test.bmp";
+			SDL_Rect dsRect{0,0,SCREEN_WIDTH,SCREEN_HEIGHT};
+			SDL_RenderCopy(renderer, TextureLoader::getTexturePtr(textureName)->getTexture(),NULL,&dsRect);
+			SDL_RenderPresent(renderer);
 			//Wait two seconds
 			SDL_Delay( 2000 );
 		}
 	}
 
-	//Destroy window
 	SDL_DestroyWindow( window );
 
-	//Quit SDL subsystems
 	SDL_Quit();
 	Logger::close();
+	Logger::logInfo("end of the program");
 	return 0;
 }

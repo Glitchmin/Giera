@@ -2,7 +2,7 @@
 
 Texture::Texture(string& textureName)
 {
-	this->texture = TextureLoader::loadTexture(textureName).getTexture();
+	this->texture = TextureLoader::loadTexture(textureName)->getTexture();
 }
 
 Texture::Texture()
