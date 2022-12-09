@@ -12,7 +12,7 @@ class BaseItemHandler
 public:
 	static void initialize();
 	template <class T> static shared_ptr<T> generate(ItemTypes itemType, int itemSubtype);
-	shared_ptr<AbstractBaseItem> getBaseItem(ItemTypes itemType, int itemSubtype);
+	static shared_ptr<AbstractBaseItem> getBaseItem(ItemTypes itemType, int itemSubtype);
 private:
 	static inline vector <vector <shared_ptr<AbstractBaseItem>>> baseItems;
 };

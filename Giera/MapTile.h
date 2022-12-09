@@ -21,7 +21,9 @@ private:
 public:
     MapTile();
     MapTile(TerrainTypes terrainType, Rotations terrainRotation = Rotations::UP, ForegroundTypes foregroundType = ForegroundTypes::NONE,
-        BackgroundTypes backgroundType = BackgroundTypes::NONE, WallTypes wallType = WallTypes::NONE, vector <ItemSpawner> itemSpawners = {});
+        BackgroundTypes backgroundType = BackgroundTypes::NONE, WallTypes wallType = WallTypes::NONE);
+    MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,
+        BackgroundTypes backgroundType, WallTypes wallType, vector <ItemSpawner>& itemSpawners);
 
     WallTypes getWallType() const;
     void setWallType(WallTypes wallType);

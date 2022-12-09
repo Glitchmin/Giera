@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include <sstream>
 #include <memory>
+#include "BaseItemHandler.h"
 ValuesRange GrasslandsGenerator::bushRatio = ValuesRange(0.005, 0.01);
 ValuesRange GrasslandsGenerator::rockRatio = ValuesRange(0.01, 0.015);
 
@@ -55,8 +56,11 @@ void GrasslandsGenerator::SetMapTile(std::vector<std::vector<bool>>& boolBoard,
 		else
 		{
 			numberOfBushes--;
+			vector <ItemSpawner> itemSpawners;
+			vector <SpawningDetails> sD { SpawningDetails(BaseItemHandler::getBaseItem(ItemTypes::FOOD, 0), 1.00, 0) };
+			itemSpawners.push_back(ItemSpawner(sD,false, 1.0));
 			map.mapTiles[x][y] = MapTile(TerrainTypes::GRASS,
-				getRandomRotation(), ForegroundTypes::GRASS, BackgroundTypes::NONE, WallTypes::BUSH);
+				getRandomRotation(), ForegroundTypes::GRASS, BackgroundTypes::NONE, WallTypes::BUSH, itemSpawners);
 		}
 	}
 }

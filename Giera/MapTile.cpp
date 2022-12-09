@@ -65,20 +65,30 @@ MapTile::MapTile()
 }
 
 MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType, 
-    BackgroundTypes backgroundType, WallTypes wallType, vector <ItemSpawner> itemSpawners)
+    BackgroundTypes backgroundType, WallTypes wallType)
 {
     this->terrainType = terrainType;
     this->terrainRotation = terrainRotation;
     this->foregroundType = foregroundType;
     this->backgroundType = backgroundType;
     this->wallType = wallType;
-    this->itemSpawners = itemSpawners;
+}
+
+MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,
+    BackgroundTypes backgroundType, WallTypes wallType, vector <ItemSpawner>& itemSpawners)
+{
+    this->terrainType = terrainType;
+    this->terrainRotation = terrainRotation;
+    this->foregroundType = foregroundType;
+    this->backgroundType = backgroundType;
+    this->wallType = wallType;
+    this->itemSpawners = move(itemSpawners);
 }
 
 std::ostream& operator<<(std::ostream& out, const MapTile& t)
 {
     out <<(int)t.terrainType <<" " << (int)t.terrainRotation <<" "
-        <<(int)t.wallType << " " << (int)t.backgroundType << " " << (int)t.foregroundType;
+        <<(int)t.wallType << " " << (int)t.backgroundType << " " << (int)t.foregroundType;//TODO update with spawners
     return out;
 }
 

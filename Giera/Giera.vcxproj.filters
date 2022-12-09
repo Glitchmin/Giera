@@ -121,6 +121,12 @@
     <Filter Include="Source Files\GameLogic\Board">
       <UniqueIdentifier>{ff4e36fa-1392-4539-b493-2fbc506c7ccc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{555b1220-16e6-4760-ae0b-08b04f40aef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{ee38d7a2-99dc-454b-a819-6216c8124c81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -323,6 +329,12 @@
     </ClCompile>
     <ClCompile Include="Board.cpp">
       <Filter>Source Files\GameLogic\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -601,6 +613,12 @@
     </ClInclude>
     <ClInclude Include="Board.h">
       <Filter>Header Files\GameLogic\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
