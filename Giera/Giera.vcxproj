@@ -171,8 +171,10 @@
     <ClCompile Include="BaseReadable.cpp" />
     <ClCompile Include="BaseShield.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="BoardRenderer.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DamageEffect.cpp" />
+    <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="EffectsFileHandler.cpp" />
     <ClCompile Include="EffectsHandler.cpp" />
     <ClCompile Include="ExplosionSpellModifer.cpp" />
@@ -251,10 +253,12 @@
     <ClInclude Include="BaseReadable.h" />
     <ClInclude Include="BaseShield.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="BoardRenderer.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Damage.h" />
     <ClInclude Include="DamageEffect.h" />
+    <ClInclude Include="Drawable.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="EffectsFileHandler.h" />
     <ClInclude Include="EffectsHandler.h" />

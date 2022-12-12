@@ -1,10 +1,10 @@
 #pragma once
 class Position {
 private:
-	double x, y;
+	double x, y, z;
 public:
 	Position();
-	Position(double x, double y);
+	Position(double x, double y, double z);
 
 	double getX() const;
 	void setX(double x);
@@ -12,8 +12,10 @@ public:
 	double getY() const;
 	void setY(double y);
 
+    double getZ() const;
+    void setZ(double z);
+
 	Position operator + (Position const& p1);
 	//TODO rest of the operators
-};
 
-// i am here buhahahaha - ja
+};

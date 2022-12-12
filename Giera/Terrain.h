@@ -9,5 +9,6 @@ private:
 public:
     std::string getFileName() override;
     Terrain();
+    virtual void draw(Texture& textureToDrawOn, double& pixelToMeterRatio) override;
 };
 

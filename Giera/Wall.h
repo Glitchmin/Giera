@@ -14,6 +14,7 @@ public:
     Wall(std::unique_ptr<AbstractGeometryFigure>&);
     std::string getFileName() override;
     const std::unique_ptr<AbstractGeometryFigure>& getHitbox() const;
+    virtual void draw(Texture& TextureToDrawOn, double& pixelToMeterRatio) override;
 
     friend class MapElementsFileHandler;
 };

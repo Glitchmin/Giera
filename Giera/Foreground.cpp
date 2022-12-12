@@ -11,3 +11,8 @@ std::string Foreground::getFileName()
 Foreground::Foreground() {
 	this->elementID = fgCounter++;
 }
+
+void Foreground::draw(Texture& TextureToDrawOn, double& pixelToMeterRatio)
+{
+	Logger::logError("TO DO foreground rendering");
+}
