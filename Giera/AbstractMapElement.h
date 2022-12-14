@@ -2,8 +2,8 @@
 #include <string>
 #include <sstream>
 #include "Time.h"
-#include "Drawable.h"
-class AbstractMapElement: public Drawable
+#include "Sprite.h"
+class AbstractMapElement: public Sprite
 {
 protected:
 	static inline std::string txFolderPath = "../../tx/";

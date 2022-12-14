@@ -2,6 +2,7 @@
 #include "AbstractNPC.h"
 #include "Map.h"
 #include "NormalItems.h"
+#include "MapElementsHandler.h"
 class Map;
 class Board
 {
@@ -12,5 +13,6 @@ private:
 	vector <shared_ptr <AbstractNPC> > npcs;
 	unique_ptr<Map> map;
 	vector <vector <vector <shared_ptr<AbstractItem> > > > items;
+	unique_ptr<MapElementsHandler> mapElementsHandler;
 };
 

@@ -132,9 +132,6 @@
     <ClCompile Include="Rectangle.cpp">
       <Filter>Source Files\Utility\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Position.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
@@ -341,6 +338,12 @@
     </ClCompile>
     <ClCompile Include="BoardRenderer.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableBoardEntity.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -626,10 +629,13 @@
     <ClInclude Include="TextureLoader.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Drawable.h">
+    <ClInclude Include="Sprite.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="BoardRenderer.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableBoardEntity.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,7 +12,7 @@ Foreground::Foreground() {
 	this->elementID = fgCounter++;
 }
 
-void Foreground::draw(Texture& TextureToDrawOn, double& pixelToMeterRatio)
+void Foreground::draw(Texture& TextureToDrawOn, double& pixelToMeterRatio, Position& posOnMap)
 {
 	Logger::logError("TO DO foreground rendering");
 }

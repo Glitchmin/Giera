@@ -9,7 +9,7 @@ class ItemSpawner;
 using std::istream;
 using std::ostream;
 
-class MapTile
+class MapTile : public DrawableBoardEntity
 {
 private:
 	WallTypes wallType;

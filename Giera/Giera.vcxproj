@@ -175,6 +175,7 @@
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DamageEffect.cpp" />
     <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="DrawableBoardEntity.cpp" />
     <ClCompile Include="EffectsFileHandler.cpp" />
     <ClCompile Include="EffectsHandler.cpp" />
     <ClCompile Include="ExplosionSpellModifer.cpp" />
@@ -258,7 +259,8 @@
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Damage.h" />
     <ClInclude Include="DamageEffect.h" />
-    <ClInclude Include="Drawable.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="DrawableBoardEntity.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="EffectsFileHandler.h" />
     <ClInclude Include="EffectsHandler.h" />

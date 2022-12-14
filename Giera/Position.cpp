@@ -38,6 +38,13 @@ Position Position::operator+(Position const& p1)
 	return pos;
 }
 
+bool Position::operator<(const Position& a) const
+{
+	return y == a.y ? x < a.x : y<a.y ;
+}
+
+
+
 
 double Position::getZ() const
 {

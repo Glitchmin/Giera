@@ -1,7 +1,7 @@
 #pragma once
 #include "Texture.h"
 #include "Board.h"
-#include "Drawable.h"
+#include "DrawableBoardEntity.h"
 class Board;
 
 
@@ -9,8 +9,10 @@ class BoardRenderer
 {
 public:
 	void drawBoard();
+	void addDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity);
+	void removeDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity);
 private:
-	std::multiset<pair<double,weak_ptr<Drawable>>> drawablesSet;
+	drawables_multiset_t drawablesSet;
 	Texture boardTexture;
 	double pixelsPerMeter = 20;
 

@@ -13,18 +13,18 @@ using std::vector;
 class MapElementsHandler
 {
 private:
-	vector <unique_ptr<Background>> backgrounds;
-	vector <unique_ptr<Foreground>> foregrounds;
-	vector <unique_ptr<Terrain>> terrains;
-	vector <unique_ptr<Wall>> walls;
+	vector <shared_ptr<Background>> backgrounds;
+	vector <shared_ptr<Foreground>> foregrounds;
+	vector <shared_ptr<Terrain>> terrains;
+	vector <shared_ptr<Wall>> walls;
 public:
-	unique_ptr <Background>& 
+	shared_ptr <Background>
 		getBackground(BackgroundTypes backgroundType);
-	unique_ptr <Foreground>& 
+	shared_ptr <Foreground>
 		getForeground(ForegroundTypes foregroundType);
-	unique_ptr <Terrain>& 
+	shared_ptr <Terrain>
 		getTerrain(TerrainTypes terrainType);
-	unique_ptr <Wall>& 
+	shared_ptr <Wall>
 		getWall(WallTypes wallType);
 
 	friend class MapElementsFileHandler;

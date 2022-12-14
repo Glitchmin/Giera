@@ -12,9 +12,9 @@ Terrain::Terrain() {
 	this->elementID = trCounter++;
 }
 
-void Terrain::draw(Texture& textureToDrawOn, double& pixelToMeterRatio)
+void Terrain::draw(Texture& textureToDrawOn, double& pixelToMeterRatio, Position& posOnMap)
 {
 
 	texture->draw(textureToDrawOn, SDL_Rect{ 0, 0,texture->getSize().first,texture->getSize().second },
-		SDL_Rect{ (int)pos.getX(), (int)pos.getY(),(int)(pixelToMeterRatio/tilesPerMeter),(int)(pixelToMeterRatio / tilesPerMeter) });
+		SDL_Rect{ (int)posOnMap.getX(), (int)posOnMap.getY(),(int)(pixelToMeterRatio/tilesPerMeter),(int)(pixelToMeterRatio / tilesPerMeter) });
 }
