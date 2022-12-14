@@ -1,8 +1,6 @@
 #pragma once
 #include "Texture.h"
-#include "Board.h"
 #include "DrawableBoardEntity.h"
-class Board;
 
 using drawables_multiset_t = typename std::multiset<Drawable>;
 

@@ -42,7 +42,7 @@ void GrasslandsGenerator::SetMapTile(std::vector<std::vector<bool>>& boolBoard,
 {
 	if (boolBoard[x][y] == 0)
 	{
-		map.mapTiles[x][y] = MapTile(TerrainTypes::GRASS,
+		map.mapTiles[x][y] = make_shared<MapTile>(TerrainTypes::GRASS,
 			getRandomRotation(), ForegroundTypes::GRASS, BackgroundTypes::GRASS, WallTypes::NONE);
 	}
 	else
@@ -50,7 +50,7 @@ void GrasslandsGenerator::SetMapTile(std::vector<std::vector<bool>>& boolBoard,
 		if (numberOfRocks>Calculator::getRandomInt(0,numberOfRocks+numberOfBushes-1))
 		{
 			numberOfRocks--;
-			map.mapTiles[x][y] = MapTile(TerrainTypes::GRASS,
+			map.mapTiles[x][y] = make_shared<MapTile>(TerrainTypes::GRASS,
 				getRandomRotation(), ForegroundTypes::GRASS, BackgroundTypes::NONE, WallTypes::ROCK);
 		}
 		else
@@ -59,7 +59,7 @@ void GrasslandsGenerator::SetMapTile(std::vector<std::vector<bool>>& boolBoard,
 			vector <ItemSpawner> itemSpawners;
 			vector <SpawningDetails> sD { SpawningDetails(BaseItemHandler::getBaseItem(ItemTypes::FOOD, 0), 1.00, 0) };
 			itemSpawners.push_back(ItemSpawner(sD,false, 1.0));
-			map.mapTiles[x][y] = MapTile(TerrainTypes::GRASS,
+			map.mapTiles[x][y] = make_shared<MapTile>(TerrainTypes::GRASS,
 				getRandomRotation(), ForegroundTypes::GRASS, BackgroundTypes::NONE, WallTypes::BUSH, itemSpawners);
 		}
 	}

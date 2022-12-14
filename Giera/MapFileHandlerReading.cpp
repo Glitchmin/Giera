@@ -45,7 +45,7 @@ void MapFileHandler::readInitialData(Map& map,unsigned int version)
 	fileHandler->readFromFile(map.sizeX);
 	fileHandler->readFromFile(map.sizeY);
 	map.mapTiles.resize(map.sizeX);
-	for (std::vector<MapTile>& row : map.mapTiles)
+	for (auto& row : map.mapTiles)
 	{
 		row.resize(map.sizeY);
 	}
@@ -70,7 +70,7 @@ void MapFileHandler::readTileByTile(Map& map,unsigned int version)
 
 void MapFileHandler::readMapTile(Map& map, Coordinates coord, bool isSeed, unsigned int version)
 {
-	fileHandler->readFromFile(map.mapTiles[coord.getX()][coord.getY()]);
+	fileHandler->readFromFile(*map.mapTiles[coord.getX()][coord.getY()]);
 	if (isSeed)
 	{
 		map.mapChanges[coord] = map.mapTiles[coord.getX()][coord.getY()];

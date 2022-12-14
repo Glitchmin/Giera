@@ -17,8 +17,8 @@ private:
 	unsigned int sizeX;
 	unsigned int sizeY;
 	unsigned int seed;
-	std::vector <std::vector  <MapTile> > mapTiles;
-	std::map <Coordinates, MapTile > mapChanges;
+	std::vector <std::vector  <shared_ptr<MapTile>> > mapTiles;
+	std::map <Coordinates, shared_ptr<MapTile> > mapChanges;
 	LandscapeTypes landscapeType;
 	MapTypes mapType;
 	Directions startDirection;
@@ -38,10 +38,10 @@ public:
 	void setStartDirection(Directions startDirection);
     int getSeed() const;
 
-	void setMapTile(Coordinates c, MapTile mapTile);
-	const MapTile& getMapTile(Coordinates c) const;
+	void setMapTile(Coordinates c, shared_ptr<MapTile> mapTile);
+	shared_ptr<MapTile> getMapTile(Coordinates c) const;
 
-    std::map<Coordinates,MapTile> getMapChanges() const;
+    std::map<Coordinates, shared_ptr<MapTile>> getMapChanges() const;
     LandscapeTypes getLandscapeType() const;
     MapTypes getMapType() const;
 
