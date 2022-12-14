@@ -4,6 +4,7 @@
 #include "DrawableBoardEntity.h"
 class Board;
 
+using drawables_multiset_t = typename std::multiset<Drawable>;
 
 class BoardRenderer
 {

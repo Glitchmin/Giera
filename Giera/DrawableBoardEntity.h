@@ -1,5 +1,5 @@
 #pragma once
-#include "Sprite.h"
+#include "Drawable.h"
 using std::vector;
 class DrawableBoardEntity
 {

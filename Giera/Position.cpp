@@ -40,7 +40,14 @@ Position Position::operator+(Position const& p1)
 
 bool Position::operator<(const Position& a) const
 {
-	return y == a.y ? x < a.x : y<a.y ;
+	return y == a.y ?
+		(x==a.x? z<a.z : x<a.x) :
+		y<a.y ;
+}
+
+bool Position::operator==(const Position& a) const
+{
+	return x == a.x && y==a.y && z==a.z;
 }
 
 

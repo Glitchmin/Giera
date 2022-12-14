@@ -22,7 +22,7 @@ const std::unique_ptr<AbstractGeometryFigure>&
     return hitbox;
 }
 
-void Wall::draw(Texture& TextureToDrawOn, double& pixelToMeterRatio, Position& posOnMap)
+void Wall::draw(Texture& TextureToDrawOn, double& pixelToMeterRatio,const Position& posOnMap)
 {
 	Logger::logError("TO DO foreground rendering");
 }

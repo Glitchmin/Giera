@@ -18,7 +18,7 @@ Background::Background(unsigned int framesNumber, Time refreshTime):
 	this->elementID = bgCounter++;
 }
 
-void Background::draw(Texture& TextureToDrawOn, double& pixelToMeterRatio, Position& posOnMap)
+void Background::draw(Texture& TextureToDrawOn, double& pixelToMeterRatio,const Position& posOnMap)
 {
 	Logger::logError("to do");
 }

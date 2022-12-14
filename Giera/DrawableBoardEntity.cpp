@@ -12,7 +12,7 @@ void DrawableBoardEntity::addDrawable(Drawable& drawable)
 
 void DrawableBoardEntity::addDrawable(Position pos, shared_ptr<Sprite> sprite)
 {
-    this->drawables.push_back(make_pair(pos,sprite));
+    this->drawables.push_back(Drawable(pos,sprite));
 }
 
 

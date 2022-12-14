@@ -4,7 +4,7 @@
 void BoardRenderer::drawBoard()
 {
 	for (auto& it : drawablesSet) {
-		it.second.lock()->draw(boardTexture, pixelsPerMeter);
+		it.getSprite().lock()->draw(boardTexture, pixelsPerMeter, it.getPos());
 	}
 }
 

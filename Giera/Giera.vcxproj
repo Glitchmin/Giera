@@ -259,6 +259,7 @@
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Damage.h" />
     <ClInclude Include="DamageEffect.h" />
+    <ClInclude Include="Drawable.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="DrawableBoardEntity.h" />
     <ClInclude Include="Effects.h" />

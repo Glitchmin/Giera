@@ -17,6 +17,7 @@ public:
 
 	Position operator + (Position const& p1);
 	bool operator < (const Position& a) const;
+	bool operator == (const Position& a) const;
 	//TODO rest of the operators
 
 };
