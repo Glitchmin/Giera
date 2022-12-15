@@ -9,5 +9,6 @@ void BaseItemHandler::initialize()
 
 shared_ptr<AbstractBaseItem> BaseItemHandler::getBaseItem(ItemTypes itemType, int itemSubtype)
 {
+	initialize();
 	return baseItems[(int)itemType][itemSubtype];
 }

@@ -31,6 +31,7 @@ int main( int argc, char* args[] )
 			TextureLoader::setRenderer(renderer);
 			auto map = make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::GIERA, Directions::NORTH, 64, 64, 0);
 			Board board(map,nullptr);
+
 			SDL_RenderPresent(renderer);
 			//Wait two seconds
 			SDL_Delay( 2000 );

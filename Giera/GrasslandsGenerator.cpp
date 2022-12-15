@@ -25,7 +25,7 @@ void GrasslandsGenerator::generateMap(Map& map)
 		{
 			numberOf1 += boolMap[x][y];
 			SetMapTile(boolMap, x, y, map, numberOfRocks, numberOfBushes);
-			ss << x << " " << y << " " << map.mapTiles[x][y] << " ";
+			ss << x << " " << y << " " << *(map.mapTiles[x][y]) << " ";
 		}
 		Logger::logDebug("map generated:");
 		Logger::logDebug(ss.str());

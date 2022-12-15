@@ -59,7 +59,7 @@ void MapFileHandler::saveTileByTile(Map& map)
 
 void MapFileHandler::saveMapTile(Map& map, Coordinates coord, bool isSeed)
 {
-	fileHandler->saveToFile(map.mapTiles[coord.getX()][coord.getY()]);
+	fileHandler->saveToFile(*map.mapTiles[coord.getX()][coord.getY()]);
 }
 
 void MapFileHandler::saveBySeed(Map& map)

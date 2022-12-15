@@ -4,12 +4,13 @@
 #include "LandscapeTypes.h"
 #include "Directions.h"
 #include "Coordinates.h"
+#include "AbstractMapGenerator.h"
 #include <memory>
 #include <vector>
 #include <map> 
 
-class AbstractMapGenerator;
 class MapTile;
+class AbstractMapGenerator;
 
 class Map
 {

@@ -6,13 +6,13 @@ Board::Board(unique_ptr<Map>& map, shared_ptr<AbstractNPC> player)
 	for (auto& v : items) {
 		v.resize(map->getSizeY());
 	}
-	this->map = std::move (map);
 	this->boardRenderer = BoardRenderer(map->getSizeX(),map->getSizeY(),20);
 	for (int i = 0; i < map->getSizeX();i++) {
 		for (int j = 0; j < map->getSizeY();j++) {
 			boardRenderer.addDrawableBoardEntity(map->getMapTile(Coordinates(i,j)));
 		}
 	}
+	this->map = std::move (map);
 	npcs.push_back(player);
 	
 }

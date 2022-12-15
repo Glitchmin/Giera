@@ -1,6 +1,8 @@
 #include "Map.h"
-#include "AbstractMapGenerator.h"
 #include "GrasslandsGenerator.h"
+
+std::vector<std::shared_ptr<AbstractMapGenerator>> Map::generators =
+{ std::make_shared<GrasslandsGenerator>() };
 
 Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirection,
     unsigned int sizeX, unsigned int sizeY, int seed)
@@ -29,9 +31,6 @@ void Map::generate()
 {
     generators[(int)landscapeType]->generateMap(*this);
 }
-
-std::vector<std::shared_ptr<AbstractMapGenerator>> Map::generators =
-    {std::make_shared<GrasslandsGenerator>(GrasslandsGenerator())};
 
 unsigned int Map::getSizeX() const
 {

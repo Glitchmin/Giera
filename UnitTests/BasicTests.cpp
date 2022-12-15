@@ -290,9 +290,9 @@ namespace MapTests
 				for (int y=0;y< map.getSizeY();y++)
 				{
 					std::stringstream ss;
-					ss << map.getMapTile(Coordinates(x, y));
+					ss << *map.getMapTile(Coordinates(x, y));
 					std::stringstream ss2;
-					ss2 << map2.getMapTile(Coordinates(x, y));
+					ss2 << *map2.getMapTile(Coordinates(x, y));
 					Assert::AreEqual(ss.str(), ss2.str());
  				}
 			}
@@ -314,9 +314,9 @@ namespace MapTests
 				for (int y = 0;y < map.getSizeY();y++)
 				{
 					std::stringstream ss;
-					ss << map.getMapTile(Coordinates(x, y));
+					ss << *map.getMapTile(Coordinates(x, y));
 					std::stringstream ss2;
-					ss2 << map2.getMapTile(Coordinates(x, y));
+					ss2 << *map2.getMapTile(Coordinates(x, y));
 					Assert::AreEqual(ss.str(), ss2.str());
 				}
 			}

@@ -70,7 +70,8 @@ void MapFileHandler::readTileByTile(Map& map,unsigned int version)
 
 void MapFileHandler::readMapTile(Map& map, Coordinates coord, bool isSeed, unsigned int version)
 {
-	fileHandler->readFromFile(*map.mapTiles[coord.getX()][coord.getY()]);
+	map.mapTiles[coord.getX()][coord.getY()] = make_shared<MapTile>();
+	fileHandler->readFromFile(*(map.mapTiles[coord.getX()][coord.getY()]));
 	if (isSeed)
 	{
 		map.mapChanges[coord] = map.mapTiles[coord.getX()][coord.getY()];
