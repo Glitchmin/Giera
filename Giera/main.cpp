@@ -29,9 +29,8 @@ int main( int argc, char* args[] )
 			SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 			TextureLoader::setRenderer(renderer);
-			string textureName = "../../test.bmp";
-			SDL_Rect dsRect{0,0,800,640};
-			SDL_RenderCopy(renderer, TextureLoader::getTexturePtr(textureName)->getTexture(),NULL,&dsRect);
+			auto map = make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::GIERA, Directions::NORTH, 64, 64, 0);
+			Board board(map,nullptr);
 			SDL_RenderPresent(renderer);
 			//Wait two seconds
 			SDL_Delay( 2000 );

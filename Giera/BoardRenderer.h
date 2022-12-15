@@ -7,13 +7,15 @@ using drawables_multiset_t = typename std::multiset<Drawable>;
 class BoardRenderer
 {
 public:
+	BoardRenderer();
+	BoardRenderer(unsigned int sizeX, unsigned int sizeY, double pixelsPerMeter);
 	void drawBoard();
 	void addDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity);
 	void removeDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity);
 private:
 	drawables_multiset_t drawablesSet;
-	Texture boardTexture;
-	double pixelsPerMeter = 20;
+	shared_ptr<Texture> boardTexture;
+	double pixelsPerMeter;
 
 };
 

@@ -30,6 +30,12 @@
 #include "../Giera/MapFileHandler.h"
 #include "../Giera/MapFileHandlerSaving.cpp"
 #include "../Giera/MapFileHandlerReading.cpp"
+#include "../Giera/SpawningDetails.h"
+#include "../Giera/SpawningDetails.cpp"
+#include "../Giera/ItemSpawner.h"
+#include "../Giera/ItemSpawner.cpp"
+#include "../Giera/Position.h"
+#include "../Giera/Position.cpp"
 #include "../Giera/Damage.cpp"
 #include "../Giera/Damage.h"
 #include "../Giera/Lifesteal.h"
@@ -78,6 +84,20 @@
 #include "../Giera/EffectsFileHandler.cpp"
 #include "../Giera/EffectsHandler.h"
 #include "../Giera/EffectsHandler.cpp"
+
+#include "../Giera/Board.h"
+#include "../Giera/Board.cpp"
+#include "../Giera/BoardRenderer.h"
+#include "../Giera/BoardRenderer.cpp"
+#include "../Giera/Texture.h"
+#include "../Giera/Texture.cpp"
+#include "../Giera/TextureLoader.h"
+#include "../Giera/TextureLoader.cpp"
+#include "../Giera/Drawable.h"
+#include "../Giera/Drawable.cpp"
+#include "../Giera/DrawableBoardEntity.h"
+#include "../Giera/DrawableBoardEntity.cpp"
+
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -285,7 +305,7 @@ namespace MapTests
 			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
 				Directions::NORTH, 10, 15, SDL_GetTicks());
 			map.setMapTile(Coordinates(3, 3),
-				MapTile(TerrainTypes::SAND, Rotations::RIGHT, ForegroundTypes::TALL_GRASS, BackgroundTypes::GRASS, WallTypes::BUSH));
+				make_shared<MapTile>(TerrainTypes::SAND, Rotations::RIGHT, ForegroundTypes::TALL_GRASS, BackgroundTypes::GRASS, WallTypes::BUSH));
 			MapFileHandler mapFileHandler;
 			mapFileHandler.saveMap(map);
 			auto map2 = mapFileHandler.readMap(MapTypes::QUEST_MAP);
@@ -327,8 +347,8 @@ namespace MapTests
 				int bushesNumber = 0;
 				for (int x = 0; x < map1->getSizeX(); x++) {
 					for (int y = 0; y < map1->getSizeY(); y++) {
-						rocksNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::ROCK);
-						bushesNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::BUSH);
+						rocksNumber += (map1->getMapTile(Coordinates(x, y))->getWallType() == WallTypes::ROCK);
+						bushesNumber += (map1->getMapTile(Coordinates(x, y))->getWallType() == WallTypes::BUSH);
 					}
 				}
 

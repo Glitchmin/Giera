@@ -56,3 +56,23 @@ void TextureLoader::setRenderer(SDL_Renderer* renderer)
 	TextureLoader::renderer = renderer;
 }
 
+shared_ptr<Texture> TextureLoader::makeUniColorTexture(int sizeX, int sizeY, SDL_Color color)
+{
+	if (renderer == NULL) {
+		Logger::logError("no renderer");
+	}
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
+	SDL_Texture* oldTarget = SDL_GetRenderTarget(renderer);
+
+	SDL_Texture* newTx = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, sizeX, sizeY);
+	SDL_SetTextureBlendMode(newTx, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+	SDL_SetRenderTarget(renderer, newTx);
+	SDL_RenderClear(renderer);
+
+	SDL_SetRenderTarget(renderer, oldTarget);
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
+	return make_shared<Texture>(newTx);
+}
+
