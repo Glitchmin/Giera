@@ -641,5 +641,8 @@
     <ClInclude Include="Drawable.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="MapElementsTypes.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

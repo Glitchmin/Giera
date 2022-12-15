@@ -1,75 +1,52 @@
 #include "MapElementsFileHandler.h"
-std::string MapElementsFileHandler::filePath = 
-	"MapElementsParams";
+#include "MapElementsTypes.h"
 
-using std::make_unique;
+using std::make_shared;
 
-void MapElementsFileHandler::readBackground
-(MapElementsHandler& mapElementsHandler, int version)
+const vector<string>& MapElementsFileHandler::getFilenames()
 {
-	auto bg = make_unique<Background>();
-	fileHandler.readFromFile(bg->framesNumber);
-	fileHandler.readFromFile(bg->refreshTime);
-	mapElementsHandler.backgrounds.push_back(std::move(bg));
+	return mapElementFilenames;
 }
 
-void MapElementsFileHandler::readForeground
-(MapElementsHandler& mapElementsHandler, int version)
+const string& MapElementsFileHandler::getFilePath()
 {
-	auto fg = make_unique<Foreground>();
-	fileHandler.readFromFile(fg->framesNumber);
-	fileHandler.readFromFile(fg->refreshTime);
-	mapElementsHandler.foregrounds.push_back(std::move(fg));
+	return filePath;
 }
 
-void MapElementsFileHandler::readTerrain
-(MapElementsHandler& mapElementsHandler, int version)
+int MapElementsFileHandler::getVersion()
 {
-	auto tr = make_unique<Terrain>();
-	fileHandler.readFromFile(tr->framesNumber);
-	fileHandler.readFromFile(tr->refreshTime);
-	mapElementsHandler.terrains.push_back(std::move(tr));
+	return version;
 }
 
-void MapElementsFileHandler::readWall
-(MapElementsHandler& mapElementsHandler, int version)
+shared_ptr<AbstractMapElement> MapElementsFileHandler::readEntity()
 {
-	auto w = make_unique<Wall>();
-	fileHandler.readFromFile(w->framesNumber);
-	fileHandler.readFromFile(w->refreshTime);
-	AbstractGeometryFigure* hitbox = nullptr;
-	
-	w->hitbox=std::move(
-		AbstractGeometryFigure::readFromFile(fileHandler));
-	mapElementsHandler.walls.push_back(std::move(w));
-}
+	MapElementTypes mapElementType;
+	int mapElementInt;
+	fileHandler->readFromFile(mapElementInt);
+	mapElementType = (MapElementTypes)mapElementInt;
+	unique_ptr<FileHandler>& fH = fileHandler;
+	shared_ptr <AbstractMapElement> ans;
 
-void MapElementsFileHandler::readFromFile
-(MapElementsHandler& mapElementsHandler)
-{
-	fileHandler.openFile(filePath, FileModeTypes::READ);
-	int version;
-	fileHandler.readFromFile(version);
-	int bgCount;
-	fileHandler.readFromFile(bgCount);
-	for (int i = 0; i < bgCount;i++) {
-		readBackground(mapElementsHandler,version);
+	switch (mapElementType) {
+	case MapElementTypes::TERRAIN:
+		ans = make_shared<Terrain>();
+		fH->readFromFile((Terrain&)*ans);
+		break;
+	case MapElementTypes::WALL:
+		ans = make_shared<Wall>();
+		fH->readFromFile((Wall&)*ans);
+		break;
+	case MapElementTypes::FOREGROUND:
+		ans = make_shared<Foreground>();
+		fH->readFromFile((Foreground&)*ans);
+		break;
+	case MapElementTypes::BACKGROUND:
+		ans = make_shared<Background>();
+		fH->readFromFile((Background&)*ans);
+		break;
+	default:
+		Logger::logError("unindetified baseItem type");
+		break;
 	}
-	int fgCount;
-	fileHandler.readFromFile(fgCount);
-	for (int i = 0; i < fgCount;i++) {
-		readForeground(mapElementsHandler, version);
-	}
-	int trCount;
-	fileHandler.readFromFile(trCount);
-	for (int i = 0; i < trCount;i++) {
-		readTerrain(mapElementsHandler, version);
-	}
-
-	int wCount;
-	fileHandler.readFromFile(wCount);
-	for (int i = 0; i < wCount;i++) {
-		readWall(mapElementsHandler, version);
-	}
+	return ans;
 }
-

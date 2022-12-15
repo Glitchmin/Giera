@@ -62,6 +62,7 @@ MapTile::MapTile()
     this->foregroundType = ForegroundTypes::NONE;
     this->backgroundType = BackgroundTypes::NONE;
     this->wallType = WallTypes::NONE;
+    this->drawables.push_back();
 }
 
 MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType, 
@@ -75,13 +76,9 @@ MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, Foreground
 }
 
 MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,
-    BackgroundTypes backgroundType, WallTypes wallType, vector <ItemSpawner>& itemSpawners)
+    BackgroundTypes backgroundType, WallTypes wallType, vector <ItemSpawner>& itemSpawners): 
+    MapTile(terrainType, terrainRotation, foregroundType, backgroundType, wallType)
 {
-    this->terrainType = terrainType;
-    this->terrainRotation = terrainRotation;
-    this->foregroundType = foregroundType;
-    this->backgroundType = backgroundType;
-    this->wallType = wallType;
     this->itemSpawners = move(itemSpawners);
 }
 

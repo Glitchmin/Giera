@@ -1,18 +1,17 @@
 #pragma once
 #include "FileHandler.h"
 #include "MapElementsHandler.h"
+#include "AbstractEntityFileLoader.h"
 class MapElementsHandler;
-class MapElementsFileHandler
+class MapElementsFileHandler : public AbstractEntityFileLoader<AbstractMapElement>
 {
 private:
-	static std::string filePath;
-	FileHandler fileHandler;
-
-	void readBackground(MapElementsHandler& mapElementsHandler, int version);
-	void readForeground(MapElementsHandler& mapElementsHandler, int version);
-	void readTerrain(MapElementsHandler& mapElementsHandler, int version);
-	void readWall(MapElementsHandler& mapElementsHandler, int version);
-public:
-	void readFromFile (MapElementsHandler& mapElementsHandler);
+	static inline vector <string> mapElementFilenames{ "Terrain","Wall","Foreground","Background" };
+	virtual const vector <string>& getFilenames() override;
+	virtual const string& getFilePath() override;
+	virtual int getVersion() override;
+	virtual shared_ptr<AbstractMapElement> readEntity() override;
+	static inline string filePath = "mapElements/";
+	static inline unsigned int version = 1;
 };
 //to be tested once geometry is written
