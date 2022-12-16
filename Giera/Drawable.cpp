@@ -6,8 +6,6 @@ Drawable::Drawable(Position pos, weak_ptr<Sprite> sprite)
 	this->pos = pos;
 	this->sprite = sprite;
 }
-Drawable::Drawable(Position pos, shared_ptr<Sprite> sprite):Drawable(pos, weak_ptr(sprite)){}
-
 
 Position Drawable::getPos() const
 {

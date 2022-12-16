@@ -9,6 +9,8 @@ private:
 public:
     std::string getFileName() override;
     Terrain();
-    virtual void draw(Texture& TextureToDrawOn, double& pixelToMeterRatio,const Position& posOnMap) override;
+    virtual void draw(Texture& TextureToDrawOn, const double& pixelToMeterRatio,const Position& posOnMap) override;
+
+    friend istream& operator >> (istream& is, Terrain& t);
 };
 

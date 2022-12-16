@@ -17,6 +17,8 @@
 
 int main( int argc, char* args[] )
 {
+	ios_base::sync_with_stdio(0);
+	Logger::setLevel(LoggingLevels::WARNING);
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ){
 		Logger::logError ("SDL could not initialize", SDL_GetError() );
 	}
@@ -29,8 +31,10 @@ int main( int argc, char* args[] )
 			SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 			TextureLoader::setRenderer(renderer);
+			Texture::setRenderer(renderer);
 			auto map = make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::GIERA, Directions::NORTH, 64, 64, 0);
 			Board board(map,nullptr);
+			board.boardRenderer.drawBoard();
 
 			SDL_RenderPresent(renderer);
 			//Wait two seconds

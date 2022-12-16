@@ -8,7 +8,7 @@ std::string Wall::getFileName()
 	return txFolderPath + wFolderPath + ss.str();
 }
 Wall::Wall() {
-	throw "default constructor";
+	this->elementID = wCounter++;;
 }
 Wall::Wall(
 	std::unique_ptr<AbstractGeometryFigure>& hitbox) {
@@ -22,7 +22,7 @@ const std::unique_ptr<AbstractGeometryFigure>&
     return hitbox;
 }
 
-void Wall::draw(Texture& TextureToDrawOn, double& pixelToMeterRatio,const Position& posOnMap)
+void Wall::draw(Texture& TextureToDrawOn, const double& pixelToMeterRatio,const Position& posOnMap)
 {
 	Logger::logError("TO DO foreground rendering");
 }

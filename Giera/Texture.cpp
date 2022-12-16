@@ -39,7 +39,7 @@ SDL_Renderer* Texture::getRenderer() const
 
 void Texture::setRenderer(SDL_Renderer* renderer)
 {
-    this->renderer = renderer;
+    Texture::renderer = renderer;
 }
 
 void Texture::draw(Texture& target, SDL_Rect srcRect, SDL_Rect dstRect)

@@ -45,7 +45,7 @@ shared_ptr<AbstractMapElement> MapElementsFileHandler::readEntity()
 		fH->readFromFile((Background&)*ans);
 		break;
 	default:
-		Logger::logError("unindetified baseItem type");
+		Logger::logError("unindetified mapElement type");
 		break;
 	}
 	return ans;

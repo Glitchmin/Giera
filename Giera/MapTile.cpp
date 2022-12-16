@@ -62,11 +62,13 @@ MapTile::MapTile()
     this->foregroundType = ForegroundTypes::NONE;
     this->backgroundType = BackgroundTypes::NONE;
     this->wallType = WallTypes::NONE;
-    this->drawables.push_back();
+    Drawable drawable = Drawable(Position(Calculator::getRandomInt(0, 64), Calculator::getRandomInt(0, 64), 0),
+        MapElementsHandler::getMapElement(MapElementTypes::TERRAIN, (int)terrainType));
+    this->drawables.push_back(drawable);
 }
 
-MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType, 
-    BackgroundTypes backgroundType, WallTypes wallType)
+MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,
+    BackgroundTypes backgroundType, WallTypes wallType) : MapTile()
 {
     this->terrainType = terrainType;
     this->terrainRotation = terrainRotation;

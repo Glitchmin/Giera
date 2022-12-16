@@ -2,7 +2,9 @@
 
 Position::Position()
 {
-	throw "default contructor";
+	this->x = -1;
+	this->y = -1;
+	this->z = -1;
 }
 
 Position::Position(double x, double y, double z)

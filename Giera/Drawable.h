@@ -5,7 +5,6 @@ class Drawable
 {
 public:
 	Drawable(Position pos, weak_ptr<Sprite> sprite);
-	Drawable(Position pos, shared_ptr<Sprite> sprite);
 
 	Position getPos() const;
 	void setPos(Position pos);

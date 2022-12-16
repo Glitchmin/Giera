@@ -1,5 +1,6 @@
 #include <SDL_image.h>
 #include "TextureLoader.h"
+#include <filesystem>
 
 using std::make_shared;
 
@@ -36,7 +37,7 @@ shared_ptr <Texture> TextureLoader::loadTexture(string& textureName)
 	}
 	SDL_Surface* surface = IMG_Load(textureName.c_str());
 	if (surface == NULL) {
-		Logger::logError("couldn't find ", textureName);
+		Logger::logError("couldn't find ", std::filesystem::absolute(textureName));
 	}
 	if (renderer == NULL) {
 		Logger::logError("no renderer");

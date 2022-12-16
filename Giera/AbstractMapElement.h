@@ -6,7 +6,7 @@
 class AbstractMapElement: public Sprite
 {
 protected:
-	static inline std::string txFolderPath = "../../tx/";
+	static inline std::string txFolderPath = "../../save_files/tx/";
 	static inline int tilesPerMeter = 1;
 	unsigned int elementID;
 	unsigned int framesNumber;
@@ -16,5 +16,6 @@ public:
 	AbstractMapElement();
 	AbstractMapElement(unsigned int framesNumber, Time refreshTime);
 	friend class MapElementsFileHandler;
+	friend istream& operator >> (istream& is, AbstractMapElement& t);
 };
 

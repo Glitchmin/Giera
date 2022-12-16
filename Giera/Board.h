@@ -15,6 +15,7 @@ private:
 	unique_ptr<Map> map;
 	vector <vector <vector <shared_ptr<AbstractItem> > > > items;
 	unique_ptr<MapElementsHandler> mapElementsHandler;
+public://temporarily
 	BoardRenderer boardRenderer;
 
 };
