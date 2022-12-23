@@ -5,14 +5,12 @@ int Foreground::fgCounter = 0;
 std::string Foreground::getFileName()
 {
 	std::stringstream ss;
-	ss << elementID;
+	ss << elementID << ".png";
 	return txFolderPath+fgFolderPath+ss.str();
 }
 Foreground::Foreground() {
 	this->elementID = fgCounter++;
+	string filePath = getFileName();
+	this->texture = TextureLoader::getTexturePtr(filePath);
 }
 
-void Foreground::draw(Texture& TextureToDrawOn, const double& pixelToMeterRatio,const Position& posOnMap)
-{
-	Logger::logError("TO DO foreground rendering");
-}

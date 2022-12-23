@@ -9,6 +9,5 @@ private:
 public:
     std::string getFileName() override;
     Foreground();
-    virtual void draw(Texture& TextureToDrawOn, const double& pixelToMeterRatio,const Position& posOnMap) override;
 };
 

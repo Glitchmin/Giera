@@ -13,9 +13,13 @@ protected:
 	Time refreshTime;
 public:
 	virtual std::string getFileName()=0;
+	virtual void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio, const Position& posOnMap) override;
 	AbstractMapElement();
 	AbstractMapElement(unsigned int framesNumber, Time refreshTime);
 	friend class MapElementsFileHandler;
 	friend istream& operator >> (istream& is, AbstractMapElement& t);
+	static int getTilesPerMeter();
+	static void setTilesPerMeter(int tilesPerMeter);
+
 };
 

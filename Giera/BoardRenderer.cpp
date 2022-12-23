@@ -17,7 +17,7 @@ void BoardRenderer::drawBoard()
 	}
 	Texture generalTexture(NULL);
 	boardTexture->draw(generalTexture, {0,0,boardTexture->getSize().first,boardTexture->getSize().second},
-		{ 0,0,500,500 });
+		{ 0,0,800, 640 });
 }
 
 void BoardRenderer::addDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity)

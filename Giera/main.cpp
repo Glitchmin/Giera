@@ -18,7 +18,6 @@
 int main( int argc, char* args[] )
 {
 	ios_base::sync_with_stdio(0);
-	Logger::setLevel(LoggingLevels::WARNING);
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ){
 		Logger::logError ("SDL could not initialize", SDL_GetError() );
 	}
@@ -37,8 +36,7 @@ int main( int argc, char* args[] )
 			board.boardRenderer.drawBoard();
 
 			SDL_RenderPresent(renderer);
-			//Wait two seconds
-			SDL_Delay( 2000 );
+			getchar();
 			SDL_DestroyWindow( window );
 		}
 	}

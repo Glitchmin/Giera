@@ -62,24 +62,37 @@ MapTile::MapTile()
     this->foregroundType = ForegroundTypes::NONE;
     this->backgroundType = BackgroundTypes::NONE;
     this->wallType = WallTypes::NONE;
-    Drawable drawable = Drawable(Position(Calculator::getRandomInt(0, 64), Calculator::getRandomInt(0, 64), 0),
-        MapElementsHandler::getMapElement(MapElementTypes::TERRAIN, (int)terrainType));
-    this->drawables.push_back(drawable);
 }
 
-MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,
-    BackgroundTypes backgroundType, WallTypes wallType) : MapTile()
+MapTile::MapTile(Position& position, TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,
+    BackgroundTypes backgroundType, WallTypes wallType)
 {
     this->terrainType = terrainType;
     this->terrainRotation = terrainRotation;
     this->foregroundType = foregroundType;
     this->backgroundType = backgroundType;
     this->wallType = wallType;
+    this->drawables.push_back(Drawable(position, MapElementsHandler::getMapElement(MapElementTypes::TERRAIN, (int)terrainType)));
+    if (foregroundType != ForegroundTypes::NONE) {
+        Position pos2 = position;
+        pos2.setY(position.getY() + 0.9/AbstractMapElement::getTilesPerMeter());
+       //this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::FOREGROUND, (int)foregroundType)));
+    }
+    if (backgroundType != BackgroundTypes::NONE) {
+        Position pos2 = position;
+        pos2.setY(position.getY() + 0.1 / AbstractMapElement::getTilesPerMeter());
+        //this->drawables.push_back(Drawable(position, MapElementsHandler::getMapElement(MapElementTypes::BACKGROUND, (int)backgroundType)));
+    }
+    if (wallType != WallTypes::NONE) {
+        Position pos2 = position;
+        pos2.setY(position.getY() + 0.5 / AbstractMapElement::getTilesPerMeter());
+       this->drawables.push_back(Drawable(position, MapElementsHandler::getMapElement(MapElementTypes::WALL, (int)wallType)));
+    }
 }
 
-MapTile::MapTile(TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,
+MapTile::MapTile(Position& position, TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,
     BackgroundTypes backgroundType, WallTypes wallType, vector <ItemSpawner>& itemSpawners): 
-    MapTile(terrainType, terrainRotation, foregroundType, backgroundType, wallType)
+    MapTile(position, terrainType, terrainRotation, foregroundType, backgroundType, wallType)
 {
     this->itemSpawners = move(itemSpawners);
 }

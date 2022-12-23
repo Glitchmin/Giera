@@ -10,7 +10,6 @@ public:
     std::string getFileName() override;
     Background();
     Background(unsigned int framesNumber, Time refreshTime);
-    virtual void draw(Texture& TextureToDrawOn,const double& pixelToMeterRatio,const Position& posOnMap) override;
     
 };
 
