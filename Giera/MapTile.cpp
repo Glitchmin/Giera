@@ -81,12 +81,12 @@ MapTile::MapTile(Position& position, TerrainTypes terrainType, Rotations terrain
     if (backgroundType != BackgroundTypes::NONE) {
         Position pos2 = position;
         pos2.setY(position.getY() + 0.1 / AbstractMapElement::getTilesPerMeter());
-        //this->drawables.push_back(Drawable(position, MapElementsHandler::getMapElement(MapElementTypes::BACKGROUND, (int)backgroundType)));
+        //this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::BACKGROUND, (int)backgroundType)));
     }
     if (wallType != WallTypes::NONE) {
         Position pos2 = position;
         pos2.setY(position.getY() + 0.5 / AbstractMapElement::getTilesPerMeter());
-       this->drawables.push_back(Drawable(position, MapElementsHandler::getMapElement(MapElementTypes::WALL, (int)wallType)));
+       this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::WALL, (int)wallType)));
     }
 }
 
