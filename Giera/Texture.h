@@ -14,6 +14,8 @@ public:
 	Texture();
 	Texture(SDL_Texture* texture);
 	~Texture();
+	Texture(Texture& texture) = delete;
+	Texture(Texture&& texture) = delete;
     SDL_Texture* getTexture() const;
     void setTexture(SDL_Texture* texture);
     SDL_Renderer* getRenderer() const;

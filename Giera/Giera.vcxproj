@@ -221,6 +221,7 @@
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="ValuesRange.cpp" />
     <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractBaseGearItem.h" />
@@ -322,6 +323,7 @@
     <ClInclude Include="ValuesRange.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="MeleeWeaponTypes.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

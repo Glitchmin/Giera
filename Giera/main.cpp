@@ -13,6 +13,7 @@
 #include "MapFileHandler.h"
 #include "BaseItemHandler.h"
 #include "TextureLoader.h"
+#include "Window.h"
 
 
 int main( int argc, char* args[] )
@@ -22,28 +23,18 @@ int main( int argc, char* args[] )
 		Logger::logError ("SDL could not initialize", SDL_GetError() );
 	}
 	else{
-		SDL_Window* window = SDL_CreateWindow( "Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 640, SDL_WINDOW_SHOWN );
-		if( window == NULL ){
-			Logger::logError( "Couldn't create window", SDL_GetError());
-		}else{
-			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-			SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-			TextureLoader::setRenderer(renderer);
-			Texture::setRenderer(renderer);
-			auto map = make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::GIERA, Directions::NORTH, 64, 64, 0);
-			Board board(map,nullptr);
-			board.boardRenderer.drawBoard();
+		auto window = make_shared<Window>();
+		auto map = make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::GIERA, Directions::NORTH, 64, 64, 0);
+		Board board(map,nullptr);
+		board.boardRenderer.drawBoard();
+		window->updateRenderer();
 
-			SDL_RenderPresent(renderer);
-			getchar();
-			SDL_DestroyWindow( window );
-		}
+		getchar();
 	}
 
 
-	SDL_Quit();
 	Logger::logInfo("end of the program");
 	Logger::close();
+	SDL_Quit();
 	return 0;
 }
