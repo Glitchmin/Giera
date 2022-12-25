@@ -40,6 +40,12 @@ Position Position::operator+(Position const& p1)
 	return pos;
 }
 
+Position Position::operator-(Position const& p1)
+{
+	Position pos(this->x - p1.x, this->y - p1.y ,this->z - p1.z);
+	return pos;
+}
+
 bool Position::operator<(const Position& a) const
 {
 	return y == a.y ?

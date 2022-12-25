@@ -181,6 +181,7 @@
     <ClCompile Include="EffectsHandler.cpp" />
     <ClCompile Include="ExplosionSpellModifer.cpp" />
     <ClCompile Include="Food.cpp" />
+    <ClCompile Include="InputConfig.cpp" />
     <ClCompile Include="ItemSpawner.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
     <ClCompile Include="main.cpp" />
@@ -263,7 +264,9 @@
     <ClInclude Include="Damage.h" />
     <ClInclude Include="DamageEffect.h" />
     <ClInclude Include="Drawable.h" />
+    <ClInclude Include="InputConfig.h" />
     <ClInclude Include="MapElementsTypes.h" />
+    <ClInclude Include="PlayerActionTypes.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="DrawableBoardEntity.h" />
     <ClInclude Include="Effects.h" />

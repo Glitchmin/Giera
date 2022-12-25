@@ -17,7 +17,10 @@ int main( int argc, char* args[] )
 	}
 	else{
 		auto window = make_shared<Window>();
-		BoardLoop boardLoop(window);
+		auto inputConfig = make_shared<InputConfig>();
+		inputConfig->setActionType(SDL_SCANCODE_A, PlayerActionTypes::MOVE_LEFT);
+		inputConfig->setActionType(SDL_SCANCODE_D, PlayerActionTypes::MOVE_RIGHT);
+		BoardLoop boardLoop(window, inputConfig);
 		boardLoop.start();
 
 		getchar();

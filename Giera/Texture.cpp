@@ -32,7 +32,7 @@ void Texture::setTexture(SDL_Texture* texture)
 }
 
 
-SDL_Renderer* Texture::getRenderer() const
+SDL_Renderer* Texture::getRenderer()
 {
     return renderer;
 }
@@ -50,6 +50,21 @@ void Texture::draw(Texture& target, SDL_Rect srcRect, SDL_Rect dstRect)
 	SDL_Texture* oldTarget = SDL_GetRenderTarget(renderer);
 	SDL_SetRenderTarget(renderer, target.getTexture());
 	SDL_RenderCopy(renderer, getTexture(), &srcRect, &dstRect);
+	SDL_SetRenderTarget(renderer, oldTarget);
+}
+void Texture::fillWithColor(SDL_Color color)
+{
+	if (renderer == NULL) {
+		Logger::logError("no renderer");
+	}
+	SDL_Texture* oldTarget = SDL_GetRenderTarget(renderer);
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
+	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+	SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
+	SDL_SetRenderTarget(renderer, texture);
+
 	SDL_SetRenderTarget(renderer, oldTarget);
 }
 
