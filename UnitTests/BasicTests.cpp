@@ -30,6 +30,21 @@
 #include "../Giera/MapFileHandler.h"
 #include "../Giera/MapFileHandlerSaving.cpp"
 #include "../Giera/MapFileHandlerReading.cpp"
+#include "../Giera/MapElementsHandler.h"
+#include "../Giera/MapElementsHandler.cpp"
+#include "../Giera/MapElementsFileHandler.h"
+#include "../Giera/MapElementsFileHandler.cpp"
+#include "../Giera/AbstractMapElement.h"
+#include "../Giera/AbstractMapElement.cpp"
+#include "../Giera/Wall.h"
+#include "../Giera/Wall.cpp"
+#include "../Giera/Terrain.h"
+#include "../Giera/Terrain.cpp"
+#include "../Giera/Foreground.h"
+#include "../Giera/Foreground.cpp"
+#include "../Giera/Background.h"
+#include "../Giera/Background.cpp"
+
 #include "../Giera/SpawningDetails.h"
 #include "../Giera/SpawningDetails.cpp"
 #include "../Giera/ItemSpawner.h"
@@ -305,7 +320,7 @@ namespace MapTests
 			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
 				Directions::NORTH, 10, 15, SDL_GetTicks());
 			map.setMapTile(Coordinates(3, 3),
-				make_shared<MapTile>(TerrainTypes::SAND, Rotations::RIGHT, ForegroundTypes::TALL_GRASS, BackgroundTypes::GRASS, WallTypes::BUSH));
+				make_shared<MapTile>(Position(3,3,0),TerrainTypes::SAND, Rotations::RIGHT, ForegroundTypes::TALL_GRASS, BackgroundTypes::GRASS, WallTypes::BUSH));
 			MapFileHandler mapFileHandler;
 			mapFileHandler.saveMap(map);
 			auto map2 = mapFileHandler.readMap(MapTypes::QUEST_MAP);

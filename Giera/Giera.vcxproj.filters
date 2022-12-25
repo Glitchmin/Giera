@@ -127,6 +127,12 @@
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{ee38d7a2-99dc-454b-a819-6216c8124c81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameControl">
+      <UniqueIdentifier>{741c74e8-45c5-4180-a36d-3fd910338a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameControl">
+      <UniqueIdentifier>{4e4dfa64-1087-48a3-ba60-8e02c28ad035}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rectangle.cpp">
@@ -347,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardLoop.cpp">
+      <Filter>Source Files\GameControl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -649,6 +658,9 @@
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardLoop.h">
+      <Filter>Header Files\GameControl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

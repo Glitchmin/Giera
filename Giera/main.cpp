@@ -6,14 +6,7 @@
 #include "Position.h"
 #include "GeneralTimer.h"
 #include "Time.h"
-#include "Logger.h"
-#include "Coordinates.h"
-#include "Map.h"
-#include "GrasslandsGenerator.h"
-#include "MapFileHandler.h"
-#include "BaseItemHandler.h"
-#include "TextureLoader.h"
-#include "Window.h"
+#include "BoardLoop.h"
 
 
 int main( int argc, char* args[] )
@@ -24,10 +17,8 @@ int main( int argc, char* args[] )
 	}
 	else{
 		auto window = make_shared<Window>();
-		auto map = make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::GIERA, Directions::NORTH, 64, 64, 0);
-		Board board(map,nullptr);
-		board.boardRenderer.drawBoard();
-		window->updateRenderer();
+		BoardLoop boardLoop(window);
+		boardLoop.start();
 
 		getchar();
 	}

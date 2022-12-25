@@ -171,6 +171,7 @@
     <ClCompile Include="BaseReadable.cpp" />
     <ClCompile Include="BaseShield.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="BoardLoop.cpp" />
     <ClCompile Include="BoardRenderer.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DamageEffect.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="BaseReadable.h" />
     <ClInclude Include="BaseShield.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="BoardLoop.h" />
     <ClInclude Include="BoardRenderer.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />

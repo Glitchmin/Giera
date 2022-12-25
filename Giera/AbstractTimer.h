@@ -14,10 +14,10 @@ public:
 	void pause();
 	void unpause();
 	bool isPaused() const;
-	Time getTime() const;
+	virtual Time getTime();
 	double getTempo() const;
     void setTempo(double tempo);
-	Time updateTime();
+	virtual Time updateTime();
 
 protected:
 	virtual Time getTimeFromParentTimer() = 0;

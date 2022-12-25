@@ -8,6 +8,7 @@ class Map;
 class Board
 {
 public:
+	Board() {};
 	Board(unique_ptr<Map>& map, shared_ptr<AbstractNPC> player);
 	void addItem(Coordinates coords, shared_ptr<AbstractItem> item);
 private:
