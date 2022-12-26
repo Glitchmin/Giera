@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Window.h"
 #include "InputConfig.h"
+using std::set;
 class BoardLoop
 {
 public:
@@ -11,8 +12,9 @@ public:
 
 protected:
 	Board board;
+	set <SDL_Scancode> keySet;
 	shared_ptr<InputConfig> inputConfig;
 	shared_ptr<Window> window;
-	void handleInput();
+	void handleInput(Time timeDiff);
 };
 

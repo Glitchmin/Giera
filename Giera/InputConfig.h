@@ -13,10 +13,11 @@ class InputConfig
 		AlreadyTakenException(const string& message) :runtime_error(message) {};
 	};
 public:
-	PlayerActionTypes getActionType(SDL_Keycode	keycode);
-	void setActionType(SDL_Keycode	keycode, PlayerActionTypes action);
+	PlayerActionTypes getActionType(SDL_Keycode keycode);
+	void setActionType(SDL_Keycode	keycode, PlayerActionTypes action) throw (AlreadyTakenException);
 private:
-	std::map <SDL_Keycode, PlayerActionTypes> inputMap;
+	std::map <SDL_Keycode, PlayerActionTypes> inputActionMap;
+	std::map <PlayerActionTypes, SDL_Keycode> actionInputMap;
 
 };
 

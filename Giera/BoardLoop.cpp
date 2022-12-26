@@ -8,24 +8,34 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	this->board = Board(map, nullptr);
 }
 
-void BoardLoop::handleInput() {
+void BoardLoop::handleInput(Time timeDiff) {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
+		if (event.type == SDL_QUIT) {
+			Logger::logInfo("user closed the window");
+		}
 		if (event.type == SDL_KEYDOWN) {
-			SDL_Keycode key = event.key.keysym.scancode;
-			PlayerActionTypes action = inputConfig->getActionType(key);
-			Logger::logInfo(key, (int)action);
-			switch (action) {
-				using PlAct = PlayerActionTypes;
-			case PlAct::MOVE_LEFT:
-				board.getBoardRenderer().addToCameraPos(Position(-0.5, 0, 0));
-				break;
-			case PlAct::MOVE_RIGHT:
-				board.getBoardRenderer().addToCameraPos(Position(0.5, 0, 0));
-				break;
-			}
+			Logger::logInfo("down",(int)event.key.keysym.scancode);
+			keySet.insert(event.key.keysym.scancode);
+		}
+		if (event.type == SDL_KEYUP) {
+			Logger::logInfo("up",(int)event.key.keysym.scancode);
+			keySet.erase(event.key.keysym.scancode);
 		}
 	}
+	for (auto& key : keySet) {
+		PlayerActionTypes action = inputConfig->getActionType(key);
+		switch (action) {
+			using PlAct = PlayerActionTypes;
+		case PlAct::MOVE_LEFT:
+			board.getBoardRenderer().addToCameraPos(Position(-timeDiff.getTimeS() * 4.0, 0, 0));
+			break;
+		case PlAct::MOVE_RIGHT:
+			board.getBoardRenderer().addToCameraPos(Position(timeDiff.getTimeS() * 4.0, 0, 0));
+			break;
+		}
+	}
+
 }
 
 void BoardLoop::start()
@@ -34,9 +44,11 @@ void BoardLoop::start()
 	GeneralTimer generalTimer;
 	generalTimer.updateTime();
 	Time lastGraphicUpdate(generalTimer.getTime());
+	Time lastInputHandling(generalTimer.getTime());
 
 	while (loopGoing) {
-		handleInput();
+		handleInput(generalTimer.getTime()-lastInputHandling);
+		lastInputHandling = generalTimer.getTime();
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
 			lastGraphicUpdate = generalTimer.getTime();
 
