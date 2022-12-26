@@ -5,7 +5,14 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	this->window = window;
 	this->inputConfig = inputConfig;
 	auto map = make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::GIERA, Directions::NORTH, 64, 64, 0);
-	this->board = Board(map, nullptr);
+	double viewRangeM = 20;
+	boardRenderer = make_shared<BoardRenderer>(map->getSizeX(), map->getSizeY(), window, viewRangeM);
+	for (int i = 0; i < map->getSizeX();i++) {
+		for (int j = 0; j < map->getSizeY();j++) {
+			boardRenderer->addDrawableBoardEntity(map->getMapTile(Coordinates(i, j)));
+		}
+	}
+	this->board = Board(map, nullptr, boardRenderer);
 }
 
 void BoardLoop::handleInput(Time timeDiff) {
@@ -15,11 +22,11 @@ void BoardLoop::handleInput(Time timeDiff) {
 			Logger::logInfo("user closed the window");
 		}
 		if (event.type == SDL_KEYDOWN) {
-			Logger::logInfo("down",(int)event.key.keysym.scancode);
+			Logger::logInfo("down", (int)event.key.keysym.scancode);
 			keySet.insert(event.key.keysym.scancode);
 		}
 		if (event.type == SDL_KEYUP) {
-			Logger::logInfo("up",(int)event.key.keysym.scancode);
+			Logger::logInfo("up", (int)event.key.keysym.scancode);
 			keySet.erase(event.key.keysym.scancode);
 		}
 	}
@@ -28,10 +35,10 @@ void BoardLoop::handleInput(Time timeDiff) {
 		switch (action) {
 			using PlAct = PlayerActionTypes;
 		case PlAct::MOVE_LEFT:
-			board.getBoardRenderer().addToCameraPos(Position(-timeDiff.getTimeS() * 4.0, 0, 0));
+			boardRenderer->addToCameraPos(Position(-timeDiff.getTimeS() * 4.0, 0, 0));
 			break;
 		case PlAct::MOVE_RIGHT:
-			board.getBoardRenderer().addToCameraPos(Position(timeDiff.getTimeS() * 4.0, 0, 0));
+			boardRenderer->addToCameraPos(Position(timeDiff.getTimeS() * 4.0, 0, 0));
 			break;
 		}
 	}
@@ -47,12 +54,12 @@ void BoardLoop::start()
 	Time lastInputHandling(generalTimer.getTime());
 
 	while (loopGoing) {
-		handleInput(generalTimer.getTime()-lastInputHandling);
+		handleInput(generalTimer.getTime() - lastInputHandling);
 		lastInputHandling = generalTimer.getTime();
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
 			lastGraphicUpdate = generalTimer.getTime();
 
-			board.getBoardRenderer().drawBoard();
+			boardRenderer->drawBoard();
 			window->updateRenderer();
 			//Logger::logInfo((generalTimer.getTime()- lastGraphicUpdate).getTimeMs(),generalTimer.getTime().getTimeMs(),lastGraphicUpdate.getTimeMs());
 		}

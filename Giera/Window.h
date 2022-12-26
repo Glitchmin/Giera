@@ -1,5 +1,7 @@
 #pragma once
 #include <SDL.h>
+#include <utility>
+using std::pair;
 class Window
 {
 public:
@@ -11,6 +13,8 @@ public:
 	SDL_Window* getWindow() const;
 	SDL_Renderer* getRenderer() const;
 	void updateRenderer();
+	pair<int, int> getSize();
+	double getXToYRatio();
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;

@@ -15,6 +15,7 @@ protected:
 	set <SDL_Scancode> keySet;
 	shared_ptr<InputConfig> inputConfig;
 	shared_ptr<Window> window;
+	shared_ptr<BoardRenderer> boardRenderer;
 	void handleInput(Time timeDiff);
 };
 

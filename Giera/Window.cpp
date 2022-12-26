@@ -4,7 +4,8 @@
 #include "Texture.h"
 Window::Window()
 {
-	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 640, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
+		800, 640, SDL_WINDOW_SHOWN);
 	if (window == NULL) {
 		Logger::logError("Couldn't create window", SDL_GetError());
 	}
@@ -36,5 +37,19 @@ SDL_Renderer* Window::getRenderer() const
 void Window::updateRenderer()
 {
 	SDL_RenderPresent(renderer);
+}
+
+pair<int, int> Window::getSize()
+{
+	SDL_Point windowSize;
+	SDL_GetWindowSize(window, &windowSize.x, &windowSize.y);
+	return std::make_pair(windowSize.x, windowSize.y);
+}
+
+double Window::getXToYRatio()
+{
+	SDL_Point windowSize;
+	SDL_GetWindowSize(window, &windowSize.x, &windowSize.y);
+	return (double)windowSize.x/(double)windowSize.y;
 }
 

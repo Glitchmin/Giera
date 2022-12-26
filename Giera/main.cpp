@@ -21,9 +21,9 @@ int main( int argc, char* args[] )
 		inputConfig->setActionType(SDL_SCANCODE_A, PlayerActionTypes::MOVE_LEFT);
 		inputConfig->setActionType(SDL_SCANCODE_D, PlayerActionTypes::MOVE_RIGHT);
 		BoardLoop boardLoop(window, inputConfig);
+		Logger::logInfo(window->getSize().first, "window", window->getSize().second);
 		boardLoop.start();
 
-		getchar();
 	}
 
 

@@ -4,11 +4,15 @@
 BoardRenderer::BoardRenderer() {
 	
 }
-BoardRenderer::BoardRenderer(unsigned int sizeX, unsigned int sizeY, double pixelsPerMeter)
+BoardRenderer::BoardRenderer(unsigned int sizeX, unsigned int sizeY, 
+	shared_ptr<Window> window, double horizontalViewRangeM)
 {
+	this->window = window;
+	pixelsPerMeter = window->getSize().first / horizontalViewRangeM;
+	double verticalViewRangeM = horizontalViewRangeM / window->getXToYRatio();
 	boardTexture = TextureLoader::makeUniColorTexture(sizeX * pixelsPerMeter, sizeY * pixelsPerMeter, {0,0,0,255});
-	this->pixelsPerMeter = pixelsPerMeter;
 	leftUpperCameraPosition = Position(0, 0, 0);
+	rightLowerCameraPosition = Position(horizontalViewRangeM, verticalViewRangeM, 0);
 }
 
 void BoardRenderer::drawBoard()
@@ -20,8 +24,9 @@ void BoardRenderer::drawBoard()
 		it.getSprite().lock()->draw(*boardTexture, pixelsPerMeter, it.getPos());
 	}
 	Texture generalTexture(NULL);
-	boardTexture->draw(generalTexture, {0,0,boardTexture->getSize().first,boardTexture->getSize().second},
-		{ (int)(leftUpperCameraPosition.getX()*pixelsPerMeter),(int)(leftUpperCameraPosition.getY()*pixelsPerMeter),800, 640 });
+	boardTexture->draw(generalTexture, {(int)(leftUpperCameraPosition.getX()*pixelsPerMeter)
+		,(int)(leftUpperCameraPosition.getY() * pixelsPerMeter),window->getSize().first, window->getSize().second},
+		{ 0,0,window->getSize().first, window->getSize().second });
 }
 
 void BoardRenderer::addDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity)
