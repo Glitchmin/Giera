@@ -155,6 +155,7 @@
     <ClCompile Include="AbstractEffect.cpp" />
     <ClCompile Include="AbstractGearItem.cpp" />
     <ClCompile Include="AbstractItem.cpp" />
+    <ClCompile Include="AbstractNPC.cpp" />
     <ClCompile Include="AbstractSpell.cpp" />
     <ClCompile Include="AbstractSpellModifier.cpp" />
     <ClCompile Include="AbstractWeapon.cpp" />
@@ -205,7 +206,8 @@
     <ClCompile Include="MeleeWeapon.cpp" />
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="ModifiersHandler.cpp" />
-    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="NPCSprite.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PointSpell.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="RangedWeapon.cpp" />
@@ -266,6 +268,8 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="InputConfig.h" />
     <ClInclude Include="MapElementsTypes.h" />
+    <ClInclude Include="NPCSprite.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerActionTypes.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="DrawableBoardEntity.h" />

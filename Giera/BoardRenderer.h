@@ -23,5 +23,7 @@ private:
 	double pixelsPerMeter;
 	Position leftUpperCameraPosition;
 	Position rightLowerCameraPosition;
+	pair<double, double> boardSizeM;
+	pair<double, double> viewRangeM;
 };
 
