@@ -173,7 +173,6 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardLoop.cpp" />
     <ClCompile Include="BoardRenderer.cpp" />
-    <ClCompile Include="CyclicalSprite.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DamageEffect.cpp" />
     <ClCompile Include="Drawable.cpp" />
@@ -215,6 +214,7 @@
     <ClCompile Include="SelfSpell.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="SpawningDetails.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StatChangingEffect.cpp" />
     <ClCompile Include="SubTimer.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -262,7 +262,6 @@
     <ClInclude Include="BoardRenderer.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Coordinates.h" />
-    <ClInclude Include="CyclicalSprite.h" />
     <ClInclude Include="Damage.h" />
     <ClInclude Include="DamageEffect.h" />
     <ClInclude Include="Drawable.h" />

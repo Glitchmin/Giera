@@ -1,7 +1,6 @@
 #pragma once
 #include "Position.h"
 #include "NPCTypes.h"
-#include "CyclicalSprite.h"
 #include <vector>
 using std::vector;
 using npc_hp_t = typename unsigned int;

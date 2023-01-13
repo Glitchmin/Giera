@@ -72,6 +72,6 @@ pair<int, int> Texture::getSize()
 {
 	int h, w;
 	SDL_QueryTexture(getTexture(), NULL, NULL, &w, &h);
-	return std::make_pair<>(h,w);
+	return std::make_pair<>(w,h);
 }
 

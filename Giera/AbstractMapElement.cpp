@@ -2,25 +2,32 @@
 
 void AbstractMapElement::draw(Texture& textureToDrawOn, const double& pixelToMeterRatio, const Position& posOnMap, Time& currentTime)
 {
-	texture->draw(textureToDrawOn, SDL_Rect{ 0, 0,texture->getSize().first,texture->getSize().second },
+	leftToUpdate -= currentTime;
+	if (leftToUpdate.getTimeMs() == 0) {
+		currentState++;
+		currentState %= statesNumber;
+		leftToUpdate = updateDelay;
+	}
+	texture->draw(textureToDrawOn, SDL_Rect{ (currentState * texture->getSize().first) / statesNumber, 0,
+		(texture->getSize().first) / statesNumber,texture->getSize().second },
 		SDL_Rect{ (int)(posOnMap.getX() * pixelToMeterRatio), (int)(posOnMap.getY() * pixelToMeterRatio),
-		(int)(pixelToMeterRatio / tilesPerMeter),(int)(pixelToMeterRatio / tilesPerMeter) });
+		(int)pixelToMeterRatio/tilesPerMeter,(int)pixelToMeterRatio/tilesPerMeter });
 }
 
-AbstractMapElement::AbstractMapElement()
+AbstractMapElement::AbstractMapElement(): Sprite()
 {
 }
 
 AbstractMapElement::AbstractMapElement
-(unsigned int framesNumber, Time refreshTime)
+(unsigned int framesNumber, Time refreshTime): Sprite(make_shared<Texture>((SDL_Texture*)NULL),framesNumber,refreshTime)
 {
-	this->framesNumber = framesNumber;
-	this->refreshTime = refreshTime;
+	
 }
 
 istream& operator>>(istream& is, AbstractMapElement& t)
 {
-	is >> t.framesNumber >> t.refreshTime;
+	string fillers;
+	is >> t.statesNumber >> t.updateDelay >> fillers >> fillers >> fillers;
 	return is;
 }
 
