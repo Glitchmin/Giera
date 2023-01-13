@@ -12,7 +12,7 @@ class Sprite;
 class Sprite
 {
 public:
-	virtual void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio,const Position& posOnMap) = 0;
+	virtual void draw(Texture& TextureToDrawOn, const double& pixelToMeterRatio,const Position& posOnMap) = 0;
 protected:
 	shared_ptr<Texture> texture;
 };
