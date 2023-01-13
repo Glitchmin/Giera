@@ -13,7 +13,7 @@ protected:
 	Time refreshTime;
 public:
 	virtual std::string getFileName()=0;
-	virtual void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio, const Position& posOnMap) override;
+	virtual void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio, const Position& posOnMap, Time& currentTime) override;
 	AbstractMapElement();
 	AbstractMapElement(unsigned int framesNumber, Time refreshTime);
 	friend class MapElementsFileHandler;

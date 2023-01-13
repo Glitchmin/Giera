@@ -11,7 +11,7 @@ public:
 	BoardRenderer();
 	BoardRenderer(unsigned int sizeX, unsigned int sizeY,
 		shared_ptr<Window> window, double horizontalViewRangeM);
-	void drawBoard();
+	void drawBoard(Time timeDiff);
 	void addDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity);
 	void removeDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity);
 	void addToCameraPos(Position pos);

@@ -360,6 +360,9 @@
     <ClCompile Include="InputConfig.cpp">
       <Filter>Source Files\GameControl</Filter>
     </ClCompile>
+    <ClCompile Include="CyclicalSprite.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -670,6 +673,9 @@
     </ClInclude>
     <ClInclude Include="PlayerActionTypes.h">
       <Filter>Header Files\GameControl</Filter>
+    </ClInclude>
+    <ClInclude Include="CyclicalSprite.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

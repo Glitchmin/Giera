@@ -54,12 +54,13 @@ void BoardLoop::start()
 	Time lastInputHandling(generalTimer.getTime());
 
 	while (loopGoing) {
-		handleInput(generalTimer.getTime() - lastInputHandling);
+		Time timeDiff = generalTimer.getTime() - lastInputHandling;
+		handleInput(timeDiff);
 		lastInputHandling = generalTimer.getTime();
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
 			lastGraphicUpdate = generalTimer.getTime();
 
-			boardRenderer->drawBoard();
+			boardRenderer->drawBoard(timeDiff);
 			window->updateRenderer();
 			//Logger::logInfo((generalTimer.getTime()- lastGraphicUpdate).getTimeMs(),generalTimer.getTime().getTimeMs(),lastGraphicUpdate.getTimeMs());
 		}

@@ -15,13 +15,13 @@ BoardRenderer::BoardRenderer(unsigned int sizeX, unsigned int sizeY,
 	rightLowerCameraPosition = Position(horizontalViewRangeM, verticalViewRangeM, 0);
 }
 
-void BoardRenderer::drawBoard()
+void BoardRenderer::drawBoard(Time timeDiff)
 {
 	SDL_SetRenderTarget(Texture::getRenderer(), NULL);
 	SDL_SetRenderDrawColor(Texture::getRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Texture::getRenderer());
 	for (auto& it : drawablesSet) {
-		it.getSprite().lock()->draw(*boardTexture, pixelsPerMeter, it.getPos());
+		it.getSprite().lock()->draw(*boardTexture, pixelsPerMeter, it.getPos(), timeDiff);
 	}
 	Texture generalTexture(NULL);
 	boardTexture->draw(generalTexture, {(int)(leftUpperCameraPosition.getX()*pixelsPerMeter)
