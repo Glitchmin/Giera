@@ -1,4 +1,5 @@
 #include "BoardLoop.h"
+#include "Player.h"
 
 BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig)
 {
@@ -6,7 +7,7 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	this->inputConfig = inputConfig;
 	auto map = make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::GIERA, Directions::NORTH, 64, 64, 0);
 	double viewRangeM = 20;
-	auto player = make_shared<AbstractNPC>();
+	auto player = make_shared<Player>();
 	boardRenderer = make_shared<BoardRenderer>(map->getSizeX(), map->getSizeY(), window, viewRangeM);
 	for (int i = 0; i < map->getSizeX();i++) {
 		for (int j = 0; j < map->getSizeY();j++) {
@@ -14,7 +15,7 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 		}
 	}
 	player->addObserver(boardRenderer);
-	this->board = Board(map, player , boardRenderer);
+	this->board = Board(map, player, boardRenderer);
 }
 
 void BoardLoop::handleInput(Time timeDiff) {

@@ -1,4 +1,5 @@
 #include "BaseRangedWeapon.h"
+#include "RangedWeapon.h"
 
 BaseRangedWeapon::BaseRangedWeapon()
 {

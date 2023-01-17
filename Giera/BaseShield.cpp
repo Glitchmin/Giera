@@ -1,4 +1,5 @@
 #include "BaseShield.h"
+#include "Shield.h"
 
 BaseShield::BaseShield()
 {

@@ -208,6 +208,7 @@
     <ClCompile Include="ModifiersHandler.cpp" />
     <ClCompile Include="AbstractNPC.cpp" />
     <ClCompile Include="NPCObserver.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PointSpell.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="RangedWeapon.cpp" />
@@ -271,6 +272,7 @@
     <ClInclude Include="InputConfig.h" />
     <ClInclude Include="MapElementsTypes.h" />
     <ClInclude Include="NPCObserver.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerActionTypes.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="DrawableBoardEntity.h" />

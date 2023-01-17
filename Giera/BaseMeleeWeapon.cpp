@@ -1,4 +1,5 @@
 #include "BaseMeleeWeapon.h"
+#include "MeleeWeapon.h"
 
 BaseMeleeWeapon::BaseMeleeWeapon()
 {

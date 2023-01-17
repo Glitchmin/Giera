@@ -25,7 +25,7 @@ void Sprite::draw(Texture& textureToDrawOn, const double& pixelToMeterRatio, con
 		currentState %= statesNumber;
 	}
 	texture->draw(textureToDrawOn, SDL_Rect{ (currentState * texture->getSize().first) / statesNumber, 0,
-		(currentState*texture->getSize().first) / statesNumber,texture->getSize().second },
+		(texture->getSize().first) / statesNumber,texture->getSize().second },
 		SDL_Rect{ (int)(posOnMap.getX() * pixelToMeterRatio), (int)(posOnMap.getY() * pixelToMeterRatio),
 		(int)pixelToMeterRatio,(int)pixelToMeterRatio });
 }

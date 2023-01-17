@@ -1,5 +1,5 @@
 #pragma once
-#include "BaseItems.h"
+#include "AbstractBaseItem.h"
 class SpawningDetails
 {
 protected:

@@ -1,6 +1,8 @@
 #include "BaseFood.h"
 #include "Logger.h"
 #include "EffectsHandler.h"
+#include "Food.h"
+
 using std::dynamic_pointer_cast;
 BaseFood::BaseFood()
 {

@@ -18,6 +18,7 @@ void DrawableBoardEntity::addDrawable(Position pos, shared_ptr<Sprite> sprite)
 void DrawableBoardEntity::addObserver(weak_ptr<DrawableEntityObserver> observer)
 {
     observers.push_back(observer);
+    observer.lock()->notify(this,DrawableEntityObserver::Change::ADDED);
 }
 
 void DrawableBoardEntity::notifyObservers(DrawableEntityObserver::Change change)

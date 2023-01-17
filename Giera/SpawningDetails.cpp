@@ -1,4 +1,5 @@
 #include "SpawningDetails.h"
+#include "BaseItems.h"
 
 SpawningDetails::SpawningDetails(shared_ptr<AbstractBaseItem> item, double chance, unsigned int level)
 {

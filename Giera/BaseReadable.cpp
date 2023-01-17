@@ -1,4 +1,5 @@
 #include "BaseReadable.h"
+#include "Readable.h"
 
 BaseReadable::BaseReadable()
 {

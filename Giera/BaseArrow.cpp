@@ -2,6 +2,7 @@
 #include "DamageEffect.h"
 #include "StatChangingEffect.h"
 #include "EffectsHandler.h"
+#include "Arrow.h"
 
 BaseArrow::BaseArrow()
 {

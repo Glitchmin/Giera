@@ -1,4 +1,5 @@
 #include "BaseArmor.h"
+#include "Armor.h"
 
 BaseArmor::BaseArmor()
 {

@@ -1,4 +1,5 @@
 #include "BaseMisc.h"
+#include "Misc.h"
 
 BaseMisc::BaseMisc()
 {
