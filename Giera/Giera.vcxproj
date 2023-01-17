@@ -177,6 +177,7 @@
     <ClCompile Include="DamageEffect.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DrawableBoardEntity.cpp" />
+    <ClCompile Include="DrawableEntityObserver.cpp" />
     <ClCompile Include="EffectsFileHandler.cpp" />
     <ClCompile Include="EffectsHandler.cpp" />
     <ClCompile Include="ExplosionSpellModifer.cpp" />
@@ -205,7 +206,8 @@
     <ClCompile Include="MeleeWeapon.cpp" />
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="ModifiersHandler.cpp" />
-    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="AbstractNPC.cpp" />
+    <ClCompile Include="NPCObserver.cpp" />
     <ClCompile Include="PointSpell.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="RangedWeapon.cpp" />
@@ -265,8 +267,10 @@
     <ClInclude Include="Damage.h" />
     <ClInclude Include="DamageEffect.h" />
     <ClInclude Include="Drawable.h" />
+    <ClInclude Include="DrawableEntityObserver.h" />
     <ClInclude Include="InputConfig.h" />
     <ClInclude Include="MapElementsTypes.h" />
+    <ClInclude Include="NPCObserver.h" />
     <ClInclude Include="PlayerActionTypes.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="DrawableBoardEntity.h" />

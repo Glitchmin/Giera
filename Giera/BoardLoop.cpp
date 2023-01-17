@@ -6,13 +6,15 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	this->inputConfig = inputConfig;
 	auto map = make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::GIERA, Directions::NORTH, 64, 64, 0);
 	double viewRangeM = 20;
+	auto player = make_shared<AbstractNPC>();
 	boardRenderer = make_shared<BoardRenderer>(map->getSizeX(), map->getSizeY(), window, viewRangeM);
 	for (int i = 0; i < map->getSizeX();i++) {
 		for (int j = 0; j < map->getSizeY();j++) {
 			boardRenderer->addDrawableBoardEntity(map->getMapTile(Coordinates(i, j)));
 		}
 	}
-	this->board = Board(map, nullptr, boardRenderer);
+	player->addObserver(boardRenderer);
+	this->board = Board(map, player , boardRenderer);
 }
 
 void BoardLoop::handleInput(Time timeDiff) {

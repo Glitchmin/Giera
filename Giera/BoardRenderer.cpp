@@ -29,14 +29,25 @@ void BoardRenderer::drawBoard(Time timeDiff)
 		{ 0,0,window->getSize().first, window->getSize().second });
 }
 
+
+
 void BoardRenderer::addDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity)
+{
+	addDrawableBoardEntity(entity.get());
+}
+
+void BoardRenderer::removeDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity)
+{
+	removeDrawableBoardEntity(entity.get());
+}
+
+void BoardRenderer::addDrawableBoardEntity(DrawableBoardEntity* entity)
 {
 	for (auto& drawable : entity->getDrawables()) {
 		drawablesSet.insert(drawable);
 	}
 }
-
-void BoardRenderer::removeDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity)
+void BoardRenderer::removeDrawableBoardEntity(DrawableBoardEntity* entity)
 {
 	for (auto& drawable : entity->getDrawables()) {
 		drawablesSet.erase(drawable);
@@ -47,6 +58,16 @@ void BoardRenderer::addToCameraPos(Position pos)
 {
 	leftUpperCameraPosition = leftUpperCameraPosition + pos;
 }
+void BoardRenderer::notify(DrawableBoardEntity* entity, Change change)
+{
+	if (change == Change::ADDED) {
+		addDrawableBoardEntity(entity);
+	}
+	if (change == Change::REMOVED) {
+		removeDrawableBoardEntity(entity);
+	}
+}
+
 void BoardRenderer::setCameraPos(Position pos)
 {
 	leftUpperCameraPosition = pos;

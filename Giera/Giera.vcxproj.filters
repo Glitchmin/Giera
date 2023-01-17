@@ -207,7 +207,7 @@
     <ClCompile Include="MapElementsFileHandler.cpp">
       <Filter>Source Files\GameLogic\Map\MapElements</Filter>
     </ClCompile>
-    <ClCompile Include="NPC.cpp">
+    <ClCompile Include="AbstractNPC.cpp">
       <Filter>Source Files\GameLogic\NPC</Filter>
     </ClCompile>
     <ClCompile Include="AbstractEffect.cpp">
@@ -361,6 +361,12 @@
       <Filter>Source Files\GameControl</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCObserver.cpp">
+      <Filter>Source Files\GameLogic\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableEntityObserver.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -673,6 +679,12 @@
     </ClInclude>
     <ClInclude Include="PlayerActionTypes.h">
       <Filter>Header Files\GameControl</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCObserver.h">
+      <Filter>Header Files\GameLogic\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableEntityObserver.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
