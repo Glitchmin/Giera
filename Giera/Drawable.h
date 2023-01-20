@@ -12,7 +12,8 @@ public:
 	weak_ptr<Sprite> getSprite() const;
 	void setSprite(weak_ptr<Sprite> sprite);
 
-	bool operator < (const Drawable& a) const;
+	bool operator < (const Drawable& d) const;
+	bool operator == (const Drawable& d) const;
 
 protected:
 	Position pos;

@@ -39,8 +39,8 @@ void AbstractNPC::move(Position moveDifference)
 	if (board_sh->isStepablePosition(position + moveDifference)) {
 		notifyObservers(DrawableEntityObserver::Change::REMOVED);
 		position += moveDifference;
+		updateDrawables();
 		notifyObservers(DrawableEntityObserver::Change::ADDED);
 	}
-	updateDrawables();
 }
 

@@ -34,3 +34,10 @@ bool Drawable::operator<(const Drawable& d) const
         pos < d.pos;
 }
 
+bool Drawable::operator==(const Drawable& d) const
+{
+    return d.pos == pos ?
+        sprite.lock() == d.sprite.lock() :
+        false;
+}
+
