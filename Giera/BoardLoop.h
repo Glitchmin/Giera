@@ -3,6 +3,9 @@
 #include "Window.h"
 #include "InputConfig.h"
 using std::set;
+
+class Player;
+
 class BoardLoop
 {
 public:
@@ -11,11 +14,12 @@ public:
 	void start();
 
 protected:
-	Board board;
+	shared_ptr<Board> board;
 	set <SDL_Scancode> keySet;
 	shared_ptr<InputConfig> inputConfig;
 	shared_ptr<Window> window;
 	shared_ptr<BoardRenderer> boardRenderer;
+	shared_ptr<Player> player;
 	void handleInput(Time timeDiff);
 };
 

@@ -18,6 +18,7 @@ int main( int argc, char* args[] )
 	else{
 		auto window = make_shared<Window>();
 		auto inputConfig = make_shared<InputConfig>();
+		inputConfig->setActionType(SDL_SCANCODE_LEFT, PlayerActionTypes::MOVE_CAMERA_LEFT);
 		inputConfig->setActionType(SDL_SCANCODE_A, PlayerActionTypes::MOVE_LEFT);
 		inputConfig->setActionType(SDL_SCANCODE_D, PlayerActionTypes::MOVE_RIGHT);
 		BoardLoop boardLoop(window, inputConfig);

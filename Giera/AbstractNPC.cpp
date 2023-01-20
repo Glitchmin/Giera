@@ -1,9 +1,11 @@
 #include "AbstractNPC.h"
+#include "Board.h"
 
 AbstractNPC::AbstractNPC()
 {
 	resitances.resize((int)DamageTypes::COUNT,1);
 }
+
 
 string AbstractNPC::getTextureFilePath()
 {
@@ -11,3 +13,34 @@ string AbstractNPC::getTextureFilePath()
 	ss << (int)npcType;
 	return "../../save_files/tx/npc/npc"+ss.str()+".png";
 }
+
+Position AbstractNPC::getPosition() const
+{
+	return position;
+}
+
+void AbstractNPC::updateDrawables()
+{
+	drawables.clear();
+	drawables.push_back(Drawable(position, sprite));
+}
+
+void AbstractNPC::setBoard(weak_ptr<Board> board)
+{
+	this->board = board;
+}
+
+void AbstractNPC::move(Position moveDifference)
+{
+	auto board_sh = board.lock();
+	if (board_sh == nullptr) {
+		throw "board is null";
+	}
+	if (board_sh->isStepablePosition(position + moveDifference)) {
+		notifyObservers(DrawableEntityObserver::Change::REMOVED);
+		position += moveDifference;
+		notifyObservers(DrawableEntityObserver::Change::ADDED);
+	}
+	updateDrawables();
+}
+

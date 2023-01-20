@@ -15,5 +15,6 @@ public:
     void addDrawable(Position pos, shared_ptr<Sprite> sprite);
     void addObserver(weak_ptr<DrawableEntityObserver> observer);
     void notifyObservers(DrawableEntityObserver::Change change);
+    virtual void updateDrawables() = 0;
 };
 

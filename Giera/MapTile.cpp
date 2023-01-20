@@ -55,6 +55,27 @@ bool MapTile::canStepOn()
     return wallType == WallTypes::NONE;
 }
 
+void MapTile::updateDrawables()
+{
+    drawables.clear();
+    this->drawables.push_back(Drawable(position, MapElementsHandler::getMapElement(MapElementTypes::TERRAIN, (int)terrainType)));
+    if (foregroundType != ForegroundTypes::NONE) {
+        Position pos2 = position;
+        pos2.setY(position.getY() + 0.9 / AbstractMapElement::getTilesPerMeter());
+        //this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::FOREGROUND, (int)foregroundType)));
+    }
+    if (backgroundType != BackgroundTypes::NONE) {
+        Position pos2 = position;
+        pos2.setY(position.getY() + 0.1 / AbstractMapElement::getTilesPerMeter());
+        //this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::BACKGROUND, (int)backgroundType)));
+    }
+    if (wallType != WallTypes::NONE) {
+        Position pos2 = position;
+        pos2.setY(position.getY() + 0.5 / AbstractMapElement::getTilesPerMeter());
+        this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::WALL, (int)wallType)));
+    }
+}
+
 MapTile::MapTile()
 {
     this->terrainType = TerrainTypes::GRASS;
@@ -72,22 +93,8 @@ MapTile::MapTile(Position& position, TerrainTypes terrainType, Rotations terrain
     this->foregroundType = foregroundType;
     this->backgroundType = backgroundType;
     this->wallType = wallType;
-    this->drawables.push_back(Drawable(position, MapElementsHandler::getMapElement(MapElementTypes::TERRAIN, (int)terrainType)));
-    if (foregroundType != ForegroundTypes::NONE) {
-        Position pos2 = position;
-        pos2.setY(position.getY() + 0.9/AbstractMapElement::getTilesPerMeter());
-       //this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::FOREGROUND, (int)foregroundType)));
-    }
-    if (backgroundType != BackgroundTypes::NONE) {
-        Position pos2 = position;
-        pos2.setY(position.getY() + 0.1 / AbstractMapElement::getTilesPerMeter());
-        //this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::BACKGROUND, (int)backgroundType)));
-    }
-    if (wallType != WallTypes::NONE) {
-        Position pos2 = position;
-        pos2.setY(position.getY() + 0.5 / AbstractMapElement::getTilesPerMeter());
-       this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::WALL, (int)wallType)));
-    }
+    this->position = position;
+    updateDrawables();
 }
 
 MapTile::MapTile(Position& position, TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,

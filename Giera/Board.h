@@ -5,13 +5,15 @@
 #include "MapElementsHandler.h"
 #include "BoardRenderer.h"
 class Map;
-class Board
+class Board: public std::enable_shared_from_this<Board>
 {
 public:
 	Board() {};
-	Board(unique_ptr<Map>& map, shared_ptr<AbstractNPC> player, 
-		shared_ptr<BoardRenderer> boardRenderer);
+	Board(unique_ptr<Map>& map,	shared_ptr<BoardRenderer> boardRenderer);
 	void addItem(Coordinates coords, shared_ptr<AbstractItem> item);
+	void addNPC(shared_ptr<AbstractNPC> npc);
+	bool isStepablePosition(Position position);
+	std::weak_ptr<Board> getWeakPtr();
 
 private:
 	vector <shared_ptr <AbstractNPC> > npcs;

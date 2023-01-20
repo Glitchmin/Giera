@@ -18,6 +18,7 @@ private:
 	BackgroundTypes backgroundType;
 	TerrainTypes terrainType;
     vector <ItemSpawner> itemSpawners;
+    Position position;
 	Rotations terrainRotation;
 public:
     MapTile();
@@ -25,6 +26,10 @@ public:
         BackgroundTypes backgroundType = BackgroundTypes::NONE, WallTypes wallType = WallTypes::NONE);
     MapTile(Position& position, TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,
         BackgroundTypes backgroundType, WallTypes wallType, vector <ItemSpawner>& itemSpawners);
+
+    bool canStepOn();
+    virtual void updateDrawables() override;
+
 
     WallTypes getWallType() const;
     void setWallType(WallTypes wallType);
@@ -40,8 +45,6 @@ public:
 
     Rotations getTerrainRotation() const;
     void setTerrainRotation(Rotations terrainRotation);
-
-    bool canStepOn();
 
     friend ostream& operator << (ostream& out, const MapTile& t);
     friend istream& operator >> (istream& is, MapTile& t);
