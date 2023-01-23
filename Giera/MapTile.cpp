@@ -58,7 +58,7 @@ bool MapTile::canStepOn()
 void MapTile::updateDrawables()
 {
     drawables.clear();
-    this->drawables.push_back(Drawable(position, MapElementsHandler::getMapElement(MapElementTypes::TERRAIN, (int)terrainType)));
+    this->drawables.push_back(Drawable(position, MapElementsHandler::getMapElement(MapElementTypes::TERRAIN, (int)terrainType),Drawable::DrawableLayer::TERRAIN));
     if (foregroundType != ForegroundTypes::NONE) {
         Position pos2 = position;
         pos2.setY(position.getY() + 0.9 / AbstractMapElement::getTilesPerMeter());
@@ -72,7 +72,7 @@ void MapTile::updateDrawables()
     if (wallType != WallTypes::NONE) {
         Position pos2 = position;
         pos2.setY(position.getY() + 0.5 / AbstractMapElement::getTilesPerMeter());
-        this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::WALL, (int)wallType)));
+        this->drawables.push_back(Drawable(pos2, MapElementsHandler::getMapElement(MapElementTypes::WALL, (int)wallType), Drawable::DrawableLayer::ENTITIES));
     }
 }
 

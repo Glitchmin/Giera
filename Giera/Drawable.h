@@ -4,7 +4,12 @@ using std::weak_ptr;
 class Drawable
 {
 public:
-	Drawable(Position pos, weak_ptr<Sprite> sprite);
+	enum class DrawableLayer {
+		TERRAIN,
+		ENTITIES,
+		CLOTHES,
+	};
+	Drawable(Position pos, weak_ptr<Sprite> sprite, DrawableLayer drawableLayer);
 
 	Position getPos() const;
 	void setPos(Position pos);
@@ -18,6 +23,7 @@ public:
 protected:
 	Position pos;
 	weak_ptr <Sprite> sprite;
+	DrawableLayer drawableLayer;
 
 };
 

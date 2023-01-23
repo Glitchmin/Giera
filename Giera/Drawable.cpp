@@ -1,10 +1,11 @@
 #include "Sprite.h"
 #include "Drawable.h"
 
-Drawable::Drawable(Position pos, weak_ptr<Sprite> sprite)
+Drawable::Drawable(Position pos, weak_ptr<Sprite> sprite, DrawableLayer drawableLayer)
 {
 	this->pos = pos;
 	this->sprite = sprite;
+    this->drawableLayer = drawableLayer;
 }
 
 Position Drawable::getPos() const
