@@ -1,6 +1,8 @@
 #include "BoardRenderer.h"
 #include <algorithm>
 
+using std::make_pair;
+
 BoardRenderer::BoardRenderer() {
 
 }
@@ -12,12 +14,11 @@ BoardRenderer::BoardRenderer(unsigned int sizeX, unsigned int sizeY,
 	double verticalViewRangeM = horizontalViewRangeM / window->getXToYRatio();
 	layers.resize((int)Drawable::DrawableLayer::COUNT);
 	for (auto& layer : layers) {
-		layer.requiresUpdate = true;
 		layer.layerTexture = TextureLoader::makeUniColorTexture
 		(sizeX * pixelsPerMeter, sizeY * pixelsPerMeter, { 0,0,0,0 });
 	}
 	leftUpperCameraPosition = Position(0, 0, 0);
-	rightLowerCameraPosition = Position(horizontalViewRangeM, verticalViewRangeM, 0);
+	viewRangeM = make_pair(horizontalViewRangeM, verticalViewRangeM);
 }
 
 void BoardRenderer::drawBoard(Time timeDiff)
@@ -28,13 +29,15 @@ void BoardRenderer::drawBoard(Time timeDiff)
 	for (auto& layer : layers) {
 		auto& drawablesSet = layer.drawablesSet;
 		auto& layerTexture = layer.layerTexture;
-		if (layer.requiresUpdate) {
-			layer.requiresUpdate = 0;
-			layer.layerTexture->fillWithColor({ 0,0,0,0 });
-			for (auto& it : drawablesSet) {
+		layer.layerTexture->fillWithColor({ 0,0,0,0 });
+		for (auto& it : drawablesSet) {
+			if ((it.getPos().getX()+1 >= leftUpperCameraPosition.getX() &&
+				it.getPos().getX() <= leftUpperCameraPosition.getX() + viewRangeM.first)) {
 				it.getSprite().lock()->draw(*layerTexture, pixelsPerMeter, it.getPos(), timeDiff);
 			}
+				
 		}
+
 		Texture generalTexture(NULL);
 		layerTexture->draw(generalTexture, { (int)(leftUpperCameraPosition.getX() * pixelsPerMeter)
 			,(int)(leftUpperCameraPosition.getY() * pixelsPerMeter),window->getSize().first, window->getSize().second },
@@ -78,9 +81,6 @@ void BoardRenderer::notify(DrawableBoardEntity* entity, Change change)
 	}
 	if (change == Change::REMOVED) {
 		removeDrawableBoardEntity(entity);
-	}
-	for (auto& drawable : entity->getDrawables()) {
-		layers[(int)drawable.getDrawableLayer()].requiresUpdate = 1;
 	}
 }
 

@@ -23,13 +23,12 @@ private:
 	public:
 		drawables_multiset_t drawablesSet;
 		shared_ptr<Texture> layerTexture;
-		bool requiresUpdate;
 	};
 	vector <Layer> layers;
 	shared_ptr<Window> window;
 	double pixelsPerMeter;
 	Position leftUpperCameraPosition;
-	Position rightLowerCameraPosition;
+	pair<double, double> viewRangeM;
 
 	void addDrawableBoardEntity(DrawableBoardEntity* entity);
 	void removeDrawableBoardEntity(DrawableBoardEntity* entity);
