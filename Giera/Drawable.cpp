@@ -3,8 +3,8 @@
 
 Drawable::Drawable(Position pos, weak_ptr<Sprite> sprite, DrawableLayer drawableLayer)
 {
-	this->pos = pos;
-	this->sprite = sprite;
+    this->pos = pos;
+    this->sprite = sprite;
     this->drawableLayer = drawableLayer;
 }
 
@@ -28,10 +28,15 @@ void Drawable::setSprite(weak_ptr<Sprite> sprite)
     this->sprite = sprite;
 }
 
+Drawable::DrawableLayer Drawable::getDrawableLayer() const
+{
+    return drawableLayer;
+}
+
 bool Drawable::operator<(const Drawable& d) const
 {
-    return d.pos == pos ? 
-        sprite.lock() < d.sprite.lock() : 
+    return d.pos == pos ?
+       d.sprite.lock() < sprite.lock() :
         pos < d.pos;
 }
 
@@ -41,4 +46,3 @@ bool Drawable::operator==(const Drawable& d) const
         sprite.lock() == d.sprite.lock() :
         false;
 }
-

@@ -7,7 +7,7 @@ public:
 	enum class DrawableLayer {
 		TERRAIN,
 		ENTITIES,
-		CLOTHES,
+		COUNT
 	};
 	Drawable(Position pos, weak_ptr<Sprite> sprite, DrawableLayer drawableLayer);
 
@@ -16,6 +16,8 @@ public:
 
 	weak_ptr<Sprite> getSprite() const;
 	void setSprite(weak_ptr<Sprite> sprite);
+
+	DrawableLayer getDrawableLayer() const;
 
 	bool operator < (const Drawable& d) const;
 	bool operator == (const Drawable& d) const;

@@ -39,16 +39,17 @@ void BoardLoop::handleInput(Time timeDiff) {
 		switch (action) {
 			using PlAct = PlayerActionTypes;
 		case PlAct::MOVE_CAMERA_LEFT:
-			boardRenderer->addToCameraPos(Position(-timeDiff.getTimeS() * 4.0, 0, 0));
+			boardRenderer->addToCameraPos(Position(-((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
 			break;
 		case PlAct::MOVE_CAMERA_RIGHT:
-			boardRenderer->addToCameraPos(Position(timeDiff.getTimeS() * 4.0, 0, 0));
-			break;
-		case PlAct::MOVE_RIGHT:
-			player->move(Position(timeDiff.getTimeS() * 4.0, 0, 0));
+			boardRenderer->addToCameraPos(Position(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
+			Logger::logInfo(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0);
 			break;
 		case PlAct::MOVE_LEFT:
-			player->move(Position(-timeDiff.getTimeS() * 4.0, 0, 0));
+			player->move(Position(-((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
+			break;
+		case PlAct::MOVE_RIGHT:
+			player->move(Position(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
 			break;
 		}
 	}
@@ -65,8 +66,8 @@ void BoardLoop::start()
 
 	while (loopGoing) {
 		Time timeDiff = generalTimer.getTime() - lastInputHandling;
-		handleInput(timeDiff);
 		lastInputHandling = generalTimer.getTime();
+		handleInput(timeDiff);
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
 			lastGraphicUpdate = generalTimer.getTime();
 

@@ -61,10 +61,10 @@ void Texture::fillWithColor(SDL_Color color)
 	Uint8 r, g, b, a;
 	SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-	SDL_RenderClear(renderer);
-	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	SDL_SetRenderTarget(renderer, texture);
+	SDL_RenderClear(renderer);
 
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	SDL_SetRenderTarget(renderer, oldTarget);
 }
 

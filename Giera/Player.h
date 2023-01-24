@@ -5,6 +5,5 @@ class Player :
 {
 public:
     Player();
-    Player(weak_ptr<Board> board);
 };
 

@@ -19,8 +19,13 @@ public:
 	void setCameraPos(Position pos);
 	virtual void notify(DrawableBoardEntity* entity, Change change) override;
 private:
-	drawables_multiset_t drawablesSet;
-	shared_ptr<Texture> boardTexture;
+	class Layer {
+	public:
+		drawables_multiset_t drawablesSet;
+		shared_ptr<Texture> layerTexture;
+		bool requiresUpdate;
+	};
+	vector <Layer> layers;
 	shared_ptr<Window> window;
 	double pixelsPerMeter;
 	Position leftUpperCameraPosition;
