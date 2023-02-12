@@ -48,6 +48,12 @@ void BoardLoop::handleInput(Time timeDiff) {
 		case PlAct::MOVE_LEFT:
 			player->move(Position(-((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
 			break;
+		case PlAct::MOVE_DOWN:
+			player->move(Position(0, ((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0));
+			break;
+		case PlAct::MOVE_UP:
+			player->move(Position(0, -((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0));
+			break;
 		case PlAct::MOVE_RIGHT:
 			player->move(Position(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
 			break;

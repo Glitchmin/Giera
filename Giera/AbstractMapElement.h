@@ -9,6 +9,8 @@ protected:
 	static inline std::string txFolderPath = "../../save_files/tx/";
 	static inline int tilesPerMeter = 1;
 	unsigned int elementID;
+	double width; //in map tiles
+	double height; //in map tiles
 public:
 	virtual std::string getFileName()=0;
 	virtual void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio, const Position& posOnMap, Time& currentTime) override;

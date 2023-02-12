@@ -22,6 +22,8 @@ int main( int argc, char* args[] )
 		inputConfig->setActionType(SDL_SCANCODE_RIGHT, PlayerActionTypes::MOVE_CAMERA_RIGHT);
 		inputConfig->setActionType(SDL_SCANCODE_A, PlayerActionTypes::MOVE_LEFT);
 		inputConfig->setActionType(SDL_SCANCODE_D, PlayerActionTypes::MOVE_RIGHT);
+		inputConfig->setActionType(SDL_SCANCODE_W, PlayerActionTypes::MOVE_UP);
+		inputConfig->setActionType(SDL_SCANCODE_S, PlayerActionTypes::MOVE_DOWN);
 		BoardLoop boardLoop(window, inputConfig);
 		Logger::logInfo(window->getSize().first, "window", window->getSize().second);
 		boardLoop.start();

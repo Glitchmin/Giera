@@ -9,9 +9,9 @@ void AbstractMapElement::draw(Texture& textureToDrawOn, const double& pixelToMet
 		leftToUpdate = updateDelay;
 	}
 	texture->draw(textureToDrawOn, SDL_Rect{ (currentState * texture->getSize().first) / statesNumber, 0,
-		(texture->getSize().first) / statesNumber,texture->getSize().second },
-		SDL_Rect{ (int)(posOnMap.getX() * pixelToMeterRatio), (int)(posOnMap.getY() * pixelToMeterRatio),
-		(int)pixelToMeterRatio/tilesPerMeter,(int)pixelToMeterRatio/tilesPerMeter });
+		(texture->getSize().first) / statesNumber,(texture->getSize().second) },
+		SDL_Rect{ (int)((posOnMap.getX()-(width-1.0)/2.0) * pixelToMeterRatio), (int)((posOnMap.getY() - height + 1) * pixelToMeterRatio),
+		(int)(pixelToMeterRatio/tilesPerMeter * width),(int)(pixelToMeterRatio/tilesPerMeter * height) });
 }
 
 AbstractMapElement::AbstractMapElement(): Sprite()
@@ -27,10 +27,10 @@ AbstractMapElement::AbstractMapElement
 istream& operator>>(istream& is, AbstractMapElement& t)
 {
 	string fillers;
-	is >> t.statesNumber >> t.updateDelay >> fillers >> fillers >> fillers;
+	is >> t.statesNumber >> t.updateDelay >> t.height >> t.width >> fillers;
 	return is;
 }
-
+	
 int AbstractMapElement::getTilesPerMeter()
 {
     return AbstractMapElement::tilesPerMeter;

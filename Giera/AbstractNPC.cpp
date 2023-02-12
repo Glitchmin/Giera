@@ -3,7 +3,7 @@
 
 AbstractNPC::AbstractNPC()
 {
-	resitances.resize((int)DamageTypes::COUNT,1);
+	resitances.resize((int)DamageTypes::COUNT, 1);
 }
 
 
@@ -11,7 +11,7 @@ string AbstractNPC::getTextureFilePath()
 {
 	stringstream ss;
 	ss << (int)npcType;
-	return "../../save_files/tx/npc/npc"+ss.str()+".png";
+	return "../../save_files/tx/npc/npc" + ss.str() + ".png";
 }
 
 Position AbstractNPC::getPosition() const
@@ -36,7 +36,8 @@ void AbstractNPC::move(Position moveDifference)
 	if (board_sh == nullptr) {
 		throw "board is null";
 	}
-	if (board_sh->isStepablePosition(position + moveDifference)) {
+	if (board_sh->isStepablePosition(position + moveDifference) &&
+		board_sh->isStepablePosition(position + moveDifference + Position(width, 0, 0))) {
 		notifyObservers(DrawableEntityObserver::Change::REMOVED);
 		position += moveDifference;
 		updateDrawables();
