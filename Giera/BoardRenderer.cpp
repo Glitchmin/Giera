@@ -1,5 +1,6 @@
 #include "BoardRenderer.h"
 #include <algorithm>
+#include "Player.h"
 
 using std::make_pair;
 
@@ -7,7 +8,7 @@ BoardRenderer::BoardRenderer() {
 
 }
 BoardRenderer::BoardRenderer(unsigned int sizeX, unsigned int sizeY,
-	shared_ptr<Window> window, double horizontalViewRangeM)
+	shared_ptr<Window> window, double horizontalViewRangeM, shared_ptr<Player> player)
 {
 	this->window = window;
 	pixelsPerMeter = window->getSize().first / horizontalViewRangeM;
@@ -17,8 +18,7 @@ BoardRenderer::BoardRenderer(unsigned int sizeX, unsigned int sizeY,
 		layer.layerTexture = TextureLoader::makeUniColorTexture
 		(sizeX * pixelsPerMeter, sizeY * pixelsPerMeter, { 0,0,0,0 });
 	}
-	leftUpperCameraPosition = Position(0, 0, 0);
-	viewRangeM = make_pair(horizontalViewRangeM, verticalViewRangeM);
+	camera = Camera(make_pair(horizontalViewRangeM, verticalViewRangeM),player);
 }
 
 void BoardRenderer::drawBoard(Time timeDiff)
@@ -26,21 +26,22 @@ void BoardRenderer::drawBoard(Time timeDiff)
 	SDL_SetRenderTarget(Texture::getRenderer(), NULL);
 	SDL_SetRenderDrawColor(Texture::getRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Texture::getRenderer());
+	camera.updatePosition();
 	for (auto& layer : layers) {
 		auto& drawablesSet = layer.drawablesSet;
 		auto& layerTexture = layer.layerTexture;
 		layer.layerTexture->fillWithColor({ 0,0,0,0 });
 		for (auto& it : drawablesSet) {
-			if ((it.getPos().getX()+1 >= leftUpperCameraPosition.getX() &&
-				it.getPos().getX() <= leftUpperCameraPosition.getX() + viewRangeM.first)) {
+			if ((it.getPos().getX()+1 >= camera.getLeftUpperPosition().getX() &&
+				it.getPos().getX() <= camera.getLeftUpperPosition().getX() + camera.getViewRangeM().first)) {
 				it.getSprite().lock()->draw(*layerTexture, pixelsPerMeter, it.getPos(), timeDiff);
 			}
 				
 		}
 
 		Texture generalTexture(NULL);
-		layerTexture->draw(generalTexture, { (int)(leftUpperCameraPosition.getX() * pixelsPerMeter)
-			,(int)(leftUpperCameraPosition.getY() * pixelsPerMeter),window->getSize().first, window->getSize().second },
+		layerTexture->draw(generalTexture, { (int)(camera.getLeftUpperPosition().getX() * pixelsPerMeter)
+			,(int)(camera.getLeftUpperPosition().getY() * pixelsPerMeter),window->getSize().first, window->getSize().second },
 			{ 0,0,window->getSize().first, window->getSize().second });
 	}
 }
@@ -70,9 +71,9 @@ void BoardRenderer::removeDrawableBoardEntity(DrawableBoardEntity* entity)
 	}
 }
 
-void BoardRenderer::addToCameraPos(Position pos)
+Camera& BoardRenderer::getCamera()
 {
-	leftUpperCameraPosition = leftUpperCameraPosition + pos;
+	return camera;
 }
 void BoardRenderer::notify(DrawableBoardEntity* entity, Change change)
 {
@@ -84,7 +85,3 @@ void BoardRenderer::notify(DrawableBoardEntity* entity, Change change)
 	}
 }
 
-void BoardRenderer::setCameraPos(Position pos)
-{
-	leftUpperCameraPosition = pos;
-}

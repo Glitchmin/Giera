@@ -372,6 +372,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\GameLogic\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -691,6 +694,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files\GameLogic\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

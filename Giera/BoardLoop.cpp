@@ -7,8 +7,8 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	this->inputConfig = inputConfig;
 	auto map = make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::GIERA, Directions::NORTH, 64, 64, 0);
 	double viewRangeM = 20;
-	boardRenderer = make_shared<BoardRenderer>(map->getSizeX(), map->getSizeY(), window, viewRangeM);
 	player = make_shared<Player>();
+	boardRenderer = make_shared<BoardRenderer>(map->getSizeX(), map->getSizeY(), window, viewRangeM, player);
 	for (int i = 0; i < map->getSizeX();i++) {
 		for (int j = 0; j < map->getSizeY();j++) {
 			boardRenderer->addDrawableBoardEntity(map->getMapTile(Coordinates(i, j)));
@@ -38,13 +38,6 @@ void BoardLoop::handleInput(Time timeDiff) {
 		PlayerActionTypes action = inputConfig->getActionType(key);
 		switch (action) {
 			using PlAct = PlayerActionTypes;
-		case PlAct::MOVE_CAMERA_LEFT:
-			boardRenderer->addToCameraPos(Position(-((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
-			break;
-		case PlAct::MOVE_CAMERA_RIGHT:
-			boardRenderer->addToCameraPos(Position(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
-			Logger::logInfo(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0);
-			break;
 		case PlAct::MOVE_LEFT:
 			player->move(Position(-((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
 			break;
