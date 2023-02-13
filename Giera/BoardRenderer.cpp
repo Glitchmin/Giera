@@ -18,7 +18,8 @@ BoardRenderer::BoardRenderer(unsigned int sizeX, unsigned int sizeY,
 		layer.layerTexture = TextureLoader::makeUniColorTexture
 		(sizeX * pixelsPerMeter, sizeY * pixelsPerMeter, { 0,0,0,0 });
 	}
-	camera = Camera(make_pair(horizontalViewRangeM, verticalViewRangeM),player);
+	camera = Camera(make_pair(horizontalViewRangeM, verticalViewRangeM),
+		player,make_pair(sizeX,sizeY));
 }
 
 void BoardRenderer::drawBoard(Time timeDiff)
@@ -26,7 +27,7 @@ void BoardRenderer::drawBoard(Time timeDiff)
 	SDL_SetRenderTarget(Texture::getRenderer(), NULL);
 	SDL_SetRenderDrawColor(Texture::getRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Texture::getRenderer());
-	camera.updatePosition();
+	camera.updatePosition(timeDiff);
 	for (auto& layer : layers) {
 		auto& drawablesSet = layer.drawablesSet;
 		auto& layerTexture = layer.layerTexture;

@@ -34,9 +34,20 @@ void Position::setY(double y)
 	this->y = y;
 }
 
+double Position::getNormSq()
+{
+	return x*x + y*y + z*z;
+}
+
 Position Position::operator+(Position const& p1)
 {
 	Position pos(p1.x + this->x, p1.y + this->y, p1.z + this->z);
+	return pos;
+}
+
+Position Position::operator*(double const& d)
+{
+	Position pos(d*this->x, d*this->y, d*this->z);
 	return pos;
 }
 

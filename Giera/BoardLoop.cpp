@@ -26,11 +26,11 @@ void BoardLoop::handleInput(Time timeDiff) {
 			Logger::logInfo("user closed the window");
 		}
 		if (event.type == SDL_KEYDOWN) {
-			Logger::logInfo("down", (int)event.key.keysym.scancode);
+			//Logger::logInfo("down", (int)event.key.keysym.scancode);
 			keySet.insert(event.key.keysym.scancode);
 		}
 		if (event.type == SDL_KEYUP) {
-			Logger::logInfo("up", (int)event.key.keysym.scancode);
+			//Logger::logInfo("up", (int)event.key.keysym.scancode);
 			keySet.erase(event.key.keysym.scancode);
 		}
 	}
@@ -50,6 +50,9 @@ void BoardLoop::handleInput(Time timeDiff) {
 		case PlAct::MOVE_RIGHT:
 			player->move(Position(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
 			break;
+		case PlAct::ADD_SECONDARY_CAMERA_TARGET:
+			boardRenderer->getCamera().setSecondaryTarget(board->getMap()->getMapTile(Coordinates(60,60)));
+			break;
 		}
 	}
 
@@ -68,9 +71,10 @@ void BoardLoop::start()
 		lastInputHandling = generalTimer.getTime();
 		handleInput(timeDiff);
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
+			Time renderTimeDiff = generalTimer.getTime() - lastGraphicUpdate;
 			lastGraphicUpdate = generalTimer.getTime();
 
-			boardRenderer->drawBoard(timeDiff);
+			boardRenderer->drawBoard(renderTimeDiff);
 			window->updateRenderer();
 			//Logger::logInfo((generalTimer.getTime()- lastGraphicUpdate).getTimeMs(),generalTimer.getTime().getTimeMs(),lastGraphicUpdate.getTimeMs());
 		}

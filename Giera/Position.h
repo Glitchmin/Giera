@@ -15,7 +15,9 @@ public:
     double getZ() const;
     void setZ(double z);
 
+	double getNormSq();
 	Position operator + (Position const& p1);
+	Position operator * (double const& d);
 	Position& operator += (Position const& p1);
 	Position operator - (Position const& p1);
 	bool operator < (const Position& a) const;

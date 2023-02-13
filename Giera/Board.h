@@ -13,6 +13,7 @@ public:
 	void addItem(Coordinates coords, shared_ptr<AbstractItem> item);
 	void addNPC(shared_ptr<AbstractNPC> npc);
 	bool isStepablePosition(Position position);
+	unique_ptr<Map>& getMap();
 	std::weak_ptr<Board> getWeakPtr();
 
 private:

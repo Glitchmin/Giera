@@ -26,8 +26,16 @@ bool Board::isStepablePosition(Position position)
 {
 	int x = position.getX() * AbstractMapElement::getTilesPerMeter();
 	int y = position.getY() * AbstractMapElement::getTilesPerMeter();
+	if (position.getX() < 0 || position.getY() < 0 || x >= map->getSizeX() || y >= map->getSizeY()) {
+		return false;
+	}
 	const auto& mapTile = map->getMapTile(Coordinates(x, y));
 	return mapTile->canStepOn();
+}
+
+unique_ptr<Map>& Board::getMap()
+{
+	return map;
 }
 
 std::weak_ptr<Board> Board::getWeakPtr()
