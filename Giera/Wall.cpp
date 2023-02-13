@@ -1,7 +1,7 @@
 #include "Wall.h"
-std::string Wall::wFolderPath = "w/";
+std::string Wall::wFolderPath = "map_tiles/w/";
 int Wall::wCounter = 0;
-std::string Wall::getFileName()
+std::string Wall::getFilePath()
 {
 	std::stringstream ss;
 	ss << elementID<<".png";
@@ -9,14 +9,14 @@ std::string Wall::getFileName()
 }
 Wall::Wall() {
 	this->elementID = wCounter++;
-	string filePath = getFileName();
+	string filePath = getFilePath();
 	this->texture = TextureLoader::getTexturePtr(filePath);
 }
 Wall::Wall(std::unique_ptr<AbstractGeometryFigure>& hitbox) {
 	//will clear the passed pointer
 	this->elementID = wCounter++;
 	this->hitbox = std::move(hitbox);
-	string filePath = getFileName();
+	string filePath = getFilePath();
 	this->texture = TextureLoader::getTexturePtr(filePath);
 
 }

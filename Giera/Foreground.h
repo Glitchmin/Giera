@@ -7,7 +7,7 @@ private:
     static std::string fgFolderPath;
     static int fgCounter;
 public:
-    std::string getFileName() override;
+    std::string getFilePath() override;
     Foreground();
 };
 

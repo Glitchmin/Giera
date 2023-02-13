@@ -59,7 +59,6 @@ void Camera::updatePosition(Time timeDiff)
 		return;
 	}
 	Position delta = leftUpperTargetPosition - leftUpperPosition;
-	Logger::logInfo(timeDiff.getTimeMs());
 	leftUpperPosition += delta * timeDiff.getTimeMs() * 0.003;
 
 }

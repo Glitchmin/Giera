@@ -1,8 +1,8 @@
 #include "Terrain.h"
 
-std::string Terrain::trFolderPath = "tr/";
+std::string Terrain::trFolderPath = "map_tiles/tr/";
 int Terrain::trCounter = 0;
-std::string Terrain::getFileName()
+std::string Terrain::getFilePath()
 {
 	std::stringstream ss;
 	ss << elementID<<".png";
@@ -10,7 +10,7 @@ std::string Terrain::getFileName()
 }
 Terrain::Terrain() {
 	this->elementID = trCounter++;
-	string filePath = getFileName();
+	string filePath = getFilePath();
 	this->texture = TextureLoader::getTexturePtr(filePath);
 }
 

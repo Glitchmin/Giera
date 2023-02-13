@@ -12,7 +12,7 @@ private:
 public:
     Wall();
     Wall(std::unique_ptr<AbstractGeometryFigure>&);
-    std::string getFileName() override;
+    std::string getFilePath() override;
     const std::unique_ptr<AbstractGeometryFigure>& getHitbox() const;
 
     friend class MapElementsFileHandler;

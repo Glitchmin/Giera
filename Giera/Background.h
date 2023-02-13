@@ -7,7 +7,7 @@ private:
     static std::string bgFolderPath;
     static int bgCounter;
 public:
-    std::string getFileName() override;
+    std::string getFilePath() override;
     Background();
     Background(unsigned int framesNumber, Time refreshTime);
     

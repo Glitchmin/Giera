@@ -12,7 +12,7 @@ protected:
 	double width; //in map tiles
 	double height; //in map tiles
 public:
-	virtual std::string getFileName()=0;
+	virtual std::string getFilePath()=0;
 	virtual void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio, const Position& posOnMap, Time& currentTime) override;
 	AbstractMapElement();
 	AbstractMapElement(unsigned int framesNumber, Time refreshTime);
