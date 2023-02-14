@@ -272,6 +272,7 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawableEntityObserver.h" />
     <ClInclude Include="InputConfig.h" />
+    <ClInclude Include="InventorySlotTypes.h" />
     <ClInclude Include="MapElementsTypes.h" />
     <ClInclude Include="NPCObserver.h" />
     <ClInclude Include="Player.h" />
