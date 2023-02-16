@@ -12,12 +12,14 @@ ItemTypes BaseReadable::getItemType()
 
 shared_ptr<AbstractItem> BaseReadable::generate()
 {
-    return make_shared<Readable>(width,height,value.getRandom(),name,description,text);
+    return make_shared<Readable>(width,height,value.getRandom(),name,description,text, readableType);
 }
 
 istream& operator>>(istream& is, BaseReadable& it)
 {
-    is >> (AbstractBaseItem&)it >> it.text;
+    int readableType;
+    is >> (AbstractBaseItem&)it >> it.text >> readableType;
+    it.readableType = (ReadableTypes)readableType;
     return is;
 
 }

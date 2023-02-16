@@ -23,3 +23,10 @@ double RangedWeapon::getArrowVelocity()
 {
 	return arrowVelocity;
 }
+
+std::string RangedWeapon::getFilePath()
+{
+	stringstream ss;
+	ss << (int)rangedWeaponType;
+	return txFolderPath + "ranged/ranged" + ss.str() + ".png";
+}

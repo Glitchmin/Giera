@@ -11,7 +11,7 @@ public:
         string& description, string& text, ReadableTypes readableType);
     ItemTypes getItemType() override;
     const string& getText() const;
-    //TODO generateReadable();
+    std::string getFilePath() override;
     //TODO override input stream operator
 
 };

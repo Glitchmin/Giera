@@ -10,3 +10,10 @@ ItemTypes Misc::getItemType()
 {
     return ItemTypes::MISC;
 }
+
+std::string Misc::getFilePath()
+{
+    stringstream ss;
+    ss << (int)miscType;
+    return txFolderPath + "misc/misc" + ss.str() + ".png";
+}

@@ -16,6 +16,7 @@ public:
         string& description, vector<shared_ptr<AbstractEffect>> effects, FoodTypes foodType);
     ItemTypes getItemType() override;
     const vector<shared_ptr<AbstractEffect>>& getEffects();
+    std::string getFilePath() override;
     //TODO override input stream operator
 };
 

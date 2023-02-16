@@ -12,8 +12,6 @@ protected:
     Time timeToRaise;
     ShieldTypes shieldType;
 
-    inline static string shieldPath = "/shield";
-
 public:
     Shield(item_size_t width, item_size_t height, int value,
         string& name, string& description,vector<item_mod_t> modifiers,
@@ -25,6 +23,7 @@ public:
     Time getTimeToRaise() const;
     void setTimeToRaise(Time timeToRaise);
     ShieldTypes getShieldType() const;
+    std::string getFilePath() override;
 
     //TODO override input/output stream operator
 

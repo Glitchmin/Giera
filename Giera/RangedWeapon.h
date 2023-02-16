@@ -15,6 +15,7 @@ public:
     ItemTypes getItemType() override;
     const Time& getDrawTime();
     double getArrowVelocity();
+    std::string getFilePath() override;
     //TODO override input stream operator
 };
 

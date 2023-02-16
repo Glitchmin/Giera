@@ -18,4 +18,11 @@ const string& Readable::getText() const
 	return text;
 }
 
+std::string Readable::getFilePath()
+{
+	stringstream ss;
+	ss << (int)readableType;
+	return txFolderPath + "readable/readable" + ss.str() + ".png";
+}
+
 

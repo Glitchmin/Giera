@@ -3,6 +3,8 @@
 class BaseReadable :
     public BaseMisc
 {
+private:
+    ReadableTypes readableType;
 protected:
     string text;
 public:

@@ -16,3 +16,10 @@ const vector<shared_ptr<AbstractEffect>>& Food::getEffects()
 {
 	return effects;
 }
+
+std::string Food::getFilePath()
+{
+	stringstream ss;
+	ss << (int)foodType;
+	return txFolderPath + "food/food" + ss.str() + ".png";
+}

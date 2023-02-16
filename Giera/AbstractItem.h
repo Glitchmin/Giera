@@ -16,17 +16,19 @@ protected:
 	int value;
 	string name;
 	string description;
+	shared_ptr <Sprite> sprite;
 	static inline string txFolderPath = "../../save_files/tx/";
 
 public:
-	AbstractItem(item_size_t width, item_size_t height, int value, string& name,
-		string& description);
+	AbstractItem(item_size_t width, item_size_t height, int value,
+		string& name, string& description);
+	void updateDrawables() override;
+
     item_size_t getWidth() const;
     item_size_t getHeight() const;
     int getValue() const;
     string getName() const;
     string getDescription() const;
-	shared_ptr <Sprite> sprite;
 
 	virtual std::string getFilePath() = 0;
 	virtual ItemTypes getItemType() = 0;

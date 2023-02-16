@@ -20,3 +20,10 @@ Time MeleeWeapon::getAttackSpeed() const
     return attackSpeed;
 }
 
+std::string MeleeWeapon::getFilePath()
+{
+	stringstream ss;
+	ss << (int)meleeWeaponType;
+	return txFolderPath + "melee/melee" + ss.str() + ".png";
+}
+

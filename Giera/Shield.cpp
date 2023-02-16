@@ -41,3 +41,10 @@ ShieldTypes Shield::getShieldType() const
     return shieldType;
 }
 
+std::string Shield::getFilePath()
+{
+    stringstream ss;
+    ss << (int)shieldType;
+    return txFolderPath + "shield/shield" + ss.str() + ".png";
+}
+
