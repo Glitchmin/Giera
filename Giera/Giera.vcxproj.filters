@@ -617,9 +617,6 @@
     <ClInclude Include="Effects.h">
       <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="ReadableTypes.h">
-      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
-    </ClInclude>
     <ClInclude Include="AbstractSpellModifier.h">
       <Filter>Header Files\GameLogic\Spells\Modifiers</Filter>
     </ClInclude>
@@ -703,6 +700,9 @@
     </ClInclude>
     <ClInclude Include="InventorySlotTypes.h">
       <Filter>Header Files\GameLogic\Items\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadableTypes.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

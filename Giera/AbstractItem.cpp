@@ -7,6 +7,9 @@ AbstractItem::AbstractItem(item_size_t width, item_size_t height, int value, str
     this->value = value;
     this->name = name;
     this->description = description;
+    string path = getFilePath();
+    sprite = make_shared<Sprite>(make_shared<Texture>(path));
+    updateDrawables();
 }
 
 item_size_t AbstractItem::getWidth() const

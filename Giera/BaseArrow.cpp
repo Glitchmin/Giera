@@ -21,7 +21,7 @@ shared_ptr<AbstractItem> BaseArrow::generate()
         effects.push_back(ef->generate());
     }
     auto dmg_ptr = make_unique<Damage>(damage.getRandom(),armorPiercing.getRandom(), damageType);
-    return make_shared<Arrow>(width,height,value.getRandom(),name,description,dmg_ptr,effects);
+    return make_shared<Arrow>(width,height,value.getRandom(),name,description,dmg_ptr,effects, arrowType);
 }
 
 istream& operator>>(istream& is, BaseArrow& it)

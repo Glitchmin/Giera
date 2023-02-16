@@ -3,11 +3,12 @@
 #include <sstream>
 #include "ValuesRange.h"
 #include "ItemTypes.h"
+#include "DrawableBoardEntity.h"
 using std::string;
 using std::stringstream;
 
 typedef unsigned int item_size_t;
-class AbstractItem
+class AbstractItem : public DrawableBoardEntity
 {
 protected:
 	item_size_t width;
@@ -15,16 +16,19 @@ protected:
 	int value;
 	string name;
 	string description;
+	static inline string txFolderPath = "../../save_files/tx/";
 
 public:
-	AbstractItem(item_size_t width, item_size_t height, int Value, string& name,
+	AbstractItem(item_size_t width, item_size_t height, int value, string& name,
 		string& description);
     item_size_t getWidth() const;
     item_size_t getHeight() const;
     int getValue() const;
     string getName() const;
     string getDescription() const;
+	shared_ptr <Sprite> sprite;
 
+	virtual std::string getFilePath() = 0;
 	virtual ItemTypes getItemType() = 0;
 
 };
