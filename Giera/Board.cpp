@@ -13,6 +13,9 @@ Board::Board(unique_ptr<Map>& map, shared_ptr<BoardRenderer> boardRenderer)
 
 void Board::addItem(Coordinates coords, shared_ptr<AbstractItem> item)
 {
+	item->setBoardPosition(optional(Position(coords.getX(), coords.getY(), 0)));
+	item->updateDrawables();
+	item->addObserver(boardRenderer);
 	items[coords.getX()][coords.getY()].push_back(item);
 }
 

@@ -1,5 +1,6 @@
 #include "BoardLoop.h"
 #include "Player.h"
+#include "BaseItemHandler.h"
 
 BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig)
 {
@@ -15,6 +16,7 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 		}
 	}
 	this->board = make_shared<Board>(map, boardRenderer);
+	board->addItem(Coordinates(5, 5), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
 	board->addNPC(player);
 	player->addObserver(boardRenderer);
 }

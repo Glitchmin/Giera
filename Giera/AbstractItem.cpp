@@ -7,16 +7,19 @@ AbstractItem::AbstractItem(item_size_t width, item_size_t height, int value, str
     this->value = value;
     this->name = name;
     this->description = description;
-    //string path = getFilePath();
-    //sprite = make_shared<Sprite>(make_shared<Texture>(path));
-    //updateDrawables();
+    this->sprite = nullptr;
 }
 
 void AbstractItem::updateDrawables()
 {
+    if (!sprite) {
+        string path = getFilePath();
+        sprite = make_shared<Sprite>(make_shared<Texture>(path));
+    }
     drawables.clear();
-    //TODO Position
-    drawables.push_back(Drawable(Position(0,0,0), sprite, Drawable::DrawableLayer::ENTITIES));
+    if (boardPosition) {
+        drawables.push_back(Drawable(*boardPosition, sprite, Drawable::DrawableLayer::ENTITIES));
+    }
 }
 
 item_size_t AbstractItem::getWidth() const
@@ -42,5 +45,16 @@ string AbstractItem::getName() const
 string AbstractItem::getDescription() const
 {
     return description;
+}
+
+
+optional<Position> AbstractItem::getBoardPosition() const
+{
+    return boardPosition;
+}
+
+void AbstractItem::setBoardPosition(optional<Position> boardPosition)
+{
+    this->boardPosition = boardPosition;
 }
 

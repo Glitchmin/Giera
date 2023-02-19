@@ -14,7 +14,7 @@ public:
         unique_ptr<Damage>& damage, Time attackSpeed, MeleeWeaponTypes meleeWeaponType);
     ItemTypes getItemType() override;
     Time getAttackSpeed() const;
-    std::string getFilePath() override;
+    virtual std::string getFilePath() override;
     //TODO override input stream operator
 
 };

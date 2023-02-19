@@ -23,7 +23,7 @@ public:
     Time getTimeToRaise() const;
     void setTimeToRaise(Time timeToRaise);
     ShieldTypes getShieldType() const;
-    std::string getFilePath() override;
+    virtual std::string getFilePath() override;
 
     //TODO override input/output stream operator
 

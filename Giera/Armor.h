@@ -13,7 +13,7 @@ public:
     ItemTypes getItemType() override;
     double getArmor() const;
     void setArmor(double armor);
-    std::string getFilePath() override;
+    virtual std::string getFilePath() override;
 
 };
 

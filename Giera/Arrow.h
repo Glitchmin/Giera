@@ -23,7 +23,7 @@ public:
 
     const unique_ptr<Damage>& getDamage() const;
     const vector<shared_ptr<AbstractEffect>>& getEffects() const;
-    std::string getFilePath() override;
+    virtual std::string getFilePath() override;
     //TODO override input stream operator
 
 };
