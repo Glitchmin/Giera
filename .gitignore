@@ -361,4 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
 /Giera/save_files/maps/map0.txt
+/SDL
