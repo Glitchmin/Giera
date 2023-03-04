@@ -21,7 +21,7 @@ protected:
 	string description;
 	shared_ptr <Texture> texture;
 	static inline string txFolderPath = "../../save_files/tx/items/";
-	optional <Position> boardPosition;
+	optional <pair<Position, pair<double, double> > > boardRect;
 
 public:
 	AbstractItem(item_size_t width, item_size_t height, int value,
@@ -33,8 +33,8 @@ public:
     int getValue() const;
     string getName() const;
     string getDescription() const;
-    optional<Position> getBoardPosition() const;
-    void setBoardPosition(optional<Position> boardPosition);
+	optional <pair<Position, pair<double, double> > > getBoardRect() const;
+    void setBoardRect(optional <pair<Position, pair<double, double> > >);
 
 	virtual std::string getFilePath() = 0;
 	virtual ItemTypes getItemType() = 0;

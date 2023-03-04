@@ -36,7 +36,7 @@ Rotations getRandomRotation() {
 void GrasslandsGenerator::SetMapTile(std::vector<std::vector<bool>>& boolBoard,
 	int x, int y, Map& map, int& numberOfRocks, int& numberOfBushes)
 {
-	Position pos(x, y, 0);
+	Position pos(x+0.5, y+0.5, 0);
 	if (boolBoard[x][y] == 0)
 	{
 		map.mapTiles[x][y] = make_shared<MapTile>(pos, TerrainTypes::GRASS,

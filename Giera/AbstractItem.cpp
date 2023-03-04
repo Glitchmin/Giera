@@ -19,9 +19,10 @@ void AbstractItem::updateDrawables()
         texture = make_shared<Texture>(path);
     }
     drawables.clear();
-    if (boardPosition) {
-        drawables.push_back(Drawable(boardPosition.value(), texture, 
-            Drawable::DrawableLayer::ENTITIES, make_pair (0.5, 0.5),0));
+    if (boardRect) {
+        drawables.push_back(Drawable(boardRect.value().first, texture,
+            Drawable::DrawableLayer::ENTITIES, make_pair (boardRect.value().second.first,
+                boardRect.value().second.second),0));
     }
 }
 
@@ -50,14 +51,16 @@ string AbstractItem::getDescription() const
     return description;
 }
 
-
-optional<Position> AbstractItem::getBoardPosition() const
+optional<pair<Position, pair<double, double>>> AbstractItem::getBoardRect() const
 {
-    return boardPosition;
+    return boardRect;
 }
 
-void AbstractItem::setBoardPosition(optional<Position> boardPosition)
+void AbstractItem::setBoardRect(optional<pair<Position, pair<double, double>>> boardRect)
 {
-    this->boardPosition = boardPosition;
+    this->boardRect = boardRect;
 }
+
+
+
 
