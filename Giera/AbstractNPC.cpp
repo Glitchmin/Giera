@@ -22,7 +22,8 @@ Position AbstractNPC::getPosition() const
 void AbstractNPC::updateDrawables()
 {
 	drawables.clear();
-	drawables.push_back(Drawable(position, texture, Drawable::DrawableLayer::ENTITIES));
+	drawables.push_back(Drawable(position, texture, Drawable::DrawableLayer::ENTITIES,
+		sizeXY,height));
 }
 
 void AbstractNPC::setBoard(weak_ptr<Board> board)
@@ -37,7 +38,7 @@ void AbstractNPC::move(Position moveDifference)
 		throw "board is null";
 	}
 	if (board_sh->isStepablePosition(position + moveDifference) &&
-		board_sh->isStepablePosition(position + moveDifference + Position(width, 0, 0))) {
+		board_sh->isStepablePosition(position + moveDifference + Position(sizeXY.first, 0, 0))) {
 		notifyObservers(DrawableEntityObserver::Change::REMOVED);
 		position += moveDifference;
 		updateDrawables();

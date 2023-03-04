@@ -1,6 +1,8 @@
 #pragma once
 #include "Texture.h"
 #include "Position.h"
+#include <utility>
+using std::make_pair;
 
 class Drawable
 {
@@ -11,17 +13,16 @@ public:
 		COUNT
 	};
 	Drawable(Position pos, shared_ptr<Texture> texture, DrawableLayer drawableLayer,
-		double widthM=1.0, double heigthM=1.0, Time updateTime = Time(0), int statesNumber = 1);
+		pair<double, double> sizeXY = make_pair(1,1), double heightM=1.0, 
+		Time updateTime = Time(0), int statesNumber = 1);
 	int updateCurrentState(Time timeDiff);
 	int getCurrentState();
 	void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio);
 
 	DrawableLayer getDrawableLayer() const;
 	int getCurrentState() const;
-    double getWidthM() const;
-    void setWidthM(double widthM);
-    double getHeigthM() const;
-    void setHeigthM(double heigthM);
+    double getheightM() const;
+    void setheightM(double heightM);
 	Position getPos() const;
 	void setPos(Position pos);
 	shared_ptr<Texture> getTexture() const;
@@ -35,8 +36,8 @@ protected:
 	Time leftToUpdate;
 	int currentState;
 	int statesNumber;
-	double widthM;
-	double heigthM;
+	pair<double, double> sizeXY;
+	double heightM;
 	Position pos;
 };
 

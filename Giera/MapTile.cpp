@@ -59,7 +59,8 @@ void MapTile::updateDrawables()
 {
 	drawables.clear();
 	string texturePath = MapElementsHandler::getMapElement(MapElementTypes::TERRAIN, (int)terrainType)->getFilePath();
-	this->drawables.push_back(Drawable(position, TextureLoader::getTexturePtr(texturePath), Drawable::DrawableLayer::TERRAIN));
+	this->drawables.push_back(Drawable(position, TextureLoader::getTexturePtr(texturePath), 
+		Drawable::DrawableLayer::TERRAIN,make_pair(1,1),0));
 	if (foregroundType != ForegroundTypes::NONE) {
 		Position pos2 = position;
 		pos2.setY(position.getY() + 0.9 / AbstractMapElement::getTilesPerMeter());
@@ -74,7 +75,9 @@ void MapTile::updateDrawables()
 		Position pos2 = position;
 		string texturePath = MapElementsHandler::getMapElement(MapElementTypes::WALL, (int)wallType)->getFilePath();
 		pos2.setY(position.getY() + 0.5 / AbstractMapElement::getTilesPerMeter());
-		this->drawables.push_back(Drawable(pos2, TextureLoader::getTexturePtr(texturePath), Drawable::DrawableLayer::ENTITIES));
+		this->drawables.push_back(Drawable(pos2, TextureLoader::getTexturePtr(texturePath), 
+			Drawable::DrawableLayer::ENTITIES, make_pair(1, 1), 
+			MapElementsHandler::getMapElement(MapElementTypes::WALL,(int)wallType)->getHeight()-1));
 	}
 }
 

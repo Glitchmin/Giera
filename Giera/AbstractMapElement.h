@@ -16,13 +16,15 @@ protected:
 	double width; //in map tiles
 	double height; //in map tiles
 public:
-	virtual std::string getFilePath()=0;
 	AbstractMapElement();
 	AbstractMapElement(unsigned int framesNumber, Time refreshTime);
+	virtual std::string getFilePath()=0;
 	friend class MapElementsFileHandler;
 	friend istream& operator >> (istream& is, AbstractMapElement& t);
 	static int getTilesPerMeter();
 	static void setTilesPerMeter(int tilesPerMeter);
+    double getWidth() const;
+    double getHeight() const;
 
 };
 

@@ -29,3 +29,14 @@ void AbstractMapElement::setTilesPerMeter(int tilesPerMeter)
 	AbstractMapElement::tilesPerMeter = tilesPerMeter;
 }
 
+
+double AbstractMapElement::getWidth() const
+{
+    return width;
+}
+
+double AbstractMapElement::getHeight() const
+{
+    return height;
+}
+

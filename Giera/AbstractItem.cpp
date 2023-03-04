@@ -20,7 +20,8 @@ void AbstractItem::updateDrawables()
     }
     drawables.clear();
     if (boardPosition) {
-        drawables.push_back(Drawable(boardPosition.value(), texture, Drawable::DrawableLayer::ENTITIES, 0.5, 0.5));
+        drawables.push_back(Drawable(boardPosition.value(), texture, 
+            Drawable::DrawableLayer::ENTITIES, make_pair (0.5, 0.5),0));
     }
 }
 

@@ -23,8 +23,7 @@ public:
 protected:
 	npc_hp_t hp;
 	Position position;
-	double width;
-	double length;
+	pair<double, double> sizeXY;
 	double height;
 	vector <double> resitances;
 	double armor;
