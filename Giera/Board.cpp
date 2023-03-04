@@ -19,6 +19,11 @@ void Board::addItem(Coordinates coords, shared_ptr<AbstractItem> item)
 	items[coords.getX()][coords.getY()].push_back(item);
 }
 
+vector<shared_ptr<AbstractItem>>& Board::getItems(Coordinates coords)
+{
+	return items[coords.getX()][coords.getY()];
+}
+
 void Board::addNPC(shared_ptr<AbstractNPC> npc)
 {
 	npcs.push_back(npc);

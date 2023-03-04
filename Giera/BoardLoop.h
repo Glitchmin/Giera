@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Window.h"
 #include "InputConfig.h"
+#include <set>
 using std::set;
 
 class Player;

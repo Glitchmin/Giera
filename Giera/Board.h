@@ -11,6 +11,7 @@ public:
 	Board() {};
 	Board(unique_ptr<Map>& map,	shared_ptr<BoardRenderer> boardRenderer);
 	void addItem(Coordinates coords, shared_ptr<AbstractItem> item);
+	vector <shared_ptr<AbstractItem> > & getItems(Coordinates coords);
 	void addNPC(shared_ptr<AbstractNPC> npc);
 	bool isStepablePosition(Position position);
 	unique_ptr<Map>& getMap();

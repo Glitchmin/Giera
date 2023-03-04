@@ -1,4 +1,6 @@
 #include "AbstractItem.h"
+using std::make_pair;
+using std::make_shared;
 
 AbstractItem::AbstractItem(item_size_t width, item_size_t height, int value, string& name, string& description)
 {
@@ -7,18 +9,18 @@ AbstractItem::AbstractItem(item_size_t width, item_size_t height, int value, str
     this->value = value;
     this->name = name;
     this->description = description;
-    this->sprite = nullptr;
+    this->texture = nullptr;
 }
 
 void AbstractItem::updateDrawables()
 {
-    if (!sprite) {
+    if (!texture) {
         string path = getFilePath();
-        sprite = make_shared<Sprite>(make_shared<Texture>(path));
+        texture = make_shared<Texture>(path);
     }
     drawables.clear();
     if (boardPosition) {
-        drawables.push_back(Drawable(*boardPosition, sprite, Drawable::DrawableLayer::ENTITIES));
+        drawables.push_back(Drawable(boardPosition.value(), texture, Drawable::DrawableLayer::ENTITIES, 0.5, 0.5));
     }
 }
 

@@ -218,7 +218,6 @@
     <ClCompile Include="SelfSpell.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="SpawningDetails.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StatChangingEffect.cpp" />
     <ClCompile Include="SubTimer.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -277,7 +276,6 @@
     <ClInclude Include="NPCObserver.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerActionTypes.h" />
-    <ClInclude Include="Sprite.h" />
     <ClInclude Include="DrawableBoardEntity.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="EffectsFileHandler.h" />

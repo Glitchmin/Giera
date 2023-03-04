@@ -8,7 +8,7 @@ Player::Player() : AbstractNPC()
 	width = 1.0;
 	height = 1.0;
 	length = 1.0;
-	sprite = make_shared<Sprite>(make_shared<Texture>(path));
+	texture = TextureLoader::getTextureCopy(path);
 	updateDrawables();
 }
 

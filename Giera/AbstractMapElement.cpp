@@ -1,25 +1,13 @@
 #include "AbstractMapElement.h"
+#include "Drawable.h"
 
-void AbstractMapElement::draw(Texture& textureToDrawOn, const double& pixelToMeterRatio, const Position& posOnMap, Time& currentTime)
-{
-	leftToUpdate -= currentTime;
-	if (leftToUpdate.getTimeMs() == 0) {
-		currentState++;
-		currentState %= statesNumber;
-		leftToUpdate = updateDelay;
-	}
-	texture->draw(textureToDrawOn, SDL_Rect{ (currentState * texture->getSize().first) / statesNumber, 0,
-		(texture->getSize().first) / statesNumber,(texture->getSize().second) },
-		SDL_Rect{ (int)((posOnMap.getX()-(width-1.0)/2.0) * pixelToMeterRatio), (int)((posOnMap.getY() - height + 1) * pixelToMeterRatio),
-		(int)(pixelToMeterRatio/tilesPerMeter * width),(int)(pixelToMeterRatio/tilesPerMeter * height) });
-}
 
-AbstractMapElement::AbstractMapElement(): Sprite()
+AbstractMapElement::AbstractMapElement()
 {
 }
 
 AbstractMapElement::AbstractMapElement
-(unsigned int framesNumber, Time refreshTime): Sprite(make_shared<Texture>((SDL_Texture*)NULL),framesNumber,refreshTime)
+(unsigned int framesNumber, Time refreshTime)
 {
 	
 }

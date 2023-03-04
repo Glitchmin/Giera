@@ -363,9 +363,6 @@
     <ClCompile Include="InputConfig.cpp">
       <Filter>Source Files\GameControl</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="NPCObserver.cpp">
       <Filter>Source Files\GameLogic\NPC</Filter>
     </ClCompile>
@@ -657,9 +654,6 @@
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="TextureLoader.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="BoardRenderer.h">

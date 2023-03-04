@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <optional>
+#include <memory>
 #include "ValuesRange.h"
 #include "ItemTypes.h"
 #include "DrawableBoardEntity.h"
@@ -18,7 +19,7 @@ protected:
 	int value;
 	string name;
 	string description;
-	shared_ptr <Sprite> sprite;
+	shared_ptr <Texture> texture;
 	static inline string txFolderPath = "../../save_files/tx/items/";
 	optional <Position> boardPosition;
 

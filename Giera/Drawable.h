@@ -1,6 +1,7 @@
 #pragma once
-#include "Sprite.h"
-using std::weak_ptr;
+#include "Texture.h"
+#include "Position.h"
+
 class Drawable
 {
 public:
@@ -9,23 +10,33 @@ public:
 		ENTITIES,
 		COUNT
 	};
-	Drawable(Position pos, weak_ptr<Sprite> sprite, DrawableLayer drawableLayer);
-
-	Position getPos() const;
-	void setPos(Position pos);
-
-	weak_ptr<Sprite> getSprite() const;
-	void setSprite(weak_ptr<Sprite> sprite);
+	Drawable(Position pos, shared_ptr<Texture> texture, DrawableLayer drawableLayer,
+		double widthM=1.0, double heigthM=1.0, Time updateTime = Time(0), int statesNumber = 1);
+	int updateCurrentState(Time timeDiff);
+	int getCurrentState();
+	void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio);
 
 	DrawableLayer getDrawableLayer() const;
+	int getCurrentState() const;
+    double getWidthM() const;
+    void setWidthM(double widthM);
+    double getHeigthM() const;
+    void setHeigthM(double heigthM);
+	Position getPos() const;
+	void setPos(Position pos);
+	shared_ptr<Texture> getTexture() const;
+	void setTexture(shared_ptr<Texture> texture);
 
-	bool operator < (const Drawable& d) const;
-	bool operator == (const Drawable& d) const;
+	bool operator==(const Drawable& d) const;
 
 protected:
-	Position pos;
-	weak_ptr <Sprite> sprite;
+	shared_ptr <Texture> texture;
 	DrawableLayer drawableLayer;
-
+	Time leftToUpdate;
+	int currentState;
+	int statesNumber;
+	double widthM;
+	double heigthM;
+	Position pos;
 };
 

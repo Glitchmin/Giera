@@ -19,7 +19,7 @@ BoardRenderer::BoardRenderer(unsigned int sizeX, unsigned int sizeY,
 		(sizeX * pixelsPerMeter, sizeY * pixelsPerMeter, { 0,0,0,0 });
 	}
 	camera = Camera(make_pair(horizontalViewRangeM, verticalViewRangeM),
-		player,make_pair(sizeX,sizeY));
+		player, make_pair(sizeX, sizeY));
 }
 
 void BoardRenderer::drawBoard(Time timeDiff)
@@ -29,15 +29,16 @@ void BoardRenderer::drawBoard(Time timeDiff)
 	SDL_RenderClear(Texture::getRenderer());
 	camera.updatePosition(timeDiff);
 	for (auto& layer : layers) {
-		auto& drawablesSet = layer.drawablesSet;
+		auto& drawablesMap = layer.drawablesMap;
 		auto& layerTexture = layer.layerTexture;
 		layer.layerTexture->fillWithColor({ 0,0,0,0 });
-		for (auto& it : drawablesSet) {
-			if ((it.getPos().getX()+1 >= camera.getLeftUpperPosition().getX() &&
+		for (auto& [pos, it] : layer.drawablesMap) {
+			if ((it.getPos().getX() + 1 >= camera.getLeftUpperPosition().getX() &&
 				it.getPos().getX() <= camera.getLeftUpperPosition().getX() + camera.getViewRangeM().first)) {
-				it.getSprite().lock()->draw(*layerTexture, pixelsPerMeter, it.getPos(), timeDiff);
+				it.updateCurrentState(timeDiff);
+				it.draw(*layerTexture, pixelsPerMeter);
 			}
-				
+
 		}
 
 		Texture generalTexture(NULL);
@@ -62,13 +63,19 @@ void BoardRenderer::removeDrawableBoardEntity(shared_ptr<DrawableBoardEntity> en
 void BoardRenderer::addDrawableBoardEntity(DrawableBoardEntity* entity)
 {
 	for (auto& drawable : entity->getDrawables()) {
-		layers[(int)drawable.getDrawableLayer()].drawablesSet.insert(drawable);
+		layers[(int)drawable.getDrawableLayer()].drawablesMap.emplace(drawable.getPos(), drawable);
 	}
 }
 void BoardRenderer::removeDrawableBoardEntity(DrawableBoardEntity* entity)
 {
 	for (auto& drawable : entity->getDrawables()) {
-		layers[(int)drawable.getDrawableLayer()].drawablesSet.erase(drawable);
+		auto& map = layers[(int)drawable.getDrawableLayer()].drawablesMap;
+		auto itLB = layers[(int)drawable.getDrawableLayer()].drawablesMap
+			.lower_bound(drawable.getPos());
+		while (!(itLB==map.end() || (itLB->second == drawable))) {
+			itLB++;
+		}
+		map.erase(itLB);
 	}
 }
 

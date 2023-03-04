@@ -16,7 +16,7 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 		}
 	}
 	this->board = make_shared<Board>(map, boardRenderer);
-	board->addItem(Coordinates(5, 5), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
+	board->addItem(Coordinates(5, 0), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
 	board->addNPC(player);
 	player->addObserver(boardRenderer);
 }
@@ -72,6 +72,7 @@ void BoardLoop::start()
 		Time timeDiff = generalTimer.getTime() - lastInputHandling;
 		lastInputHandling = generalTimer.getTime();
 		handleInput(timeDiff);
+		Logger::logInfo(player->getPosition().getY(), " ",board->getItems(Coordinates(5,0))[0]->getBoardPosition()->getY());
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
 			Time renderTimeDiff = generalTimer.getTime() - lastGraphicUpdate;
 			lastGraphicUpdate = generalTimer.getTime();

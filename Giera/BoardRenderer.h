@@ -4,8 +4,9 @@
 #include "Window.h"
 #include "DrawableEntityObserver.h"
 #include "Camera.h"
+#include <map>
 
-using drawables_multiset_t = typename std::multiset<Drawable>;
+using drawables_multimap_t = typename std::multimap<Position, Drawable>;
 
 class Player;
 
@@ -23,7 +24,7 @@ public:
 private:
 	class Layer {
 	public:
-		drawables_multiset_t drawablesSet;
+		drawables_multimap_t drawablesMap;
 		shared_ptr<Texture> layerTexture;
 	};
 	vector <Layer> layers;
