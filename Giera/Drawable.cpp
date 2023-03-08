@@ -35,7 +35,7 @@ void Drawable::draw(Texture& textureToDrawOn, const double& pixelToMeterRatio)
 		(texture->getSize().first) / statesNumber,(texture->getSize().second) },
 		SDL_Rect{ (int)((pos.getX() - sizeXY.first / 2.) * pixelToMeterRatio),
 		(int)((pos.getY() - heightM - sizeXY.second / 2.) * pixelToMeterRatio),
-		(int)(pixelToMeterRatio * sizeXY.first),(int)(pixelToMeterRatio * (heightM+sizeXY.second)) });
+		(int)(pixelToMeterRatio * sizeXY.first),(int)(pixelToMeterRatio * (heightM + sizeXY.second)) });
 }
 
 
@@ -73,6 +73,16 @@ void Drawable::setPos(Position pos)
 	this->pos = pos;
 }
 
+pair<double, double> Drawable::getsizeXY() const
+{
+	return sizeXY;
+}
+
+void Drawable::setSizeXY(pair<double, double> sizeXY)
+{
+	this->sizeXY = sizeXY;
+}
+
 
 shared_ptr<Texture> Drawable::getTexture() const
 {
@@ -90,3 +100,6 @@ bool Drawable::operator==(const Drawable& d) const
 		texture == texture :
 		false;
 }
+
+
+

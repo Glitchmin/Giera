@@ -77,7 +77,7 @@ void MapTile::updateDrawables()
 		pos2.setY(position.getY() / AbstractMapElement::getTilesPerMeter());
 		this->drawables.push_back(Drawable(pos2, TextureLoader::getTexturePtr(texturePath), 
 			Drawable::DrawableLayer::ENTITIES, make_pair(1, 1), 
-			MapElementsHandler::getMapElement(MapElementTypes::WALL,(int)wallType)->getHeight()-1));
+			MapElementsHandler::getMapElement(MapElementTypes::WALL,(int)wallType)->getHeight()));
 	}
 }
 

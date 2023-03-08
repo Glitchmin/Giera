@@ -24,17 +24,30 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 void BoardLoop::handleInput(Time timeDiff) {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
-		if (event.type == SDL_QUIT) {
+		switch (event.type) {
+		case SDL_QUIT:
 			Logger::logInfo("user closed the window");
-		}
-		if (event.type == SDL_KEYDOWN) {
+			break;
+		case SDL_KEYDOWN:
 			//Logger::logInfo("down", (int)event.key.keysym.scancode);
 			keySet.insert(event.key.keysym.scancode);
-		}
-		if (event.type == SDL_KEYUP) {
+			break;
+		case SDL_KEYUP:
 			//Logger::logInfo("up", (int)event.key.keysym.scancode);
 			keySet.erase(event.key.keysym.scancode);
+			break;
+		case SDL_MOUSEBUTTONUP:
+			Logger::logInfo((int)event.button.button, " button up");
+			boardRenderer->getCamera().resetSecondaryTarget();
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			Logger::logInfo((int)event.button.button, " button down");
+			boardRenderer->getCamera().setSecondaryTarget(
+				board->getMap()->getMapTile(Coordinates(event.button.x / 10, event.button.y / 10)));
+			break;
 		}
+
+
 	}
 	for (auto& key : keySet) {
 		PlayerActionTypes action = inputConfig->getActionType(key);
@@ -53,7 +66,7 @@ void BoardLoop::handleInput(Time timeDiff) {
 			player->move(Position(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
 			break;
 		case PlAct::ADD_SECONDARY_CAMERA_TARGET:
-			boardRenderer->getCamera().setSecondaryTarget(board->getMap()->getMapTile(Coordinates(60,60)));
+			boardRenderer->getCamera().setSecondaryTarget(board->getMap()->getMapTile(Coordinates(60, 60)));
 			break;
 		}
 	}

@@ -25,6 +25,8 @@ public:
     void setheightM(double heightM);
 	Position getPos() const;
 	void setPos(Position pos);
+	pair<double, double> getsizeXY() const;
+	void setSizeXY(pair<double, double> sizeXY);
 	shared_ptr<Texture> getTexture() const;
 	void setTexture(shared_ptr<Texture> texture);
 
@@ -39,5 +41,6 @@ protected:
 	pair<double, double> sizeXY;
 	double heightM;
 	Position pos;
+
 };
 
