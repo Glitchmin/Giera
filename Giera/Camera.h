@@ -9,6 +9,7 @@ protected:
 	pair<double, double> viewRangeM;
 	weak_ptr<DrawableBoardEntity> primaryTarget;
 	weak_ptr<DrawableBoardEntity> secondaryTarget;
+    double cameraFollowSpeed = 0.005;
 
 public:
     Camera();

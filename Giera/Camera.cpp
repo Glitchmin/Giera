@@ -31,17 +31,16 @@ void Camera::updatePosition(Time timeDiff)
 {
 	auto secondary_sp = secondaryTarget.lock();
 	if (secondary_sp == nullptr) {
-		leftUpperTargetPosition = getAvgPos(primaryTarget.lock())
-			- Position(viewRangeM.first / 2, viewRangeM.second / 2, 0);
+		leftUpperTargetPosition = getAvgPos(primaryTarget.lock());
 	}
 	else {
 		leftUpperTargetPosition = getAvgPos(primaryTarget.lock())
 			+ getAvgPos(secondary_sp);
 		leftUpperTargetPosition.setX(leftUpperTargetPosition.getX() / 2);
 		leftUpperTargetPosition.setY(leftUpperTargetPosition.getY() / 2);
-		leftUpperTargetPosition = leftUpperTargetPosition
-			- Position(viewRangeM.first / 2, viewRangeM.second / 2, 0);
 	}
+	leftUpperTargetPosition = leftUpperTargetPosition
+		- Position(viewRangeM.first / 2, viewRangeM.second / 2, 0);
 	if (leftUpperTargetPosition.getX() < 0) {
 		leftUpperTargetPosition.setX(0);
 	}	
@@ -54,12 +53,8 @@ void Camera::updatePosition(Time timeDiff)
 	if (leftUpperTargetPosition.getY() + viewRangeM.second > mapSize.second) {
 		leftUpperTargetPosition.setY(mapSize.second - viewRangeM.second);
 	}
-	if (secondary_sp == nullptr) {
-		leftUpperPosition = leftUpperTargetPosition;
-		return;
-	}
 	Position delta = leftUpperTargetPosition - leftUpperPosition;
-	leftUpperPosition += delta * timeDiff.getTimeMs() * 0.003;
+	leftUpperPosition += delta * timeDiff.getTimeMs() * cameraFollowSpeed;
 
 }
 
