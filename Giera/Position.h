@@ -1,4 +1,7 @@
+#include <iostream>
 #pragma once
+using std::ostream;
+
 class Position {
 private:
 	double x, y, z;
@@ -22,6 +25,7 @@ public:
 	Position operator - (Position const& p1);
 	bool operator < (const Position& a) const;
 	bool operator == (const Position& a) const;
+	friend ostream& operator << (ostream& out, const Position& t);
 	//TODO rest of the operators
 
 };

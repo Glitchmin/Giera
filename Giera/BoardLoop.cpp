@@ -91,7 +91,6 @@ void BoardLoop::start()
 
 			boardRenderer->drawBoard(renderTimeDiff);
 			window->updateRenderer();
-			//Logger::logInfo((generalTimer.getTime()- lastGraphicUpdate).getTimeMs(),generalTimer.getTime().getTimeMs(),lastGraphicUpdate.getTimeMs());
 		}
 		generalTimer.updateTime();
 	}

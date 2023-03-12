@@ -73,7 +73,7 @@ void Drawable::setPos(Position pos)
 	this->pos = pos;
 }
 
-pair<double, double> Drawable::getsizeXY() const
+pair<double, double> Drawable::getSizeXY() const
 {
 	return sizeXY;
 }

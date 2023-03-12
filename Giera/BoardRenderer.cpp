@@ -34,7 +34,7 @@ void BoardRenderer::drawBoard(Time timeDiff)
 		layer.layerTexture->fillWithColor({ 0,0,0,0 });
 		for (auto& [pos, it] : layer.drawablesMap) {
 			if ((it.getPos().getX() + 1 >= camera.getLeftUpperPosition().getX() &&
-				it.getPos().getX()-it.getsizeXY().first/2 <= camera.getLeftUpperPosition().getX() + camera.getViewRangeM().first)) {
+				it.getPos().getX()-it.getSizeXY().first/2 <= camera.getLeftUpperPosition().getX() + camera.getViewRangeM().first)) {
 				it.updateCurrentState(timeDiff);
 				it.draw(*layerTexture, pixelsPerMeter);
 			}

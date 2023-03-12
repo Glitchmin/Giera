@@ -90,3 +90,8 @@ void Position::setZ(double z)
     this->z = z;
 }
 
+ostream& operator<<(ostream& out, const Position& t)
+{
+	out << "(" << t.x << ", " << t.y << ", " << t.z << ")";
+	return out;
+}
