@@ -129,3 +129,14 @@ std::istream& operator>>(std::istream& is, MapTile& t)
 }
 
 
+
+vector<ItemSpawner>& MapTile::getItemSpawners()
+{
+    return itemSpawners;
+}
+
+void MapTile::setItemSpawners(vector<ItemSpawner>& itemSpawners)
+{
+    this->itemSpawners = itemSpawners;
+}
+

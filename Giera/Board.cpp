@@ -7,6 +7,15 @@ Board::Board(unique_ptr<Map>& map, shared_ptr<BoardRenderer> boardRenderer)
 		v.resize(map->getSizeY());
 	}
 	this->boardRenderer = boardRenderer;
+	for (int i = 0; i < map->getSizeX();i++) {
+		for (int j = 0; j < map->getSizeY();j++) {
+			Coordinates coords = Coordinates(i, j);
+			auto& spawners = map->getMapTile(coords)->getItemSpawners();
+			for (auto& spawner : spawners) {
+				spawner.generateItems(coords, *this);
+			}
+		}
+	}
 	this->map = std::move (map);
 	
 }

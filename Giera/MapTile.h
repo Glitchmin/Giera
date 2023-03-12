@@ -46,8 +46,12 @@ public:
     Rotations getTerrainRotation() const;
     void setTerrainRotation(Rotations terrainRotation);
 
+    vector<ItemSpawner>& getItemSpawners();
+    void setItemSpawners(vector<ItemSpawner>& itemSpawners);
+
     friend ostream& operator << (ostream& out, const MapTile& t);
     friend istream& operator >> (istream& is, MapTile& t);
+
 
 };
 
