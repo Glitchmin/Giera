@@ -40,3 +40,7 @@ double LineSegment::getIntercept()
     throw "TO DO";
 }
 
+double LineSegment::getLength() const
+{
+    return (start - end).getNorm();
+}

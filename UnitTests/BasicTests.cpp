@@ -51,6 +51,11 @@
 #include "../Giera/ItemSpawner.cpp"
 #include "../Giera/Position.h"
 #include "../Giera/Position.cpp"
+#include "../Giera/AbstractGeometryFigure.h"
+#include "../Giera/LineSegment.h"
+#include "../Giera/LineSegment.cpp"
+#include "../Giera/Cuboid.h"
+#include "../Giera/Cuboid.cpp"
 #include "../Giera/Damage.cpp"
 #include "../Giera/Damage.h"
 #include "../Giera/Lifesteal.h"
@@ -61,6 +66,7 @@
 #include "../Giera/AbstractEffect.cpp"
 #include "../Giera/AbstractEffect.h"
 #include "../Giera/AbstractNPC.h"
+#include "../Giera/AbstractNPC.cpp"
 #include "../Giera/StatChangingEffect.h"
 #include "../Giera/StatChangingEffect.cpp"
 #include "../Giera/BaseItemHandler.h"
@@ -112,6 +118,10 @@
 #include "../Giera/Drawable.cpp"
 #include "../Giera/DrawableBoardEntity.h"
 #include "../Giera/DrawableBoardEntity.cpp"
+#include "../Giera/Window.h"
+#include "../Giera/Window.cpp"
+#include "../Giera/Camera.h"
+#include "../Giera/Camera.cpp"
 
 #include <iostream>
 #include <string>
@@ -767,6 +777,73 @@ namespace UtilityTests
 				_max = max(_max, sum[wyn]);
 			}
 			Assert::IsTrue(_max - _min <= 75);
+		}
+	};
+	TEST_CLASS(PositionTest)
+	{
+	public:
+		TEST_METHOD(PositionOperatorsOverloadTest) {
+
+			Position p1(100.0, 50.0, 10.0);
+			Position p2(10.0, 50.0, 100.0);
+			Position p3 = p1 + p2;
+			Assert::IsTrue(p3 == Position(110.0, 100.0, 110.0));
+			Assert::IsTrue(p1 == Position(100.0, 50.0, 10.0));
+			Assert::IsTrue(p2 == Position(10.0, 50.0, 100.0));
+
+			Position p4 = p2 - p1;
+			Assert::IsTrue(p4 == Position(-90.0, 0.0, 90.0));
+			Assert::IsTrue(p1 == Position(100.0, 50.0, 10.0));
+			Assert::IsTrue(p2 == Position(10.0, 50.0, 100.0));
+
+			Position p5(10.0, 20.0, 30.0);
+			p5 += p1;
+			Assert::IsTrue(p5 == Position(110.0, 70.0, 40.0));
+			Assert::IsTrue(p1 == Position(100.0, 50.0, 10.0));
+
+			Position p6(20.0, 30.0, 50.0);
+			p6 -= p1;
+			Assert::IsTrue(p6 == Position(-80.0, -20.0, 40.0));
+			Assert::IsTrue(p1 == Position(100.0, 50.0, 10.0));
+
+			Position p7 = p1 * 1.5;
+			Assert::IsTrue(p7 == Position(150.0, 75.0, 15.0));
+			Assert::IsTrue(p1 == Position(100.0, 50.0, 10.0));
+
+			Position p8(1.0, 2.0, 3.0);
+			Position p9(-1.0, 2.0, -3.0);
+			p8 -= p9;
+			Assert::IsTrue(p8 == Position(2.0, 0.0, 6.0));
+			Assert::IsTrue(p9 == Position(-1.0, 2.0, -3.0));
+
+			Assert::IsTrue(p1.getX() == 100.0);
+			Assert::IsTrue(p1.getY() == 50.0);
+			Assert::IsTrue(p1.getZ() == 10.0);
+
+			Position p10(3.0, 4.0, 0.0);
+			Assert::IsTrue(p10.getNormSq() == 25.0);
+			Assert::IsTrue(p10.getNorm() == 5.0);
+		}
+	};
+	TEST_CLASS(RectangleTest)
+	{
+	public:
+		TEST_METHOD(IntersectTest) {
+			Cuboid rec = Cuboid(Position(0.0, 0.0, 0.0), Position(3.0, 4.0, 12.0));
+
+			LineSegment line1 = LineSegment(Position(-1.0, -1.0, -1.0), Position(1.0, 1.0, 1.0));
+			Assert::IsTrue(rec.checkLineSegmentIntersect(line1));
+			Assert::IsTrue(rec.getLineSegmentIntersect(line1).value() == Position(0.0, 0.0, 0.0));
+
+
+			LineSegment line2 = LineSegment(Position(-2.0, -2.0, -2.0), Position(-1.0, -1.0, -1.0));
+			Assert::IsFalse(rec.checkLineSegmentIntersect(line2));
+			Assert::IsFalse(rec.getLineSegmentIntersect(line2).has_value());
+
+			LineSegment line3 = LineSegment(Position(-1.0, -1.0, -1.0), Position(0.0, 0.0, 0.0));
+			Assert::IsTrue(rec.checkLineSegmentIntersect(line3));
+			Assert::IsTrue(rec.getLineSegmentIntersect(line3).value() == Position(0.0, 0.0, 0.0));
+
 		}
 	};
 }

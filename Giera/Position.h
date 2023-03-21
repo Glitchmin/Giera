@@ -18,11 +18,13 @@ public:
     double getZ() const;
     void setZ(double z);
 
-	double getNormSq();
-	Position operator + (Position const& p1);
-	Position operator * (double const& d);
+	double getNormSq() const;
+	double getNorm() const;
+	Position operator + (Position const& p1) const;
+	Position operator * (double const& d) const;
 	Position& operator += (Position const& p1);
-	Position operator - (Position const& p1);
+	Position& operator -= (Position const& p1);
+	Position operator - (Position const& p1) const;
 	bool operator < (const Position& a) const;
 	bool operator == (const Position& a) const;
 	friend ostream& operator << (ostream& out, const Position& t);

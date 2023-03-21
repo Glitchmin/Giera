@@ -214,7 +214,7 @@
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="RangedWeapon.cpp" />
     <ClCompile Include="Readable.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Cuboid.cpp" />
     <ClCompile Include="SelfSpell.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="SpawningDetails.cpp" />
@@ -319,7 +319,7 @@
     <ClInclude Include="RangedWeaponTypes.h" />
     <ClInclude Include="Readable.h" />
     <ClInclude Include="ReadableTypes.h" />
-    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Cuboid.h" />
     <ClInclude Include="Rotation.h" />
     <ClInclude Include="SelfSpell.h" />
     <ClInclude Include="Shield.h" />

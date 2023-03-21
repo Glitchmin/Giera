@@ -1,4 +1,5 @@
 #include "Position.h"
+#include <cmath>
 
 Position::Position()
 {
@@ -34,18 +35,23 @@ void Position::setY(double y)
 	this->y = y;
 }
 
-double Position::getNormSq()
+double Position::getNormSq() const
 {
 	return x*x + y*y + z*z;
 }
 
-Position Position::operator+(Position const& p1)
+double Position::getNorm() const
+{
+	return std::sqrtl(getNormSq());
+}
+
+Position Position::operator+(Position const& p1) const
 {
 	Position pos(p1.x + this->x, p1.y + this->y, p1.z + this->z);
 	return pos;
 }
 
-Position Position::operator*(double const& d)
+Position Position::operator*(double const& d) const
 {
 	Position pos(d*this->x, d*this->y, d*this->z);
 	return pos;
@@ -59,7 +65,15 @@ Position& Position::operator+=(Position const& p1)
 	return *this;
 }
 
-Position Position::operator-(Position const& p1)
+Position& Position::operator-=(Position const& p1)
+{
+	this->x -= p1.x;
+	this->y -= p1.y;
+	this->z -= p1.z;
+	return *this;
+}
+
+Position Position::operator-(Position const& p1) const
 {
 	Position pos(this->x - p1.x, this->y - p1.y ,this->z - p1.z);
 	return pos;

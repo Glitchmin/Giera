@@ -2,13 +2,13 @@
 #include "AbstractGeometryFigure.h"
 #include "Position.h"
 
-class Rectangle : public AbstractGeometryFigure {
+class Cuboid : public AbstractGeometryFigure {
 private:
 	Position lowerLeft;
 	Position upperRight;
 public:
-	Rectangle();
-	Rectangle(Position lowerLeft, Position upperRight);
+	Cuboid();
+	Cuboid(Position lowerLeft, Position upperRight);
 
 	static std::unique_ptr<AbstractGeometryFigure>
 		readFromFile(FileHandler& fileHandler);
@@ -19,7 +19,12 @@ public:
     Position getUpperRight() const;
     void setUpperRight(Position upperRight);
 
+	bool checkLineSegmentIntersect(LineSegment lineSegment) const;
+	std::optional<Position> getLineSegmentIntersect(LineSegment lineSegment) const;
+
 	Position getUpperLeft() const;
 	Position getLowerRight() const;
 
+	Position getCenter() const;
+	double getArea() const;
 };

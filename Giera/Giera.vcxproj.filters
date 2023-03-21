@@ -138,7 +138,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Rectangle.cpp">
+    <ClCompile Include="Cuboid.cpp">
       <Filter>Source Files\Utility\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="Position.cpp">
@@ -404,7 +404,7 @@
     <ClInclude Include="MapTileEnums.h">
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Rectangle.h">
+    <ClInclude Include="Cuboid.h">
       <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="LineSegment.h">
