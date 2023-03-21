@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+
+class Position;
+
 class Coordinates
 {
 private:
@@ -9,6 +12,7 @@ private:
 public:
     Coordinates();
     Coordinates(unsigned int x, unsigned int y);
+    Coordinates(Position pos);
 
     bool isInsideMap(unsigned int sizeX, unsigned int sizeY);
 

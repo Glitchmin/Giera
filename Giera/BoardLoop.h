@@ -21,6 +21,7 @@ protected:
 	shared_ptr<Window> window;
 	shared_ptr<BoardRenderer> boardRenderer;
 	shared_ptr<Player> player;
+	bool leftMouseButtonPressed;
 	void handleInput(Time timeDiff);
 };
 

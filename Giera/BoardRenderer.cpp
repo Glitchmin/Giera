@@ -19,7 +19,7 @@ BoardRenderer::BoardRenderer(unsigned int sizeX, unsigned int sizeY,
 		(sizeX * pixelsPerMeter, sizeY * pixelsPerMeter, { 0,0,0,0 });
 	}
 	camera = Camera(make_pair(horizontalViewRangeM, verticalViewRangeM),
-		player, make_pair(sizeX, sizeY));
+		player, make_pair(sizeX, sizeY), window);
 }
 
 void BoardRenderer::drawBoard(Time timeDiff)

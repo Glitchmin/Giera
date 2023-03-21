@@ -2,6 +2,9 @@
 #include "Logger.h"
 #include "TextureLoader.h"
 #include "Texture.h"
+
+using std::make_pair;
+
 Window::Window()
 {
 	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
@@ -51,5 +54,12 @@ double Window::getXToYRatio()
 	SDL_Point windowSize;
 	SDL_GetWindowSize(window, &windowSize.x, &windowSize.y);
 	return (double)windowSize.x/(double)windowSize.y;
+}
+
+pair<int, int> Window::getMousePos()
+{
+	int mouseX, mouseY;
+	SDL_GetMouseState(&mouseX, &mouseY);
+	return make_pair(mouseX, mouseY);
 }
 
