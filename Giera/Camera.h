@@ -10,7 +10,7 @@ protected:
 	pair<double, double> viewRangeM;
 	weak_ptr<DrawableBoardEntity> primaryTarget;
 	weak_ptr<DrawableBoardEntity> secondaryTarget;
-    double cameraFollowSpeed = 0.005;
+    double cameraFollowSpeed = 0.0045;
     bool followMouse;
     shared_ptr <Window> window;
 public:

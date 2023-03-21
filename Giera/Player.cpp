@@ -7,7 +7,8 @@ Player::Player() : AbstractNPC()
 	position = Position(1.5, 1.5, 0);
 	sizeXY = make_pair(.7, .5);
 	height = 1.1;
-	texture = TextureLoader::getTextureCopy(path);
+	drawable = make_shared<Drawable>(position, TextureLoader::getTextureCopy(path),
+		Drawable::DrawableLayer::ENTITIES, sizeXY, height);
 	updateDrawables();
 }
 

@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include <map>
 
-using drawables_multimap_t = typename std::multimap<Position, Drawable>;
+using drawables_multimap_t = typename std::multimap<Position, shared_ptr<Drawable> >;
 
 class Player;
 

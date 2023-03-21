@@ -5,7 +5,7 @@ Position getAvgPos(shared_ptr<DrawableBoardEntity> entity) {
 	Position pos(0, 0, 0);
 	int drawablesCount = entity->getDrawables().size();
 	for (auto& ptr : entity->getDrawables()) {
-		pos += ptr.getPos();
+		pos += ptr->getPos();
 	}
 	pos.setX(pos.getX() / drawablesCount);
 	pos.setY(pos.getY() / drawablesCount);

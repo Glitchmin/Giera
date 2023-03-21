@@ -22,8 +22,8 @@ Position AbstractNPC::getPosition() const
 void AbstractNPC::updateDrawables()
 {
 	drawables.clear();
-	drawables.push_back(Drawable(position, texture, Drawable::DrawableLayer::ENTITIES,
-		sizeXY, height));
+	drawable->setPos(position);
+	drawables.push_back(drawable);
 }
 
 void AbstractNPC::setBoard(weak_ptr<Board> board)

@@ -1,10 +1,5 @@
 #include "DrawableBoardEntity.h"
 
-const vector<Drawable>& DrawableBoardEntity::getDrawables() const
-{
-    return drawables;
-}
-
 void DrawableBoardEntity::addObserver(weak_ptr<DrawableEntityObserver> observer)
 {
     observers.push_back(observer);
@@ -21,4 +16,10 @@ void DrawableBoardEntity::notifyObservers(DrawableEntityObserver::Change change)
 }
 
 
+
+
+vector<shared_ptr<Drawable>>& DrawableBoardEntity::getDrawables()
+{
+    return drawables;
+}
 
