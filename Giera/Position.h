@@ -1,5 +1,5 @@
-#include <iostream>
 #pragma once
+#include <iostream>
 using std::ostream;
 
 class Position {
