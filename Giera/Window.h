@@ -15,6 +15,7 @@ public:
 	void updateRenderer();
 	pair<int, int> getSize();
 	double getXToYRatio();
+	pair<int, int> getMousePos();
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;

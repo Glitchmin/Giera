@@ -31,7 +31,7 @@ protected:
 	vector <SpawningDetails> drops;
 	NPCTypes npcType;
 	Position target;
-	shared_ptr <Texture> texture;
+	shared_ptr <Drawable> drawable;
 	weak_ptr <Board> board;
 };
 

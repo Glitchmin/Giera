@@ -18,6 +18,7 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	this->board = make_shared<Board>(map, boardRenderer);
 	board->addItem(Coordinates(5, 0), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
 	board->addNPC(player);
+	leftMouseButtonPressed = false;
 	player->addObserver(boardRenderer);
 }
 
@@ -38,17 +39,22 @@ void BoardLoop::handleInput(Time timeDiff) {
 			break;
 		case SDL_MOUSEBUTTONUP:
 			Logger::logInfo((int)event.button.button, " button up");
-			boardRenderer->getCamera().resetSecondaryTarget();
+			leftMouseButtonPressed = false;
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			Logger::logInfo((int)event.button.button, " button down");
-			boardRenderer->getCamera().setSecondaryTarget(
-				board->getMap()->getMapTile(Coordinates(event.button.x / 10, event.button.y / 10)));
+			leftMouseButtonPressed = true;
 			break;
 		}
-
-
 	}
+	if (!leftMouseButtonPressed) {
+		boardRenderer->getCamera().resetSecondaryTarget();
+	}
+	else {
+		Camera& camera = boardRenderer->getCamera();
+		camera.setMouseAsSecondaryTarget();
+	}
+
 	for (auto& key : keySet) {
 		PlayerActionTypes action = inputConfig->getActionType(key);
 		switch (action) {

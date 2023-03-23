@@ -11,13 +11,14 @@ class DrawableEntityObserver;
 class DrawableBoardEntity
 {
 protected:
-	vector <Drawable> drawables;
+	vector <shared_ptr<Drawable> > drawables;
     vector <weak_ptr<DrawableEntityObserver> > observers;
 
 public:
-    const vector<Drawable>& getDrawables() const;
     void addObserver(weak_ptr<DrawableEntityObserver> observer);
     void notifyObservers(DrawableEntityObserver::Change change);
+    vector<shared_ptr<Drawable>>& getDrawables();
     virtual void updateDrawables() = 0;
+
 };
 

@@ -22,6 +22,7 @@ protected:
 	shared_ptr <Texture> texture;
 	static inline string txFolderPath = "../../save_files/tx/items/";
 	optional <pair<Position, pair<double, double> > > boardRect;
+	shared_ptr <Drawable> drawable;
 
 public:
 	AbstractItem(item_size_t width, item_size_t height, int value,

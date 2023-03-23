@@ -22,7 +22,8 @@ Board::Board(unique_ptr<Map>& map, shared_ptr<BoardRenderer> boardRenderer)
 
 void Board::addItem(Coordinates coords, shared_ptr<AbstractItem> item)
 {
-	item->setBoardRect(optional(make_pair(Position(coords.getX()+0.2, coords.getY()+0.7, 0),
+	item->setBoardRect(optional(make_pair(Position(coords.getX()
+		+Calculator::getRandomDouble(0.2,0.8), coords.getY()+0.7, 0),
 		make_pair(0.4,0.4))));
 	item->updateDrawables();
 	item->addObserver(boardRenderer);

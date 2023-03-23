@@ -20,9 +20,12 @@ void AbstractItem::updateDrawables()
     }
     drawables.clear();
     if (boardRect) {
-        drawables.push_back(Drawable(boardRect.value().first, texture,
-            Drawable::DrawableLayer::ENTITIES, make_pair (boardRect.value().second.first,
-                boardRect.value().second.second),0));
+        if (drawable == nullptr) {
+            drawable = make_shared<Drawable>(boardRect.value().first, texture,
+                Drawable::DrawableLayer::ENTITIES, make_pair(boardRect.value().second.first,
+                    boardRect.value().second.second), 0);
+        }
+        drawables.push_back(drawable);
     }
 }
 
