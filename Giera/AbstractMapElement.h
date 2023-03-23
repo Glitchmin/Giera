@@ -2,17 +2,29 @@
 #include <string>
 #include <sstream>
 #include "Time.h"
+#include "TextureLoader.h"
+
 class AbstractMapElement
 {
 protected:
-	static std::string txFolderPath;
+	static inline std::string txFolderPath = "../../save_files/tx/";
+	static inline int tilesPerMeter = 1;
 	unsigned int elementID;
-	unsigned int framesNumber;
-	Time refreshTime;
+	Time updateDelay;
+	int statesNumber;
+	shared_ptr<Texture> texture;
+	double width; //in map tiles
+	double height; //in map tiles
 public:
-	virtual std::string getFileName()=0;
 	AbstractMapElement();
 	AbstractMapElement(unsigned int framesNumber, Time refreshTime);
+	virtual std::string getFilePath()=0;
 	friend class MapElementsFileHandler;
+	friend istream& operator >> (istream& is, AbstractMapElement& t);
+	static int getTilesPerMeter();
+	static void setTilesPerMeter(int tilesPerMeter);
+    double getWidth() const;
+    double getHeight() const;
+
 };
 

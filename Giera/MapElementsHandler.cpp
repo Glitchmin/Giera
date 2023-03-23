@@ -1,21 +1,14 @@
 #include "MapElementsHandler.h"
 
-unique_ptr<Background>& MapElementsHandler::getBackground(BackgroundTypes backgroundType)
+
+void MapElementsHandler::initialize()
 {
-	return backgrounds[(int)backgroundType];
+	MapElementsFileHandler baseItemFileHandler;
+	baseItemFileHandler.readEntities(baseItems);
 }
 
-unique_ptr<Foreground>& MapElementsHandler::getForeground(ForegroundTypes foregroundType)
+shared_ptr<AbstractMapElement> MapElementsHandler::getMapElement(MapElementTypes elementType, int elementSubtype)
 {
-	return foregrounds[(int)foregroundType];
-}
-
-unique_ptr<Terrain>& MapElementsHandler::getTerrain(TerrainTypes terrainType)
-{
-	return terrains[(int)terrainType];
-}
-
-unique_ptr<Wall>& MapElementsHandler::getWall(WallTypes wallType)
-{
-	return walls[(int)wallType];
+	initialize();
+	return baseItems[(int)elementType][elementSubtype];
 }

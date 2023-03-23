@@ -22,8 +22,9 @@ bool AbstractTimer::isPaused() const
 	return paused;
 }
 
-Time AbstractTimer::getTime() const
+Time AbstractTimer::getTime()
 {
+	updateTime();
 	return time;
 }
 double AbstractTimer::getTempo() const

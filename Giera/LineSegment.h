@@ -19,4 +19,5 @@ public:
     double getSlope();
     double getIntercept();
 
+    double getLength() const;
 };

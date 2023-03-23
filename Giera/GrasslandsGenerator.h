@@ -1,6 +1,10 @@
 #pragma once
 #include "AbstractMapGenerator.h"
 #include "Map.h"
+
+class AbstractMapGenerator;
+class Map;
+
 class GrasslandsGenerator: public AbstractMapGenerator
 {
 private:

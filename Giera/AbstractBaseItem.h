@@ -4,7 +4,7 @@
 #include "ValuesRange.h"
 #include "ItemTypes.h"
 #include "Calculator.h"
-#include "NormalItems.h"
+#include "AbstractItem.h"
 using std::string;
 using std::shared_ptr;
 using std::make_shared;

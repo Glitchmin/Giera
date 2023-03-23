@@ -15,13 +15,15 @@ class Arrow :
 protected:
     unique_ptr<Damage> damage;
     vector<shared_ptr<AbstractEffect>> effects;
+    ArrowTypes arrowType;
 public:
-    Arrow(item_size_t width, item_size_t height, int Value, string& name,
-        string& description, unique_ptr<Damage>& damage, vector<shared_ptr<AbstractEffect>> effects);
+    Arrow(item_size_t width, item_size_t height, int Value, string& name, string& description,
+        unique_ptr<Damage>& damage, vector<shared_ptr<AbstractEffect>> effects, ArrowTypes arrowType);
     ItemTypes getItemType() override;
 
     const unique_ptr<Damage>& getDamage() const;
     const vector<shared_ptr<AbstractEffect>>& getEffects() const;
+    virtual std::string getFilePath() override;
     //TODO override input stream operator
 
 };

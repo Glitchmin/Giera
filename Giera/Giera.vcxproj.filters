@@ -103,13 +103,43 @@
     <Filter Include="Source Files\GameLogic\Items\NormalItems">
       <UniqueIdentifier>{c1a675e8-dbaf-4c54-ae79-567ee72a75f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameLogic\Spells">
+      <UniqueIdentifier>{deac8104-9ba4-4262-9882-5c056ed62c40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Spells">
+      <UniqueIdentifier>{ba4b4695-8b11-4ed7-aa82-ae5ca4537e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Spells\Modifiers">
+      <UniqueIdentifier>{f1031051-278e-4870-b3dc-82f6be032d91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Spells\Modifiers">
+      <UniqueIdentifier>{c56a5a05-aa44-4739-adba-4fd886ab807a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Board">
+      <UniqueIdentifier>{dcf1ed7a-48ba-45d8-9235-ffaa16dd9517}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Board">
+      <UniqueIdentifier>{ff4e36fa-1392-4539-b493-2fbc506c7ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{555b1220-16e6-4760-ae0b-08b04f40aef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{ee38d7a2-99dc-454b-a819-6216c8124c81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameControl">
+      <UniqueIdentifier>{741c74e8-45c5-4180-a36d-3fd910338a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameControl">
+      <UniqueIdentifier>{4e4dfa64-1087-48a3-ba60-8e02c28ad035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Items\Inventory">
+      <UniqueIdentifier>{0074ace6-188f-4903-9e7f-c0b8e63a4807}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Rectangle.cpp">
+    <ClCompile Include="Cuboid.cpp">
       <Filter>Source Files\Utility\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Position.cpp">
       <Filter>Source Files\Utility</Filter>
@@ -180,7 +210,7 @@
     <ClCompile Include="MapElementsFileHandler.cpp">
       <Filter>Source Files\GameLogic\Map\MapElements</Filter>
     </ClCompile>
-    <ClCompile Include="NPC.cpp">
+    <ClCompile Include="AbstractNPC.cpp">
       <Filter>Source Files\GameLogic\NPC</Filter>
     </ClCompile>
     <ClCompile Include="AbstractEffect.cpp">
@@ -279,6 +309,72 @@
     <ClCompile Include="EffectsFileHandler.cpp">
       <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="AbstractSpellModifier.cpp">
+      <Filter>Source Files\GameLogic\Spells\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionSpellModifer.cpp">
+      <Filter>Source Files\GameLogic\Spells\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractSpell.cpp">
+      <Filter>Source Files\GameLogic\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="ThownSpell.cpp">
+      <Filter>Source Files\GameLogic\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="PointSpell.cpp">
+      <Filter>Source Files\GameLogic\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="SelfSpell.cpp">
+      <Filter>Source Files\GameLogic\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawningDetails.cpp">
+      <Filter>Source Files\GameLogic\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemSpawner.cpp">
+      <Filter>Source Files\GameLogic\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Source Files\GameLogic\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardRenderer.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableBoardEntity.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardLoop.cpp">
+      <Filter>Source Files\GameControl</Filter>
+    </ClCompile>
+    <ClCompile Include="InputConfig.cpp">
+      <Filter>Source Files\GameControl</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCObserver.cpp">
+      <Filter>Source Files\GameLogic\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableEntityObserver.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\GameLogic\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -308,7 +404,7 @@
     <ClInclude Include="MapTileEnums.h">
       <Filter>Header Files\GameLogic\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Rectangle.h">
+    <ClInclude Include="Cuboid.h">
       <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="LineSegment.h">
@@ -518,8 +614,89 @@
     <ClInclude Include="Effects.h">
       <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractSpellModifier.h">
+      <Filter>Header Files\GameLogic\Spells\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellModifiersTypes.h">
+      <Filter>Header Files\GameLogic\Spells\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionSpellModifer.h">
+      <Filter>Header Files\GameLogic\Spells\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractSpell.h">
+      <Filter>Header Files\GameLogic\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="ThownSpell.h">
+      <Filter>Header Files\GameLogic\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="PointSpell.h">
+      <Filter>Header Files\GameLogic\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="SelfSpell.h">
+      <Filter>Header Files\GameLogic\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCTypes.h">
+      <Filter>Header Files\GameLogic\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawningDetails.h">
+      <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemSpawner.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractEntityFileLoader.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Header Files\GameLogic\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardRenderer.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableBoardEntity.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MapElementsTypes.h">
+      <Filter>Header Files\GameLogic\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardLoop.h">
+      <Filter>Header Files\GameControl</Filter>
+    </ClInclude>
+    <ClInclude Include="InputConfig.h">
+      <Filter>Header Files\GameControl</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerActionTypes.h">
+      <Filter>Header Files\GameControl</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCObserver.h">
+      <Filter>Header Files\GameLogic\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableEntityObserver.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\GameLogic\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="InventorySlotTypes.h">
+      <Filter>Header Files\GameLogic\Items\Inventory</Filter>
+    </ClInclude>
     <ClInclude Include="ReadableTypes.h">
-      <Filter>Header Files\GameLogic\Items\NormalItems</Filter>
+      <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

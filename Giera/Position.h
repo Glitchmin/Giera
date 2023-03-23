@@ -1,10 +1,13 @@
+#include <iostream>
 #pragma once
+using std::ostream;
+
 class Position {
 private:
-	double x, y;
+	double x, y, z;
 public:
 	Position();
-	Position(double x, double y);
+	Position(double x, double y, double z);
 
 	double getX() const;
 	void setX(double x);
@@ -12,8 +15,19 @@ public:
 	double getY() const;
 	void setY(double y);
 
-	Position operator + (Position const& p1);
-	//TODO rest of the operators
-};
+    double getZ() const;
+    void setZ(double z);
 
-// i am here buhahahaha - ja
+	double getNormSq() const;
+	double getNorm() const;
+	Position operator + (Position const& p1) const;
+	Position operator * (double const& d) const;
+	Position& operator += (Position const& p1);
+	Position& operator -= (Position const& p1);
+	Position operator - (Position const& p1) const;
+	bool operator < (const Position& a) const;
+	bool operator == (const Position& a) const;
+	friend ostream& operator << (ostream& out, const Position& t);
+	//TODO rest of the operators
+
+};

@@ -3,6 +3,8 @@
 class BaseMisc :
     public AbstractBaseItem
 {
+private:
+    MiscTypes miscType;
 public:
     BaseMisc();
     ItemTypes getItemType() override;

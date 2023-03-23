@@ -30,6 +30,32 @@
 #include "../Giera/MapFileHandler.h"
 #include "../Giera/MapFileHandlerSaving.cpp"
 #include "../Giera/MapFileHandlerReading.cpp"
+#include "../Giera/MapElementsHandler.h"
+#include "../Giera/MapElementsHandler.cpp"
+#include "../Giera/MapElementsFileHandler.h"
+#include "../Giera/MapElementsFileHandler.cpp"
+#include "../Giera/AbstractMapElement.h"
+#include "../Giera/AbstractMapElement.cpp"
+#include "../Giera/Wall.h"
+#include "../Giera/Wall.cpp"
+#include "../Giera/Terrain.h"
+#include "../Giera/Terrain.cpp"
+#include "../Giera/Foreground.h"
+#include "../Giera/Foreground.cpp"
+#include "../Giera/Background.h"
+#include "../Giera/Background.cpp"
+
+#include "../Giera/SpawningDetails.h"
+#include "../Giera/SpawningDetails.cpp"
+#include "../Giera/ItemSpawner.h"
+#include "../Giera/ItemSpawner.cpp"
+#include "../Giera/Position.h"
+#include "../Giera/Position.cpp"
+#include "../Giera/AbstractGeometryFigure.h"
+#include "../Giera/LineSegment.h"
+#include "../Giera/LineSegment.cpp"
+#include "../Giera/Cuboid.h"
+#include "../Giera/Cuboid.cpp"
 #include "../Giera/Damage.cpp"
 #include "../Giera/Damage.h"
 #include "../Giera/Lifesteal.h"
@@ -40,6 +66,7 @@
 #include "../Giera/AbstractEffect.cpp"
 #include "../Giera/AbstractEffect.h"
 #include "../Giera/AbstractNPC.h"
+#include "../Giera/AbstractNPC.cpp"
 #include "../Giera/StatChangingEffect.h"
 #include "../Giera/StatChangingEffect.cpp"
 #include "../Giera/BaseItemHandler.h"
@@ -60,6 +87,7 @@
 #include "../Giera/Readable.cpp"
 #include "../Giera/Shield.cpp"
 
+#include "../Giera/AbstractEntityFileLoader.h"
 #include "../Giera/BaseItems.h"
 #include "../Giera/AbstractBaseItem.cpp"
 #include "../Giera/AbstractBaseGearItem.cpp"
@@ -77,6 +105,24 @@
 #include "../Giera/EffectsFileHandler.cpp"
 #include "../Giera/EffectsHandler.h"
 #include "../Giera/EffectsHandler.cpp"
+
+#include "../Giera/Board.h"
+#include "../Giera/Board.cpp"
+#include "../Giera/BoardRenderer.h"
+#include "../Giera/BoardRenderer.cpp"
+#include "../Giera/Texture.h"
+#include "../Giera/Texture.cpp"
+#include "../Giera/TextureLoader.h"
+#include "../Giera/TextureLoader.cpp"
+#include "../Giera/Drawable.h"
+#include "../Giera/Drawable.cpp"
+#include "../Giera/DrawableBoardEntity.h"
+#include "../Giera/DrawableBoardEntity.cpp"
+#include "../Giera/Window.h"
+#include "../Giera/Window.cpp"
+#include "../Giera/Camera.h"
+#include "../Giera/Camera.cpp"
+
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -269,9 +315,9 @@ namespace MapTests
 				for (int y=0;y< map.getSizeY();y++)
 				{
 					std::stringstream ss;
-					ss << map.getMapTile(Coordinates(x, y));
+					ss << *map.getMapTile(Coordinates(x, y));
 					std::stringstream ss2;
-					ss2 << map2.getMapTile(Coordinates(x, y));
+					ss2 << *map2.getMapTile(Coordinates(x, y));
 					Assert::AreEqual(ss.str(), ss2.str());
  				}
 			}
@@ -284,7 +330,7 @@ namespace MapTests
 			Map map = Map(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP,
 				Directions::NORTH, 10, 15, SDL_GetTicks());
 			map.setMapTile(Coordinates(3, 3),
-				MapTile(TerrainTypes::SAND, Rotations::RIGHT, ForegroundTypes::TALL_GRASS, BackgroundTypes::GRASS, WallTypes::BUSH));
+				make_shared<MapTile>(Position(3,3,0),TerrainTypes::SAND, Rotations::RIGHT, ForegroundTypes::TALL_GRASS, BackgroundTypes::GRASS, WallTypes::BUSH));
 			MapFileHandler mapFileHandler;
 			mapFileHandler.saveMap(map);
 			auto map2 = mapFileHandler.readMap(MapTypes::QUEST_MAP);
@@ -293,9 +339,9 @@ namespace MapTests
 				for (int y = 0;y < map.getSizeY();y++)
 				{
 					std::stringstream ss;
-					ss << map.getMapTile(Coordinates(x, y));
+					ss << *map.getMapTile(Coordinates(x, y));
 					std::stringstream ss2;
-					ss2 << map2.getMapTile(Coordinates(x, y));
+					ss2 << *map2.getMapTile(Coordinates(x, y));
 					Assert::AreEqual(ss.str(), ss2.str());
 				}
 			}
@@ -326,8 +372,8 @@ namespace MapTests
 				int bushesNumber = 0;
 				for (int x = 0; x < map1->getSizeX(); x++) {
 					for (int y = 0; y < map1->getSizeY(); y++) {
-						rocksNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::ROCK);
-						bushesNumber += (map1->getMapTile(Coordinates(x, y)).getWallType() == WallTypes::BUSH);
+						rocksNumber += (map1->getMapTile(Coordinates(x, y))->getWallType() == WallTypes::ROCK);
+						bushesNumber += (map1->getMapTile(Coordinates(x, y))->getWallType() == WallTypes::BUSH);
 					}
 				}
 
@@ -731,6 +777,73 @@ namespace UtilityTests
 				_max = max(_max, sum[wyn]);
 			}
 			Assert::IsTrue(_max - _min <= 75);
+		}
+	};
+	TEST_CLASS(PositionTest)
+	{
+	public:
+		TEST_METHOD(PositionOperatorsOverloadTest) {
+
+			Position p1(100.0, 50.0, 10.0);
+			Position p2(10.0, 50.0, 100.0);
+			Position p3 = p1 + p2;
+			Assert::IsTrue(p3 == Position(110.0, 100.0, 110.0));
+			Assert::IsTrue(p1 == Position(100.0, 50.0, 10.0));
+			Assert::IsTrue(p2 == Position(10.0, 50.0, 100.0));
+
+			Position p4 = p2 - p1;
+			Assert::IsTrue(p4 == Position(-90.0, 0.0, 90.0));
+			Assert::IsTrue(p1 == Position(100.0, 50.0, 10.0));
+			Assert::IsTrue(p2 == Position(10.0, 50.0, 100.0));
+
+			Position p5(10.0, 20.0, 30.0);
+			p5 += p1;
+			Assert::IsTrue(p5 == Position(110.0, 70.0, 40.0));
+			Assert::IsTrue(p1 == Position(100.0, 50.0, 10.0));
+
+			Position p6(20.0, 30.0, 50.0);
+			p6 -= p1;
+			Assert::IsTrue(p6 == Position(-80.0, -20.0, 40.0));
+			Assert::IsTrue(p1 == Position(100.0, 50.0, 10.0));
+
+			Position p7 = p1 * 1.5;
+			Assert::IsTrue(p7 == Position(150.0, 75.0, 15.0));
+			Assert::IsTrue(p1 == Position(100.0, 50.0, 10.0));
+
+			Position p8(1.0, 2.0, 3.0);
+			Position p9(-1.0, 2.0, -3.0);
+			p8 -= p9;
+			Assert::IsTrue(p8 == Position(2.0, 0.0, 6.0));
+			Assert::IsTrue(p9 == Position(-1.0, 2.0, -3.0));
+
+			Assert::IsTrue(p1.getX() == 100.0);
+			Assert::IsTrue(p1.getY() == 50.0);
+			Assert::IsTrue(p1.getZ() == 10.0);
+
+			Position p10(3.0, 4.0, 0.0);
+			Assert::IsTrue(p10.getNormSq() == 25.0);
+			Assert::IsTrue(p10.getNorm() == 5.0);
+		}
+	};
+	TEST_CLASS(RectangleTest)
+	{
+	public:
+		TEST_METHOD(IntersectTest) {
+			Cuboid rec = Cuboid(Position(0.0, 0.0, 0.0), Position(3.0, 4.0, 12.0));
+
+			LineSegment line1 = LineSegment(Position(-1.0, -1.0, -1.0), Position(1.0, 1.0, 1.0));
+			Assert::IsTrue(rec.checkLineSegmentIntersect(line1));
+			Assert::IsTrue(rec.getLineSegmentIntersect(line1).value() == Position(0.0, 0.0, 0.0));
+
+
+			LineSegment line2 = LineSegment(Position(-2.0, -2.0, -2.0), Position(-1.0, -1.0, -1.0));
+			Assert::IsFalse(rec.checkLineSegmentIntersect(line2));
+			Assert::IsFalse(rec.getLineSegmentIntersect(line2).has_value());
+
+			LineSegment line3 = LineSegment(Position(-1.0, -1.0, -1.0), Position(0.0, 0.0, 0.0));
+			Assert::IsTrue(rec.checkLineSegmentIntersect(line3));
+			Assert::IsTrue(rec.getLineSegmentIntersect(line3).value() == Position(0.0, 0.0, 0.0));
+
 		}
 	};
 }

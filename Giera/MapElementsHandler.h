@@ -6,27 +6,17 @@
 #include "Terrain.h"
 #include "MapTileEnums.h"
 #include "MapElementsFileHandler.h"
+#include "MapElementsTypes.h"
 
 using std::unique_ptr;
 using std::vector;
 
 class MapElementsHandler
 {
-private:
-	vector <unique_ptr<Background>> backgrounds;
-	vector <unique_ptr<Foreground>> foregrounds;
-	vector <unique_ptr<Terrain>> terrains;
-	vector <unique_ptr<Wall>> walls;
 public:
-	unique_ptr <Background>& 
-		getBackground(BackgroundTypes backgroundType);
-	unique_ptr <Foreground>& 
-		getForeground(ForegroundTypes foregroundType);
-	unique_ptr <Terrain>& 
-		getTerrain(TerrainTypes terrainType);
-	unique_ptr <Wall>& 
-		getWall(WallTypes wallType);
-
-	friend class MapElementsFileHandler;
+	static void initialize();
+	static shared_ptr<AbstractMapElement> getMapElement(MapElementTypes itemType, int itemSubtype);
+private:
+	static inline vector <vector <shared_ptr<AbstractMapElement>>> baseItems;
 };
 

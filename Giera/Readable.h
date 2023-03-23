@@ -5,12 +5,13 @@ class Readable :
 {
 protected:
     string text;
+    ReadableTypes readableType;
 public:
     Readable(item_size_t width, item_size_t height, int Value, string& name,
-        string& description, string& text);
+        string& description, string& text, ReadableTypes readableType);
     ItemTypes getItemType() override;
     const string& getText() const;
-    //TODO generateReadable();
+    virtual std::string getFilePath() override;
     //TODO override input stream operator
 
 };

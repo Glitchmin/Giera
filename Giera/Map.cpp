@@ -1,6 +1,8 @@
 #include "Map.h"
-#include "AbstractMapGenerator.h"
 #include "GrasslandsGenerator.h"
+
+std::vector<std::shared_ptr<AbstractMapGenerator>> Map::generators =
+{ std::make_shared<GrasslandsGenerator>() };
 
 Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirection,
     unsigned int sizeX, unsigned int sizeY, int seed)
@@ -13,7 +15,7 @@ Map::Map(LandscapeTypes landscapeType, MapTypes mapType, Directions startDirecti
     this->seed = seed;
     this->isSavedBySeed = (mapType == MapTypes::GIERA) || (mapType == MapTypes::VILLAGE_2);
     mapTiles.resize(sizeX);
-    for (std::vector<MapTile> &row : mapTiles)
+    for (auto&row : mapTiles)
 	{
         row.resize(sizeY);
     }
@@ -30,9 +32,6 @@ void Map::generate()
     generators[(int)landscapeType]->generateMap(*this);
 }
 
-std::vector<std::shared_ptr<AbstractMapGenerator>> Map::generators =
-    {std::make_shared<GrasslandsGenerator>(GrasslandsGenerator())};
-
 unsigned int Map::getSizeX() const
 {
     return sizeX;
@@ -48,18 +47,18 @@ int Map::getSeed() const
     return seed;
 }
 
-void Map::setMapTile(Coordinates c, MapTile mapTile)
+void Map::setMapTile(Coordinates c, shared_ptr<MapTile> mapTile)
 {
     mapChanges[c] = mapTile;
     mapTiles[c.getX()][c.getY()] = mapTile;
 }
 
-const MapTile& Map::getMapTile(Coordinates c) const
+shared_ptr<MapTile> Map::getMapTile(Coordinates c) const
 {
     return mapTiles[c.getX()][c.getY()];
 }
 
-std::map<Coordinates, MapTile> Map::getMapChanges() const
+std::map<Coordinates, shared_ptr<MapTile>> Map::getMapChanges() const
 {
     return mapChanges;
 }

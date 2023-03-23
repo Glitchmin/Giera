@@ -1,6 +1,8 @@
 #include "BaseFood.h"
 #include "Logger.h"
 #include "EffectsHandler.h"
+#include "Food.h"
+
 using std::dynamic_pointer_cast;
 BaseFood::BaseFood()
 {
@@ -18,7 +20,7 @@ shared_ptr<AbstractItem> BaseFood::generate()
     {
         effects.push_back(ef->generate());
     }
-    return make_shared<Food>(width,height,value.getRandom(),name,description,effects);
+    return make_shared<Food>(width,height,value.getRandom(),name,description,effects, foodType);
 }
 
 istream& operator>>(istream& is, BaseFood& f)

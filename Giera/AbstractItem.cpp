@@ -1,4 +1,6 @@
 #include "AbstractItem.h"
+using std::make_pair;
+using std::make_shared;
 
 AbstractItem::AbstractItem(item_size_t width, item_size_t height, int value, string& name, string& description)
 {
@@ -7,6 +9,21 @@ AbstractItem::AbstractItem(item_size_t width, item_size_t height, int value, str
     this->value = value;
     this->name = name;
     this->description = description;
+    this->texture = nullptr;
+}
+
+void AbstractItem::updateDrawables()
+{
+    if (!texture) {
+        string path = getFilePath();
+        texture = make_shared<Texture>(path);
+    }
+    drawables.clear();
+    if (boardRect) {
+        drawables.push_back(Drawable(boardRect.value().first, texture,
+            Drawable::DrawableLayer::ENTITIES, make_pair (boardRect.value().second.first,
+                boardRect.value().second.second),0));
+    }
 }
 
 item_size_t AbstractItem::getWidth() const
@@ -33,4 +50,17 @@ string AbstractItem::getDescription() const
 {
     return description;
 }
+
+optional<pair<Position, pair<double, double>>> AbstractItem::getBoardRect() const
+{
+    return boardRect;
+}
+
+void AbstractItem::setBoardRect(optional<pair<Position, pair<double, double>>> boardRect)
+{
+    this->boardRect = boardRect;
+}
+
+
+
 
