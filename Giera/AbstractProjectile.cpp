@@ -1,4 +1,5 @@
 #include "AbstractProjectile.h"
+#include "Board.h"
 
 AbstractProjectile::AbstractProjectile()
 {
@@ -10,10 +11,16 @@ bool AbstractProjectile::canBeRemoved()
 	return isReadyToBeRemoved;
 }
 
-AbstractProjectile::AbstractProjectile(weak_ptr<Board> board, shared_ptr<AbstractFlightPath> flightPath, Position startPos)
+AbstractProjectile::AbstractProjectile(shared_ptr<AbstractFlightPath> flightPath, Position startPos)
 {
 	isReadyToBeRemoved = false;
-	this->board = board;
+	this->board = weak_ptr<Board>();
 	this->flightPath = flightPath;
 	pos = startPos;
 }
+
+void AbstractProjectile::setBoard(weak_ptr<Board> board)
+{
+    this->board = board;
+}
+

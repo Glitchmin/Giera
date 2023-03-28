@@ -1,6 +1,8 @@
 #include "BoardLoop.h"
 #include "Player.h"
 #include "BaseItemHandler.h"
+#include "ParabolFlightPath.h"
+#include "SpellProjectile.h"
 
 BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig)
 {
@@ -18,6 +20,10 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	this->board = make_shared<Board>(map, boardRenderer);
 	board->addItem(Coordinates(5, 0), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
 	board->addNPC(player);
+	/*board->addProjectile(make_shared<SpellProjectile>(
+		make_shared<ParabolFlightPath>(Position(0,0,.5), Position(10,0,0),1,40),
+		make_shared<ThrownSpell>(),
+		Position(0,0,.5)));*/
 	leftMouseButtonPressed = false;
 	player->addObserver(boardRenderer);
 }

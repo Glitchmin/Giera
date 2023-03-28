@@ -41,6 +41,12 @@ void Board::addNPC(shared_ptr<AbstractNPC> npc)
 	npc->setBoard(getWeakPtr());
 }
 
+void Board::addProjectile(shared_ptr<AbstractProjectile> proj)
+{
+	projectiles.push_back(proj);
+	proj->setBoard(getWeakPtr());
+}
+
 bool Board::isStepablePosition(Position position)
 {
 	int x = position.getX() * AbstractMapElement::getTilesPerMeter();

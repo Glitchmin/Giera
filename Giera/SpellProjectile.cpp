@@ -1,7 +1,7 @@
 #include "SpellProjectile.h"
 
-SpellProjectile::SpellProjectile(weak_ptr<Board> board, shared_ptr<AbstractFlightPath> flightPath, shared_ptr<ThrownSpell> spell, Position startPos)
-	:AbstractProjectile(board, flightPath, startPos)
+SpellProjectile::SpellProjectile(shared_ptr<AbstractFlightPath> flightPath, shared_ptr<ThrownSpell> spell, Position startPos)
+	:AbstractProjectile(flightPath, startPos)
 {
 	this->spell = spell;
 	drawable = make_shared<Drawable>(startPos, TextureLoader::makeUniColorTexture(20, 20, { 255,0,0,255 }),
@@ -28,6 +28,11 @@ void SpellProjectile::move(Time& timeDiff)
 {
 	pos += flightPath->posDiff(timeDiff);
 	notifyObservers(DrawableEntityObserver::Change::REMOVED);
-	drawable->setPos(pos);
+	updateDrawables();
 	notifyObservers(DrawableEntityObserver::Change::ADDED);
+}
+
+void SpellProjectile::updateDrawables()
+{
+	drawable->setPos(pos);	
 }

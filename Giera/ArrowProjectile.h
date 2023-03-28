@@ -1,5 +1,6 @@
 #pragma once
 #include "AbstractProjectile.h"
+#include "Arrow.h"
 class ArrowProjectile : public AbstractProjectile
 {
 protected:
