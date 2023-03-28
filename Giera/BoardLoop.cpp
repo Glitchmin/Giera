@@ -4,6 +4,8 @@
 #include "ParabolFlightPath.h"
 #include "SpellProjectile.h"
 
+shared_ptr <AbstractProjectile> proj; //TO REMOVE
+
 BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig)
 {
 	this->window = window;
@@ -20,10 +22,8 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	this->board = make_shared<Board>(map, boardRenderer);
 	board->addItem(Coordinates(5, 0), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
 	board->addNPC(player);
-	/*board->addProjectile(make_shared<SpellProjectile>(
-		make_shared<ParabolFlightPath>(Position(0,0,.5), Position(10,0,0),1,40),
-		make_shared<ThrownSpell>(),
-		Position(0,0,.5)));*/
+	proj = nullptr;
+
 	leftMouseButtonPressed = false;
 	player->addObserver(boardRenderer);
 }
@@ -97,6 +97,20 @@ void BoardLoop::start()
 		Time timeDiff = generalTimer.getTime() - lastInputHandling;
 		lastInputHandling = generalTimer.getTime();
 		handleInput(timeDiff);
+		if (lastInputHandling.getTimeMs() >= 3000 && proj == nullptr) {
+			proj = (make_shared<SpellProjectile>(
+				make_shared<ParabolFlightPath>(Position(0, 5, .5), Position(15, 5, 0), 1, 12),
+				make_shared<ThrownSpell>(),
+				Position(0, 5, .5)));
+			board->addProjectile(proj);
+			proj->addObserver(boardRenderer);
+		}
+		if (proj != nullptr) {
+			proj->move(timeDiff);
+			if (proj->canBeRemoved()) {
+				proj = nullptr;
+			}
+		}
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
 			Time renderTimeDiff = generalTimer.getTime() - lastGraphicUpdate;
 			lastGraphicUpdate = generalTimer.getTime();

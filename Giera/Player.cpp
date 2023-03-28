@@ -9,6 +9,7 @@ Player::Player() : AbstractNPC()
 	height = 1.1;
 	drawable = make_shared<Drawable>(position, TextureLoader::getTextureCopy(path),
 		Drawable::DrawableLayer::ENTITIES, sizeXY, height);
+	drawables.push_back(drawable);
 	updateDrawables();
 }
 

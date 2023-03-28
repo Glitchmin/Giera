@@ -34,8 +34,11 @@ void Drawable::draw(Texture& textureToDrawOn, const double& pixelToMeterRatio)
 		SDL_Rect{ (currentState * texture->getSize().first) / statesNumber, 0,
 		(texture->getSize().first) / statesNumber,(texture->getSize().second) },
 		SDL_Rect{ (int)((pos.getX() - sizeXY.first / 2.) * pixelToMeterRatio),
-		(int)((pos.getY() - heightM - sizeXY.second / 2.) * pixelToMeterRatio),
+		(int)((pos.getY() - pos.getZ() - heightM - sizeXY.second / 2.) * pixelToMeterRatio),
 		(int)(pixelToMeterRatio * sizeXY.first),(int)(pixelToMeterRatio * (heightM + sizeXY.second)) });
+	if (pos.getZ()) {
+		Logger::logInfo(pos);
+	}
 }
 
 
