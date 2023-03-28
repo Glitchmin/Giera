@@ -136,6 +136,12 @@
     <Filter Include="Header Files\GameLogic\Items\Inventory">
       <UniqueIdentifier>{0074ace6-188f-4903-9e7f-c0b8e63a4807}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utility\FlightPaths">
+      <UniqueIdentifier>{e2a19ece-b267-4e42-a7cd-f5820310aab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\FlightPaths">
+      <UniqueIdentifier>{19ccfc70-d946-4072-83b5-02f25d49e35e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cuboid.cpp">
@@ -374,6 +380,12 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractFlightPath.cpp">
+      <Filter>Source Files\Utility\FlightPaths</Filter>
+    </ClCompile>
+    <ClCompile Include="ParabolFlightPath.cpp">
+      <Filter>Source Files\Utility\FlightPaths</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -697,6 +709,12 @@
     </ClInclude>
     <ClInclude Include="ReadableTypes.h">
       <Filter>Header Files\GameLogic\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractFlightPath.h">
+      <Filter>Header Files\Utility\FlightPaths</Filter>
+    </ClInclude>
+    <ClInclude Include="ParabolFlightPath.h">
+      <Filter>Header Files\Utility\FlightPaths</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

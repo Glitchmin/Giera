@@ -122,6 +122,10 @@
 #include "../Giera/Window.cpp"
 #include "../Giera/Camera.h"
 #include "../Giera/Camera.cpp"
+#include "../Giera/AbstractFlightPath.h"
+#include "../Giera/AbstractFlightPath.cpp"
+#include "../Giera/ParabolFlightPath.h"
+#include "../Giera/ParabolFlightPath.cpp"
 
 #include <iostream>
 #include <string>
@@ -844,6 +848,58 @@ namespace UtilityTests
 			Assert::IsTrue(rec.checkLineSegmentIntersect(line3));
 			Assert::IsTrue(rec.getLineSegmentIntersect(line3).value() == Position(0.0, 0.0, 0.0));
 
+		}
+	};
+	TEST_CLASS(ParabolFlightPathTest) {
+	public:
+		TEST_METHOD(SimpleThrowTest) {
+			ParabolFlightPath path(Position(0, 0, 0.5), Position(120, 0, 0), 1, 40);
+			Position pos(0, 0, 0);
+			GeneralTimer generalTimer;
+			Time currentTime(generalTimer.updateTime());
+			generalTimer.setTempo(7.5);
+
+			while (pos.getZ() >= 0) {
+				Time timeDiff = generalTimer.getTime() - currentTime;
+				currentTime = generalTimer.getTime();
+				Position posDiff = path.posDiff(timeDiff);
+				pos += posDiff;
+				Assert::IsTrue(posDiff.getX() >= 0);
+				Sleep(5);
+				generalTimer.updateTime();
+
+			}
+
+			Assert::IsTrue(pos.getX() >= 119 && pos.getX() <= 121);
+			Assert::IsTrue(pos.getY() >= -0.1 && pos.getY() <= 0.1);
+		}
+		TEST_METHOD(DiagonalThrowTest) {
+			ParabolFlightPath path(Position(0, 0, 0.5), Position(120, 120, 0), 1, 50);
+			Position pos(0, 0, 0);
+
+			while (pos.getZ() >= 0) {
+				Time timeDiff(10);
+				Position posDiff = path.posDiff(timeDiff);
+				pos += posDiff;
+				Assert::IsTrue(posDiff.getX() >= 0);
+				Assert::IsTrue(posDiff.getY() >= 0);
+			}
+			Assert::IsTrue(path.willReachTarget());
+			Assert::IsTrue(pos.getX() >= 119.9 && pos.getX() <= 121.1);
+			Assert::IsTrue(pos.getY() >= 119.9 && pos.getY() <= 121.1);
+		}
+
+		TEST_METHOD(UnreachableThrowTest) {
+			ParabolFlightPath path(Position(0, 0, 0.5), Position(120, 120, 0), 1, 10);
+			Position pos(0, 0, 0);
+
+			while (pos.getZ() >= 0) {
+				Time timeDiff(10);
+				Position posDiff = path.posDiff(timeDiff);
+				pos += posDiff;
+				Assert::IsTrue(posDiff.getX() >= 0);
+			}
+			Assert::IsFalse(path.willReachTarget());
 		}
 	};
 }
