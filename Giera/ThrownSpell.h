@@ -1,7 +1,6 @@
 #pragma once
 #include "AbstractSpell.h"
-class ThownSpell :
-    public AbstractSpell
+class ThrownSpell :  public AbstractSpell
 {
 protected:
     double initialSpeed; //m/s
