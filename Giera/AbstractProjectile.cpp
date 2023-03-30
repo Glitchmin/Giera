@@ -24,3 +24,9 @@ void AbstractProjectile::setBoard(weak_ptr<Board> board)
     this->board = board;
 }
 
+
+Position AbstractProjectile::getPos() const
+{
+    return pos;
+}
+

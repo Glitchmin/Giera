@@ -19,9 +19,13 @@ public:
 	unique_ptr<Map>& getMap();
 	std::weak_ptr<Board> getWeakPtr();
 
+	vector<shared_ptr<AbstractProjectile>>& getProjectiles();
+	vector<shared_ptr<AbstractProjectile>>& getProjectilesToBeAdded();
+
 private:
 	vector <shared_ptr <AbstractNPC> > npcs;
 	vector <shared_ptr <AbstractProjectile> > projectiles;
+	vector <shared_ptr <AbstractProjectile> > projectilesToBeAdded;
 	unique_ptr<Map> map;
 	vector <vector <vector <shared_ptr<AbstractItem> > > > items;
 	unique_ptr<MapElementsHandler> mapElementsHandler;

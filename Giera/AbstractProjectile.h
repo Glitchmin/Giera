@@ -26,6 +26,6 @@ public:
 	virtual void onGroundHit(shared_ptr<MapTile> tile) = 0;
 	virtual void move(Time& timeDiff) = 0;
 
-
+    Position getPos() const;
 };
 

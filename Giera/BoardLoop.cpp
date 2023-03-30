@@ -99,7 +99,7 @@ void BoardLoop::start()
 		handleInput(timeDiff);
 		if (lastInputHandling.getTimeMs() >= 3000 && proj == nullptr) {
 			proj = (make_shared<SpellProjectile>(
-				make_shared<ParabolFlightPath>(Position(0, 5, .5), Position(15, 5, 0), 1, 12),
+				make_shared<ParabolFlightPath>(Position(0, 5, .5), Position(15, 7, 0), 1, 12),
 				make_shared<ThrownSpell>(),
 				Position(0, 5, .5)));
 			board->addProjectile(proj);

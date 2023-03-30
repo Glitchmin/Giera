@@ -68,3 +68,14 @@ std::weak_ptr<Board> Board::getWeakPtr()
 	return weak_from_this();
 }
 
+
+vector <shared_ptr<AbstractProjectile>>& Board::getProjectiles()
+{
+    return projectiles;
+}
+
+vector <shared_ptr<AbstractProjectile>>& Board::getProjectilesToBeAdded()
+{
+    return projectilesToBeAdded;
+}
+

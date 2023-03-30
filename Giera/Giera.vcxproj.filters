@@ -148,6 +148,12 @@
     <Filter Include="Header Files\GameLogic\Projectiles">
       <UniqueIdentifier>{95502d17-b846-4b56-a2a0-b61088552f83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\Hitboxes">
+      <UniqueIdentifier>{5f076605-dcde-452b-bc80-479a2576fab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Hitboxes">
+      <UniqueIdentifier>{e5f7be99-20e0-4a0b-8764-a33bc480153a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cuboid.cpp">
@@ -401,6 +407,12 @@
     </ClCompile>
     <ClCompile Include="SpellProjectile.cpp">
       <Filter>Source Files\GameLogic\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectilesEngine.cpp">
+      <Filter>Source Files\GameLogic\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Hitbox.cpp">
+      <Filter>Source Files\GameLogic\Hitboxes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -739,6 +751,15 @@
     </ClInclude>
     <ClInclude Include="SpellProjectile.h">
       <Filter>Header Files\GameLogic\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectilesEngine.h">
+      <Filter>Header Files\GameLogic\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Hitbox.h">
+      <Filter>Header Files\GameLogic\Hitboxes</Filter>
+    </ClInclude>
+    <ClInclude Include="HittableEntityTypes.h">
+      <Filter>Header Files\GameLogic\Hitboxes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

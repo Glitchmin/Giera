@@ -186,6 +186,7 @@
     <ClCompile Include="EffectsHandler.cpp" />
     <ClCompile Include="ExplosionSpellModifer.cpp" />
     <ClCompile Include="Food.cpp" />
+    <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="InputConfig.cpp" />
     <ClCompile Include="ItemSpawner.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
@@ -216,6 +217,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PointSpell.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="ProjectilesEngine.cpp" />
     <ClCompile Include="RangedWeapon.cpp" />
     <ClCompile Include="Readable.cpp" />
     <ClCompile Include="Cuboid.cpp" />
@@ -278,6 +280,8 @@
     <ClInclude Include="DamageEffect.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawableEntityObserver.h" />
+    <ClInclude Include="HittableEntityTypes.h" />
+    <ClInclude Include="Hitbox.h" />
     <ClInclude Include="InputConfig.h" />
     <ClInclude Include="InventorySlotTypes.h" />
     <ClInclude Include="MapElementsTypes.h" />
@@ -324,6 +328,7 @@
     <ClInclude Include="AbstractNPC.h" />
     <ClInclude Include="PointSpell.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="ProjectilesEngine.h" />
     <ClInclude Include="RangedWeapon.h" />
     <ClInclude Include="RangedWeaponTypes.h" />
     <ClInclude Include="Readable.h" />
