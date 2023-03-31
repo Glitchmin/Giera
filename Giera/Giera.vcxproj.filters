@@ -414,6 +414,12 @@
     <ClCompile Include="Hitbox.cpp">
       <Filter>Source Files\GameLogic\Hitboxes</Filter>
     </ClCompile>
+    <ClCompile Include="NPCHitbox.cpp">
+      <Filter>Source Files\GameLogic\Hitboxes</Filter>
+    </ClCompile>
+    <ClCompile Include="HittableBoardEntity.cpp">
+      <Filter>Source Files\GameLogic\Hitboxes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -759,6 +765,15 @@
       <Filter>Header Files\GameLogic\Hitboxes</Filter>
     </ClInclude>
     <ClInclude Include="HittableEntityTypes.h">
+      <Filter>Header Files\GameLogic\Hitboxes</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCHitbox.h">
+      <Filter>Header Files\GameLogic\Hitboxes</Filter>
+    </ClInclude>
+    <ClInclude Include="HittableBoardEntity.h">
+      <Filter>Header Files\GameLogic\Hitboxes</Filter>
+    </ClInclude>
+    <ClInclude Include="HittableEntityObserver.h">
       <Filter>Header Files\GameLogic\Hitboxes</Filter>
     </ClInclude>
   </ItemGroup>

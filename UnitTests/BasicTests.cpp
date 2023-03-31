@@ -862,7 +862,7 @@ namespace UtilityTests
 			while (pos.getZ() >= 0) {
 				Time timeDiff = generalTimer.getTime() - currentTime;
 				currentTime = generalTimer.getTime();
-				Position posDiff = path.posDiff(timeDiff);
+				Position posDiff = path.posShift(timeDiff);
 				pos += posDiff;
 				Assert::IsTrue(posDiff.getX() >= 0);
 				Sleep(5);
@@ -879,7 +879,7 @@ namespace UtilityTests
 
 			while (pos.getZ() >= 0) {
 				Time timeDiff(10);
-				Position posDiff = path.posDiff(timeDiff);
+				Position posDiff = path.posShift(timeDiff);
 				pos += posDiff;
 				Assert::IsTrue(posDiff.getX() >= 0);
 				Assert::IsTrue(posDiff.getY() >= 0);
@@ -895,7 +895,7 @@ namespace UtilityTests
 
 			while (pos.getZ() >= 0) {
 				Time timeDiff(10);
-				Position posDiff = path.posDiff(timeDiff);
+				Position posDiff = path.posShift(timeDiff);
 				pos += posDiff;
 				Assert::IsTrue(posDiff.getX() >= 0);
 			}

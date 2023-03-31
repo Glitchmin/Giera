@@ -14,6 +14,6 @@ protected:
 public:
 	AbstractFlightPath();
 	virtual bool willReachTarget() = 0;
-	virtual Position posDiff(Time timeDiff) = 0;
+	virtual Position posShift(Time timeDiff) = 0;
 };
 

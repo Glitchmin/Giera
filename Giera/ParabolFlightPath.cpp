@@ -12,7 +12,7 @@ ParabolFlightPath::ParabolFlightPath(Position startPos, Position endPos,
 	calculateThrowPath(startPos, endPos, massKg, forceN);
 }
 
-Position ParabolFlightPath::posDiff(Time timeDiff)
+Position ParabolFlightPath::posShift(Time timeDiff)
 {
 	double xPrev = vX * lastTimeCalculated.getTimeS();
 	double yPrev = vY * lastTimeCalculated.getTimeS();

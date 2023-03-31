@@ -12,6 +12,6 @@ public:
 	ParabolFlightPath(Position startPos, Position endPos,
 		double massKg, double forceN);
 	virtual bool willReachTarget() override;
-	virtual Position posDiff(Time timeDiff) override;
+	virtual Position posShift(Time timeDiff) override;
 };
 

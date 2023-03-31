@@ -187,6 +187,7 @@
     <ClCompile Include="ExplosionSpellModifer.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="Hitbox.cpp" />
+    <ClCompile Include="HittableBoardEntity.cpp" />
     <ClCompile Include="InputConfig.cpp" />
     <ClCompile Include="ItemSpawner.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="ModifiersHandler.cpp" />
     <ClCompile Include="AbstractNPC.cpp" />
+    <ClCompile Include="NPCHitbox.cpp" />
     <ClCompile Include="NPCObserver.cpp" />
     <ClCompile Include="ParabolFlightPath.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -280,11 +282,14 @@
     <ClInclude Include="DamageEffect.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawableEntityObserver.h" />
+    <ClInclude Include="HittableBoardEntity.h" />
+    <ClInclude Include="HittableEntityObserver.h" />
     <ClInclude Include="HittableEntityTypes.h" />
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="InputConfig.h" />
     <ClInclude Include="InventorySlotTypes.h" />
     <ClInclude Include="MapElementsTypes.h" />
+    <ClInclude Include="NPCHitbox.h" />
     <ClInclude Include="NPCObserver.h" />
     <ClInclude Include="ParabolFlightPath.h" />
     <ClInclude Include="Player.h" />
