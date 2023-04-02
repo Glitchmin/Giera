@@ -871,11 +871,30 @@ namespace UtilityTests
 			Assert::IsTrue(pos.getX() >= 119 && pos.getX() <= 121);
 			Assert::IsTrue(pos.getY() >= -0.1 && pos.getY() <= 0.1);
 		}
+		TEST_METHOD(SimpleThrowTest2) {
+			FlightPath path(Position(0, 5, 0.5), Position(120, 5, 0), 1, 40);
+			Position pos(0, 0, 0);
+			GeneralTimer generalTimer;
+			Time currentTime(generalTimer.updateTime());
+			generalTimer.setTempo(7.5);
+
+			while (pos.getZ() >= 0) {
+				Time timeDiff = generalTimer.getTime() - currentTime;
+				currentTime = generalTimer.getTime();
+				pos = path.updatePosition(timeDiff);
+				Assert::IsTrue(pos.getX() >= 0);
+				Sleep(2);
+				generalTimer.updateTime();
+
+			}
+			Assert::IsTrue(pos.getX() >= 119 && pos.getX() <= 121);
+			Assert::IsTrue(pos.getY() >= 4.9 && pos.getY() <= 5.1);
+		}
 		TEST_METHOD(DiagonalThrowTest) {
 			FlightPath path(Position(0, 0, 0.5), Position(120, 120, 0), 1, 50);
 			Position pos(0,0,0);
 			while (pos.getZ() >= 0) {
-				Time timeDiff(10);
+				Time timeDiff(2);
 				pos = path.updatePosition(timeDiff);
 				Assert::IsTrue(pos.getX() >= 0);
 				Assert::IsTrue(pos.getY() >= 0);

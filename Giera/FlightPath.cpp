@@ -11,6 +11,7 @@ FlightPath::FlightPath(Position startPos, Position endPos,
 {
 	lastTimeCalculated = Time(0);
 	pos = startPos;
+	this->startPos = startPos;
 	calculateThrowPath(startPos, endPos, massKg, forceN);
 }
 
@@ -19,7 +20,8 @@ Position FlightPath::updatePosition(Time timeDiff)
 	lastTimeCalculated += timeDiff;
 	double xCurr = vX * lastTimeCalculated.getTimeS();
 	double yCurr = vY * lastTimeCalculated.getTimeS();
-	return pos = Position(xCurr, yCurr, getHeight(sqrt(xCurr * xCurr + yCurr * yCurr)));
+
+	return pos = (Position(xCurr, yCurr, getHeight(sqrt(xCurr * xCurr + yCurr * yCurr)))+startPos);
 }
 
 Position FlightPath::getPosition() const
@@ -40,12 +42,11 @@ void FlightPath::calculateThrowPath(Position& startPos, Position& endPos, double
 	v = forceN / massKg;
 	double dX = endPos.getX() - startPos.getX();
 	double dY = endPos.getY() - startPos.getY();
-	double hDiff = startPos.getZ() - endPos.getZ();
 	double distH = sqrt((startPos.getX() - endPos.getX()) * (startPos.getX() - endPos.getX()) + (startPos.getY() - endPos.getY()) * (startPos.getY() - endPos.getY()));
 	double min = 0, max = 45;
 	while (max - min >= 0.01) {
 		throwAngle = (min + max) / 2.;
-		if (getHeight(distH) > endPos.getZ()) {
+		if (getHeight(distH)+startPos.getZ() > endPos.getZ()) {
 			max = (min + max) / 2.;
 		}
 		else {
@@ -57,7 +58,7 @@ void FlightPath::calculateThrowPath(Position& startPos, Position& endPos, double
 	vY = (dY) / (dX + dY);
 	vX *= v * cos(throwAngle * PI / 180.);
 	vY *= v * cos(throwAngle * PI / 180.);
-	isTargetInRange = getHeight(distH) >= endPos.getZ();
+	isTargetInRange = getHeight(distH) + startPos.getZ() >= endPos.getZ();
 }
 
 bool FlightPath::willReachTarget()

@@ -11,6 +11,7 @@ protected:
 	Time lastTimeCalculated;
 	double vX, vY, throwAngle, v;
 	Position pos;
+	Position startPos;
 	virtual void calculateThrowPath(Position& startPos, Position& endPos,
 		double& massKg, double& forceN);
 	double getHeight(double x);
