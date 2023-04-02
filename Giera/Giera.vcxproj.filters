@@ -136,12 +136,6 @@
     <Filter Include="Header Files\GameLogic\Items\Inventory">
       <UniqueIdentifier>{0074ace6-188f-4903-9e7f-c0b8e63a4807}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Utility\FlightPaths">
-      <UniqueIdentifier>{e2a19ece-b267-4e42-a7cd-f5820310aab0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Utility\FlightPaths">
-      <UniqueIdentifier>{19ccfc70-d946-4072-83b5-02f25d49e35e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GameLogic\Projectiles">
       <UniqueIdentifier>{1adebadd-ab76-4a43-ae20-83f893a2260b}</UniqueIdentifier>
     </Filter>
@@ -153,6 +147,12 @@
     </Filter>
     <Filter Include="Source Files\GameLogic\Hitboxes">
       <UniqueIdentifier>{e5f7be99-20e0-4a0b-8764-a33bc480153a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility\FlightPath&amp;Modifiers">
+      <UniqueIdentifier>{e2a19ece-b267-4e42-a7cd-f5820310aab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\FlightPath&amp;Modifiers">
+      <UniqueIdentifier>{19ccfc70-d946-4072-83b5-02f25d49e35e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -393,11 +393,8 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractFlightPath.cpp">
-      <Filter>Source Files\Utility\FlightPaths</Filter>
-    </ClCompile>
-    <ClCompile Include="ParabolFlightPath.cpp">
-      <Filter>Source Files\Utility\FlightPaths</Filter>
+    <ClCompile Include="FlightPath.cpp">
+      <Filter>Source Files\Utility\FlightPath&amp;Modifiers</Filter>
     </ClCompile>
     <ClCompile Include="AbstractProjectile.cpp">
       <Filter>Source Files\GameLogic\Projectiles</Filter>
@@ -743,11 +740,8 @@
     <ClInclude Include="ReadableTypes.h">
       <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractFlightPath.h">
-      <Filter>Header Files\Utility\FlightPaths</Filter>
-    </ClInclude>
-    <ClInclude Include="ParabolFlightPath.h">
-      <Filter>Header Files\Utility\FlightPaths</Filter>
+    <ClInclude Include="FlightPath.h">
+      <Filter>Header Files\Utility\FlightPath&amp;Modifiers</Filter>
     </ClInclude>
     <ClInclude Include="AbstractProjectile.h">
       <Filter>Header Files\GameLogic\Projectiles</Filter>

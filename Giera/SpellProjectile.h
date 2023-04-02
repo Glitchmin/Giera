@@ -7,8 +7,8 @@ class SpellProjectile : public AbstractProjectile
 protected:
 	shared_ptr <ThrownSpell> spell;
 public:
-	SpellProjectile(shared_ptr<AbstractFlightPath> flightPath,
-		shared_ptr<ThrownSpell> spell, Position startPos);
+	SpellProjectile(shared_ptr<FlightPath> flightPath,
+		shared_ptr<ThrownSpell> spell);
 
 	virtual void onWallHit(shared_ptr<MapTile> tile) override;
 	virtual void onNPCHit(shared_ptr<AbstractNPC> npc) override;

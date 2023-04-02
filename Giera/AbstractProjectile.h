@@ -1,5 +1,5 @@
 #pragma once
-#include "AbstractFlightPath.h"
+#include "FlightPath.h"
 #include "DrawableBoardEntity.h"
 
 class Board;
@@ -9,13 +9,12 @@ class AbstractNPC;
 class AbstractProjectile : public DrawableBoardEntity
 {
 protected:
-	shared_ptr<AbstractFlightPath> flightPath;
+	shared_ptr<FlightPath> flightPath;
 	weak_ptr<Board> board;
 	bool isReadyToBeRemoved;
-	Position pos;
 	shared_ptr <Drawable> drawable;
 public:
-	AbstractProjectile(shared_ptr<AbstractFlightPath> flightPath, Position startPos);
+	AbstractProjectile(shared_ptr<FlightPath> flightPath);
 	AbstractProjectile();
 
 	virtual bool canBeRemoved();
@@ -26,6 +25,5 @@ public:
 	virtual void onGroundHit(shared_ptr<MapTile> tile) = 0;
 	virtual void move(Time& timeDiff) = 0;
 
-    Position getPos() const;
 };
 

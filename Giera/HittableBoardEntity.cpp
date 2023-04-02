@@ -6,8 +6,6 @@ vector<shared_ptr<Hitbox>>& HittableBoardEntity::getHitboxes()
 }
 
 
-
-
 void HittableBoardEntity::addObserver(weak_ptr<HittableEntityObserver> observer)
 {
     this->observers.push_back(observer);

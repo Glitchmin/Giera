@@ -1,7 +1,7 @@
 #include "BoardLoop.h"
 #include "Player.h"
 #include "BaseItemHandler.h"
-#include "ParabolFlightPath.h"
+#include "FlightPath.h"
 #include "SpellProjectile.h"
 
 shared_ptr <AbstractProjectile> proj; //TO REMOVE
@@ -99,9 +99,8 @@ void BoardLoop::start()
 		handleInput(timeDiff);
 		if (lastInputHandling.getTimeMs() >= 3000 && proj == nullptr) {
 			proj = (make_shared<SpellProjectile>(
-				make_shared<ParabolFlightPath>(Position(0, 5, .5), Position(15, 7, 0), 1, 12),
-				make_shared<ThrownSpell>(),
-				Position(0, 5, .5)));
+				make_shared<FlightPath>(Position(0, 5, .5), Position(15, 7, 0), 1, 12.5),
+				make_shared<ThrownSpell>()));
 			board->addProjectile(proj);
 			proj->addObserver(boardRenderer);
 		}

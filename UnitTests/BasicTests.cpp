@@ -122,10 +122,10 @@
 #include "../Giera/Window.cpp"
 #include "../Giera/Camera.h"
 #include "../Giera/Camera.cpp"
-#include "../Giera/AbstractFlightPath.h"
-#include "../Giera/AbstractFlightPath.cpp"
-#include "../Giera/ParabolFlightPath.h"
-#include "../Giera/ParabolFlightPath.cpp"
+#include "../Giera/FlightPath.h"
+#include "../Giera/FlightPath.cpp"
+#include "../Giera/AbstractProjectile.h"
+#include "../Giera/AbstractProjectile.cpp"
 
 #include <iostream>
 #include <string>
@@ -850,10 +850,10 @@ namespace UtilityTests
 
 		}
 	};
-	TEST_CLASS(ParabolFlightPathTest) {
+	TEST_CLASS(FlightPathTest) {
 	public:
 		TEST_METHOD(SimpleThrowTest) {
-			ParabolFlightPath path(Position(0, 0, 0.5), Position(120, 0, 0), 1, 40);
+			FlightPath path(Position(0, 0, 0.5), Position(120, 0, 0), 1, 40);
 			Position pos(0, 0, 0);
 			GeneralTimer generalTimer;
 			Time currentTime(generalTimer.updateTime());
@@ -862,27 +862,23 @@ namespace UtilityTests
 			while (pos.getZ() >= 0) {
 				Time timeDiff = generalTimer.getTime() - currentTime;
 				currentTime = generalTimer.getTime();
-				Position posDiff = path.posShift(timeDiff);
-				pos += posDiff;
-				Assert::IsTrue(posDiff.getX() >= 0);
-				Sleep(5);
+				pos = path.updatePosition(timeDiff);
+				Assert::IsTrue(pos.getX() >= 0);
+				Sleep(2);
 				generalTimer.updateTime();
 
 			}
-
 			Assert::IsTrue(pos.getX() >= 119 && pos.getX() <= 121);
 			Assert::IsTrue(pos.getY() >= -0.1 && pos.getY() <= 0.1);
 		}
 		TEST_METHOD(DiagonalThrowTest) {
-			ParabolFlightPath path(Position(0, 0, 0.5), Position(120, 120, 0), 1, 50);
-			Position pos(0, 0, 0);
-
+			FlightPath path(Position(0, 0, 0.5), Position(120, 120, 0), 1, 50);
+			Position pos(0,0,0);
 			while (pos.getZ() >= 0) {
 				Time timeDiff(10);
-				Position posDiff = path.posShift(timeDiff);
-				pos += posDiff;
-				Assert::IsTrue(posDiff.getX() >= 0);
-				Assert::IsTrue(posDiff.getY() >= 0);
+				pos = path.updatePosition(timeDiff);
+				Assert::IsTrue(pos.getX() >= 0);
+				Assert::IsTrue(pos.getY() >= 0);
 			}
 			Assert::IsTrue(path.willReachTarget());
 			Assert::IsTrue(pos.getX() >= 119.9 && pos.getX() <= 121.1);
@@ -890,14 +886,13 @@ namespace UtilityTests
 		}
 
 		TEST_METHOD(UnreachableThrowTest) {
-			ParabolFlightPath path(Position(0, 0, 0.5), Position(120, 120, 0), 1, 10);
+			FlightPath path(Position(0, 0, 0.5), Position(120, 120, 0), 1, 10);
 			Position pos(0, 0, 0);
 
 			while (pos.getZ() >= 0) {
 				Time timeDiff(10);
-				Position posDiff = path.posShift(timeDiff);
-				pos += posDiff;
-				Assert::IsTrue(posDiff.getX() >= 0);
+				pos = path.updatePosition(timeDiff);
+				Assert::IsTrue(pos.getX() >= 0);
 			}
 			Assert::IsFalse(path.willReachTarget());
 		}

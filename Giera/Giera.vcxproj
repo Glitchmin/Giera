@@ -153,7 +153,6 @@
     <ClCompile Include="AbstractBaseItem.cpp" />
     <ClCompile Include="AbstractBaseWeapon.cpp" />
     <ClCompile Include="AbstractEffect.cpp" />
-    <ClCompile Include="AbstractFlightPath.cpp" />
     <ClCompile Include="AbstractGearItem.cpp" />
     <ClCompile Include="AbstractItem.cpp" />
     <ClCompile Include="AbstractProjectile.cpp" />
@@ -215,7 +214,7 @@
     <ClCompile Include="AbstractNPC.cpp" />
     <ClCompile Include="NPCHitbox.cpp" />
     <ClCompile Include="NPCObserver.cpp" />
-    <ClCompile Include="ParabolFlightPath.cpp" />
+    <ClCompile Include="FlightPath.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PointSpell.cpp" />
     <ClCompile Include="Position.cpp" />
@@ -244,7 +243,6 @@
     <ClInclude Include="AbstractBaseWeapon.h" />
     <ClInclude Include="AbstractEffect.h" />
     <ClInclude Include="AbstractEntityFileLoader.h" />
-    <ClInclude Include="AbstractFlightPath.h" />
     <ClInclude Include="AbstractGearItem.h" />
     <ClInclude Include="AbstractGeometryFigure.h" />
     <ClInclude Include="AbstractItem.h" />
@@ -291,7 +289,7 @@
     <ClInclude Include="MapElementsTypes.h" />
     <ClInclude Include="NPCHitbox.h" />
     <ClInclude Include="NPCObserver.h" />
-    <ClInclude Include="ParabolFlightPath.h" />
+    <ClInclude Include="FlightPath.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerActionTypes.h" />
     <ClInclude Include="DrawableBoardEntity.h" />
