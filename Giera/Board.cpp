@@ -26,7 +26,7 @@ void Board::addItem(Coordinates coords, shared_ptr<AbstractItem> item)
 		+Calculator::getRandomDouble(0.2,0.8), coords.getY()+0.7, 0),
 		make_pair(0.4,0.4))));
 	item->updateDrawables();
-	item->addObserver(boardRenderer);
+	item->addDrawableObserver(boardRenderer);
 	items[coords.getX()][coords.getY()].push_back(item);
 }
 

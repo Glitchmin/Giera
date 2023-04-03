@@ -1,9 +1,11 @@
 #pragma once
 #include "Position.h"
 #include "LineSegment.h"
+#include "FileHandler.h"
 #include <memory>
 #include <optional>
-#include "FileHandler.h"
+using std::make_unique;
+
 class AbstractGeometryFigure {
 public:
 	virtual Position getCenter() const = 0;

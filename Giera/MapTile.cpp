@@ -1,4 +1,5 @@
 #include "MapTile.h"
+#include "Cuboid.h"
 
 WallTypes MapTile::getWallType() const
 {
@@ -81,6 +82,19 @@ void MapTile::updateDrawables()
 	}
 }
 
+void MapTile::updateHitboxes()
+{
+	hitboxes.clear();
+	groundHitbox = make_shared<Hitbox>(make_unique<Cuboid>(position, position), HittableEntityTypes::GROUND); //TO DO
+	hitboxes.push_back(groundHitbox);
+	if (wallType != WallTypes::NONE) {
+		if (!wallHitbox.has_value()) {
+			wallHitbox = make_shared<Hitbox>(make_unique<Cuboid>(position, position),HittableEntityTypes::WALL); //TO DO
+		}
+		hitboxes.push_back(wallHitbox.value());
+	}
+}
+
 MapTile::MapTile()
 {
 	this->terrainType = TerrainTypes::GRASS;
@@ -100,6 +114,7 @@ MapTile::MapTile(Position& position, TerrainTypes terrainType, Rotations terrain
 	this->wallType = wallType;
 	this->position = position;
 	updateDrawables();
+	updateHitboxes();
 }
 
 MapTile::MapTile(Position& position, TerrainTypes terrainType, Rotations terrainRotation, ForegroundTypes foregroundType,

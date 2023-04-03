@@ -180,7 +180,7 @@ namespace ItemsTests {
 			Assert::AreEqual("lifestealer", mel->getName().c_str());
 			Assert::AreEqual("steals_your_life", mel->getDescription().c_str());
 			Assert::IsTrue(mel->getDamage()->isLifesteal());
-			auto lfst = dynamic_cast<Lifesteal&> (*mel->getDamage());
+			auto& lfst = dynamic_cast<Lifesteal&> (*mel->getDamage());
 			Assert::IsTrue(lfst.getProbability()>=70 && lfst.getProbability()<=80);
 			Assert::IsTrue(lfst.getPercentStolen()>=50 && lfst.getPercentStolen()<=75);
 		}
@@ -190,7 +190,7 @@ namespace ItemsTests {
 			Assert::AreEqual("bow_of_lifesteal", mel->getName().c_str());
 			Assert::AreEqual("yeets_lifesteal", mel->getDescription().c_str());
 			Assert::IsTrue(mel->getDamage()->isLifesteal());
-			auto lfst = dynamic_cast<Lifesteal&> (*mel->getDamage());
+			auto& lfst = dynamic_cast<Lifesteal&> (*mel->getDamage());
 			Assert::IsTrue(lfst.getProbability() >= 10 && lfst.getProbability() <= 20);
 			Assert::IsTrue(lfst.getPercentStolen() >= 80 && lfst.getPercentStolen() <= 90);
 		}

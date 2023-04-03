@@ -25,7 +25,7 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	proj = nullptr;
 
 	leftMouseButtonPressed = false;
-	player->addObserver(boardRenderer);
+	player->addDrawableObserver(boardRenderer);
 }
 
 void BoardLoop::handleInput(Time timeDiff) {
@@ -102,7 +102,7 @@ void BoardLoop::start()
 				make_shared<FlightPath>(Position(0, 5, .5), Position(15, 7, 0), 1, 12.5),
 				make_shared<ThrownSpell>()));
 			board->addProjectile(proj);
-			proj->addObserver(boardRenderer);
+			proj->addDrawableObserver(boardRenderer);
 		}
 		if (proj != nullptr) {
 			proj->move(timeDiff);

@@ -17,10 +17,10 @@ public:
 	HittableBoardEntity() {};
 
     vector<shared_ptr<Hitbox>>& getHitboxes();
-	void addObserver(weak_ptr<HittableEntityObserver> observer);
+	void addHittableObserver(weak_ptr<HittableEntityObserver> observer);
 
-	virtual void updateHittables()=0;
+	virtual void updateHitboxes()=0;
 
-	void notifyObservers(HittableEntityObserver::Change change);
+	void notifyHittableObservers(HittableEntityObserver::Change change);
 };
 

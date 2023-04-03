@@ -1,5 +1,6 @@
 #include "AbstractNPC.h"
 #include "Board.h"
+#include "Cuboid.h"
 
 AbstractNPC::AbstractNPC()
 {
@@ -24,6 +25,13 @@ void AbstractNPC::updateDrawables()
 	drawable->setPos(position);
 }
 
+void AbstractNPC::updateHitboxes()
+{
+	hitbox->setFigure(make_unique<Cuboid>(
+		Position(position.getX() - sizeXY.first / 2, position.getY() - sizeXY.second / 2, 0),
+		Position(position.getX() + sizeXY.first / 2, position.getY() + sizeXY.second / 2, height)));
+}
+
 void AbstractNPC::setBoard(weak_ptr<Board> board)
 {
 	this->board = board;
@@ -37,10 +45,13 @@ void AbstractNPC::move(Position moveDifference)
 	}
 	if (board_sh->isStepablePosition(position + moveDifference - Position(sizeXY.first / 2, 0, 0)) &&
 		board_sh->isStepablePosition(position + moveDifference + Position(sizeXY.first / 2, 0, 0))) {
-		notifyObservers(DrawableEntityObserver::Change::REMOVED);
+		notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+		notifyHittableObservers(HittableEntityObserver::Change::REMOVED);
 		position += moveDifference;
 		updateDrawables();
-		notifyObservers(DrawableEntityObserver::Change::ADDED);
+		updateHitboxes();
+		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+		notifyHittableObservers(HittableEntityObserver::Change::ADDED);
 	}
 }
 

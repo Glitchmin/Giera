@@ -15,8 +15,8 @@ protected:
     vector <weak_ptr<DrawableEntityObserver> > observers;
 
 public:
-    void addObserver(weak_ptr<DrawableEntityObserver> observer);
-    void notifyObservers(DrawableEntityObserver::Change change);
+    void addDrawableObserver(weak_ptr<DrawableEntityObserver> observer);
+    void notifyDrawableObservers(DrawableEntityObserver::Change change);
     vector<shared_ptr<Drawable>>& getDrawables();
     virtual void updateDrawables() = 0;
 

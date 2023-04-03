@@ -6,12 +6,12 @@ vector<shared_ptr<Hitbox>>& HittableBoardEntity::getHitboxes()
 }
 
 
-void HittableBoardEntity::addObserver(weak_ptr<HittableEntityObserver> observer)
+void HittableBoardEntity::addHittableObserver(weak_ptr<HittableEntityObserver> observer)
 {
     this->observers.push_back(observer);
 }
 
-void HittableBoardEntity::notifyObservers(HittableEntityObserver::Change change)
+void HittableBoardEntity::notifyHittableObservers(HittableEntityObserver::Change change)
 {
     for (auto& obs : observers) {
         auto obs_sp = obs.lock();

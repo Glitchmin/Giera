@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Cuboid.h"
 
 Player::Player() : AbstractNPC()
 {
@@ -10,6 +11,8 @@ Player::Player() : AbstractNPC()
 	drawable = make_shared<Drawable>(position, TextureLoader::getTextureCopy(path),
 		Drawable::DrawableLayer::ENTITIES, sizeXY, height);
 	drawables.push_back(drawable);
+	hitbox = make_shared<NPCHitbox>(make_unique<Cuboid>(), 1.0);
+	updateHitboxes();
 	updateDrawables();
 }
 

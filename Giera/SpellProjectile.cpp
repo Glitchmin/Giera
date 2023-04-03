@@ -29,9 +29,9 @@ void SpellProjectile::onGroundHit(shared_ptr<MapTile> tile)
 void SpellProjectile::move(Time& timeDiff)
 {
 	flightPath->updatePosition(timeDiff);
-	notifyObservers(DrawableEntityObserver::Change::REMOVED);
+	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
 	updateDrawables();
-	notifyObservers(DrawableEntityObserver::Change::ADDED);
+	notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
 }
 
 void SpellProjectile::updateDrawables()

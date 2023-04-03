@@ -10,7 +10,7 @@ class ItemSpawner;
 using std::istream;
 using std::ostream;
 
-class MapTile : public DrawableBoardEntity
+class MapTile : public DrawableBoardEntity, public HittableBoardEntity
 {
 private:
 	WallTypes wallType;
@@ -20,6 +20,8 @@ private:
     vector <ItemSpawner> itemSpawners;
     Position position;
 	Rotations terrainRotation;
+    optional <shared_ptr<Hitbox>> wallHitbox;
+    shared_ptr<Hitbox> groundHitbox;
 public:
     MapTile();
     MapTile(Position& position, TerrainTypes terrainType, Rotations terrainRotation = Rotations::UP, ForegroundTypes foregroundType = ForegroundTypes::NONE,
@@ -29,6 +31,7 @@ public:
 
     bool canStepOn();
     virtual void updateDrawables() override;
+    virtual void updateHitboxes() override;
 
 
     WallTypes getWallType() const;
