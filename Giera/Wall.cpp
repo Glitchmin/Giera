@@ -12,7 +12,7 @@ Wall::Wall() {
 	string filePath = getFilePath();
 	this->texture = TextureLoader::getTexturePtr(filePath);
 }
-Wall::Wall(std::unique_ptr<AbstractGeometryFigure>& hitbox) {
+Wall::Wall(std::unique_ptr<Hitbox> hitbox) {
 	//will clear the passed pointer
 	this->elementID = wCounter++;
 	this->hitbox = std::move(hitbox);
@@ -20,11 +20,12 @@ Wall::Wall(std::unique_ptr<AbstractGeometryFigure>& hitbox) {
 	this->texture = TextureLoader::getTexturePtr(filePath);
 
 }
-const std::unique_ptr<AbstractGeometryFigure>&
-	Wall::getHitbox() const
+const std::unique_ptr<Hitbox>& Wall::getHitbox() const
 {
     return hitbox;
 }
 
-
-
+ostream& operator>>(istream& in, Wall& w)
+{
+	in >> (AbstractMapElement&) w >> 
+}
