@@ -14,8 +14,7 @@ AbstractMapElement::AbstractMapElement
 
 istream& operator>>(istream& is, AbstractMapElement& t)
 {
-	string fillers;
-	is >> t.statesNumber >> t.updateDelay >> t.height >> t.width >> fillers;
+	is >> t.statesNumber >> t.updateDelay >> t.height >> t.width;
 	return is;
 }
 	

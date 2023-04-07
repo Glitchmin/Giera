@@ -1,5 +1,9 @@
 #include "Position.h"
 #include <cmath>
+#include <sstream>
+
+using std::string;
+using std::stringstream;
 
 Position::Position()
 {
@@ -108,4 +112,19 @@ ostream& operator<<(ostream& out, const Position& t)
 {
 	out << "(" << t.x << ", " << t.y << ", " << t.z << ")";
 	return out;
+}
+
+istream& operator>>(istream& in, Position& t)
+{
+	double a, b, c;
+	string input;
+	in >> input;
+	stringstream ss(input);
+	ss >> a;
+	ss.ignore();
+	ss >> b;
+	ss.ignore(); 
+	ss >> c; 
+	return in;
+
 }

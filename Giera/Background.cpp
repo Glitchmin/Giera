@@ -22,3 +22,9 @@ Background::Background(unsigned int framesNumber, Time refreshTime):
 	this->texture = TextureLoader::getTexturePtr(filePath);
 }
 
+istream& operator>>(istream& in, Background& bg)
+{
+	string filler;
+	in >> (AbstractMapElement&)bg >> filler;
+	return in;
+}

@@ -2,6 +2,8 @@
 #include "AbstractGeometryFigure.h"
 #include "Position.h"
 
+using std::unique_ptr;
+
 class Cuboid : public AbstractGeometryFigure {
 private:
 	Position lowerLeft;
@@ -10,8 +12,10 @@ public:
 	Cuboid();
 	Cuboid(Position lowerLeft, Position upperRight);
 
-	static std::unique_ptr<AbstractGeometryFigure>
-		readFromFile(FileHandler& fileHandler);
+	bool checkLineSegmentIntersect(LineSegment lineSegment) const;
+	std::optional<Position> getLineSegmentIntersect(LineSegment lineSegment) const;
+
+	unique_ptr <AbstractGeometryFigure> clone() override;
 
 	Position getLowerLeft() const;
     void setLowerLeft(Position lowerLeft);
@@ -19,12 +23,5 @@ public:
     Position getUpperRight() const;
     void setUpperRight(Position upperRight);
 
-	bool checkLineSegmentIntersect(LineSegment lineSegment) const;
-	std::optional<Position> getLineSegmentIntersect(LineSegment lineSegment) const;
-
-	Position getUpperLeft() const;
-	Position getLowerRight() const;
-
-	Position getCenter() const;
-	double getArea() const;
+	Position getCenter() const override;
 };

@@ -9,5 +9,7 @@ private:
 public:
     std::string getFilePath() override;
     Foreground();
+
+    friend istream& operator >> (istream& in, Foreground& fg);
 };
 

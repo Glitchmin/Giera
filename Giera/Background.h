@@ -10,6 +10,7 @@ public:
     std::string getFilePath() override;
     Background();
     Background(unsigned int framesNumber, Time refreshTime);
-    
+
+    friend istream& operator >> (istream& in, Background& bg);
 };
 

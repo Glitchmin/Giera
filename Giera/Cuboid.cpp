@@ -1,5 +1,7 @@
-
 #include "Cuboid.h"
+
+using std::min;
+using std::max;
 
 Cuboid::Cuboid()
 {
@@ -38,24 +40,24 @@ bool Cuboid::checkLineSegmentIntersect(LineSegment lineSegment) const
     double t1 = (lowerLeft.getX() - lineSegment.getStart().getX()) / d;
     double t2 = (upperRight.getX() - lineSegment.getStart().getX()) / d;
 
-    double t_min = std::min(t1, t2);
-    double t_max = std::max(t1, t2);
+    double t_min = min(t1, t2);
+    double t_max = max(t1, t2);
 
     d = lineSegment.getEnd().getY() - lineSegment.getStart().getY();
 
     t1 = (lowerLeft.getY() - lineSegment.getStart().getY()) / d;
     t2 = (upperRight.getY() - lineSegment.getStart().getY()) / d;
 
-    t_min = std::max(t_min, std::min(t1, t2));
-    t_max = std::min(t_max, std::max(t1, t2));
+    t_min = max(t_min, min(t1, t2));
+    t_max = min(t_max, max(t1, t2));
 
     d = lineSegment.getEnd().getZ() - lineSegment.getStart().getZ();
 
     t1 = (lowerLeft.getZ() - lineSegment.getStart().getZ()) / d;
     t2 = (upperRight.getZ() - lineSegment.getStart().getZ()) / d;
 
-    t_min = std::max(t_min, std::min(t1, t2));
-    t_max = std::min(t_max, std::max(t1, t2));
+    t_min = max(t_min, min(t1, t2));
+    t_max = min(t_max, max(t1, t2));
 
     return  t_min <= 1 && t_max >= 0;
 }
@@ -67,8 +69,8 @@ std::optional<Position> Cuboid::getLineSegmentIntersect(LineSegment lineSegment)
     double t1 = (lowerLeft.getX() - lineSegment.getStart().getX()) / d;
     double t2 = (upperRight.getX() - lineSegment.getStart().getX()) / d;
 
-    double t_min = std::min(t1, t2);
-    double t_max = std::max(t1, t2);
+    double t_min = min(t1, t2);
+    double t_max = max(t1, t2);
 
 
     d = lineSegment.getEnd().getY() - lineSegment.getStart().getY();
@@ -76,8 +78,8 @@ std::optional<Position> Cuboid::getLineSegmentIntersect(LineSegment lineSegment)
     t1 = (lowerLeft.getY() - lineSegment.getStart().getY()) / d;
     t2 = (upperRight.getY() - lineSegment.getStart().getY()) / d;
 
-    t_min = std::max(t_min, std::min(t1, t2));
-    t_max = std::min(t_max, std::max(t1, t2));
+    t_min = max(t_min, min(t1, t2));
+    t_max = min(t_max, max(t1, t2));
 
 
     d = lineSegment.getEnd().getZ() - lineSegment.getStart().getZ();
@@ -85,22 +87,24 @@ std::optional<Position> Cuboid::getLineSegmentIntersect(LineSegment lineSegment)
     t1 = (lowerLeft.getZ() - lineSegment.getStart().getZ()) / d;
     t2 = (upperRight.getZ() - lineSegment.getStart().getZ()) / d;
 
-    t_min = std::max(t_min, std::min(t1, t2));
-    t_max = std::min(t_max, std::max(t1, t2));
+    t_min = max(t_min, min(t1, t2));
+    t_max = min(t_max, max(t1, t2));
 
     if (t_min > 1 || t_max < 0)
         return std::nullopt;
 
-    return lineSegment.getStart() + (lineSegment.getEnd() - lineSegment.getStart())* std::max(t_min, 0.0);
+    return lineSegment.getStart() + (lineSegment.getEnd() - lineSegment.getStart())* max(t_min, 0.0);
+}
+
+unique_ptr<AbstractGeometryFigure> Cuboid::clone()
+{
+    return make_unique<Cuboid>(*this);
 }
 
 Position Cuboid::getCenter() const
 {
+    //TO DO
     return Position();
 }
 
-double Cuboid::getArea() const
-{
-    return 0.0;
-}
 

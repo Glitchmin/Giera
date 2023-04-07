@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 using std::ostream;
+using std::istream;
 
 class Position {
 private:
@@ -28,6 +29,5 @@ public:
 	bool operator < (const Position& a) const;
 	bool operator == (const Position& a) const;
 	friend ostream& operator << (ostream& out, const Position& t);
-	//TODO rest of the operators
-
+	friend istream& operator >> (istream& in, Position& t);
 };

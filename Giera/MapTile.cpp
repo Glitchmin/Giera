@@ -88,10 +88,13 @@ void MapTile::updateHitboxes()
 	groundHitbox = make_shared<Hitbox>(make_unique<Cuboid>(position, position), HittableEntityTypes::GROUND); //TO DO
 	hitboxes.push_back(groundHitbox);
 	if (wallType != WallTypes::NONE) {
-		if (!wallHitbox.has_value()) {
-			wallHitbox = make_shared<Hitbox>(make_unique<Cuboid>(position, position),HittableEntityTypes::WALL); //TO DO
-		}
+		auto wall = std::dynamic_pointer_cast <Wall> 
+			(MapElementsHandler::getMapElement(MapElementTypes::WALL, (int)wallType));
+		wallHitbox = make_shared<Hitbox>(wall->getHitbox()->getFigure()->clone(),HittableEntityTypes::WALL);
 		hitboxes.push_back(wallHitbox.value());
+	}
+	else {
+		wallHitbox = std::nullopt;
 	}
 }
 

@@ -18,6 +18,6 @@ Terrain::Terrain() {
 istream& operator>>(istream& is, Terrain& t)
 {
 	string fillers;
-	is >> (AbstractMapElement&)t >> fillers >> fillers >> fillers;
+	is >> (AbstractMapElement&)t >> fillers;
 	return is;
 }

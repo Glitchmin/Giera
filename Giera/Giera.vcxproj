@@ -280,6 +280,7 @@
     <ClInclude Include="DamageEffect.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawableEntityObserver.h" />
+    <ClInclude Include="FigureTypes.h" />
     <ClInclude Include="HittableBoardEntity.h" />
     <ClInclude Include="HittableEntityObserver.h" />
     <ClInclude Include="HittableEntityTypes.h" />

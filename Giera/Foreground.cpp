@@ -14,3 +14,9 @@ Foreground::Foreground() {
 	this->texture = TextureLoader::getTexturePtr(filePath);
 }
 
+istream& operator>>(istream& in, Foreground& fg	)
+{
+	string filler;
+	in >> (AbstractMapElement&)fg >> filler;
+	return in;
+}

@@ -770,5 +770,8 @@
     <ClInclude Include="HittableEntityObserver.h">
       <Filter>Header Files\GameLogic\Hitboxes</Filter>
     </ClInclude>
+    <ClInclude Include="FigureTypes.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #pragma once
 #include "AbstractMapElement.h"
-#include "AbstractGeometryFigure.h"
+#include "Hitbox.h"
 #include <memory>
 class Wall :
     public AbstractMapElement
@@ -8,13 +8,13 @@ class Wall :
 private:
     static std::string wFolderPath;
     static int wCounter;
-    std::unique_ptr<AbstractGeometryFigure> hitbox;
+    std::unique_ptr <Hitbox> hitbox;
 public:
     Wall();
-    Wall(std::unique_ptr<AbstractGeometryFigure>&);
+    Wall(std::unique_ptr<Hitbox> hitbox);
     std::string getFilePath() override;
-    const std::unique_ptr<AbstractGeometryFigure>& getHitbox() const;
+    const std::unique_ptr<Hitbox>& getHitbox() const;
 
-    friend class MapElementsFileHandler;
+    friend istream& operator >> (istream& in, Wall& w);
 };
 
