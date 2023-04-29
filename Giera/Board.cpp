@@ -1,6 +1,12 @@
 #include "Board.h"
 
-Board::Board(unique_ptr<Map>& map, shared_ptr<BoardRenderer> boardRenderer)
+Board::Board()
+{
+	throw "default constructor";
+}
+
+Board::Board(unique_ptr<Map>& map, shared_ptr<BoardRenderer> boardRenderer) :
+	projectilesEngine(weak_from_this())
 {
 	items.resize(map->getSizeX());
 	for (auto& v : items) {
@@ -43,7 +49,8 @@ void Board::addNPC(shared_ptr<AbstractNPC> npc)
 
 void Board::addProjectile(shared_ptr<AbstractProjectile> proj)
 {
-	projectiles.push_back(proj);
+	projectilesToBeAdded.push_back(proj);
+	proj->addDrawableObserver(boardRenderer);
 	proj->setBoard(getWeakPtr());
 }
 
@@ -66,6 +73,12 @@ unique_ptr<Map>& Board::getMap()
 std::weak_ptr<Board> Board::getWeakPtr()
 {
 	return weak_from_this();
+}
+
+void Board::calculateProjectiles(Time timeDiff)
+{
+	projectilesEngine.setBoard(weak_from_this());
+	projectilesEngine.calculateProjectiles(timeDiff);
 }
 
 

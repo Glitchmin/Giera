@@ -4,7 +4,6 @@
 #include "FlightPath.h"
 #include "SpellProjectile.h"
 
-shared_ptr <AbstractProjectile> proj; //TO REMOVE
 
 BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig)
 {
@@ -22,7 +21,6 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	this->board = make_shared<Board>(map, boardRenderer);
 	board->addItem(Coordinates(5, 0), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
 	board->addNPC(player);
-	proj = nullptr;
 
 	leftMouseButtonPressed = false;
 	player->addDrawableObserver(boardRenderer);
@@ -92,24 +90,21 @@ void BoardLoop::start()
 	generalTimer.updateTime();
 	Time lastGraphicUpdate(generalTimer.getTime());
 	Time lastInputHandling(generalTimer.getTime());
+	Time lastProjectileHandling(generalTimer.getTime());
 
 	while (loopGoing) {
-		Time timeDiff = generalTimer.getTime() - lastInputHandling;
+		Time inputTimeDiff = generalTimer.getTime() - lastInputHandling;
 		lastInputHandling = generalTimer.getTime();
-		handleInput(timeDiff);
-		if (lastInputHandling.getTimeMs() >= 3000 && proj == nullptr) {
-			proj = (make_shared<SpellProjectile>(
-				make_shared<FlightPath>(Position(0, 5, .5), Position(15, 7, 0), 1, 12.5),
-				make_shared<ThrownSpell>()));
-			board->addProjectile(proj);
-			proj->addDrawableObserver(boardRenderer);
-		}
-		if (proj != nullptr) {
-			proj->move(timeDiff);
-			if (proj->canBeRemoved()) {
-				proj = nullptr;
-			}
-		}
+		handleInput(inputTimeDiff);
+
+		/*board->addProjectile(make_shared <SpellProjectile>(
+			make_shared<FlightPath>(Position(0, 4, 0),
+				Position(Calculator::getRandomInt(5, 10),8, 0),
+				1, 40), make_shared<ThrownSpell>()));*/
+		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
+		lastProjectileHandling = generalTimer.getTime();
+		board->calculateProjectiles(projectileTimeDiff);
+		
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
 			Time renderTimeDiff = generalTimer.getTime() - lastGraphicUpdate;
 			lastGraphicUpdate = generalTimer.getTime();
