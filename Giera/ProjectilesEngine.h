@@ -18,16 +18,10 @@ protected:
 	weak_ptr <Board> board;
 	vector <thread> threads;
 	vector <shared_ptr<AbstractProjectile>>* projectiles;
-	atomic <bool> readyToCalculate;
-	atomic <bool> threadsShouldJoin;
 	vector <vector <int> > projIndexesToRemovePerThread;
-	mutex projCalculationMutex;
-	condition_variable projShouldBeCalculated;
-	atomic <int> threadsFinishedCounter;
-	mutex allThreadsFinishedMtx;
-	condition_variable allThreadsFinishedCv;
+	int threadsNumber;
 	Time timeDiff;
-	int threadsNumber = 4; //TO DO make it depentant on some constant
+	static inline int minProjPerThread = 50;
 
 
 	void threadFunction(int id);
@@ -35,7 +29,6 @@ public:
 	ProjectilesEngine(weak_ptr<Board> board);
 	ProjectilesEngine();
 	ProjectilesEngine(ProjectilesEngine& pe) = delete;
-	~ProjectilesEngine();
 	void calculateProjectiles(Time timeDiff);
 
 	void setBoard(weak_ptr<Board> board);
