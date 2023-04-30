@@ -62,21 +62,26 @@ void BoardRenderer::removeDrawableBoardEntity(shared_ptr<DrawableBoardEntity> en
 
 void BoardRenderer::addDrawableBoardEntity(DrawableBoardEntity* entity)
 {
+	mapMutex.lock();
 	for (auto& drawable : entity->getDrawables()) {
 		layers[(int)drawable->getDrawableLayer()].drawablesMap.emplace(drawable->getPos(), drawable);
 	}
+	mapMutex.unlock();
 }
 
 void BoardRenderer::removeDrawableBoardEntity(DrawableBoardEntity* entity)
 {
+	mapMutex.lock();
 	for (auto& drawable : entity->getDrawables()) {
 		auto& map = layers[(int)drawable->getDrawableLayer()].drawablesMap;
 		auto itLB = map.lower_bound(drawable->getPos());
-		while (!(itLB==map.end() || (itLB->second == drawable))) {
+		auto itLB2 = itLB;
+		while ( !(itLB == map.end() || (itLB->second == drawable))) {
 			itLB++;
 		}
 		map.erase(itLB);
 	}
+	mapMutex.unlock();
 }
 
 Camera& BoardRenderer::getCamera()
@@ -91,5 +96,14 @@ void BoardRenderer::notify(DrawableBoardEntity* entity, Change change)
 	if (change == Change::REMOVED) {
 		removeDrawableBoardEntity(entity);
 	}
+}
+
+void BoardRenderer::lockMutex()
+{
+	mapMutex.lock();
+}
+void BoardRenderer::unlockMutex()
+{
+	mapMutex.unlock();
 }
 

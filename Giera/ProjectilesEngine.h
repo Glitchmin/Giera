@@ -5,10 +5,7 @@
 #include <atomic>
 #include <thread>
 
-using std::atomic;
 using std::thread;
-using std::mutex;
-using std::condition_variable;
 
 class Board;
 

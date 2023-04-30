@@ -2,19 +2,16 @@
 #include "Board.h"
 #include <algorithm>
 
-using std::for_each;
-using std::unique_lock;
 
 void ProjectilesEngine::threadFunction(int id)
 {
-	Logger::logInfo("thread", id, "starting");
 
 	int start = id * projectiles->size() / threadsNumber;
 	int end = id == threadsNumber - 1 ?
 		projectiles->size() :
 		(id + 1) * projectiles->size() / threadsNumber;
 
-	Logger::logInfo("thread nr", id, start, end);
+	//Logger::logInfo("thread nr", id, start, end);
 
 	for (int i = start; i < end; i++) {
 		(*projectiles)[i]->move(timeDiff);
@@ -50,6 +47,9 @@ void ProjectilesEngine::calculateProjectiles(Time timeDiff)
 	threadsNumber = std::min((int)projectiles->size() / minProjPerThread, threadsNumber);
 	threadsNumber += (threadsNumber == 0);
 	projIndexesToRemovePerThread.resize(threadsNumber);
+	
+	Logger::logInfo("started calculating projectiles with", threadsNumber, "threads");
+
 	for (int i = 0; i < threadsNumber;i++) {
 		threads.emplace_back(&ProjectilesEngine::threadFunction, this, i);
 	}

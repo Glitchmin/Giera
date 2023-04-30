@@ -97,10 +97,10 @@ void BoardLoop::start()
 		lastInputHandling = generalTimer.getTime();
 		handleInput(inputTimeDiff);
 
-		/*board->addProjectile(make_shared <SpellProjectile>(
+		board->addProjectile(make_shared <SpellProjectile>(
 			make_shared<FlightPath>(Position(0, 4, 0),
 				Position(Calculator::getRandomInt(5, 10),8, 0),
-				1, 40), make_shared<ThrownSpell>()));*/
+				1, 30), make_shared<ThrownSpell>()));
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
 		lastProjectileHandling = generalTimer.getTime();
 		board->calculateProjectiles(projectileTimeDiff);

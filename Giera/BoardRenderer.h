@@ -5,7 +5,9 @@
 #include "DrawableEntityObserver.h"
 #include "Camera.h"
 #include <map>
+#include <mutex>
 
+using std::mutex;
 using drawables_multimap_t = typename std::multimap<Position, shared_ptr<Drawable> >;
 
 class Player;
@@ -19,6 +21,8 @@ public:
 	void drawBoard(Time timeDiff);
 	void addDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity);
 	void removeDrawableBoardEntity(shared_ptr<DrawableBoardEntity> entity);
+	void lockMutex();
+	void unlockMutex();
 	Camera& getCamera();
 	virtual void notify(DrawableBoardEntity* entity, Change change) override;
 private:
@@ -31,6 +35,7 @@ private:
 	shared_ptr<Window> window;
 	double pixelsPerMeter;
 	Camera camera;
+	mutex mapMutex;
 
 	void addDrawableBoardEntity(DrawableBoardEntity* entity);
 	void removeDrawableBoardEntity(DrawableBoardEntity* entity);
