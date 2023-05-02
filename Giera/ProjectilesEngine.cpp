@@ -3,7 +3,7 @@
 #include <algorithm>
 
 
-void ProjectilesEngine::threadFunction(int id)
+void ProjectilesEngine::threadFunction(int id, shared_ptr<Board> board)
 {
 
 	int start = id * projectiles->size() / threadsNumber;
@@ -14,7 +14,10 @@ void ProjectilesEngine::threadFunction(int id)
 	//Logger::logInfo("thread nr", id, start, end);
 
 	for (int i = start; i < end; i++) {
-		(*projectiles)[i]->move(timeDiff);
+		(*projectiles)[i]->move(timeDiff, board);
+		if ((*projectiles)[i]->canBeRemoved()) {
+			projIndexesToRemovePerThread[id].push_back(i);
+		}
 	}
 
 }
@@ -42,14 +45,20 @@ void ProjectilesEngine::calculateProjectiles(Time timeDiff)
 	threadsNumber = std::min((int)projectiles->size() / minProjPerThread, threadsNumber);
 	threadsNumber += (threadsNumber == 0);
 	projIndexesToRemovePerThread.resize(threadsNumber);
-	
-	Logger::logInfo("started calculating projectiles with", threadsNumber, "threads");
+
+	Logger::logInfo("started calculating",projectiles->size(),"projectiles with", threadsNumber, "threads");
 
 	for (int i = 0; i < threadsNumber;i++) {
-		threads.emplace_back(&ProjectilesEngine::threadFunction, this, i);
+		threads.emplace_back(&ProjectilesEngine::threadFunction, this, i, boardSp);
 	}
 	for (auto& th : threads) {
 		th.join();
+	}
+	for (auto indexes = projIndexesToRemovePerThread.rbegin();
+		indexes != projIndexesToRemovePerThread.rend(); ++indexes) {
+		for (auto it = indexes->rbegin(); it != indexes->rend(); ++it) {
+			boardSp->removeProjectile(*it);
+		}
 	}
 }
 

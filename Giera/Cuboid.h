@@ -12,8 +12,7 @@ public:
 	Cuboid();
 	Cuboid(Position lowerLeft, Position upperRight);
 
-	bool checkLineSegmentIntersect(LineSegment lineSegment) const;
-	std::optional<Position> getLineSegmentIntersect(LineSegment lineSegment) const;
+	std::optional<Position> getLineSegmentIntersect(LineSegment& lineSegment) const override;
 
 	unique_ptr <AbstractGeometryFigure> clone() override;
 

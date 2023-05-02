@@ -6,6 +6,8 @@ void DrawableBoardEntity::addDrawableObserver(weak_ptr<DrawableEntityObserver> o
     observer.lock()->notify(this,DrawableEntityObserver::Change::ADDED);
 }
 
+
+
 void DrawableBoardEntity::notifyDrawableObservers(DrawableEntityObserver::Change change)
 {
     for (auto& obs_w : observers) {

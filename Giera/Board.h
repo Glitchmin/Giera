@@ -8,7 +8,7 @@
 #include "BoardTile.h"
 
 class Map;
-class Board : private std::enable_shared_from_this<Board>
+class Board : public std::enable_shared_from_this<Board>
 {
 public:
 	Board();
@@ -17,6 +17,7 @@ public:
 	set <shared_ptr<AbstractItem>>& getBoardTiles(Coordinates coords);
 	void addNPC(shared_ptr<AbstractNPC> npc);
 	void addProjectile(shared_ptr<AbstractProjectile> proj);
+	void removeProjectile(int index);
 	bool isStepablePosition(Position position);
 	unique_ptr<Map>& getMap();
 	std::weak_ptr<Board> getWeakPtr();

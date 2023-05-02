@@ -20,8 +20,7 @@ protected:
 	Time timeDiff;
 	static inline int minProjPerThread = 50;
 
-
-	void threadFunction(int id);
+	void threadFunction(int id, shared_ptr<Board> board);
 public:
 	ProjectilesEngine(weak_ptr<Board> board);
 	ProjectilesEngine();

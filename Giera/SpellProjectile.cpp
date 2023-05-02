@@ -1,6 +1,9 @@
 #include "SpellProjectile.h"
 #include "Drawable.h"
 
+using std::min;
+using std::max;
+
 SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<ThrownSpell> spell)
 	:AbstractProjectile(flightPath)
 {
@@ -25,10 +28,31 @@ void SpellProjectile::onGroundHit(shared_ptr<MapTile> tile)
 {
 	isReadyToBeRemoved = true;
 }
-void SpellProjectile::move(Time& timeDiff)
+void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 {
-	
-	flightPath->updatePosition(timeDiff);
+	Position prevPos = flightPath->getPosition();
+	Position currPos = flightPath->updatePosition(timeDiff);
+	int minX = min(prevPos.getX(),currPos.getX());
+	int maxX = max(prevPos.getX(), currPos.getX());
+	int minY = min(prevPos.getY(),currPos.getY());
+	int maxY = max(prevPos.getY(), currPos.getY());
+	LineSegment ls(prevPos, currPos);
+	optional<Position> collisionP;
+	for (int x = minX; x <= maxX;x++) {
+		for (int y = minY; y <= maxY;y++) {
+			auto& hitboxes = board->getMap()->getMapTile(Coordinates(x, y))->getHitboxes();
+			for (auto& hitbox : hitboxes) {
+				auto currCollision = hitbox->getFigure()->getLineSegmentIntersect(ls);
+				if (currCollision.has_value()) {
+					if (!collisionP.has_value() || (*currCollision-currPos).getNormSq() < (*collisionP - currPos).getNormSq()) {
+						collisionP = currCollision;
+					}
+				}
+			}
+		}
+	}
+	isReadyToBeRemoved = collisionP.has_value();
+	isReadyToBeRemoved += currPos.getZ() < 0;
 	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
 	updateDrawables();
 	notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);

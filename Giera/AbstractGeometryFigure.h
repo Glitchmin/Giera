@@ -12,8 +12,7 @@ class AbstractGeometryFigure;
 class AbstractGeometryFigure {
 public:
 	virtual Position getCenter() const = 0;
-	virtual bool checkLineSegmentIntersect(LineSegment lineSegment) const = 0;
-	virtual std::optional<Position> getLineSegmentIntersect(LineSegment lineSegment) const = 0;
+	virtual std::optional<Position> getLineSegmentIntersect(LineSegment& lineSegment) const = 0;
 	static unique_ptr<AbstractGeometryFigure>
 		readFromFile(FileHandler& fileHandler) { return nullptr; };
 	virtual unique_ptr<AbstractGeometryFigure> clone() = 0;

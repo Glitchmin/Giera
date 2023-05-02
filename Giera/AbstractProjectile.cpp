@@ -14,13 +14,8 @@ bool AbstractProjectile::canBeRemoved()
 AbstractProjectile::AbstractProjectile(shared_ptr<FlightPath> flightPath)
 {
 	isReadyToBeRemoved = false;
-	this->board = weak_ptr<Board>();
 	this->flightPath = flightPath;
 }
 
-void AbstractProjectile::setBoard(weak_ptr<Board> board)
-{
-    this->board = board;
-}
 
 

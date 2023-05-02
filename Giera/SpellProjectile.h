@@ -13,7 +13,7 @@ public:
 	virtual void onWallHit(shared_ptr<MapTile> tile) override;
 	virtual void onNPCHit(shared_ptr<AbstractNPC> npc) override;
 	virtual void onGroundHit(shared_ptr<MapTile> tile) override;
-	virtual void move(Time& timeDiff) override;
+	virtual void move(Time& timeDiff, shared_ptr<Board>& board) override;
 	virtual void updateDrawables();
 };
 

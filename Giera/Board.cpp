@@ -53,7 +53,15 @@ void Board::addProjectile(shared_ptr<AbstractProjectile> proj)
 	projectilesMutex.lock();
 	projectiles.push_back(proj);
 	proj->addDrawableObserver(boardRenderer);
-	proj->setBoard(getWeakPtr());
+	projectilesMutex.unlock();
+}
+
+void Board::removeProjectile(int index)
+{
+	projectilesMutex.lock();
+	projectiles[index]->notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+	swap(projectiles[index], projectiles.back());
+	projectiles.pop_back();
 	projectilesMutex.unlock();
 }
 
@@ -80,7 +88,7 @@ std::weak_ptr<Board> Board::getWeakPtr()
 
 void Board::calculateProjectiles(Time timeDiff)
 {
-	projectilesEngine.setBoard(weak_from_this());
+	projectilesEngine.setBoard(getWeakPtr());
 	projectilesEngine.calculateProjectiles(timeDiff);
 }
 
