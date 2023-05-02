@@ -35,11 +35,6 @@ void ProjectilesEngine::calculateProjectiles(Time timeDiff)
 {
 	auto boardSp = board.lock();
 	projectiles = &(boardSp->getProjectiles());
-	auto& projectilesToAdd = boardSp->getProjectilesToBeAdded();
-	if (!projectilesToAdd.empty()) {
-		projectiles->insert(projectiles->begin(), projectilesToAdd.begin(), projectilesToAdd.end());
-	}
-	projectilesToAdd.clear();
 	this->timeDiff = timeDiff;
 	threads.clear();
 	projIndexesToRemovePerThread.clear();

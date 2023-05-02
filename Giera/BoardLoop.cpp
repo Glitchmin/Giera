@@ -18,7 +18,7 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 			boardRenderer->addDrawableBoardEntity(map->getMapTile(Coordinates(i, j)));
 		}
 	}
-	this->board = make_shared<Board>(map, boardRenderer);
+	this->board = make_shared<Board>(std::move(map), boardRenderer);
 	board->addItem(Coordinates(5, 0), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
 	board->addNPC(player);
 

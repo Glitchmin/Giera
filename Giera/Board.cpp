@@ -5,11 +5,11 @@ Board::Board()
 	throw "default constructor";
 }
 
-Board::Board(unique_ptr<Map>& map, shared_ptr<BoardRenderer> boardRenderer) :
+Board::Board(unique_ptr<Map> map, shared_ptr<BoardRenderer> boardRenderer) :
 	projectilesEngine(weak_from_this())
 {
-	items.resize(map->getSizeX());
-	for (auto& v : items) {
+	tiles.resize(map->getSizeX());
+	for (auto& v : tiles) {
 		v.resize(map->getSizeY());
 	}
 	this->boardRenderer = boardRenderer;
@@ -33,13 +33,14 @@ void Board::addItem(Coordinates coords, shared_ptr<AbstractItem> item)
 		make_pair(0.4,0.4))));
 	item->updateDrawables();
 	item->addDrawableObserver(boardRenderer);
-	items[coords.getX()][coords.getY()].push_back(item);
+	tiles[coords.getX()][coords.getY()].addItem(item);
 }
 
-vector<shared_ptr<AbstractItem>>& Board::getItems(Coordinates coords)
+set<shared_ptr<AbstractItem>>& Board::getBoardTiles(Coordinates coords)
 {
-	return items[coords.getX()][coords.getY()];
+	return tiles[coords.getX()][coords.getY()].getItems();
 }
+
 
 void Board::addNPC(shared_ptr<AbstractNPC> npc)
 {
@@ -49,9 +50,11 @@ void Board::addNPC(shared_ptr<AbstractNPC> npc)
 
 void Board::addProjectile(shared_ptr<AbstractProjectile> proj)
 {
-	projectilesToBeAdded.push_back(proj);
+	projectilesMutex.lock();
+	projectiles.push_back(proj);
 	proj->addDrawableObserver(boardRenderer);
 	proj->setBoard(getWeakPtr());
+	projectilesMutex.unlock();
 }
 
 bool Board::isStepablePosition(Position position)
@@ -87,8 +90,4 @@ vector <shared_ptr<AbstractProjectile>>& Board::getProjectiles()
     return projectiles;
 }
 
-vector <shared_ptr<AbstractProjectile>>& Board::getProjectilesToBeAdded()
-{
-    return projectilesToBeAdded;
-}
 

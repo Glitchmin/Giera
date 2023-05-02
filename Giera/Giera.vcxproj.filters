@@ -417,6 +417,9 @@
     <ClCompile Include="HittableBoardEntity.cpp">
       <Filter>Source Files\GameLogic\Hitboxes</Filter>
     </ClCompile>
+    <ClCompile Include="BoardTile.cpp">
+      <Filter>Source Files\GameLogic\Board</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -772,6 +775,9 @@
     </ClInclude>
     <ClInclude Include="FigureTypes.h">
       <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardTile.h">
+      <Filter>Header Files\GameLogic\Board</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

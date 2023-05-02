@@ -175,6 +175,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardLoop.cpp" />
     <ClCompile Include="BoardRenderer.cpp" />
+    <ClCompile Include="BoardTile.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DamageEffect.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="BoardLoop.h" />
     <ClInclude Include="BoardRenderer.h" />
+    <ClInclude Include="BoardTile.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coordinates.h" />
