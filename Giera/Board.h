@@ -6,15 +6,16 @@
 #include "AbstractProjectile.h"
 #include "ProjectilesEngine.h"
 #include "BoardTile.h"
+#include "NPCObserver.h"
 
 class Map;
-class Board : public std::enable_shared_from_this<Board>
+class Board : public std::enable_shared_from_this<Board>, public NPCObserver
 {
 public:
 	Board();
 	Board(unique_ptr<Map> map, shared_ptr<BoardRenderer> boardRenderer);
 	void addItem(Coordinates coords, shared_ptr<AbstractItem> item);
-	set <shared_ptr<AbstractItem>>& getBoardTiles(Coordinates coords);
+	BoardTile& getBoardTile(Coordinates coords);
 	void addNPC(shared_ptr<AbstractNPC> npc);
 	void addProjectile(shared_ptr<AbstractProjectile> proj);
 	void removeProjectile(int index);
@@ -22,8 +23,10 @@ public:
 	unique_ptr<Map>& getMap();
 	std::weak_ptr<Board> getWeakPtr();
 	void calculateProjectiles(Time timeDiff);
+	void notifyNPCObserves(shared_ptr<AbstractNPC> npc, NPCObserver::Change change) override;
 
 	vector<shared_ptr<AbstractProjectile>>& getProjectiles();
+
 
 private:
 	vector <vector <BoardTile> > tiles;

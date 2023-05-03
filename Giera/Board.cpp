@@ -22,23 +22,23 @@ Board::Board(unique_ptr<Map> map, shared_ptr<BoardRenderer> boardRenderer) :
 			}
 		}
 	}
-	this->map = std::move (map);
-	
+	this->map = std::move(map);
+
 }
 
 void Board::addItem(Coordinates coords, shared_ptr<AbstractItem> item)
 {
 	item->setBoardRect(optional(make_pair(Position(coords.getX()
-		+Calculator::getRandomDouble(0.2,0.8), coords.getY()+0.7, 0),
-		make_pair(0.4,0.4))));
+		+ Calculator::getRandomDouble(0.2, 0.8), coords.getY() + 0.7, 0),
+		make_pair(0.4, 0.4))));
 	item->updateDrawables();
 	item->addDrawableObserver(boardRenderer);
 	tiles[coords.getX()][coords.getY()].addItem(item);
 }
 
-set<shared_ptr<AbstractItem>>& Board::getBoardTiles(Coordinates coords)
+BoardTile& Board::getBoardTile(Coordinates coords)
 {
-	return tiles[coords.getX()][coords.getY()].getItems();
+	return tiles[coords.getX()][coords.getY()];
 }
 
 
@@ -46,6 +46,7 @@ void Board::addNPC(shared_ptr<AbstractNPC> npc)
 {
 	npcs.push_back(npc);
 	npc->setBoard(getWeakPtr());
+	
 }
 
 void Board::addProjectile(shared_ptr<AbstractProjectile> proj)
@@ -92,10 +93,22 @@ void Board::calculateProjectiles(Time timeDiff)
 	projectilesEngine.calculateProjectiles(timeDiff);
 }
 
+void Board::notifyNPCObserves(shared_ptr<AbstractNPC> npc, NPCObserver::Change change)
+{
+	switch (change) {
+	case NPCObserver::Change::BEFORE_MOVE:
+		tiles[npc->getPosition().getX()][npc->getPosition().getY()].removeNpc(npc);
+		break;
+	case NPCObserver::Change::AFTER_MOVE:
+		tiles[npc->getPosition().getX()][npc->getPosition().getY()].addNpc(npc);
+		break;
+	}
+}
+
 
 vector <shared_ptr<AbstractProjectile>>& Board::getProjectiles()
 {
-    return projectiles;
+	return projectiles;
 }
 
 

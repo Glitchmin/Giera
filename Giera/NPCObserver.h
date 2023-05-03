@@ -1,15 +1,20 @@
 #pragma once
-#include "AbstractNPC.h"
 #include <memory>
 using std::shared_ptr;
 
+class AbstractNPC;
+
 class NPCObserver
 {
+public:
 	enum class Change {
-		MOVE,
+		ADDED,
+		BEFORE_MOVE,
+		AFTER_MOVE,
 		TAKEN_DAMAGE,
+		REMOVED,
 		COUNT
 	};
-	virtual void notify(AbstractNPC* npc, Change change) = 0;
+	virtual void notifyNPCObserves(shared_ptr<AbstractNPC> npc, Change change) = 0;
 };
 

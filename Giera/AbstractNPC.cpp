@@ -1,6 +1,7 @@
 #include "AbstractNPC.h"
 #include "Board.h"
 #include "Cuboid.h"
+#include "NPCObserver.h"
 
 AbstractNPC::AbstractNPC()
 {
@@ -32,9 +33,25 @@ void AbstractNPC::updateHitboxes()
 		Position(position.getX() + sizeXY.first / 2, position.getY() + sizeXY.second / 2, height)));
 }
 
+void AbstractNPC::addNPCObserver(weak_ptr<NPCObserver> observer)
+{
+	npcObservers.push_back(observer);
+	observer.lock()->notifyNPCObserves(shared_from_this(), NPCObserver::Change::ADDED);
+}
+
 void AbstractNPC::setBoard(weak_ptr<Board> board)
 {
 	this->board = board;
+}
+
+void AbstractNPC::notifyNPCObservers(NPCObserver::Change change)
+{
+	for (auto obs : npcObservers) {
+		auto obsSp = obs.lock();
+		if (obsSp) {
+			obsSp->notifyNPCObserves(shared_from_this(), change);
+		}
+	}
 }
 
 void AbstractNPC::move(Position moveDifference)
