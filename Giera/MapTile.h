@@ -33,7 +33,6 @@ public:
     virtual void updateDrawables() override;
     virtual void updateHitboxes() override;
 
-
     WallTypes getWallType() const;
     void setWallType(WallTypes wallType);
    

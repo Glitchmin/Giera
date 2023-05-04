@@ -116,15 +116,14 @@ ostream& operator<<(ostream& out, const Position& t)
 
 istream& operator>>(istream& in, Position& t)
 {
-	double a, b, c;
 	string input;
 	in >> input;
 	stringstream ss(input);
-	ss >> a;
+	ss >> t.x;
 	ss.ignore();
-	ss >> b;
+	ss >> t.y;
 	ss.ignore(); 
-	ss >> c; 
+	ss >> t.z; 
 	return in;
 
 }

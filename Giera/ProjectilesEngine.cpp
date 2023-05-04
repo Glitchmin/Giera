@@ -46,8 +46,6 @@ void ProjectilesEngine::calculateProjectiles(Time timeDiff)
 	threadsNumber += (threadsNumber == 0);
 	projIndexesToRemovePerThread.resize(threadsNumber);
 
-	Logger::logInfo("started calculating",projectiles->size(),"projectiles with", threadsNumber, "threads");
-
 	for (int i = 0; i < threadsNumber;i++) {
 		threads.emplace_back(&ProjectilesEngine::threadFunction, this, i, boardSp);
 	}

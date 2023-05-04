@@ -14,7 +14,7 @@ public:
 
 	std::optional<Position> getLineSegmentIntersect(LineSegment& lineSegment) const override;
 
-	unique_ptr <AbstractGeometryFigure> clone() override;
+	unique_ptr <AbstractGeometryFigure> clone(Position offset) override;
 
 	Position getLowerLeft() const;
     void setLowerLeft(Position lowerLeft);

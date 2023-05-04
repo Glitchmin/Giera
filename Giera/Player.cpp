@@ -12,6 +12,7 @@ Player::Player() : AbstractNPC()
 		Drawable::DrawableLayer::ENTITIES, sizeXY, height);
 	drawables.push_back(drawable);
 	hitbox = make_shared<NPCHitbox>(make_unique<Cuboid>(), 1.0);
+	hitboxes.push_back(hitbox);
 	updateHitboxes();
 	updateDrawables();
 }

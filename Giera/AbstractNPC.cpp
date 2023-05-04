@@ -64,11 +64,13 @@ void AbstractNPC::move(Position moveDifference)
 		board_sh->isStepablePosition(position + moveDifference + Position(sizeXY.first / 2, 0, 0))) {
 		notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
 		notifyHittableObservers(HittableEntityObserver::Change::REMOVED);
+		notifyNPCObservers(NPCObserver::Change::BEFORE_MOVE);
 		position += moveDifference;
 		updateDrawables();
 		updateHitboxes();
 		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
 		notifyHittableObservers(HittableEntityObserver::Change::ADDED);
+		notifyNPCObservers(NPCObserver::Change::AFTER_MOVE);
 	}
 }
 

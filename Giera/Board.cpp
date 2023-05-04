@@ -46,6 +46,7 @@ void Board::addNPC(shared_ptr<AbstractNPC> npc)
 {
 	npcs.push_back(npc);
 	npc->setBoard(getWeakPtr());
+	npc->addNPCObserver(getWeakPtr());
 	
 }
 
@@ -96,6 +97,7 @@ void Board::calculateProjectiles(Time timeDiff)
 void Board::notifyNPCObserves(shared_ptr<AbstractNPC> npc, NPCObserver::Change change)
 {
 	switch (change) {
+	case NPCObserver::Change::ADDED:
 	case NPCObserver::Change::BEFORE_MOVE:
 		tiles[npc->getPosition().getX()][npc->getPosition().getY()].removeNpc(npc);
 		break;

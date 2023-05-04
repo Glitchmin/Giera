@@ -68,9 +68,9 @@ std::optional<Position> Cuboid::getLineSegmentIntersect(LineSegment& lineSegment
     return lineSegment.getStart() + (lineSegment.getEnd() - lineSegment.getStart())* max(t_min, 0.0);
 }
 
-unique_ptr<AbstractGeometryFigure> Cuboid::clone()
+unique_ptr<AbstractGeometryFigure> Cuboid::clone(Position offset)
 {
-    return make_unique<Cuboid>(*this);
+    return make_unique<Cuboid>(lowerLeft+offset, upperRight+offset);
 }
 
 Position Cuboid::getCenter() const

@@ -14,6 +14,7 @@ public:
 	virtual void onNPCHit(shared_ptr<AbstractNPC> npc) override;
 	virtual void onGroundHit(shared_ptr<MapTile> tile) override;
 	virtual void move(Time& timeDiff, shared_ptr<Board>& board) override;
+	void calculateHitbox(std::shared_ptr<Hitbox>& hitbox, LineSegment& ls, std::optional<Position>& collisionP, Position& currPos);
 	virtual void updateDrawables();
 };
 

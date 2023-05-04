@@ -15,5 +15,5 @@ public:
 	virtual std::optional<Position> getLineSegmentIntersect(LineSegment& lineSegment) const = 0;
 	static unique_ptr<AbstractGeometryFigure>
 		readFromFile(FileHandler& fileHandler) { return nullptr; };
-	virtual unique_ptr<AbstractGeometryFigure> clone() = 0;
+	virtual unique_ptr<AbstractGeometryFigure> clone(Position offset) = 0;
 };

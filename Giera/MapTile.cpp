@@ -85,12 +85,12 @@ void MapTile::updateDrawables()
 void MapTile::updateHitboxes()
 {
 	hitboxes.clear();
-	groundHitbox = make_shared<Hitbox>(make_unique<Cuboid>(position, position), HittableEntityTypes::GROUND); //TO DO
-	hitboxes.push_back(groundHitbox);
+	groundHitbox = make_shared<Hitbox>(make_unique<Cuboid> (position, position), HittableEntityTypes::GROUND); //TO DO
+	//hitboxes.push_back(groundHitbox);
 	if (wallType != WallTypes::NONE) {
 		auto wall = std::dynamic_pointer_cast <Wall> 
 			(MapElementsHandler::getMapElement(MapElementTypes::WALL, (int)wallType));
-		wallHitbox = make_shared<Hitbox>(wall->getHitbox()->getFigure()->clone(),HittableEntityTypes::WALL);
+		wallHitbox = make_shared<Hitbox>(wall->getHitbox()->getFigure()->clone(position-Position(0.5,0.5,0)),HittableEntityTypes::WALL);
 		hitboxes.push_back(wallHitbox.value());
 	}
 	else {
