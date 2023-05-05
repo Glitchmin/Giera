@@ -100,8 +100,8 @@ void BoardLoop::start()
 		handleInput(inputTimeDiff);
 		if (board->getProjectiles().empty()) {
 			board->addProjectile(make_shared <SpellProjectile>(
-				make_shared<FlightPath>(Position(Calculator::getRandomInt(15, 20), 10.7, 0.1),
-					Position(1.5, 10.7, 0.1),
+				make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
+					Position(Calculator::getRandomInt(15, 20), 10.7, 0.1),
 					1, 2*Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>()));
 		}
 

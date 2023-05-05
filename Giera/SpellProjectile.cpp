@@ -17,8 +17,9 @@ SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<T
 
 void SpellProjectile::onWallHit(Coordinates hitCoords, shared_ptr<Board>& board)
 {
-	Logger::logDebug("projectile hit the wall");
-}
+	Logger::logDebug("projectile hit the wall", hitCoords);
+
+ }
 
 void SpellProjectile::onNPCHit(shared_ptr<AbstractNPC> npc, shared_ptr<Board>& board)
 {
@@ -45,6 +46,14 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 {
 	Position prevPos = flightPath->getPosition();
 	Position currPos = flightPath->updatePosition(timeDiff);
+	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+	updateDrawables();
+	notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+	if (currPos.getX() < 0 || currPos.getX() >= board->getMap()->getSizeX() ||
+		currPos.getY() < 0 || currPos.getY() >= board->getMap()->getSizeY()) {
+		isReadyToBeRemoved = 1;
+		return;
+	}
 	int minX = min(prevPos.getX(), currPos.getX());
 	int maxX = max(prevPos.getX(), currPos.getX());
 	int minY = min(prevPos.getY(), currPos.getY());
@@ -54,23 +63,28 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 	shared_ptr<AbstractNPC> hitNPC;
 	optional <Coordinates> hitMapTile;
 
-
-	for (int x = minX; x <= maxX;x++) {
-		for (int y = minY; y <= maxY;y++) {
+	for (int x = minX; x <= maxX+1;x++) {
+		for (int y = minY; y <= maxY+1;y++) {
 			auto& hitboxes = board->getMap()->getMapTile(Coordinates(x, y))->getHitboxes();
 			for (auto& hitbox : hitboxes) {
 				auto currCollision = calculateHitbox(hitbox, ls, collisionP, currPos);
 				if (currCollision.has_value()) {
 					hitMapTile = Coordinates(x, y);
+					Logger::logInfo(x, y, "map tile");
+					hitNPC = nullptr;
+					collisionP = currCollision;
 				}
 			}
+
 			auto& npcs = board->getBoardTile(Coordinates(x, y)).getNpcs();
 			for (auto& npc : npcs) {
 				for (auto& hitbox : npc->getHitboxes()) {
 					auto currCollision = calculateHitbox(hitbox, ls, collisionP, currPos);
 					if (currCollision.has_value()) {
 						hitMapTile = nullopt;
+						Logger::logInfo(x, y, "npc");
 						hitNPC = npc;
+						collisionP = currCollision;
 					}
 				}
 			}
@@ -78,21 +92,23 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 	}
 	isReadyToBeRemoved = collisionP.has_value();
 	isReadyToBeRemoved += currPos.getZ() <= 0;
-	if (isReadyToBeRemoved) {
-		Logger::logInfo("removing the projectile, its heigth", currPos.getZ());
-		if (hitNPC) {
-			onNPCHit(hitNPC, board);
-		}
-		else if (hitMapTile) {
-			onWallHit(hitMapTile.value(), board);
-		}
-		else if (currPos.getZ() <= 0) {
-			onGroundHit(currPos, board);
-		}
+	if (!isReadyToBeRemoved) {
+		return;
 	}
-	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
-	updateDrawables();
-	notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+	Logger::logInfo("removing the projectile, its heigth", currPos.getZ(),hitMapTile.has_value(),hitNPC!=nullptr);
+	if (hitNPC) {
+		onNPCHit(hitNPC, board);
+		return;
+	}
+	if (hitMapTile) {
+		onWallHit(hitMapTile.value(), board);
+		return;
+	}
+	if (currPos.getZ() <= 0) {
+		onGroundHit(currPos, board);
+		return;
+	}
+	
 }
 
 

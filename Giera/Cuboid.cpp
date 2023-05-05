@@ -76,7 +76,7 @@ unique_ptr<AbstractGeometryFigure> Cuboid::clone(Position offset)
 Position Cuboid::getCenter() const
 {
     //TO DO
-    return Position();
+    return (lowerLeft + upperRight)*0.5;
 }
 
 
