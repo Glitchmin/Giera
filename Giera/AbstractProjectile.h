@@ -1,6 +1,7 @@
 #pragma once
 #include "FlightPath.h"
 #include "DrawableBoardEntity.h"
+#include "Coordinates.h"
 
 class Board;
 class MapTile;
@@ -18,9 +19,9 @@ public:
 
 	virtual bool canBeRemoved();
 
-	virtual void onWallHit(shared_ptr<MapTile> tile) = 0;
-	virtual void onNPCHit(shared_ptr<AbstractNPC> npc) = 0;
-	virtual void onGroundHit(shared_ptr<MapTile> tile) = 0;
+	virtual void onWallHit(Coordinates hitCoords, shared_ptr<Board>& board) = 0;
+	virtual void onNPCHit(shared_ptr<AbstractNPC> npc, shared_ptr<Board>& board) = 0;
+	virtual void onGroundHit(Coordinates hitCoords, shared_ptr<Board>& board) = 0;
 	virtual void move(Time& timeDiff, shared_ptr<Board>& board) = 0;
 
 };

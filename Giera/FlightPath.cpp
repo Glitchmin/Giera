@@ -54,8 +54,8 @@ void FlightPath::calculateThrowPath(Position& startPos, Position& endPos, double
 		}
 	}
 
-	vX = (dX) / (dX + dY);
-	vY = (dY) / (dX + dY);
+	vX = (dX) / (abs(dX) + abs(dY));
+	vY = (dY) / (abs(dX) + abs(dY));
 	vX *= v * cos(throwAngle * PI / 180.);
 	vY *= v * cos(throwAngle * PI / 180.);
 	isTargetInRange = getHeight(distH) + startPos.getZ() >= endPos.getZ();

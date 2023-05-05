@@ -126,6 +126,17 @@
 #include "../Giera/FlightPath.cpp"
 #include "../Giera/AbstractProjectile.h"
 #include "../Giera/AbstractProjectile.cpp"
+#include "../Giera/AbstractGeometryFigure.h"
+#include "../Giera/BoardTile.h"
+#include "../Giera/BoardTile.cpp"
+#include "../Giera/Hitbox.h"
+#include "../Giera/Hitbox.cpp"
+#include "../Giera/NPCHitbox.h"
+#include "../Giera/NPCHitbox.cpp"
+#include "../Giera/HittableBoardEntity.h"
+#include "../Giera/HittableBoardEntity.cpp"
+#include "../Giera/ProjectilesEngine.h"
+#include "../Giera/ProjectilesEngine.cpp"
 
 #include <iostream>
 #include <string>
@@ -836,16 +847,16 @@ namespace UtilityTests
 			Cuboid rec = Cuboid(Position(0.0, 0.0, 0.0), Position(3.0, 4.0, 12.0));
 
 			LineSegment line1 = LineSegment(Position(-1.0, -1.0, -1.0), Position(1.0, 1.0, 1.0));
-			Assert::IsTrue(rec.checkLineSegmentIntersect(line1));
+			Assert::IsTrue(rec.getLineSegmentIntersect(line1).has_value());
 			Assert::IsTrue(rec.getLineSegmentIntersect(line1).value() == Position(0.0, 0.0, 0.0));
 
 
 			LineSegment line2 = LineSegment(Position(-2.0, -2.0, -2.0), Position(-1.0, -1.0, -1.0));
-			Assert::IsFalse(rec.checkLineSegmentIntersect(line2));
+			Assert::IsFalse(rec.getLineSegmentIntersect(line2).has_value());
 			Assert::IsFalse(rec.getLineSegmentIntersect(line2).has_value());
 
 			LineSegment line3 = LineSegment(Position(-1.0, -1.0, -1.0), Position(0.0, 0.0, 0.0));
-			Assert::IsTrue(rec.checkLineSegmentIntersect(line3));
+			Assert::IsTrue(rec.getLineSegmentIntersect(line3).has_value());
 			Assert::IsTrue(rec.getLineSegmentIntersect(line3).value() == Position(0.0, 0.0, 0.0));
 
 		}
@@ -888,6 +899,24 @@ namespace UtilityTests
 
 			}
 			Assert::IsTrue(pos.getX() >= 119 && pos.getX() <= 121);
+			Assert::IsTrue(pos.getY() >= 4.9 && pos.getY() <= 5.1);
+		}
+		TEST_METHOD(SimpleThrowTest3) {
+			FlightPath path(Position(120, 5, 0.5), Position(0, 5, 0), 1, 40);
+			Position pos(0, 0, 0);
+			GeneralTimer generalTimer;
+			Time currentTime(generalTimer.updateTime());
+			generalTimer.setTempo(7.5);
+
+			while (pos.getZ() >= 0) {
+				Time timeDiff = generalTimer.getTime() - currentTime;
+				currentTime = generalTimer.getTime();
+				pos = path.updatePosition(timeDiff);
+				Sleep(2);
+				generalTimer.updateTime();
+
+			}
+			Assert::IsTrue(pos.getX() >= -1 && pos.getX() <= 1);
 			Assert::IsTrue(pos.getY() >= 4.9 && pos.getY() <= 5.1);
 		}
 		TEST_METHOD(DiagonalThrowTest) {
