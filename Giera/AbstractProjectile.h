@@ -6,6 +6,7 @@
 class Board;
 class MapTile;
 class AbstractNPC;
+class HittableBoardEntity;
 
 class AbstractProjectile : public DrawableBoardEntity
 {
@@ -13,8 +14,9 @@ protected:
 	shared_ptr<FlightPath> flightPath;
 	bool isReadyToBeRemoved;
 	shared_ptr <Drawable> drawable;
+	weak_ptr <HittableBoardEntity> entityToIgnore;
 public:
-	AbstractProjectile(shared_ptr<FlightPath> flightPath);
+	AbstractProjectile(shared_ptr<FlightPath> flightPath, weak_ptr <HittableBoardEntity> entityToIgnore);
 	AbstractProjectile();
 
 	virtual bool canBeRemoved();

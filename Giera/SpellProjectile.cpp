@@ -5,8 +5,8 @@ using std::min;
 using std::max;
 using std::nullopt;
 
-SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<ThrownSpell> spell)
-	:AbstractProjectile(flightPath)
+SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<ThrownSpell> spell, weak_ptr <HittableBoardEntity> entityToIgnore)
+	:AbstractProjectile(flightPath, entityToIgnore)
 {
 	this->spell = spell;
 	drawable = make_shared<Drawable>(flightPath->getPosition(),
@@ -18,7 +18,6 @@ SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<T
 void SpellProjectile::onWallHit(Coordinates hitCoords, shared_ptr<Board>& board)
 {
 	Logger::logDebug("projectile hit the wall", hitCoords);
-
  }
 
 void SpellProjectile::onNPCHit(shared_ptr<AbstractNPC> npc, shared_ptr<Board>& board)
@@ -65,26 +64,31 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 
 	for (int x = minX; x <= maxX+1;x++) {
 		for (int y = minY; y <= maxY+1;y++) {
-			auto& hitboxes = board->getMap()->getMapTile(Coordinates(x, y))->getHitboxes();
-			for (auto& hitbox : hitboxes) {
-				auto currCollision = calculateHitbox(hitbox, ls, collisionP, currPos);
-				if (currCollision.has_value()) {
-					hitMapTile = Coordinates(x, y);
-					Logger::logInfo(x, y, "map tile");
-					hitNPC = nullptr;
-					collisionP = currCollision;
+			auto mapTile = board->getMap()->getMapTile(Coordinates(x, y));
+			if (mapTile != entityToIgnore.lock()) {
+				auto& hitboxes = mapTile->getHitboxes();
+				for (auto& hitbox : hitboxes) {
+					auto currCollision = calculateHitbox(hitbox, ls, collisionP, currPos);
+					if (currCollision.has_value()) {
+						hitMapTile = Coordinates(x, y);
+						Logger::logInfo(x, y, "map tile");
+						hitNPC = nullptr;
+						collisionP = currCollision;
+					}
 				}
 			}
 
 			auto& npcs = board->getBoardTile(Coordinates(x, y)).getNpcs();
 			for (auto& npc : npcs) {
-				for (auto& hitbox : npc->getHitboxes()) {
-					auto currCollision = calculateHitbox(hitbox, ls, collisionP, currPos);
-					if (currCollision.has_value()) {
-						hitMapTile = nullopt;
-						Logger::logInfo(x, y, "npc");
-						hitNPC = npc;
-						collisionP = currCollision;
+				if (npc != entityToIgnore.lock()) {
+					for (auto& hitbox : npc->getHitboxes()) {
+						auto currCollision = calculateHitbox(hitbox, ls, collisionP, currPos);
+						if (currCollision.has_value()) {
+							hitMapTile = nullopt;
+							Logger::logInfo(x, y, "npc");
+							hitNPC = npc;
+							collisionP = currCollision;
+						}
 					}
 				}
 			}

@@ -9,7 +9,7 @@ protected:
 	optional<Position> calculateHitbox(std::shared_ptr<Hitbox>& hitbox, LineSegment& ls, std::optional<Position>& collisionP, Position& currPos);
 public:
 	SpellProjectile(shared_ptr<FlightPath> flightPath,
-		shared_ptr<ThrownSpell> spell);
+		shared_ptr<ThrownSpell> spell, weak_ptr <HittableBoardEntity> entityToIgnore);
 
 	virtual void onWallHit(Coordinates hitCoords, shared_ptr<Board>& board) override;
 	virtual void onNPCHit(shared_ptr<AbstractNPC> npc, shared_ptr<Board>& board) override;
