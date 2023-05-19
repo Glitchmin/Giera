@@ -154,6 +154,12 @@
     <Filter Include="Source Files\Utility\FlightPath&amp;Modifiers">
       <UniqueIdentifier>{19ccfc70-d946-4072-83b5-02f25d49e35e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\NPC\Equipment">
+      <UniqueIdentifier>{3da18de4-ee77-4e31-a630-42f9f09f0b17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\NPC\Equipment">
+      <UniqueIdentifier>{d5879064-687e-4185-8237-dff25d45273d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cuboid.cpp">
@@ -419,6 +425,9 @@
     </ClCompile>
     <ClCompile Include="BoardTile.cpp">
       <Filter>Source Files\GameLogic\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Source Files\GameLogic\NPC\Equipment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -778,6 +787,15 @@
     </ClInclude>
     <ClInclude Include="BoardTile.h">
       <Filter>Header Files\GameLogic\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Header Files\GameLogic\NPC\Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="EqSlotTypes.h">
+      <Filter>Header Files\GameLogic\NPC\Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractEqSlot.h">
+      <Filter>Header Files\GameLogic\NPC\Equipment</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -189,6 +189,7 @@
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="HittableBoardEntity.cpp" />
     <ClCompile Include="InputConfig.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="ItemSpawner.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
     <ClCompile Include="main.cpp" />
@@ -244,6 +245,7 @@
     <ClInclude Include="AbstractBaseWeapon.h" />
     <ClInclude Include="AbstractEffect.h" />
     <ClInclude Include="AbstractEntityFileLoader.h" />
+    <ClInclude Include="AbstractEqSlot.h" />
     <ClInclude Include="AbstractGearItem.h" />
     <ClInclude Include="AbstractGeometryFigure.h" />
     <ClInclude Include="AbstractItem.h" />
@@ -282,12 +284,14 @@
     <ClInclude Include="DamageEffect.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawableEntityObserver.h" />
+    <ClInclude Include="EqSlotTypes.h" />
     <ClInclude Include="FigureTypes.h" />
     <ClInclude Include="HittableBoardEntity.h" />
     <ClInclude Include="HittableEntityObserver.h" />
     <ClInclude Include="HittableEntityTypes.h" />
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="InputConfig.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventorySlotTypes.h" />
     <ClInclude Include="MapElementsTypes.h" />
     <ClInclude Include="NPCHitbox.h" />
