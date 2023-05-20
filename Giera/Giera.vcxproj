@@ -153,6 +153,7 @@
     <ClCompile Include="AbstractBaseItem.cpp" />
     <ClCompile Include="AbstractBaseWeapon.cpp" />
     <ClCompile Include="AbstractEffect.cpp" />
+    <ClCompile Include="AbstractEqSlot.cpp" />
     <ClCompile Include="AbstractGearItem.cpp" />
     <ClCompile Include="AbstractItem.cpp" />
     <ClCompile Include="AbstractProjectile.cpp" />
@@ -226,6 +227,7 @@
     <ClCompile Include="Cuboid.cpp" />
     <ClCompile Include="SelfSpell.cpp" />
     <ClCompile Include="Shield.cpp" />
+    <ClCompile Include="SingleEqSlot.cpp" />
     <ClCompile Include="SpawningDetails.cpp" />
     <ClCompile Include="SpellProjectile.cpp" />
     <ClCompile Include="StatChangingEffect.cpp" />
@@ -348,6 +350,7 @@
     <ClInclude Include="SelfSpell.h" />
     <ClInclude Include="Shield.h" />
     <ClInclude Include="ShieldTypes.h" />
+    <ClInclude Include="SingleEqSlot.h" />
     <ClInclude Include="SpawningDetails.h" />
     <ClInclude Include="SpellModifiersTypes.h" />
     <ClInclude Include="SpellProjectile.h" />

@@ -160,6 +160,12 @@
     <Filter Include="Source Files\GameLogic\NPC\Equipment">
       <UniqueIdentifier>{d5879064-687e-4185-8237-dff25d45273d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLogic\NPC\Equipment\EqSlots">
+      <UniqueIdentifier>{38d12d52-4a1f-49fb-9c0d-f4993f974010}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\NPC\Equipment\EqSlots">
+      <UniqueIdentifier>{df85b53f-4d67-480a-ac02-f41d9ed0cabc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cuboid.cpp">
@@ -428,6 +434,12 @@
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
       <Filter>Source Files\GameLogic\NPC\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleEqSlot.cpp">
+      <Filter>Source Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractEqSlot.cpp">
+      <Filter>Source Files\GameLogic\NPC\Equipment\EqSlots</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -795,7 +807,10 @@
       <Filter>Header Files\GameLogic\NPC\Equipment</Filter>
     </ClInclude>
     <ClInclude Include="AbstractEqSlot.h">
-      <Filter>Header Files\GameLogic\NPC\Equipment</Filter>
+      <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleEqSlot.h">
+      <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
