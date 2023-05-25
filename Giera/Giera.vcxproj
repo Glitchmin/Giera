@@ -215,6 +215,7 @@
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="ModifiersHandler.cpp" />
     <ClCompile Include="AbstractNPC.cpp" />
+    <ClCompile Include="MultipleEqSlot.cpp" />
     <ClCompile Include="NPCHitbox.cpp" />
     <ClCompile Include="NPCObserver.cpp" />
     <ClCompile Include="FlightPath.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventorySlotTypes.h" />
     <ClInclude Include="MapElementsTypes.h" />
+    <ClInclude Include="MultipleEqSlot.h" />
     <ClInclude Include="NPCHitbox.h" />
     <ClInclude Include="NPCObserver.h" />
     <ClInclude Include="FlightPath.h" />

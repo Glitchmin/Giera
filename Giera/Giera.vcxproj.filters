@@ -441,6 +441,9 @@
     <ClCompile Include="AbstractEqSlot.cpp">
       <Filter>Source Files\GameLogic\NPC\Equipment\EqSlots</Filter>
     </ClCompile>
+    <ClCompile Include="MultipleEqSlot.cpp">
+      <Filter>Source Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -810,6 +813,9 @@
       <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
     </ClInclude>
     <ClInclude Include="SingleEqSlot.h">
+      <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+    </ClInclude>
+    <ClInclude Include="MultipleEqSlot.h">
       <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
     </ClInclude>
   </ItemGroup>
