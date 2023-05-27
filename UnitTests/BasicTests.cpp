@@ -138,6 +138,11 @@
 #include "../Giera/ProjectilesEngine.h"
 #include "../Giera/ProjectilesEngine.cpp"
 
+#include "../Giera/AbstractEqSlot.h"
+#include "../Giera/AbstractEqSlot.cpp"
+#include "../Giera/SingleEqSlot.h"
+#include "../Giera/SingleEqSlot.cpp"
+
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -293,6 +298,28 @@ namespace ItemsTests {
 			Assert::IsTrue(shield->getTimeToRaise().getTimeMs() >= 1500 && shield->getTimeToRaise().getTimeMs() <= 2000);
 		}
 
+	};
+}
+
+namespace EqTests {
+	TEST_CLASS(BaseEqTests)
+	{
+	public:
+		TEST_METHOD(SingleEqSlotTest)
+		{
+			vector tmp = { ItemTypes::MELEE_WEAPON };
+			SingleEqSlot slot(tmp);
+			auto shield = BaseItemHandler::generate<Shield>(ItemTypes::SHIELD, (int)ShieldTypes::SHIELD_1);
+			auto mel = BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, (int)MeleeWeaponTypes::SWORD_2);
+			Assert::IsTrue(slot.getItem(0,0)== nullopt);
+			slot.insertItem(0, 0, mel);
+			Assert::IsTrue(slot.getItem(0,0)!=nullopt);
+			slot.removeItem(0, 0);
+			Assert::IsTrue(slot.getItem(0,0)== nullopt);
+			Assert::IsTrue(slot.isAccepted(0, 0, mel));
+			slot.insertItem(0, 0, mel);
+			Assert::IsFalse(slot.isAccepted(0, 0, shield));
+		}
 	};
 }
 

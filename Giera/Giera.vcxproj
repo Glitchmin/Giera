@@ -223,6 +223,7 @@
     <ClCompile Include="PointSpell.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="ProjectilesEngine.cpp" />
+    <ClCompile Include="QuiverEqSlot.cpp" />
     <ClCompile Include="RangedWeapon.cpp" />
     <ClCompile Include="Readable.cpp" />
     <ClCompile Include="Cuboid.cpp" />
@@ -343,6 +344,7 @@
     <ClInclude Include="PointSpell.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="ProjectilesEngine.h" />
+    <ClInclude Include="QuiverEqSlot.h" />
     <ClInclude Include="RangedWeapon.h" />
     <ClInclude Include="RangedWeaponTypes.h" />
     <ClInclude Include="Readable.h" />
