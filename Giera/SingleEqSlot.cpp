@@ -5,7 +5,7 @@ bool SingleEqSlot::isAccepted(double x, double y, shared_ptr<AbstractItem> item)
 	return isAcceptedItemType[(int)item->getItemType()] && !this->item.has_value();
 }
 
-void SingleEqSlot::insertItem(double x, double y, shared_ptr<AbstractItem> item)
+void SingleEqSlot::insertAcceptedItem(double x, double y, shared_ptr<AbstractItem> item)
 {
 	this->item = item;
 }

@@ -1,35 +1,47 @@
 #include "QuiverEqSlot.h"
+using std::dynamic_pointer_cast;
 
-QuiverEqSlot::QuiverEqSlot(vector<ItemTypes>& acceptedItemTypes, int arrowCapacity)
-	:AbstractEqSlot(acceptedItemTypes), arrowCapacity(arrowCapacity)
+QuiverEqSlot::QuiverEqSlot(int arrowCapacity)
+	:AbstractEqSlot(quiverItemTypes), arrowCapacity(arrowCapacity)
 {
 
 }
 
 bool QuiverEqSlot::isAccepted(double x, double y, shared_ptr<AbstractItem> item)
 {
-	if (x <= 0.5) {
-		return primary.size() < arrowCapacity
-			&& isAcceptedItemType[(int)item->getItemType()];
+	int slotNum = x > 0.5;
+	if (item->getItemType() != ItemTypes::ARROW 
+		|| slots[slotNum].size() == arrowCapacity) {
+		return false;
 	}
-	return secondary.size() < arrowCapacity
-		&& isAcceptedItemType[(int)item->getItemType()];
-
+	if (slots[slotNum].empty()) {
+		return true;
+	}
+	auto arr = dynamic_pointer_cast <Arrow> (item);
+	return arr->getName() == slots[slotNum][0]->getName();
+	
 }
 
-void QuiverEqSlot::insertItem(double x, double y, shared_ptr<AbstractItem> item)
+void QuiverEqSlot::insertAcceptedItem(double x, double y, shared_ptr<AbstractItem> item)
 {
-	if (x <= 0.5) {
-
-	}
+	int slotNum = x > 0.5;
+	slots[slotNum].push_back(dynamic_pointer_cast <Arrow> (item));
+	
 }
 
 optional<shared_ptr<AbstractItem>> QuiverEqSlot::getItem(double x, double y)
 {
-	return optional<shared_ptr<AbstractItem>>();
+	int slotNum = x > 0.5;
+	return slots[slotNum].empty() ? nullopt : optional(slots[slotNum].back());
 }
 
 optional<shared_ptr<AbstractItem>> QuiverEqSlot::removeItem(double x, double y)
 {
-	return optional<shared_ptr<AbstractItem>>();
+	int slotNum = x > 0.5;
+	if (slots[slotNum].empty()) {
+		return nullopt;
+	}
+	auto item = slots[slotNum].back();
+	slots[slotNum].pop_back();
+	return optional(item);
 }

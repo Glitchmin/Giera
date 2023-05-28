@@ -183,6 +183,7 @@
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DrawableBoardEntity.cpp" />
     <ClCompile Include="DrawableEntityObserver.cpp" />
+    <ClCompile Include="Dropslots.cpp" />
     <ClCompile Include="EffectsFileHandler.cpp" />
     <ClCompile Include="EffectsHandler.cpp" />
     <ClCompile Include="ExplosionSpellModifer.cpp" />
@@ -288,6 +289,7 @@
     <ClInclude Include="DamageEffect.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawableEntityObserver.h" />
+    <ClInclude Include="Dropslots.h" />
     <ClInclude Include="EqSlotTypes.h" />
     <ClInclude Include="FigureTypes.h" />
     <ClInclude Include="HittableBoardEntity.h" />

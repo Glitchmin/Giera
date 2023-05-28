@@ -312,12 +312,12 @@ namespace EqTests {
 			auto shield = BaseItemHandler::generate<Shield>(ItemTypes::SHIELD, (int)ShieldTypes::SHIELD_1);
 			auto mel = BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, (int)MeleeWeaponTypes::SWORD_2);
 			Assert::IsTrue(slot.getItem(0,0)== nullopt);
-			slot.insertItem(0, 0, mel);
+			slot.insertAcceptedItem(0, 0, mel);
 			Assert::IsTrue(slot.getItem(0,0)!=nullopt);
 			slot.removeItem(0, 0);
 			Assert::IsTrue(slot.getItem(0,0)== nullopt);
 			Assert::IsTrue(slot.isAccepted(0, 0, mel));
-			slot.insertItem(0, 0, mel);
+			slot.insertAcceptedItem(0, 0, mel);
 			Assert::IsFalse(slot.isAccepted(0, 0, shield));
 		}
 	};

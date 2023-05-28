@@ -1,6 +1,6 @@
 #include "MultipleEqSlot.h"
 
-void MultipleEqSlot::insertItem(double x, double y, shared_ptr<AbstractItem> item)
+void MultipleEqSlot::insertAcceptedItem(double x, double y, shared_ptr<AbstractItem> item)
 {
 	for (int i = x * width; i < x * width + item->getWidth();i++) {
 		for (int j = y * height; j < y * height + item->getHeight();j++) {
