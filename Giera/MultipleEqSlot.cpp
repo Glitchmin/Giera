@@ -4,10 +4,10 @@ void MultipleEqSlot::insertAcceptedItem(double x, double y, shared_ptr<AbstractI
 {
 	for (int i = x * width; i < x * width + item->getWidth();i++) {
 		for (int j = y * height; j < y * height + item->getHeight();j++) {
-			if (i >= width) {
+			while (i >= width) {
 				increaseWidth();
 			}
-			if (j >= height) {
+			while (j >= height) {
 				increaseHeight();
 			}
 			items[i][j] = item;

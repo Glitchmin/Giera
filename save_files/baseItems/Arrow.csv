@@ -1,5 +1,8 @@
-VERSION 1 ROWS 1 BLANK_SPACES_IN_LINE 8 1 2 3 4 5 6 7 8d      
+VERSION 1 ROWS 2 BLANK_SPACES_IN_LINE 8 1 2 3 4 5 6 7 8d      
 5 NAME DESC MIN_VALUE MAX_VALUE WIDTH HEIGHT DMG_MIN DMG_MAX DMG_TYPE AP_MIN AP_MAX EFFECTS_NR ID      
-5 penetrator penetrates_your_soul 21 37 1 2 1.5 2.5 1 0.5 1.5 1 0      
+5 arrow normal_arrow 2 5 1 2 1.0 2.0 1 0.5 1.0 1 0      
 EFFECT_TYPE EFFECT_ID                  
 0 0                  
+5 penetrator penetrates_your_soul 21 37 1 2 1.5 2.5 1 0.5 1.5 0 1      
+                   
+                   

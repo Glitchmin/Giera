@@ -18,8 +18,7 @@ bool QuiverEqSlot::isAccepted(double x, double y, shared_ptr<AbstractItem> item)
 		return true;
 	}
 	auto arr = dynamic_pointer_cast <Arrow> (item);
-	return arr->getName() == slots[slotNum][0]->getName();
-	
+	return arr->getName() == slots[slotNum][0]->getName();	
 }
 
 void QuiverEqSlot::insertAcceptedItem(double x, double y, shared_ptr<AbstractItem> item)

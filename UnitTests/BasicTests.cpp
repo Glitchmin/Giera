@@ -142,6 +142,10 @@
 #include "../Giera/AbstractEqSlot.cpp"
 #include "../Giera/SingleEqSlot.h"
 #include "../Giera/SingleEqSlot.cpp"
+#include "../Giera/MultipleEqSlot.h"
+#include "../Giera/MultipleEqSlot.cpp"
+#include "../Giera/QuiverEqSlot.h"
+#include "../Giera/QuiverEqSlot.cpp"
 
 #include <iostream>
 #include <string>
@@ -319,6 +323,41 @@ namespace EqTests {
 			Assert::IsTrue(slot.isAccepted(0, 0, mel));
 			slot.insertAcceptedItem(0, 0, mel);
 			Assert::IsFalse(slot.isAccepted(0, 0, shield));
+		}
+		TEST_METHOD(MultipleEqSlotTest)
+		{
+			vector tmp = { ItemTypes::MELEE_WEAPON };
+			MultipleEqSlot slot(tmp, 22);
+			auto shield = BaseItemHandler::generate<Shield>(ItemTypes::SHIELD, (int)ShieldTypes::SHIELD_1);
+			auto mel = BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, (int)MeleeWeaponTypes::SWORD_2);
+			Assert::IsTrue(slot.getItem(0, 0) == nullopt);
+			slot.insertAcceptedItem(0, 0, mel);
+			Assert::IsTrue(slot.getItem(0, 0) != nullopt);
+			slot.removeItem(0, 0);
+			Assert::IsTrue(slot.getItem(0, 0) == nullopt);
+			Assert::IsTrue(slot.isAccepted(0, 0, mel));
+			slot.insertAcceptedItem(0, 0, mel);
+			Assert::IsFalse(slot.isAccepted(1, 3, mel));
+			slot.insertAcceptedItem(0.5, 0, mel);
+			Assert::IsFalse(slot.isAccepted(0, 0, shield));
+		}
+		TEST_METHOD(QuiverEqSlotTest)
+		{
+			QuiverEqSlot slot(5);
+			auto arr = BaseItemHandler::generate<Arrow>(ItemTypes::ARROW, (int)ArrowTypes::ARROW_1);
+			auto arr2 = BaseItemHandler::generate<Arrow>(ItemTypes::ARROW, (int)ArrowTypes::THE_PENETRATOR);
+			auto mel = BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, (int)MeleeWeaponTypes::SWORD_2);
+			Assert::IsTrue(slot.getItem(0, 0) == nullopt);
+			slot.insertAcceptedItem(0, 0, arr);
+			Assert::IsTrue(slot.getItem(0, 0) != nullopt);
+			slot.removeItem(0, 0);
+			Assert::IsTrue(slot.getItem(0, 0) == nullopt);
+			slot.insertAcceptedItem(0, 0, arr);
+			Assert::IsTrue(slot.isAccepted(0, 0, arr));
+			slot.insertAcceptedItem(0, 0, arr);
+			Assert::IsTrue(arr->getName() != arr2->getName());
+			Assert::IsFalse(slot.isAccepted(0, 0, arr2));
+			Assert::IsTrue(slot.isAccepted(0.7, 0, arr2));
 		}
 	};
 }

@@ -27,15 +27,15 @@ shared_ptr<AbstractItem> BaseArrow::generate()
 istream& operator>>(istream& is, BaseArrow& it)
 {
 
-    int tmp, tmp2, eff_nr;
-    is >> (AbstractBaseItem&)it >> it.damage >> tmp2 >> it.armorPiercing >> eff_nr>>tmp;
+    int tmp, tmp2, effs_nr;
+    is >> (AbstractBaseItem&)it >> it.damage >> tmp2 >> it.armorPiercing >> effs_nr>>tmp;
     it.damageType = (DamageTypes)tmp2;
     it.arrowType = (ArrowTypes)tmp;
     string filler;
-    for (int i = 0;i < 2;i++) {
+    for (int i = 0;i < 2* effs_nr;i++) {
         is >> filler;
     }
-    for (int i = 0; i < eff_nr;i++)
+    for (int i = 0; i < effs_nr;i++)
     {
         int effectType, effectID;
         is >> effectType >> effectID;
