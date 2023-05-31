@@ -7,11 +7,13 @@
 #include "HittableBoardEntity.h"
 #include "NPCHitbox.h"
 #include "NPCObserver.h"
+//#include "Inventory.h"
 #include <vector>
 using std::vector;
 using npc_hp_t = typename unsigned int;
 
 class Board;
+
 
 class AbstractNPC: public DrawableBoardEntity, public HittableBoardEntity, public std::enable_shared_from_this<AbstractNPC>
 {
@@ -33,7 +35,7 @@ protected:
 	double height;
 	vector <double> resitances;
 	double armor;
-	//Inventory intentory;
+	//shared_ptr<Inventory> intentory;
 	vector <SpawningDetails> drops;
 	vector <weak_ptr<NPCObserver>> npcObservers;
 	NPCTypes npcType;
