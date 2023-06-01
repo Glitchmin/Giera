@@ -240,6 +240,7 @@
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="ThrownSpell.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="ValuesRange.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -367,6 +368,7 @@
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="ThrownSpell.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="UIElement.h" />
     <ClInclude Include="ValuesRange.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="MeleeWeaponTypes.h" />

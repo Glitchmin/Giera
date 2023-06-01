@@ -166,6 +166,12 @@
     <Filter Include="Source Files\GameLogic\NPC\Equipment\EqSlots">
       <UniqueIdentifier>{df85b53f-4d67-480a-ac02-f41d9ed0cabc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics\UI">
+      <UniqueIdentifier>{d20eb813-319e-40d8-9a83-a6615756dcbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\UI">
+      <UniqueIdentifier>{07523e50-9272-4831-ad01-155a34477ae5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cuboid.cpp">
@@ -449,6 +455,9 @@
     </ClCompile>
     <ClCompile Include="Dropslots.cpp">
       <Filter>Source Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Source Files\Graphics\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -829,6 +838,9 @@
     </ClInclude>
     <ClInclude Include="Dropslots.h">
       <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
