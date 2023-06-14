@@ -15,7 +15,7 @@ using npc_hp_t = typename unsigned int;
 class Board;
 
 
-class AbstractNPC: public DrawableBoardEntity, public HittableBoardEntity, public std::enable_shared_from_this<AbstractNPC>
+class AbstractNPC : public DrawableBoardEntity, public HittableBoardEntity, public std::enable_shared_from_this<AbstractNPC>
 {
 public:
 	AbstractNPC();
@@ -35,7 +35,7 @@ protected:
 	double height;
 	vector <double> resitances;
 	double armor;
-	//shared_ptr<Inventory> intentory;
+	//shared_ptr <Inventory> intentory;
 	vector <SpawningDetails> drops;
 	vector <weak_ptr<NPCObserver>> npcObservers;
 	NPCTypes npcType;

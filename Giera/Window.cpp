@@ -5,7 +5,8 @@
 
 using std::make_pair;
 
-Window::Window()
+Window::Window():
+	UIElement(0,0,800, 640)
 {
 	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
 		800, 640, SDL_WINDOW_SHOWN);

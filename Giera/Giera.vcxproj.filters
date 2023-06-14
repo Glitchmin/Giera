@@ -459,6 +459,9 @@
     <ClCompile Include="UIElement.cpp">
       <Filter>Source Files\Graphics\UI</Filter>
     </ClCompile>
+    <ClCompile Include="InventoryUI.cpp">
+      <Filter>Source Files\Graphics\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -840,6 +843,9 @@
       <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
     </ClInclude>
     <ClInclude Include="UIElement.h">
+      <Filter>Header Files\Graphics\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryUI.h">
       <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
   </ItemGroup>

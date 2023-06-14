@@ -192,6 +192,7 @@
     <ClCompile Include="HittableBoardEntity.cpp" />
     <ClCompile Include="InputConfig.cpp" />
     <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="InventoryUI.cpp" />
     <ClCompile Include="ItemSpawner.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
     <ClCompile Include="main.cpp" />
@@ -300,6 +301,7 @@
     <ClInclude Include="InputConfig.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventorySlotTypes.h" />
+    <ClInclude Include="InventoryUI.h" />
     <ClInclude Include="MapElementsTypes.h" />
     <ClInclude Include="MultipleEqSlot.h" />
     <ClInclude Include="NPCHitbox.h" />

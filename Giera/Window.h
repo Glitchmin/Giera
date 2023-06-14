@@ -1,8 +1,9 @@
 #pragma once
 #include <SDL.h>
 #include <utility>
+#include "UIElement.h"
 using std::pair;
-class Window
+class Window: public UIElement
 {
 public:
 	Window();
