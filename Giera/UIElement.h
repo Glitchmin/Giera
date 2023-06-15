@@ -9,7 +9,7 @@ using std::weak_ptr;
 
 typedef float rel_pos_t;
 typedef int real_pos_t;
-class UIElement
+class UIElement: public std::enable_shared_from_this<UIElement>
 {
 protected:
 	array<rel_pos_t, 2> relativePos; //relative to the parent

@@ -133,9 +133,6 @@
     <Filter Include="Source Files\GameControl">
       <UniqueIdentifier>{4e4dfa64-1087-48a3-ba60-8e02c28ad035}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GameLogic\Items\Inventory">
-      <UniqueIdentifier>{0074ace6-188f-4903-9e7f-c0b8e63a4807}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GameLogic\Projectiles">
       <UniqueIdentifier>{1adebadd-ab76-4a43-ae20-83f893a2260b}</UniqueIdentifier>
     </Filter>
@@ -462,6 +459,9 @@
     <ClCompile Include="InventoryUI.cpp">
       <Filter>Source Files\Graphics\UI</Filter>
     </ClCompile>
+    <ClCompile Include="EqSlotUIElement.cpp">
+      <Filter>Source Files\Graphics\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -779,9 +779,6 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="InventorySlotTypes.h">
-      <Filter>Header Files\GameLogic\Items\Inventory</Filter>
-    </ClInclude>
     <ClInclude Include="ReadableTypes.h">
       <Filter>Header Files\GameLogic\Items</Filter>
     </ClInclude>
@@ -846,6 +843,9 @@
       <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
     <ClInclude Include="InventoryUI.h">
+      <Filter>Header Files\Graphics\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EqSlotUIElement.h">
       <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
   </ItemGroup>

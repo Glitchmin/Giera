@@ -8,6 +8,9 @@ UIElement::UIElement(rel_pos_t relX, rel_pos_t relY, rel_pos_t relSizeX, rel_pos
 	relativeSize = { relSizeX, relSizeY };
 	realPos = { (int)(relSizeX * parent->realPos[0]), (int)(relSizeY * parent->realPos[0]), };
 	realSize = { (int)(relSizeX * parent->realSize[0]), (int)(relSizeY * parent->realSize[0]), };
+	if (parent) {
+		parent->children.push_back(shared_from_this());
+	}
 }
 
 UIElement::UIElement(real_pos_t realX, real_pos_t realY, real_pos_t realSizeX, real_pos_t realSizeY)
@@ -15,6 +18,9 @@ UIElement::UIElement(real_pos_t realX, real_pos_t realY, real_pos_t realSizeX, r
 {
 	realPos = { (int)(realX), (int)(realY) };
 	realSize = { (int)realSizeX, (int)(realSizeY) };
+	if (parent) {
+		parent->children.push_back(shared_from_this());
+	}
 }
 
 void UIElement::render(shared_ptr <Texture>& textureToDrawOn)

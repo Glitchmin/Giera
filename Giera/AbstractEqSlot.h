@@ -6,6 +6,7 @@ using std::array;
 using std::optional;
 using std::nullopt;
 
+
 class AbstractEqSlot
 {
 protected:
