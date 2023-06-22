@@ -13,6 +13,7 @@ using std::vector;
 using npc_hp_t = typename unsigned int;
 
 class Board;
+class Inventory;
 
 
 class AbstractNPC : public DrawableBoardEntity, public HittableBoardEntity, public std::enable_shared_from_this<AbstractNPC>
@@ -28,6 +29,7 @@ public:
 	void addNPCObserver(weak_ptr<NPCObserver> observer);
 	void setBoard(weak_ptr<Board> board);
 	void notifyNPCObservers(NPCObserver::Change change);
+	shared_ptr <Inventory> getInventory();
 protected:
 	npc_hp_t hp;
 	Position position;
@@ -35,7 +37,7 @@ protected:
 	double height;
 	vector <double> resitances;
 	double armor;
-	//shared_ptr <Inventory> intentory;
+	shared_ptr <Inventory> inventory;
 	vector <SpawningDetails> drops;
 	vector <weak_ptr<NPCObserver>> npcObservers;
 	NPCTypes npcType;

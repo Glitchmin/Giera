@@ -11,5 +11,7 @@ protected:
     vector <shared_ptr <EqSlotUIElement>> uiElements;
 public:
     InventoryUI(shared_ptr <Window> window, shared_ptr <Inventory> inventory);
+    static InventoryUI* createInventoryUI(
+        shared_ptr <Window> window, shared_ptr <Inventory> inventory);
 };
 

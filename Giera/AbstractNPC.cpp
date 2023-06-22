@@ -54,6 +54,11 @@ void AbstractNPC::notifyNPCObservers(NPCObserver::Change change)
 	}
 }
 
+shared_ptr<Inventory> AbstractNPC::getInventory()
+{
+	return inventory;
+}
+
 void AbstractNPC::move(Position moveDifference)
 {
 	auto board_sh = board.lock();

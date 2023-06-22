@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "Cuboid.h"
+#include "Inventory.h"
+#include "SingleEqSlot.h"
 
 Player::Player() : AbstractNPC()
 {
@@ -11,9 +13,15 @@ Player::Player() : AbstractNPC()
 	drawable = make_shared<Drawable>(position, TextureLoader::getTextureCopy(path),
 		Drawable::DrawableLayer::ENTITIES, sizeXY, height);
 	drawables.push_back(drawable);
+	updateDrawables();
+
 	hitbox = make_shared<NPCHitbox>(make_unique<Cuboid>(), 1.0);
 	hitboxes.push_back(hitbox);
 	updateHitboxes();
-	updateDrawables();
+	vector <ItemTypes> itemTypes = { ItemTypes::MELEE_WEAPON };
+	auto eqSlot = make_shared<SingleEqSlot>(itemTypes);
+	array<shared_ptr<AbstractEqSlot>, (int)EqSlotTypes::COUNT> slots =
+	{ eqSlot };
+	inventory = make_shared<Inventory>(slots);
 }
 

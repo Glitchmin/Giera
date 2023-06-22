@@ -3,6 +3,7 @@
 #include "BaseItemHandler.h"
 #include "FlightPath.h"
 #include "SpellProjectile.h"
+#include "InventoryUI.h"
 
 
 BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig)
@@ -21,6 +22,8 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	this->board = make_shared<Board>(std::move(map), boardRenderer);
 	board->addItem(Coordinates(5, 0), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
 	board->addNPC(player);
+
+	auto invUI = InventoryUI::createInventoryUI(window, player->getInventory());
 
 	leftMouseButtonPressed = false;
 	player->addDrawableObserver(boardRenderer);
