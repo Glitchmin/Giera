@@ -17,6 +17,8 @@ public:
 	pair<int, int> getSize();
 	double getXToYRatio();
 	pair<int, int> getMousePos();
+	void render(shared_ptr <Texture>& textureToDrawOn) override;
+	void renderUI();
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;

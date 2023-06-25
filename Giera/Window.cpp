@@ -4,11 +4,12 @@
 #include "Texture.h"
 
 using std::make_pair;
+using std::make_shared;
 
-Window::Window():
-	UIElement(0,0,800, 640)
+Window::Window() :
+	UIElement(0, 0, 800, 640)
 {
-	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
+	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		800, 640, SDL_WINDOW_SHOWN);
 	if (window == NULL) {
 		Logger::logError("Couldn't create window", SDL_GetError());
@@ -30,12 +31,12 @@ Window::~Window()
 
 SDL_Window* Window::getWindow() const
 {
-    return window;
+	return window;
 }
 
 SDL_Renderer* Window::getRenderer() const
 {
-    return renderer;
+	return renderer;
 }
 
 void Window::updateRenderer()
@@ -54,7 +55,7 @@ double Window::getXToYRatio()
 {
 	SDL_Point windowSize;
 	SDL_GetWindowSize(window, &windowSize.x, &windowSize.y);
-	return (double)windowSize.x/(double)windowSize.y;
+	return (double)windowSize.x / (double)windowSize.y;
 }
 
 pair<int, int> Window::getMousePos()
@@ -62,5 +63,31 @@ pair<int, int> Window::getMousePos()
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
 	return make_pair(mouseX, mouseY);
+}
+
+void Window::render(shared_ptr<Texture>& textureToDrawOn)
+{
+	renderUI();
+}
+
+void Window::renderUI()
+{
+	if (texture == nullptr) {
+		texture = TextureLoader::makeUniColorTexture(getSize().first,
+			getSize().second, { 0,0,0,0 });
+	}
+	else {
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		SDL_Texture* oldTarget = SDL_GetRenderTarget(renderer);
+		SDL_SetRenderTarget(renderer, texture->getTexture());
+		SDL_RenderClear(renderer);
+		SDL_SetRenderTarget(renderer, oldTarget);
+	}
+	for (auto& child : children) {
+		child->render(texture);
+	}
+	auto screenTexture = make_shared<Texture>();
+	texture->draw(*screenTexture, { 0,0,texture->getSize().first, texture->getSize().second },
+		{ 0,0,getSize().first, getSize().second });
 }
 

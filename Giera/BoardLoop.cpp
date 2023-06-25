@@ -117,6 +117,9 @@ void BoardLoop::start()
 			lastGraphicUpdate = generalTimer.getTime();
 
 			boardRenderer->drawBoard(renderTimeDiff);
+
+			window->renderUI();
+
 			window->updateRenderer();
 		}
 		generalTimer.updateTime();

@@ -24,8 +24,8 @@ public:
 	UIElement(rel_pos_t relX, rel_pos_t relY, rel_pos_t relSizeX, rel_pos_t relSizeY,
 		shared_ptr<Texture> texture, UIElement* parent);
 	UIElement(real_pos_t realX, real_pos_t realY, real_pos_t realSizeX, real_pos_t realSizeY);
-	void render(shared_ptr <Texture>& textureToDrawOn);
-	void addChild(unique_ptr<UIElement> child);
+	virtual void render(shared_ptr <Texture>& textureToDrawOn);
+	virtual void addChild(unique_ptr<UIElement> child);
 
 };
 
