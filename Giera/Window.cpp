@@ -77,11 +77,7 @@ void Window::renderUI()
 			getSize().second, { 0,0,0,0 });
 	}
 	else {
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-		SDL_Texture* oldTarget = SDL_GetRenderTarget(renderer);
-		SDL_SetRenderTarget(renderer, texture->getTexture());
-		SDL_RenderClear(renderer);
-		SDL_SetRenderTarget(renderer, oldTarget);
+		texture->fillWithColor({ 0,0,0,0 });
 	}
 	for (auto& child : children) {
 		child->render(texture);

@@ -20,8 +20,10 @@ Player::Player() : AbstractNPC()
 	updateHitboxes();
 	vector <ItemTypes> itemTypes = { ItemTypes::MELEE_WEAPON };
 	auto eqSlot = make_shared<SingleEqSlot>(itemTypes);
-	array<shared_ptr<AbstractEqSlot>, (int)EqSlotTypes::COUNT> slots =
-	{ eqSlot };
+	array<shared_ptr<AbstractEqSlot>, (int)EqSlotTypes::COUNT> slots;
+	for (int i = 0; i < (int)EqSlotTypes::COUNT;i++) {
+		slots[i] = eqSlot;
+	}
 	inventory = make_shared<Inventory>(slots);
 }
 

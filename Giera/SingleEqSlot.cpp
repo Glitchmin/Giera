@@ -22,6 +22,11 @@ optional<shared_ptr<AbstractItem>> SingleEqSlot::removeItem(double x, double y)
 	return tmpItem;
 }
 
+unique_ptr<EqSlotUIElement> SingleEqSlot::generateUIElement(rel_pos_t relX, rel_pos_t relY, rel_pos_t relSizeX, rel_pos_t relSizeY, UIElement* parent)
+{
+	return make_unique <EqSlotUIElement>(relX, relY, relSizeX, relSizeY, parent, shared_from_this());
+}
+
 SingleEqSlot::SingleEqSlot(vector<ItemTypes>& acceptedItemTypes)
 	:AbstractEqSlot(acceptedItemTypes)
 {

@@ -21,6 +21,9 @@ UIElement::UIElement(real_pos_t realX, real_pos_t realY, real_pos_t realSizeX, r
 
 void UIElement::render(shared_ptr <Texture>& textureToDrawOn)
 {
+	for (auto& child : children) {
+		child->render(texture);
+	}
 	SDL_Rect dstRect{ realPos[0], realPos[1], realSize[0], realSize[1] };
 	SDL_Rect srcRect{ 0,0, texture->getSize().first, texture->getSize().second };
 	texture->draw(*textureToDrawOn, srcRect, dstRect);

@@ -1,4 +1,6 @@
 #include "InventoryUI.h"
+#include "EqSlotUIElement.h"
+using std::make_unique;
 
 InventoryUI::InventoryUI(shared_ptr<Window> window, shared_ptr <Inventory> inventory)
 	: UIElement(0.1, 0.1, 0.8, 0.8,
@@ -8,7 +10,7 @@ InventoryUI::InventoryUI(shared_ptr<Window> window, shared_ptr <Inventory> inven
 		window.get()), inventory(inventory)
 {
 	for (int i = 0; i < (int)EqSlotTypes::COUNT; i++) {
-		uiElements.push_back(make_shared<EqSlotUIElement>(0, 0, .5, .5,
+		children.push_back(make_unique<EqSlotUIElement>(0, 0, .5, .5,
 			this,
 			inventory->getEqSlot((EqSlotTypes)i)));
 	}

@@ -2,7 +2,9 @@
 #include "UIElement.h"
 #include "Inventory.h"
 #include "Window.h"
-#include "EqSlotUIElement.h"
+
+class EqSlotUIElement;
+
 class InventoryUI :
     public UIElement
 {
