@@ -27,5 +27,22 @@ public:
 	virtual void render(shared_ptr <Texture>& textureToDrawOn);
 	virtual void addChild(unique_ptr<UIElement> child);
 
+
+    array<rel_pos_t,2> getRelativePos() const;
+    void setRelativePos(array<rel_pos_t,2> relativePos);
+
+    array<rel_pos_t,2> getRelativeSize() const;
+    void setRelativeSize(array<rel_pos_t,2> relativeSize);
+
+    array<real_pos_t,2> getRealPos() const;
+    void setRealPos(array<real_pos_t,2> realPos);
+
+    array<real_pos_t,2> getRealSize() const;
+    void setRealSize(array<real_pos_t,2> realSize);
+
+    UIElement* getParent() const;
+
+    shared_ptr<Texture> getTexture() const;
+
 };
 

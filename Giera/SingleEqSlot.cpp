@@ -1,4 +1,10 @@
 #include "SingleEqSlot.h"
+#include "EqSlotUIElement.h"
+
+SingleEqSlot::SingleEqSlot(vector<ItemTypes>& acceptedItemTypes)
+	:AbstractEqSlot(acceptedItemTypes)
+{
+}
 
 bool SingleEqSlot::isAccepted(double x, double y, shared_ptr<AbstractItem> item)
 {
@@ -27,7 +33,22 @@ unique_ptr<EqSlotUIElement> SingleEqSlot::generateUIElement(rel_pos_t relX, rel_
 	return make_unique <EqSlotUIElement>(relX, relY, relSizeX, relSizeY, parent, shared_from_this());
 }
 
-SingleEqSlot::SingleEqSlot(vector<ItemTypes>& acceptedItemTypes)
-	:AbstractEqSlot(acceptedItemTypes)
+void SingleEqSlot::render(Texture& target, EqSlotUIElement* targetUIEle)
 {
+	shared_ptr<Texture> texture;
+	if (item) {
+		string textureFilePath = (*item)->getFilePath();
+		texture = TextureLoader::getTexturePtr(textureFilePath);
+	}
+	else {
+		texture = TextureLoader::makeUniColorTexture(5, 5, { 0,0,0,64 });
+	}
+	int sizeX = target.getSize().first;
+	int sizeY = target.getSize().second;
+	SDL_Rect tmp = { (int)(targetUIEle->getRelativePos()[0] * sizeX) ,(int)(targetUIEle->getRelativePos()[1] * sizeY),
+		targetUIEle->getRelativeSize()[0] * sizeX, targetUIEle->getRelativeSize()[1] * sizeY };
+	texture->draw(target, { 0,0,texture->getSize().first,texture->getSize().second },
+		tmp);
 }
+
+

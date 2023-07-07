@@ -1,5 +1,8 @@
 #pragma once
 #include "AbstractEqSlot.h"
+
+class EqSlotUIElement;
+
 class SingleEqSlot :
     public AbstractEqSlot, public std::enable_shared_from_this<SingleEqSlot>
 {
@@ -13,5 +16,6 @@ public:
     virtual optional<shared_ptr<AbstractItem>> removeItem(double x, double y) override;
     virtual unique_ptr <EqSlotUIElement> generateUIElement(rel_pos_t relX, rel_pos_t relY,
         rel_pos_t relSizeX, rel_pos_t relSizeY, UIElement* parent) override;
+    virtual void render(Texture& target, EqSlotUIElement* targetUIEle) override;
 };
 

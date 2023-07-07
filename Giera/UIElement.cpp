@@ -33,3 +33,54 @@ void UIElement::addChild(unique_ptr<UIElement> child)
 {
 	children.push_back(std::move(child));
 }
+
+array<rel_pos_t,2> UIElement::getRelativePos() const
+{
+    return relativePos;
+}
+
+void UIElement::setRelativePos(array<rel_pos_t,2> relativePos)
+{
+    this->relativePos = relativePos;
+}
+
+array<rel_pos_t,2> UIElement::getRelativeSize() const
+{
+    return relativeSize;
+}
+
+void UIElement::setRelativeSize(array<rel_pos_t,2> relativeSize)
+{
+    this->relativeSize = relativeSize;
+}
+
+array<real_pos_t,2> UIElement::getRealPos() const
+{
+    return realPos;
+}
+
+void UIElement::setRealPos(array<real_pos_t,2> realPos)
+{
+    this->realPos = realPos;
+}
+
+array<real_pos_t,2> UIElement::getRealSize() const
+{
+    return realSize;
+}
+
+void UIElement::setRealSize(array<real_pos_t,2> realSize)
+{
+    this->realSize = realSize;
+}
+
+UIElement* UIElement::getParent() const
+{
+    return parent;
+}
+
+shared_ptr<Texture> UIElement::getTexture() const
+{
+    return texture;
+}
+

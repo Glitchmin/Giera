@@ -11,5 +11,5 @@ EqSlotUIElement::EqSlotUIElement(rel_pos_t relX, rel_pos_t relY, rel_pos_t relSi
 
 void EqSlotUIElement::render(shared_ptr<Texture>& target)
 {
-	eqSlot->render(*target);
+	eqSlot->render(*target, this);
 }

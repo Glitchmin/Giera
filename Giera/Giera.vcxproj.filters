@@ -462,6 +462,9 @@
     <ClCompile Include="EqSlotUIElement.cpp">
       <Filter>Source Files\Graphics\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Source Files\Utility\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -847,6 +850,9 @@
     </ClInclude>
     <ClInclude Include="EqSlotUIElement.h">
       <Filter>Header Files\Graphics\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

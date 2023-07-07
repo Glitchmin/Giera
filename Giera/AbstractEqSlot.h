@@ -21,6 +21,6 @@ public:
 	virtual optional<shared_ptr<AbstractItem>> getItem(double x, double y) = 0;
 	virtual unique_ptr <EqSlotUIElement> generateUIElement(rel_pos_t relX, rel_pos_t relY,
 		rel_pos_t relSizeX, rel_pos_t relSizeY, UIElement* parent) = 0;
-	virtual void render(Texture& target);
+	virtual void render(Texture& target, EqSlotUIElement* targetUIEle);
 };
 
