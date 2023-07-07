@@ -1,6 +1,7 @@
 #pragma once
 #include "Texture.h"
 #include "TextureLoader.h"
+#include "Rect.h"
 #include <array>
 #include <vector>
 using std::array;
@@ -12,37 +13,25 @@ typedef int real_pos_t;
 class UIElement
 {
 protected:
-	array<rel_pos_t, 2> relativePos; //relative to the parent
-	array<rel_pos_t, 2> relativeSize; //relative to the parent
-	array<real_pos_t, 2> realPos;
-	array<real_pos_t, 2> realSize;
+	Rect <rel_pos_t> relativePosRect; //relative to the parent
+	Rect <real_pos_t> realPosRect;
 	UIElement* parent;
 	shared_ptr <Texture> texture;
 	vector<unique_ptr<UIElement>> children;
 
 public:
-	UIElement(rel_pos_t relX, rel_pos_t relY, rel_pos_t relSizeX, rel_pos_t relSizeY,
-		shared_ptr<Texture> texture, UIElement* parent);
-	UIElement(real_pos_t realX, real_pos_t realY, real_pos_t realSizeX, real_pos_t realSizeY);
+	UIElement(Rect <rel_pos_t> relativePosRect, shared_ptr<Texture> texture, UIElement* parent);
+	UIElement(Rect <real_pos_t> realPosRect);
 	virtual void render(shared_ptr <Texture>& textureToDrawOn);
 	virtual void addChild(unique_ptr<UIElement> child);
-
-
-    array<rel_pos_t,2> getRelativePos() const;
-    void setRelativePos(array<rel_pos_t,2> relativePos);
-
-    array<rel_pos_t,2> getRelativeSize() const;
-    void setRelativeSize(array<rel_pos_t,2> relativeSize);
-
-    array<real_pos_t,2> getRealPos() const;
-    void setRealPos(array<real_pos_t,2> realPos);
-
-    array<real_pos_t,2> getRealSize() const;
-    void setRealSize(array<real_pos_t,2> realSize);
 
     UIElement* getParent() const;
 
     shared_ptr<Texture> getTexture() const;
+
+	Rect<rel_pos_t> getRelativePosRect() const;
+
+	Rect<real_pos_t> getRealPosRect() const;
 
 };
 

@@ -7,7 +7,7 @@ using std::make_pair;
 using std::make_shared;
 
 Window::Window() :
-	UIElement(0, 0, 800, 640)
+	UIElement(Rect<real_pos_t> (0, 0, 800, 640))
 {
 	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		800, 640, SDL_WINDOW_SHOWN);
