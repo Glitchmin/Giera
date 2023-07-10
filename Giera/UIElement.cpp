@@ -1,18 +1,20 @@
 #include "UIElement.h"
 #include "TextureLoader.h"
 
+using std::make_shared;
+
 UIElement::UIElement(Rect <rel_pos_t> relativePosRect,
 	shared_ptr<Texture> texture, UIElement* parent) :
-	texture(texture), parent(parent), relativePosRect(relativePosRect), 
-	realPosRect ({ (int)(relativePosRect.getPos()[0] * parent->realPosRect.getSize()[0] + realPosRect.getPos()[0]),
+	texture(texture), parent(parent), relativePosRect(relativePosRect),
+	realPosRect({ (int)(relativePosRect.getPos()[0] * parent->realPosRect.getSize()[0] + realPosRect.getPos()[0]),
 		(int)(relativePosRect.getPos()[1] * parent->realPosRect.getSize()[1] + realPosRect.getPos()[1]),
 	(int)(relativePosRect.getSize()[0] * parent->realPosRect.getSize()[0]),
 		(int)(relativePosRect.getSize()[1] * parent->realPosRect.getSize()[1]) })
 {
 }
 
-UIElement::UIElement(Rect <real_pos_t> realPosRect)
-	:parent(nullptr), texture(nullptr), realPosRect(realPosRect), relativePosRect(0,0,0,0)
+UIElement::UIElement(Rect <real_pos_t> realPosRect, shared_ptr<Texture> texture)
+	:parent(nullptr), texture(texture), realPosRect(realPosRect), relativePosRect(0, 0, 0, 0)
 {
 }
 
@@ -34,22 +36,22 @@ void UIElement::addChild(unique_ptr<UIElement> child)
 
 UIElement* UIElement::getParent() const
 {
-    return parent;
+	return parent;
 }
 
 shared_ptr<Texture> UIElement::getTexture() const
 {
-    return texture;
+	return texture;
 }
 
 
 Rect<rel_pos_t> UIElement::getRelativePosRect() const
 {
-    return relativePosRect;
+	return relativePosRect;
 }
 
 Rect<real_pos_t> UIElement::getRealPosRect() const
 {
-    return realPosRect;
+	return realPosRect;
 }
 

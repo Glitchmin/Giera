@@ -5,10 +5,7 @@ EqSlotUIElement::EqSlotUIElement(Rect <rel_pos_t> relRect,
 	UIElement* parent, shared_ptr<AbstractEqSlot> eqSlot)
 	:UIElement(relRect,	nullptr, parent), eqSlot(eqSlot)
 {
-
+	this->texture = TextureLoader::makeUniColorTexture(realPosRect.getSize()[0],
+		realPosRect.getSize()[1], { 0,0,0,0 });
 }
 
-void EqSlotUIElement::render(shared_ptr<Texture>& target)
-{
-	eqSlot->render(*target, this);
-}

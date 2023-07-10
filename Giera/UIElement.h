@@ -21,7 +21,7 @@ protected:
 
 public:
 	UIElement(Rect <rel_pos_t> relativePosRect, shared_ptr<Texture> texture, UIElement* parent);
-	UIElement(Rect <real_pos_t> realPosRect);
+	UIElement(Rect <real_pos_t> realPosRect, shared_ptr<Texture> texture);
 	virtual void render(shared_ptr <Texture>& textureToDrawOn);
 	virtual void addChild(unique_ptr<UIElement> child);
 

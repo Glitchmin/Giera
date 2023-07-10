@@ -14,8 +14,7 @@ public:
     virtual void insertAcceptedItem(double x, double y, shared_ptr<AbstractItem> item) override;
     virtual optional<shared_ptr<AbstractItem>> getItem(double x, double y) override;
     virtual optional<shared_ptr<AbstractItem>> removeItem(double x, double y) override;
-    virtual unique_ptr <EqSlotUIElement> generateUIElement(rel_pos_t relX, rel_pos_t relY,
-        rel_pos_t relSizeX, rel_pos_t relSizeY, UIElement* parent) override;
-    virtual void render(Texture& target, EqSlotUIElement* targetUIEle) override;
+    virtual unique_ptr <EqSlotUIElement> generateUIElement(Rect <rel_pos_t> relRect,
+        UIElement* parent) override;
 };
 
