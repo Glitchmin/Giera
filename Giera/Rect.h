@@ -6,11 +6,13 @@ using std::optional;
 
 template <class T> class Rect {
 protected:
-	array <T, 4> rectangle;
+	array <T, 4> rectangle; //rectangle described as x,y,width, height
 
 public:
 	Rect();
 	Rect(T x, T y, T sizeX, T sizeY);
+
+	bool isPointInside(T x, T y);
 
 	array<T, 4> getRectangle() const;
 	void setRectangle(array<T, 4> rectangle);
@@ -29,6 +31,14 @@ inline Rect<T>::Rect(T x, T y, T sizeX, T sizeY)
 {
 	rectangle = { x,y,sizeX,sizeY };
 }
+
+template<class T>
+inline bool Rect<T>::isPointInside(T x, T y)
+{
+	return (x >= rectangle[0] && x <= rectangle[0] + rectangle[2] &&
+		y >= rectangle[1] && x <= rectangle[1] + rectangle[3]);
+}
+
 template<class T>
 inline Rect<T>::Rect()
 {

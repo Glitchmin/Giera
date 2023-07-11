@@ -1,5 +1,6 @@
 #include "SingleEqSlot.h"
 #include "EqSlotUIElement.h"
+#include "ButtonUI.h"
 
 SingleEqSlot::SingleEqSlot(vector<ItemTypes>& acceptedItemTypes)
 	:AbstractEqSlot(acceptedItemTypes)
@@ -32,8 +33,10 @@ unique_ptr <EqSlotUIElement> SingleEqSlot::generateUIElement(Rect <rel_pos_t> re
 {
 	string textureFilePath = (*item)->getFilePath();
 	auto uiElement = make_unique <EqSlotUIElement>(relRect, parent, shared_from_this());
-	uiElement->addChild(make_unique<UIElement>(relRect,
-		TextureLoader::getTexturePtr(textureFilePath), uiElement.get()));
+	Logger::logInfo("creating UIButton");
+	uiElement->addChild(make_unique<ButtonUI>(relRect,
+		TextureLoader::getTextureCopy(textureFilePath), uiElement.get(),.05));
+
 	return uiElement;
 }
 

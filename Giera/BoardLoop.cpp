@@ -24,7 +24,6 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	board->addNPC(player);
 
 	auto invUI = InventoryUI::createInventoryUI(window, player->getInventory());
-
 	leftMouseButtonPressed = false;
 	player->addDrawableObserver(boardRenderer);
 }
@@ -53,6 +52,12 @@ void BoardLoop::handleInput(Time timeDiff) {
 			leftMouseButtonPressed = true;
 			break;
 		}
+	}
+	if (leftMouseButtonPressed) {
+		int mouseX, mouseY;
+		SDL_GetMouseState(&mouseX, &mouseY);
+		window->handleMouseInput(MouseButtonTypes::LEFT, make_pair(mouseX, mouseY));
+		window->renderUI();
 	}
 	if (!leftMouseButtonPressed) {
 		boardRenderer->getCamera().resetSecondaryTarget();
@@ -107,7 +112,6 @@ void BoardLoop::start()
 					Position(Calculator::getRandomInt(15, 20), 10.7, 0.1),
 					1, 2*Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(),player));
 		}
-
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
 		lastProjectileHandling = generalTimer.getTime();
 		board->calculateProjectiles(projectileTimeDiff);

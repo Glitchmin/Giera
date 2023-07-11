@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "TextureLoader.h"
 #include "Rect.h"
+#include "MouseButtonTypes.h"
 #include <array>
 #include <vector>
 using std::array;
@@ -22,8 +23,9 @@ protected:
 public:
 	UIElement(Rect <rel_pos_t> relativePosRect, shared_ptr<Texture> texture, UIElement* parent);
 	UIElement(Rect <real_pos_t> realPosRect, shared_ptr<Texture> texture);
-	virtual void render(shared_ptr <Texture>& textureToDrawOn);
 	virtual void addChild(unique_ptr<UIElement> child);
+	virtual void render(shared_ptr <Texture>& textureToDrawOn);
+	virtual bool handleMouseInput(MouseButtonTypes mouseButtonType, pair<int,int> pos); //return 1 if input was handled
 
     UIElement* getParent() const;
 

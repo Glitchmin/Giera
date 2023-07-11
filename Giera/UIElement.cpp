@@ -28,6 +28,19 @@ void UIElement::render(shared_ptr <Texture>& textureToDrawOn)
 	texture->draw(*textureToDrawOn, srcRect, dstRect);
 }
 
+bool UIElement::handleMouseInput(MouseButtonTypes mouseButtonType, pair<int, int> pos)
+{
+	if (!realPosRect.isPointInside(pos.first, pos.second)) {
+		return false;
+	}
+	for (auto& child : children) {
+		if (child->handleMouseInput(mouseButtonType, pos)) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void UIElement::addChild(unique_ptr<UIElement> child)
 {
 	children.push_back(std::move(child));

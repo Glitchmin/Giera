@@ -465,6 +465,9 @@
     <ClCompile Include="Rect.cpp">
       <Filter>Source Files\Utility\Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonUI.cpp">
+      <Filter>Source Files\Graphics\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -853,6 +856,12 @@
     </ClInclude>
     <ClInclude Include="Rect.h">
       <Filter>Header Files\Utility\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseButtonTypes.h">
+      <Filter>Header Files\GameControl</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonUI.h">
+      <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
