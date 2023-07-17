@@ -7,7 +7,7 @@ using std::make_pair;
 using std::make_shared;
 
 Window::Window() :
-	UIElement(Rect<real_pos_t> (0, 0, 800, 640), 
+	UIElement(Rect<px_pos_t> (0, 0, 800, 640), 
 		nullptr)
 {
 	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
@@ -22,6 +22,7 @@ Window::Window() :
 		TextureLoader::setRenderer(renderer);
 		Texture::setRenderer(renderer);
 		texture = TextureLoader::makeUniColorTexture(800, 640, { 0,0,0,0 });
+
 	}
 }
 
@@ -80,7 +81,6 @@ void Window::renderUI()
 		child->render(texture);
 	}
 	auto screenTexture = make_shared<Texture>();
-	texture->draw(*screenTexture, { 0,0,texture->getSize().first, texture->getSize().second },
-		{ 0,0,getSize().first, getSize().second });
+	texture->draw(*screenTexture,nullopt, nullopt);
 }
 

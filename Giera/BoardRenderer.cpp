@@ -42,9 +42,9 @@ void BoardRenderer::drawBoard(Time timeDiff)
 		}
 
 		Texture generalTexture(NULL);
-		layerTexture->draw(generalTexture, { (int)(camera.getLeftUpperPosition().getX() * pixelsPerMeter)
-			,(int)(camera.getLeftUpperPosition().getY() * pixelsPerMeter),window->getSize().first, window->getSize().second },
-			{ 0,0,window->getSize().first, window->getSize().second });
+		layerTexture->draw(generalTexture, (SDL_Rect{ (int)(camera.getLeftUpperPosition().getX() * pixelsPerMeter)
+			,(int)(camera.getLeftUpperPosition().getY() * pixelsPerMeter),window->getSize().first, window->getSize().second }),
+			(SDL_Rect{ 0,0,window->getSize().first, window->getSize().second }));
 	}
 }
 

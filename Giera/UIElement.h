@@ -9,31 +9,44 @@ using std::array;
 using std::vector;
 using std::unique_ptr;
 
-typedef float rel_pos_t;
-typedef int real_pos_t;
+typedef int px_pos_t; //pixel position
+typedef float fr_pos_t; //proportional position using fraction, relative to the parent
 class UIElement
 {
 protected:
-	Rect <rel_pos_t> relativePosRect; //relative to the parent
-	Rect <real_pos_t> realPosRect;
+	Rect <fr_pos_t> frRelPosRect; //relative to the parent
+	Rect <px_pos_t> pxRealPosRect; //position on screen in pixels
 	UIElement* parent;
+	shared_ptr <Texture> image;
 	shared_ptr <Texture> texture;
 	vector<unique_ptr<UIElement>> children;
 
 public:
-	UIElement(Rect <rel_pos_t> relativePosRect, shared_ptr<Texture> texture, UIElement* parent);
-	UIElement(Rect <real_pos_t> realPosRect, shared_ptr<Texture> texture);
+	enum class MouseEventTypes {
+		HOVER,
+		PRESS_LEFT,
+		RELEASE_LEFT,
+		PRESS_RIGHT,
+		RELEASE_RIGHT,
+		MOUSE_SCROLL_UP,
+		MOUSE_SCROLL_DOWN,
+		COUNT
+	};
+
+	UIElement(Rect <fr_pos_t> frRelPosRect, shared_ptr<Texture> image, UIElement* parent);
+	UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image);
 	virtual void addChild(unique_ptr<UIElement> child);
 	virtual void render(shared_ptr <Texture>& textureToDrawOn);
-	virtual bool handleMouseInput(MouseButtonTypes mouseButtonType, pair<int,int> pos); //return 1 if input was handled
+	virtual void handleMouseInput(MouseEventTypes mouseEventType, pair<int,int> pos, Time timeDiff);
 
     UIElement* getParent() const;
 
     shared_ptr<Texture> getTexture() const;
 
-	Rect<rel_pos_t> getRelativePosRect() const;
+	Rect<fr_pos_t> getFractionalRelativePosRect() const;
+	Rect<px_pos_t> getPixelRelativePosRect() const;
 
-	Rect<real_pos_t> getRealPosRect() const;
+	Rect<px_pos_t> getPixelRealPosRect() const;
 
 };
 

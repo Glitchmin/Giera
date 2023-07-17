@@ -36,7 +36,7 @@ template<class T>
 inline bool Rect<T>::isPointInside(T x, T y)
 {
 	return (x >= rectangle[0] && x <= rectangle[0] + rectangle[2] &&
-		y >= rectangle[1] && x <= rectangle[1] + rectangle[3]);
+		y >= rectangle[1] && y <= rectangle[1] + rectangle[3]);
 }
 
 template<class T>

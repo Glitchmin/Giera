@@ -9,6 +9,6 @@ class EqSlotUIElement :
 protected:
     shared_ptr <AbstractEqSlot> eqSlot;
 public:
-    EqSlotUIElement(Rect <rel_pos_t> relRect, UIElement* parent, shared_ptr <AbstractEqSlot> eqSlot);
+    EqSlotUIElement(Rect <fr_pos_t> relRect, UIElement* parent, shared_ptr <AbstractEqSlot> eqSlot);
 };
 

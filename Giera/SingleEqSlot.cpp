@@ -29,7 +29,7 @@ optional<shared_ptr<AbstractItem>> SingleEqSlot::removeItem(double x, double y)
 	return tmpItem;
 }
 
-unique_ptr <EqSlotUIElement> SingleEqSlot::generateUIElement(Rect <rel_pos_t> relRect, UIElement* parent)
+unique_ptr <EqSlotUIElement> SingleEqSlot::generateUIElement(Rect <fr_pos_t> relRect, UIElement* parent)
 {
 	string textureFilePath = (*item)->getFilePath();
 	auto uiElement = make_unique <EqSlotUIElement>(relRect, parent, shared_from_this());

@@ -53,12 +53,14 @@ void BoardLoop::handleInput(Time timeDiff) {
 			break;
 		}
 	}
-	if (leftMouseButtonPressed) {
-		int mouseX, mouseY;
-		SDL_GetMouseState(&mouseX, &mouseY);
-		window->handleMouseInput(MouseButtonTypes::LEFT, make_pair(mouseX, mouseY));
-		window->renderUI();
+
+	int mouseX, mouseY;
+	SDL_GetMouseState(&mouseX, &mouseY);
+	window->handleMouseInput(UIElement::MouseEventTypes::HOVER, make_pair(mouseX, mouseY), timeDiff);
+	if (leftMouseButtonPressed){
+		window->handleMouseInput(UIElement::MouseEventTypes::PRESS_LEFT, make_pair(mouseX, mouseY), timeDiff);
 	}
+	
 	if (!leftMouseButtonPressed) {
 		boardRenderer->getCamera().resetSecondaryTarget();
 	}

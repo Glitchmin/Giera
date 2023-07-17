@@ -3,42 +3,40 @@
 
 using std::make_shared;
 
-UIElement::UIElement(Rect <rel_pos_t> relativePosRect,
-	shared_ptr<Texture> texture, UIElement* parent) :
-	texture(texture), parent(parent), relativePosRect(relativePosRect),
-	realPosRect({ (int)(relativePosRect.getPos()[0] * parent->realPosRect.getSize()[0] + realPosRect.getPos()[0]),
-		(int)(relativePosRect.getPos()[1] * parent->realPosRect.getSize()[1] + realPosRect.getPos()[1]),
-	(int)(relativePosRect.getSize()[0] * parent->realPosRect.getSize()[0]),
-		(int)(relativePosRect.getSize()[1] * parent->realPosRect.getSize()[1]) })
+UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
+	shared_ptr<Texture> image, UIElement* parent) :
+	image(image), parent(parent), frRelPosRect(frRelPosRect),
+	pxRealPosRect({ (int)(frRelPosRect.getPos()[0] * parent->pxRealPosRect.getSize()[0] + parent->pxRealPosRect.getPos()[0]),
+		(int)(frRelPosRect.getPos()[1] * parent->pxRealPosRect.getSize()[1] + parent->pxRealPosRect.getPos()[1]),
+	(int)(frRelPosRect.getSize()[0] * parent->pxRealPosRect.getSize()[0]),
+		(int)(frRelPosRect.getSize()[1] * parent->pxRealPosRect.getSize()[1]) })
 {
+	texture = TextureLoader::makeUniColorTexture(pxRealPosRect.getSize()[0], pxRealPosRect.getSize()[1], { 0,0,0,0 });
 }
 
-UIElement::UIElement(Rect <real_pos_t> realPosRect, shared_ptr<Texture> texture)
-	:parent(nullptr), texture(texture), realPosRect(realPosRect), relativePosRect(0, 0, 0, 0)
+UIElement::UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image)
+	:parent(nullptr), image(image), pxRealPosRect(pxRealPosRect), frRelPosRect(0, 0, 0, 0)
 {
 }
 
 void UIElement::render(shared_ptr <Texture>& textureToDrawOn)
 {
+	texture->fillWithColor({ 0,0,0,0 });
+	if (image != nullptr) {
+		image->draw(*texture, nullopt, nullopt);
+	}
 	for (auto& child : children) {
 		child->render(texture);
 	}
-	SDL_Rect dstRect = realPosRect.turnToSDL_Rect();
-	SDL_Rect srcRect{ 0,0, texture->getSize().first, texture->getSize().second };
-	texture->draw(*textureToDrawOn, srcRect, dstRect);
+	SDL_Rect dstRect = getPixelRelativePosRect().turnToSDL_Rect();
+	texture->draw(*textureToDrawOn, nullopt, dstRect);
 }
 
-bool UIElement::handleMouseInput(MouseButtonTypes mouseButtonType, pair<int, int> pos)
+void UIElement::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
-	if (!realPosRect.isPointInside(pos.first, pos.second)) {
-		return false;
-	}
 	for (auto& child : children) {
-		if (child->handleMouseInput(mouseButtonType, pos)) {
-			return true;
-		}
+		child->handleMouseInput(mouseEventType, pos, timeDiff);
 	}
-	return false;
 }
 
 void UIElement::addChild(unique_ptr<UIElement> child)
@@ -57,14 +55,22 @@ shared_ptr<Texture> UIElement::getTexture() const
 	return texture;
 }
 
-
-Rect<rel_pos_t> UIElement::getRelativePosRect() const
+Rect<fr_pos_t> UIElement::getFractionalRelativePosRect() const
 {
-	return relativePosRect;
+	return frRelPosRect;
 }
 
-Rect<real_pos_t> UIElement::getRealPosRect() const
+Rect<px_pos_t> UIElement::getPixelRelativePosRect() const
 {
-	return realPosRect;
+	return {pxRealPosRect.getPos()[0]-parent->pxRealPosRect.getPos()[0],
+	pxRealPosRect.getPos()[1] - parent->pxRealPosRect.getPos()[1],
+	pxRealPosRect.getSize()[0],pxRealPosRect.getSize()[1]};
 }
+
+Rect<px_pos_t> UIElement::getPixelRealPosRect() const
+{
+	return pxRealPosRect;
+}
+
+
 

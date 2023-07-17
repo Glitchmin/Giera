@@ -1,45 +1,50 @@
 #include "ButtonUI.h"
 using std::min;
+using std::max;
 
-ButtonUI::ButtonUI(Rect<rel_pos_t> relativePosRect, shared_ptr<Texture> texture, UIElement* parent, double relativeEdgeThickness)
+ButtonUI::ButtonUI(Rect<fr_pos_t> relativePosRect, shared_ptr<Texture> texture, UIElement* parent, double relativeEdgeThickness)
 	:UIElement(relativePosRect, texture, parent), relativeEdgeThickness(relativeEdgeThickness), edgeTransparency(0)
 {
-	edgesTexture = 
-		TextureLoader::makeUniColorTexture(realPosRect.getSize()[0], realPosRect.getSize()[1], { 0,0,0,0 });
-	fillEdgesTexture();
-	
+
 }
 
-void ButtonUI::fillEdgesTexture()
+void ButtonUI::drawEdges(shared_ptr<Texture>& texture)
 {
-	int edgeSize = (relativeEdgeThickness * realPosRect.getSize()[1] +
-		relativeEdgeThickness * realPosRect.getSize()[0] + 1) / 2;
-	SDL_SetRenderTarget(Texture::getRenderer(), edgesTexture->getTexture());
-	SDL_SetRenderDrawColor(Texture::getRenderer(), 255, 255, 255, 255);
-	int texSizeX = edgesTexture->getSize().first;
-	int texSizeY = edgesTexture->getSize().second;
+	int edgeSize = (relativeEdgeThickness * pxRealPosRect.getSize()[1] +
+		relativeEdgeThickness * pxRealPosRect.getSize()[0] + 1) / 2;
+	SDL_SetRenderTarget(Texture::getRenderer(), texture->getTexture());
+	SDL_SetRenderDrawColor(Texture::getRenderer(), 255, 255, 255, edgeTransparency);
+	int x = pxRealPosRect.getPos()[0] - parent->getPixelRealPosRect().getPos()[0];
+	int y = pxRealPosRect.getPos()[1] - parent->getPixelRealPosRect().getPos()[1];
+	int Sx = pxRealPosRect.getSize()[0];
+	int Sy = pxRealPosRect.getSize()[1];
 	for (int i = 0; i < edgeSize;i++) {
-		SDL_RenderDrawLine(Texture::getRenderer(), i, 0, i, texSizeY);
-		SDL_RenderDrawLine(Texture::getRenderer(), texSizeX - i, 0, texSizeX - i, texSizeY);
-		SDL_RenderDrawLine(Texture::getRenderer(), 0, i, texSizeX, i);
-		SDL_RenderDrawLine(Texture::getRenderer(), 0, texSizeY - i, texSizeX, texSizeY - i);
+		SDL_RenderDrawLine(Texture::getRenderer(), x + i, y, x + i, y + Sy);
+		SDL_RenderDrawLine(Texture::getRenderer(), x + Sx - i, y, x + Sx - i, y + Sy);
+		SDL_RenderDrawLine(Texture::getRenderer(), x, y + i, x + Sx, y + i);
+		SDL_RenderDrawLine(Texture::getRenderer(), x, y + Sy - i, x + Sx, Sy - i);
 	}
 }
 
-bool ButtonUI::handleMouseInput(MouseButtonTypes mouseButtonType, pair<int, int> pos)
+void ButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
-	edgeTransparency+=5;
-	Logger::logWarning("tmp", edgeTransparency);
-	return true;
+	if (pxRealPosRect.isPointInside(pos.first, pos.second)) {
+		edgeTransparency += timeDiff.getTimeMs();
+		edgeTransparency = min(edgeTransparency, maxEdgeTransparency);
+		if (mouseEventType == MouseEventTypes::PRESS_LEFT) {
+			Logger::logInfo("button pressed");
+		}
+	}
+	else {
+		edgeTransparency -= timeDiff.getTimeMs();
+		edgeTransparency = max(edgeTransparency, 0);
+	}
 }
 
 void ButtonUI::render(shared_ptr<Texture>& textureToDrawOn)
 {
 	UIElement::render(textureToDrawOn);
-	SDL_SetTextureAlphaMod(edgesTexture->getTexture(),min(edgeTransparency, maxEdgeTransparency));
-	edgesTexture->draw(*textureToDrawOn, { 0,0,edgesTexture->getSize().first, edgesTexture->getSize().second },
-		{ 0,0,realPosRect.getSize()[0],realPosRect.getSize()[1]});
-
+	drawEdges(textureToDrawOn);
 }
 
 
