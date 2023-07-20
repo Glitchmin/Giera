@@ -4,12 +4,12 @@
 
 using std::make_shared;
 
-shared_ptr<Texture> TextureLoader::getTexturePtr(string& textureName)
+shared_ptr<Texture> TextureLoader::getTexturePtr(string_view textureName)
 {
 	return loadTexture(textureName);
 }
 
-shared_ptr<Texture> TextureLoader::getTextureCopy(string& textureName)
+shared_ptr<Texture> TextureLoader::getTextureCopy(string_view textureName)
 {
 	int h, w;
 	SDL_QueryTexture(loadTexture(textureName)->getTexture(), NULL, NULL, &w, &h);
@@ -31,12 +31,12 @@ shared_ptr<Texture> TextureLoader::getTextureCopy(string& textureName)
 	return make_shared<Texture>(newCopy);
 }
 
-shared_ptr <Texture> TextureLoader::loadTexture(string& textureName)
+shared_ptr <Texture> TextureLoader::loadTexture(string_view textureName)
 {
-	if (textureMap.find(textureName) != textureMap.end()) {
-		return textureMap[textureName];
+	if (textureMap.find(textureName.data()) != textureMap.end()) {
+		return textureMap[textureName.data()];
 	}
-	SDL_Surface* surface = IMG_Load(textureName.c_str());
+	SDL_Surface* surface = IMG_Load(textureName.data());
 	if (surface == NULL) {
 		Logger::logError("couldn't find ", std::filesystem::absolute(textureName));
 	}
@@ -49,7 +49,7 @@ shared_ptr <Texture> TextureLoader::loadTexture(string& textureName)
 	SDL_SetTextureBlendMode(newSDLTexture, SDL_BLENDMODE_BLEND);
 	SDL_FreeSurface(surface);
 	auto texture = make_shared<Texture>(newSDLTexture);
-	textureMap[textureName] = texture;
+	textureMap[textureName.data()] = texture;
 	return texture;
 }
 

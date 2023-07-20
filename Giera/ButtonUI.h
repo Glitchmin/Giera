@@ -4,7 +4,6 @@ class ButtonUI :
     public UIElement
 {
 protected:
-    shared_ptr <Texture> edgesTexture;
     double relativeEdgeThickness;
     int edgeTransparency;
     static inline int maxEdgeTransparency = 128;

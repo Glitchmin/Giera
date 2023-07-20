@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Header Files\Utility">
       <UniqueIdentifier>{ea9fee92-cd8e-45fc-831f-1e8083312ea2}</UniqueIdentifier>
     </Filter>
@@ -168,6 +164,10 @@
     </Filter>
     <Filter Include="Source Files\Graphics\UI">
       <UniqueIdentifier>{07523e50-9272-4831-ad01-155a34477ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -467,6 +467,12 @@
     </ClCompile>
     <ClCompile Include="ButtonUI.cpp">
       <Filter>Source Files\Graphics\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryButtonUI.cpp">
+      <Filter>Source Files\Graphics\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryInputHandler.cpp">
+      <Filter>Source Files\GameControl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -862,6 +868,12 @@
     </ClInclude>
     <ClInclude Include="ButtonUI.h">
       <Filter>Header Files\Graphics\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryButtonUI.h">
+      <Filter>Header Files\Graphics\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryInputHandler.h">
+      <Filter>Header Files\GameControl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

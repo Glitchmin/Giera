@@ -1,6 +1,6 @@
 #include "SingleEqSlot.h"
 #include "EqSlotUIElement.h"
-#include "ButtonUI.h"
+#include "InventoryButtonUI.h"
 
 SingleEqSlot::SingleEqSlot(vector<ItemTypes>& acceptedItemTypes)
 	:AbstractEqSlot(acceptedItemTypes)
@@ -29,14 +29,12 @@ optional<shared_ptr<AbstractItem>> SingleEqSlot::removeItem(double x, double y)
 	return tmpItem;
 }
 
-unique_ptr <EqSlotUIElement> SingleEqSlot::generateUIElement(Rect <fr_pos_t> relRect, UIElement* parent)
+unique_ptr <EqSlotUIElement> SingleEqSlot::generateUIElement(Rect <fr_pos_t> relRect, UIElement* parent,
+	shared_ptr <InventoryInputHandler> inventoryInputHandler)
 {
-	string textureFilePath = (*item)->getFilePath();
 	auto uiElement = make_unique <EqSlotUIElement>(relRect, parent, shared_from_this());
-	Logger::logInfo("creating UIButton");
-	uiElement->addChild(make_unique<ButtonUI>(relRect,
-		TextureLoader::getTextureCopy(textureFilePath), uiElement.get(),.05));
-
+	relRect.setSize(1, 1);
+	uiElement->addChild(make_unique<InventoryButtonUI>(relRect, item.value(), uiElement.get(),.05, inventoryInputHandler));
 	return uiElement;
 }
 

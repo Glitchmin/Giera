@@ -11,6 +11,7 @@ UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
 	(int)(frRelPosRect.getSize()[0] * parent->pxRealPosRect.getSize()[0]),
 		(int)(frRelPosRect.getSize()[1] * parent->pxRealPosRect.getSize()[1]) })
 {
+	Logger::logInfo(frRelPosRect.getSize()[0] , parent->pxRealPosRect.getSize()[0],frRelPosRect.getSize()[0] * parent->pxRealPosRect.getSize()[0]);
 	texture = TextureLoader::makeUniColorTexture(pxRealPosRect.getSize()[0], pxRealPosRect.getSize()[1], { 0,0,0,0 });
 }
 

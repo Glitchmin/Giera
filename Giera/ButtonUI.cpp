@@ -22,7 +22,7 @@ void ButtonUI::drawEdges(shared_ptr<Texture>& texture)
 		SDL_RenderDrawLine(Texture::getRenderer(), x + i, y, x + i, y + Sy);
 		SDL_RenderDrawLine(Texture::getRenderer(), x + Sx - i, y, x + Sx - i, y + Sy);
 		SDL_RenderDrawLine(Texture::getRenderer(), x, y + i, x + Sx, y + i);
-		SDL_RenderDrawLine(Texture::getRenderer(), x, y + Sy - i, x + Sx, Sy - i);
+		SDL_RenderDrawLine(Texture::getRenderer(), x, y + Sy - i, x + Sx, y + Sy - i);
 	}
 }
 

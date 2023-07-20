@@ -194,6 +194,8 @@
     <ClCompile Include="HittableBoardEntity.cpp" />
     <ClCompile Include="InputConfig.cpp" />
     <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="InventoryButtonUI.cpp" />
+    <ClCompile Include="InventoryInputHandler.cpp" />
     <ClCompile Include="InventoryUI.cpp" />
     <ClCompile Include="ItemSpawner.cpp" />
     <ClCompile Include="Lifesteal.cpp" />
@@ -299,6 +301,8 @@
     <ClInclude Include="EqSlotTypes.h" />
     <ClInclude Include="EqSlotUIElement.h" />
     <ClInclude Include="FigureTypes.h" />
+    <ClInclude Include="InventoryButtonUI.h" />
+    <ClInclude Include="InventoryInputHandler.h" />
     <ClInclude Include="MouseButtonTypes.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="HittableBoardEntity.h" />
