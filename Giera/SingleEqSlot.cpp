@@ -34,7 +34,8 @@ unique_ptr <EqSlotUIElement> SingleEqSlot::generateUIElement(Rect <fr_pos_t> rel
 {
 	auto uiElement = make_unique <EqSlotUIElement>(relRect, parent, shared_from_this());
 	relRect.setSize(1, 1);
-	uiElement->addChild(make_unique<InventoryButtonUI>(relRect, item.value(), uiElement.get(),.05, inventoryInputHandler));
+	relRect.setPos(0, 0);
+	uiElement->addChild(make_unique<InventoryButtonUI>(relRect, item.value(), uiElement.get(), .05, inventoryInputHandler));
 	return uiElement;
 }
 

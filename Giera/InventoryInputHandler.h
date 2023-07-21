@@ -11,7 +11,6 @@ protected:
 public:
 	InventoryInputHandler(shared_ptr <Inventory> inventory);
 
-
     shared_ptr<AbstractItem> getSelectedItem() const;
     void setSelectedItem(shared_ptr<AbstractItem> selectedItem);
 

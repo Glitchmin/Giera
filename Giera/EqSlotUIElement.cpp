@@ -7,3 +7,9 @@ EqSlotUIElement::EqSlotUIElement(Rect <fr_pos_t> relRect,
 {
 }
 
+
+shared_ptr<AbstractEqSlot> EqSlotUIElement::getEqSlot() const
+{
+    return eqSlot;
+}
+

@@ -25,6 +25,7 @@ Player::Player() : AbstractNPC()
 		slots[i] = make_shared<SingleEqSlot>(itemTypes);
 		slots[i]->insertAcceptedItem(0, 0, BaseItemHandler::generate<Food>(ItemTypes::FOOD, 0));
 	}
+	slots[1]->insertAcceptedItem(0, 0, BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0));
 	inventory = make_shared<Inventory>(slots);
 }
 

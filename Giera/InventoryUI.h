@@ -12,10 +12,12 @@ class InventoryUI :
 protected:
     shared_ptr <Inventory> inventory;
     vector <shared_ptr <EqSlotUIElement>> uiElements;
+    shared_ptr <InventoryInputHandler> inventoryInputHandler;
 public:
     InventoryUI(shared_ptr <Window> window, shared_ptr <Inventory> inventory,
        shared_ptr <InventoryInputHandler> inventoryInputHandler);
     static InventoryUI* createInventoryUI(
         shared_ptr <Window> window, shared_ptr <Inventory> inventory);
+    virtual void render(shared_ptr <Texture>& textureToDrawOn);
 };
 
