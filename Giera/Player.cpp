@@ -23,8 +23,8 @@ Player::Player() : AbstractNPC()
 	array<shared_ptr<AbstractEqSlot>, (int)EqSlotTypes::COUNT> slots;
 	for (int i = 0; i < (int)EqSlotTypes::COUNT;i++) {
 		slots[i] = make_shared<SingleEqSlot>(itemTypes);
-		slots[i]->insertAcceptedItem(0, 0, BaseItemHandler::generate<Food>(ItemTypes::FOOD, 0));
 	}
+	slots[0]->insertAcceptedItem(0, 0, BaseItemHandler::generate<Food>(ItemTypes::FOOD, 0));
 	slots[1]->insertAcceptedItem(0, 0, BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0));
 	inventory = make_shared<Inventory>(slots);
 }

@@ -20,6 +20,7 @@ protected:
 	shared_ptr <Texture> image;
 	shared_ptr <Texture> texture;
 	vector<unique_ptr<UIElement>> children;
+	bool updateNeeded = 1;
 
 public:
 	enum class MouseEventTypes {
@@ -40,7 +41,10 @@ public:
 	virtual void handleMouseInput(MouseEventTypes mouseEventType, pair<int,int> pos, Time timeDiff);
 
     UIElement* getParent() const;
+	virtual const vector<unique_ptr<UIElement>>& getChildren();
+	virtual void clearChildren();
 
+	void needsUpdate();
     shared_ptr<Texture> getTexture() const;
 
 	Rect<fr_pos_t> getFractionalRelativePosRect() const;

@@ -22,5 +22,7 @@ public:
 	virtual optional<shared_ptr<AbstractItem>> getItem(double x, double y) = 0;
 	virtual unique_ptr <EqSlotUIElement> generateUIElement(Rect <fr_pos_t> relRect,
 		UIElement* parent, shared_ptr <InventoryInputHandler> inventoryInputHandler) = 0;
+	virtual void updateUIElementItems(EqSlotUIElement* eqSlotUIElement,
+		shared_ptr <InventoryInputHandler> inventoryInputHandler) = 0;
 };
 

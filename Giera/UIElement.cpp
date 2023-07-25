@@ -22,12 +22,15 @@ UIElement::UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image)
 
 void UIElement::render(shared_ptr <Texture>& textureToDrawOn)
 {
-	texture->fillWithColor({ 0,0,0,0 });
-	if (image != nullptr) {
-		image->draw(*texture, nullopt, nullopt);
-	}
-	for (auto& child : children) {
-		child->render(texture);
+	if (updateNeeded) {
+		updateNeeded = 0;
+		texture->fillWithColor({ 0,0,0,0 });
+		if (image != nullptr) {
+			image->draw(*texture, nullopt, nullopt);
+		}
+		for (auto& child : children) {
+			child->render(texture);
+		}
 	}
 	SDL_Rect dstRect = getPixelRelativePosRect().turnToSDL_Rect();
 	texture->draw(*textureToDrawOn, nullopt, dstRect);
@@ -45,10 +48,29 @@ void UIElement::addChild(unique_ptr<UIElement> child)
 	children.push_back(std::move(child));
 }
 
+const vector<unique_ptr<UIElement>>& UIElement::getChildren()
+{
+	return children;
+}
+
+void UIElement::clearChildren()
+{
+	children.clear();
+}
+
 
 UIElement* UIElement::getParent() const
 {
 	return parent;
+}
+
+void UIElement::needsUpdate()
+{
+	if (parent == nullptr) {
+		return;
+	}
+	updateNeeded = 1;
+	parent->needsUpdate();
 }
 
 shared_ptr<Texture> UIElement::getTexture() const

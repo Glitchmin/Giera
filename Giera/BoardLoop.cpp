@@ -24,12 +24,22 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	board->addNPC(player);
 
 	auto invUI = InventoryUI::createInventoryUI(window, player->getInventory());
-	leftMouseButtonPressed = false;
+	for (int i = 0; i < (int)MouseButtonTypes::COUNT;i++) {
+		mouseButtonStates[i] = MouseButtonStateTypes::NOT_PRESSED;
+	}
 	player->addDrawableObserver(boardRenderer);
 }
 
 void BoardLoop::handleInput(Time timeDiff) {
 	SDL_Event event;
+	for (int i = 0; i < (int)MouseButtonTypes::COUNT;i++) {
+		if (mouseButtonStates[i] == MouseButtonStateTypes::JUST_PRESSED) {
+			mouseButtonStates[i] = MouseButtonStateTypes::PRESSED;
+		}
+		if (mouseButtonStates[i] == MouseButtonStateTypes::JUST_RELEASED) {
+			mouseButtonStates[i] = MouseButtonStateTypes::NOT_PRESSED;
+		}
+	}
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 		case SDL_QUIT:
@@ -44,12 +54,16 @@ void BoardLoop::handleInput(Time timeDiff) {
 			keySet.erase(event.key.keysym.scancode);
 			break;
 		case SDL_MOUSEBUTTONUP:
-			Logger::logInfo((int)event.button.button, " button up");
-			leftMouseButtonPressed = false;
-			break;
+		{Logger::logInfo((int)event.button.button, " button up");
+		int buttonUpID = event.button.button == 1 ?
+			(int)MouseButtonTypes::LEFT : (int)MouseButtonTypes::RIGHT;
+		mouseButtonStates[buttonUpID] = MouseButtonStateTypes::JUST_RELEASED;}
+		break;
 		case SDL_MOUSEBUTTONDOWN:
-			Logger::logInfo((int)event.button.button, " button down");
-			leftMouseButtonPressed = true;
+		{Logger::logInfo((int)event.button.button, " button down");
+		int buttonDownID = event.button.button == 1 ?
+			(int)MouseButtonTypes::LEFT : (int)MouseButtonTypes::RIGHT;
+		mouseButtonStates[buttonDownID] = MouseButtonStateTypes::JUST_PRESSED;}
 			break;
 		}
 	}
@@ -57,11 +71,15 @@ void BoardLoop::handleInput(Time timeDiff) {
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
 	window->handleMouseInput(UIElement::MouseEventTypes::HOVER, make_pair(mouseX, mouseY), timeDiff);
-	if (leftMouseButtonPressed){
+	Logger::logInfo("mouse", (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::JUST_PRESSED));
+	if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::JUST_PRESSED) {
 		window->handleMouseInput(UIElement::MouseEventTypes::PRESS_LEFT, make_pair(mouseX, mouseY), timeDiff);
 	}
-	
-	if (!leftMouseButtonPressed) {
+	if (mouseButtonStates[(int)MouseButtonTypes::RIGHT] == MouseButtonStateTypes::JUST_PRESSED) {
+		window->handleMouseInput(UIElement::MouseEventTypes::PRESS_RIGHT, make_pair(mouseX, mouseY), timeDiff);
+	}
+
+	if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::NOT_PRESSED) {
 		boardRenderer->getCamera().resetSecondaryTarget();
 	}
 	else {
@@ -102,7 +120,7 @@ void BoardLoop::start()
 	Time lastInputHandling(generalTimer.getTime());
 	Time lastProjectileHandling(generalTimer.getTime());
 
-	
+
 
 	while (loopGoing) {
 		Time inputTimeDiff = generalTimer.getTime() - lastInputHandling;
@@ -112,12 +130,12 @@ void BoardLoop::start()
 			board->addProjectile(make_shared <SpellProjectile>(
 				make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
 					Position(Calculator::getRandomInt(15, 20), 10.7, 0.1),
-					1, 2*Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(),player));
+					1, 2 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), player));
 		}
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
 		lastProjectileHandling = generalTimer.getTime();
 		board->calculateProjectiles(projectileTimeDiff);
-		
+
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
 			Time renderTimeDiff = generalTimer.getTime() - lastGraphicUpdate;
 			lastGraphicUpdate = generalTimer.getTime();

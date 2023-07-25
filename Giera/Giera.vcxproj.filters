@@ -875,5 +875,8 @@
     <ClInclude Include="InventoryInputHandler.h">
       <Filter>Header Files\GameControl</Filter>
     </ClInclude>
+    <ClInclude Include="MouseButtonStateTypes.h">
+      <Filter>Header Files\GameControl</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

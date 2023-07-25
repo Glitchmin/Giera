@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Window.h"
 #include "InputConfig.h"
+#include "MouseButtonStateTypes.h"
 #include <set>
 using std::set;
 
@@ -17,11 +18,11 @@ public:
 protected:
 	shared_ptr<Board> board;
 	set <SDL_Scancode> keySet;
+	array<MouseButtonStateTypes, (int)MouseButtonTypes::COUNT> mouseButtonStates;
 	shared_ptr<InputConfig> inputConfig;
 	shared_ptr<Window> window;
 	shared_ptr<BoardRenderer> boardRenderer;
 	shared_ptr<Player> player;
-	bool leftMouseButtonPressed;
 	void handleInput(Time timeDiff);
 };
 

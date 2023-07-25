@@ -16,5 +16,7 @@ public:
     virtual optional<shared_ptr<AbstractItem>> removeItem(double x, double y) override;
     virtual unique_ptr <EqSlotUIElement> generateUIElement(Rect <fr_pos_t> relRect,
         UIElement* parent, shared_ptr <InventoryInputHandler> inventoryInputHandler) override;
+    virtual void updateUIElementItems(EqSlotUIElement* eqSlotUIElement, 
+        shared_ptr <InventoryInputHandler> inventoryInputHandler) override;
 };
 
