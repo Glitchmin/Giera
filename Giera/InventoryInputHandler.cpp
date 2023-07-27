@@ -1,6 +1,6 @@
 #include "InventoryInputHandler.h"
 #include "AbstractEqSlot.h"
-#include "EqSlotUIElement.h"
+#include "InventoryButtonUI.h"
 
 InventoryInputHandler::InventoryInputHandler(shared_ptr<Inventory> inventory):
 	inventory (inventory)
@@ -9,9 +9,17 @@ InventoryInputHandler::InventoryInputHandler(shared_ptr<Inventory> inventory):
 
 void InventoryInputHandler::removeSelectedItem()
 {
-    selectedEqSlotUI->getEqSlot()->removeItem(0, 0);
+    ((EqSlotUIElement*)selectedInventoryButtonUI->getParent())
+        ->getEqSlot()->removeItem(0, 0);
     selectedItem = nullptr;
-    selectedEqSlotUI = nullptr;
+    selectedInventoryButtonUI = nullptr;
+}
+
+void InventoryInputHandler::resetSelectedItem()
+{
+    selectedItem = nullptr;
+    selectedInventoryButtonUI->resetItemAlpha();
+    selectedInventoryButtonUI = nullptr;
 }
 
 shared_ptr<AbstractItem> InventoryInputHandler::getSelectedItem() const
@@ -24,13 +32,15 @@ void InventoryInputHandler::setSelectedItem(shared_ptr<AbstractItem> selectedIte
     this->selectedItem = selectedItem;
 }
 
-EqSlotUIElement* InventoryInputHandler::getSelectedEqSlotUI() const
+
+
+InventoryButtonUI* InventoryInputHandler::getSelectedInventoryButtonUI() const
 {
-    return selectedEqSlotUI;
+    return selectedInventoryButtonUI;
 }
 
-void InventoryInputHandler::setSelectedEqSlotUI(EqSlotUIElement* selectedEqSlotUI)
+void InventoryInputHandler::setSelectedInventoryButtonUI(InventoryButtonUI* selectedInventoryButtonUI)
 {
-    this->selectedEqSlotUI = selectedEqSlotUI;
+    this->selectedInventoryButtonUI = selectedInventoryButtonUI;
 }
 

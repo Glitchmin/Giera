@@ -42,6 +42,8 @@ void InventoryUI::render(shared_ptr<Texture>& textureToDrawOn)
 
 void InventoryUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
-	//inventoryInputHandler->resetSelectedItem();
+	if (mouseEventType == MouseEventTypes::PRESS_RIGHT) {
+		inventoryInputHandler->resetSelectedItem();
+	}
 	UIElement::handleMouseInput(mouseEventType, pos, timeDiff);
 }

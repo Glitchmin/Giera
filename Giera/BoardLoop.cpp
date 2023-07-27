@@ -71,7 +71,6 @@ void BoardLoop::handleInput(Time timeDiff) {
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
 	window->handleMouseInput(UIElement::MouseEventTypes::HOVER, make_pair(mouseX, mouseY), timeDiff);
-	Logger::logInfo("mouse", (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::JUST_PRESSED));
 	if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::JUST_PRESSED) {
 		window->handleMouseInput(UIElement::MouseEventTypes::PRESS_LEFT, make_pair(mouseX, mouseY), timeDiff);
 	}

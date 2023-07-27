@@ -2,25 +2,25 @@
 #include "Inventory.h"
 #include "NormalItems.h"
 
-class EqSlotUIElement;
+class InventoryButtonUI;
 
 class InventoryInputHandler
 {
 protected:
 	shared_ptr <AbstractItem> selectedItem = nullptr;
-	EqSlotUIElement* selectedEqSlotUI = nullptr;
+	InventoryButtonUI* selectedInventoryButtonUI = nullptr;
 	shared_ptr <Inventory> inventory;
 public:
 	InventoryInputHandler(shared_ptr <Inventory> inventory);
 
 	void removeSelectedItem();
+	void resetSelectedItem();
 
     shared_ptr<AbstractItem> getSelectedItem() const;
     void setSelectedItem(shared_ptr<AbstractItem> selectedItem);
 
-
-	EqSlotUIElement* getSelectedEqSlotUI() const;
-    void setSelectedEqSlotUI(EqSlotUIElement*);
+    InventoryButtonUI* getSelectedInventoryButtonUI() const;
+    void setSelectedInventoryButtonUI(InventoryButtonUI* selectedInventoryButtonUI);
 
 };
 

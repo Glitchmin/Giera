@@ -14,6 +14,12 @@ InventoryButtonUI::InventoryButtonUI(Rect<fr_pos_t> relativePosRect, optional <w
 {
 }
 
+void InventoryButtonUI::resetItemAlpha()
+{
+	itemAlpha = maxItemAlpha;
+	needsUpdate();
+}
+
 void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
 	if (pxRealPosRect.isPointInside(pos.first, pos.second)) {
@@ -23,21 +29,19 @@ void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<in
 		edgeTransparency += timeDiff.getTimeMs();
 		edgeTransparency = min(edgeTransparency, maxEdgeTransparency);
 		if (mouseEventType == MouseEventTypes::PRESS_LEFT) {
-			Logger::logInfo("jest pressed");
 			auto selectedItem = inventoryInputHandler->getSelectedItem();
-			if (selectedItem && parent != inventoryInputHandler->getSelectedEqSlotUI()) {
+			if (selectedItem && parent != inventoryInputHandler->getSelectedInventoryButtonUI()->parent) {
 				if (((EqSlotUIElement*)parent)->getEqSlot()->isAccepted(0, 0, selectedItem)) {
 					((EqSlotUIElement*)parent)->getEqSlot()->insertAcceptedItem(0, 0, selectedItem);
-					inventoryInputHandler->getSelectedEqSlotUI()->itemsChanged();
+					((EqSlotUIElement*)inventoryInputHandler->getSelectedInventoryButtonUI()->parent)->itemsChanged();
 					inventoryInputHandler->removeSelectedItem();
 					((EqSlotUIElement*)parent)->itemsChanged();
-					inventoryInputHandler->getSelectedEqSlotUI();
 				}
 			}
 			else {
 				if (item.has_value()) {
 					inventoryInputHandler->setSelectedItem(item.value().lock());
-					inventoryInputHandler->setSelectedEqSlotUI(((EqSlotUIElement*)parent));
+					inventoryInputHandler->setSelectedInventoryButtonUI(this);
 				}
 				itemAlpha = 196;
 			}

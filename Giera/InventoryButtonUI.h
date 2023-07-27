@@ -10,12 +10,12 @@ class InventoryButtonUI :
 protected:
 	shared_ptr <InventoryInputHandler> inventoryInputHandler;
 	optional <weak_ptr<AbstractItem>> item;
-	int itemAlpha = 255;
+	static inline int maxItemAlpha = 255;
+	int itemAlpha = maxItemAlpha;
 public:
 	InventoryButtonUI(Rect <fr_pos_t> relativePosRect, optional <weak_ptr<AbstractItem>> item, EqSlotUIElement* parent,
 		double relativeEdgeThickness, shared_ptr <InventoryInputHandler> inventoryInputHandler);
-	InventoryButtonUI(InventoryButtonUI&& other) = delete;
-	InventoryButtonUI(InventoryButtonUI& other) = delete;
+	void resetItemAlpha();
 	void handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
 	void render(shared_ptr<Texture>& textureToDrawOn) override;
 	
