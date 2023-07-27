@@ -10,21 +10,19 @@ Dropslots::Dropslots(int capacity, int rowsNr) :
 
 }
 
-bool Dropslots::isAccepted(double x, double y, shared_ptr<AbstractItem> item)
+bool Dropslots::isAccepted(int x, int y, shared_ptr<AbstractItem> item)
 {
 	return capacity < maxCapacity;
 }
 
-void Dropslots::insertAcceptedItem(double x, double y, shared_ptr<AbstractItem> item)
+void Dropslots::insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item)
 {
 	items.push_back(item);
 }
 
-optional<shared_ptr<AbstractItem>> Dropslots::removeItem(double x, double y)
+optional<shared_ptr<AbstractItem>> Dropslots::removeItem(int x, int y)
 {
-	int rowNr = x * rowsNr;
-	int colNr = y * (maxCapacity / rowsNr);
-	int id = colNr * rowsNr + rowNr;
+	int id = y * rowsNr + x;
 	if (id < items.size()) {
 		auto item = items[id];
 		items.erase(items.begin()+id);
@@ -33,10 +31,8 @@ optional<shared_ptr<AbstractItem>> Dropslots::removeItem(double x, double y)
 	return nullopt;
 }
 
-optional<shared_ptr<AbstractItem>> Dropslots::getItem(double x, double y)
+optional<shared_ptr<AbstractItem>> Dropslots::getItem(int x, int y)
 {
-	int rowNr = x * rowsNr;
-	int colNr = y * (maxCapacity / rowsNr);
-	int id = colNr * rowsNr + rowNr;
+	int id = y * rowsNr + x;
 	return id < items.size() ? optional(items[id]) : nullopt;
 }

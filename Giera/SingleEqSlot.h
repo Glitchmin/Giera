@@ -10,10 +10,10 @@ protected:
     optional <shared_ptr <AbstractItem> > item;
 public:
     SingleEqSlot(vector <ItemTypes>& acceptedItemTypes);
-    virtual bool isAccepted(double x, double y, shared_ptr<AbstractItem> item) override;
-    virtual void insertAcceptedItem(double x, double y, shared_ptr<AbstractItem> item) override;
-    virtual optional<shared_ptr<AbstractItem>> getItem(double x, double y) override;
-    virtual optional<shared_ptr<AbstractItem>> removeItem(double x, double y) override;
+    virtual bool isAccepted(int x, int y, shared_ptr<AbstractItem> item) override;
+    virtual void insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item) override;
+    virtual optional<shared_ptr<AbstractItem>> getItem(int x, int y) override;
+    virtual optional<shared_ptr<AbstractItem>> removeItem(int x, int y) override;
     virtual unique_ptr <EqSlotUIElement> generateUIElement(Rect <fr_pos_t> relRect,
         UIElement* parent, shared_ptr <InventoryInputHandler> inventoryInputHandler) override;
     virtual void updateUIElementItems(EqSlotUIElement* eqSlotUIElement, 

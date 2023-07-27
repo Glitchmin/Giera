@@ -20,9 +20,9 @@ void ButtonUI::drawEdges(shared_ptr<Texture>& texture)
 	int Sy = pxRealPosRect.getSize()[1];
 	for (int i = 0; i < edgeSize;i++) {
 		SDL_RenderDrawLine(Texture::getRenderer(), x + i, y, x + i, y + Sy);
-		SDL_RenderDrawLine(Texture::getRenderer(), x + Sx - i, y, x + Sx - i, y + Sy);
+		SDL_RenderDrawLine(Texture::getRenderer(), x + Sx - i - 1, y, x + Sx - i - 1, y + Sy);
 		SDL_RenderDrawLine(Texture::getRenderer(), x, y + i, x + Sx, y + i);
-		SDL_RenderDrawLine(Texture::getRenderer(), x, y + Sy - i, x + Sx, y + Sy - i);
+		SDL_RenderDrawLine(Texture::getRenderer(), x, y + Sy - i - 1, x + Sx, y + Sy - i - 1);
 	}
 }
 

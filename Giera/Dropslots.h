@@ -11,9 +11,9 @@ protected:
 	static inline vector <ItemTypes> emptyItemTypes = {};
 public:
 	Dropslots(int capacity, int rowsNr);
-	virtual bool isAccepted(double x, double y, shared_ptr<AbstractItem> item) override;
-	virtual void insertAcceptedItem(double x, double y, shared_ptr<AbstractItem> item) override;
-	virtual optional<shared_ptr<AbstractItem>> removeItem(double x, double y) override;
-	virtual optional<shared_ptr<AbstractItem>> getItem(double x, double y) override;
+	virtual bool isAccepted(int x, int y, shared_ptr<AbstractItem> item) override;
+	virtual void insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item) override;
+	virtual optional<shared_ptr<AbstractItem>> removeItem(int x, int y) override;
+	virtual optional<shared_ptr<AbstractItem>> getItem(int x, int y) override;
 };
 

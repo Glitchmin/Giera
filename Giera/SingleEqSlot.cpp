@@ -7,22 +7,22 @@ SingleEqSlot::SingleEqSlot(vector<ItemTypes>& acceptedItemTypes)
 {
 }
 
-bool SingleEqSlot::isAccepted(double x, double y, shared_ptr<AbstractItem> item)
+bool SingleEqSlot::isAccepted(int x, int y, shared_ptr<AbstractItem> item)
 {
 	return isAcceptedItemType[(int)item->getItemType()] && !this->item.has_value();
 }
 
-void SingleEqSlot::insertAcceptedItem(double x, double y, shared_ptr<AbstractItem> item)
+void SingleEqSlot::insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item)
 {
 	this->item = item;
 }
 
-optional<shared_ptr<AbstractItem>> SingleEqSlot::getItem(double x, double y)
+optional<shared_ptr<AbstractItem>> SingleEqSlot::getItem(int x, int y)
 {
 	return item;
 }
 
-optional<shared_ptr<AbstractItem>> SingleEqSlot::removeItem(double x, double y)
+optional<shared_ptr<AbstractItem>> SingleEqSlot::removeItem(int x, int y)
 {
 	auto tmpItem = item;
 	item = nullopt;

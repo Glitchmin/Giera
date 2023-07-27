@@ -7,9 +7,9 @@ QuiverEqSlot::QuiverEqSlot(int arrowCapacity)
 
 }
 
-bool QuiverEqSlot::isAccepted(double x, double y, shared_ptr<AbstractItem> item)
+bool QuiverEqSlot::isAccepted(int x, int y, shared_ptr<AbstractItem> item)
 {
-	int slotNum = x > 0.5;
+	int slotNum = x;
 	if (item->getItemType() != ItemTypes::ARROW 
 		|| slots[slotNum].size() == arrowCapacity) {
 		return false;
@@ -21,22 +21,22 @@ bool QuiverEqSlot::isAccepted(double x, double y, shared_ptr<AbstractItem> item)
 	return arr->getName() == slots[slotNum][0]->getName();	
 }
 
-void QuiverEqSlot::insertAcceptedItem(double x, double y, shared_ptr<AbstractItem> item)
+void QuiverEqSlot::insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item)
 {
-	int slotNum = x > 0.5;
+	int slotNum = x;
 	slots[slotNum].push_back(dynamic_pointer_cast <Arrow> (item));
 	
 }
 
-optional<shared_ptr<AbstractItem>> QuiverEqSlot::getItem(double x, double y)
+optional<shared_ptr<AbstractItem>> QuiverEqSlot::getItem(int x, int y)
 {
-	int slotNum = x > 0.5;
+	int slotNum = x;
 	return slots[slotNum].empty() ? nullopt : optional(slots[slotNum].back());
 }
 
-optional<shared_ptr<AbstractItem>> QuiverEqSlot::removeItem(double x, double y)
+optional<shared_ptr<AbstractItem>> QuiverEqSlot::removeItem(int x, int y)
 {
-	int slotNum = x > 0.5;
+	int slotNum = x;
 	if (slots[slotNum].empty()) {
 		return nullopt;
 	}

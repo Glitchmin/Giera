@@ -16,6 +16,8 @@ public:
         shared_ptr <InventoryInputHandler> inventoryInputHandler);
     virtual void render(shared_ptr <Texture>& textureToDrawOn) override;
     void itemsChanged();
+    void removeItem(InventoryButtonUI* inventoryButtonUI);
+    void addItem(InventoryButtonUI* inventoryButtonUI);
 
     shared_ptr<AbstractEqSlot> getEqSlot() const;
 

@@ -13,7 +13,7 @@ InventoryUI::InventoryUI(shared_ptr<Window> window, shared_ptr <Inventory> inven
 		window.get()), inventory(inventory),
 	inventoryInputHandler(inventoryInputHandler)
 {
-	for (int i = 0; i < (int)3; i++) {
+	for (int i = 0; i < (int)4; i++) {
 		children.push_back(inventory->getEqSlot((EqSlotTypes)i)->
 			generateUIElement(Rect <fr_pos_t>(0, .025+.2*i, .15, .15),this, inventoryInputHandler));
 	}

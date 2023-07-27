@@ -2,6 +2,7 @@
 #include "Cuboid.h"
 #include "Inventory.h"
 #include "SingleEqSlot.h"
+#include "MultipleEqSlot.h"
 #include "BaseItemHandler.h"
 
 Player::Player() : AbstractNPC()
@@ -26,6 +27,8 @@ Player::Player() : AbstractNPC()
 	}
 	slots[0]->insertAcceptedItem(0, 0, BaseItemHandler::generate<Food>(ItemTypes::FOOD, 0));
 	slots[1]->insertAcceptedItem(0, 0, BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0));
+	slots[3] = make_shared<MultipleEqSlot>(itemTypes, 40);
+	slots[3]->insertAcceptedItem(0, 0, BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0));
 	inventory = make_shared<Inventory>(slots);
 }
 
