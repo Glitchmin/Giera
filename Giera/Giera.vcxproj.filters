@@ -169,6 +169,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Graphics\UI\EqSlotUI">
+      <UniqueIdentifier>{de893bc6-dec5-47e8-8643-1308c1d979fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\UI\EqSlotUI">
+      <UniqueIdentifier>{49cd6d03-be57-459f-a44a-4d7e6ff3b035}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cuboid.cpp">
@@ -459,9 +465,6 @@
     <ClCompile Include="InventoryUI.cpp">
       <Filter>Source Files\Graphics\UI</Filter>
     </ClCompile>
-    <ClCompile Include="EqSlotUIElement.cpp">
-      <Filter>Source Files\Graphics\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Rect.cpp">
       <Filter>Source Files\Utility\Geometry</Filter>
     </ClCompile>
@@ -473,6 +476,12 @@
     </ClCompile>
     <ClCompile Include="InventoryInputHandler.cpp">
       <Filter>Source Files\GameControl</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractEqSlotUIElement.cpp">
+      <Filter>Source Files\Graphics\UI\EqSlotUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleEqSlotUI.cpp">
+      <Filter>Source Files\Graphics\UI\EqSlotUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -857,9 +866,6 @@
     <ClInclude Include="InventoryUI.h">
       <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
-    <ClInclude Include="EqSlotUIElement.h">
-      <Filter>Header Files\Graphics\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Rect.h">
       <Filter>Header Files\Utility\Geometry</Filter>
     </ClInclude>
@@ -877,6 +883,12 @@
     </ClInclude>
     <ClInclude Include="MouseButtonStateTypes.h">
       <Filter>Header Files\GameControl</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractEqSlotUIElement.h">
+      <Filter>Header Files\Graphics\UI\EqSlotUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleEqSlotUI.h">
+      <Filter>Header Files\Graphics\UI\EqSlotUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

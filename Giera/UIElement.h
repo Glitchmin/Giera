@@ -44,7 +44,7 @@ public:
 	virtual const vector<unique_ptr<UIElement>>& getChildren();
 	virtual void clearChildren();
 
-	void needsUpdate();
+	virtual void needsUpdate();
     shared_ptr<Texture> getTexture() const;
 
 	Rect<fr_pos_t> getFractionalRelativePosRect() const;

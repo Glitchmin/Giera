@@ -4,7 +4,7 @@
 
 class AbstractEqSlot;
 
-class EqSlotUIElement :
+class AbstractEqSlotUIElement :
     public UIElement
 {
 protected:
@@ -12,12 +12,13 @@ protected:
     shared_ptr <InventoryInputHandler> inventoryInputHandler;
     bool requiresItemUpdate = 1;
 public:
-    EqSlotUIElement(Rect <fr_pos_t> relRect, UIElement* parent, shared_ptr <AbstractEqSlot> eqSlot,
+    AbstractEqSlotUIElement(Rect <fr_pos_t> relRect, UIElement* parent, shared_ptr <AbstractEqSlot> eqSlot,
         shared_ptr <InventoryInputHandler> inventoryInputHandler);
     virtual void render(shared_ptr <Texture>& textureToDrawOn) override;
-    void itemsChanged();
-    void removeItem(InventoryButtonUI* inventoryButtonUI);
-    void addItem(InventoryButtonUI* inventoryButtonUI);
+    virtual void removeItem(InventoryButtonUI* inventoryButtonUI)=0;
+    virtual void addItem(InventoryButtonUI* inventoryButtonUI)=0;
+    virtual void updateItems() = 0;
+    virtual void itemsChanged();
 
     shared_ptr<AbstractEqSlot> getEqSlot() const;
 

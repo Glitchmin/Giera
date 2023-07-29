@@ -9,7 +9,7 @@ InventoryInputHandler::InventoryInputHandler(shared_ptr<Inventory> inventory):
 
 void InventoryInputHandler::removeSelectedItem()
 {
-    ((EqSlotUIElement*)selectedInventoryButtonUI->getParent())
+    ((AbstractEqSlotUIElement*)selectedInventoryButtonUI->getParent())
         ->getEqSlot()->removeItem(0, 0);
     selectedItem = nullptr;
     selectedInventoryButtonUI = nullptr;

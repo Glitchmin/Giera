@@ -1,6 +1,6 @@
 #include "MultipleEqSlot.h"
 #include "InventoryButtonUI.h"
-#include "EqSlotUIElement.h"
+#include "AbstractEqSlotUIElement.h"
 
 using std::make_unique;
 
@@ -41,40 +41,18 @@ optional<shared_ptr<AbstractItem>> MultipleEqSlot::removeItem(int x, int y)
 	return optional(item);
 }
 
-void MultipleEqSlot::addItemUI(int x, int y, unique_ptr<EqSlotUIElement>& eqSlotUI, shared_ptr<InventoryInputHandler> inventoryInputHandler) {
-	Rect <fr_pos_t> relRect{ 0,0,0,0 };
-	relRect.setPos((fr_pos_t)x / width, (fr_pos_t)y / height);
-	if (!items[x][y]) {
-		relRect.setSize(1. / width, 1. / height);
-		eqSlotUI->addChild(make_unique<InventoryButtonUI>(relRect, nullopt, eqSlotUI.get(), .05, inventoryInputHandler));
-		return;
-	}
-	if (x != 0 && items[x - 1][y] == items[x][y]) {
-		return;
-	}
-	if (y != 0 && items[x][y-1] == items[x][y]) {
-		return;
-	}
-	auto item = items[x][y].get();
-	relRect.setSize((fr_pos_t)item->getWidth() / width, (fr_pos_t)item->getHeight() / height);
-	eqSlotUI->addChild(make_unique<InventoryButtonUI>(relRect, items[x][y], eqSlotUI.get(), .05, inventoryInputHandler));
-}
 
-unique_ptr<EqSlotUIElement> MultipleEqSlot::generateUIElement(Rect<fr_pos_t> relRect, UIElement* parent, shared_ptr<InventoryInputHandler> inventoryInputHandler)
-{
-	auto uiElement = make_unique <EqSlotUIElement>(relRect, parent, shared_from_this(), inventoryInputHandler);
-	for (int x = 0; x < width;x++) {
-		for (int y = 0; y < height;y++) {
-			addItemUI(x, y, uiElement, inventoryInputHandler);
-		}
-	}
-	return uiElement;
-}
+//unique_ptr<AbstractEqSlotUIElement> MultipleEqSlot::generateUIElement(Rect<fr_pos_t> relRect, UIElement* parent, shared_ptr<InventoryInputHandler> inventoryInputHandler)
+//{
+//	auto uiElement = make_unique <Si>(relRect, parent, shared_from_this(), inventoryInputHandler);
+//	for (int x = 0; x < width;x++) {
+//		for (int y = 0; y < height;y++) {
+//			//addItemUI(x, y, uiElement, inventoryInputHandler);
+//		}
+//	}
+//	return uiElement;
+//}
 
-void MultipleEqSlot::updateUIElementItems(EqSlotUIElement* eqSlotUIElement, shared_ptr<InventoryInputHandler> inventoryInputHandler)
-{
-	return;
-}
 
 void MultipleEqSlot::increaseWidth()
 {

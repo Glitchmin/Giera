@@ -1,5 +1,5 @@
 #include "InventoryUI.h"
-#include "EqSlotUIElement.h"
+#include "AbstractEqSlotUIElement.h"
 #include "AbstractEqSlot.h"
 #include "InventoryInputHandler.h"
 using std::make_unique;

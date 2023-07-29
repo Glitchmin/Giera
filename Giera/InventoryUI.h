@@ -4,14 +4,14 @@
 #include "Window.h"
 
 class InventoryInputHandler;
-class EqSlotUIElement;
+class AbstractEqSlotUIElement;
 
 class InventoryUI :
     public UIElement
 {
 protected:
     shared_ptr <Inventory> inventory;
-    vector <shared_ptr <EqSlotUIElement>> uiElements;
+    vector <shared_ptr <AbstractEqSlotUIElement>> uiElements;
     shared_ptr <InventoryInputHandler> inventoryInputHandler;
 public:
     InventoryUI(shared_ptr <Window> window, shared_ptr <Inventory> inventory,

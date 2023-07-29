@@ -1,7 +1,7 @@
-#include "EqSlotUIElement.h"
+#include "AbstractEqSlotUIElement.h"
 #include "AbstractEqSlot.h"
 
-EqSlotUIElement::EqSlotUIElement(Rect <fr_pos_t> relRect,
+AbstractEqSlotUIElement::AbstractEqSlotUIElement(Rect <fr_pos_t> relRect,
 	UIElement* parent, shared_ptr<AbstractEqSlot> eqSlot,
 	shared_ptr <InventoryInputHandler> inventoryInputHandler)
 	:UIElement(relRect,	nullptr, parent), eqSlot(eqSlot),
@@ -10,23 +10,26 @@ EqSlotUIElement::EqSlotUIElement(Rect <fr_pos_t> relRect,
 }
 
 
-void EqSlotUIElement::render(shared_ptr<Texture>& textureToDrawOn)
+void AbstractEqSlotUIElement::render(shared_ptr<Texture>& textureToDrawOn)
 {
 	if (requiresItemUpdate) {
 		requiresItemUpdate = 0;
-		eqSlot->updateUIElementItems(this, inventoryInputHandler);
+		Logger::logInfo(this);
+		updateItems();
 	}
 	UIElement::render(textureToDrawOn);
 }
 
-void EqSlotUIElement::itemsChanged()
+
+
+
+void AbstractEqSlotUIElement::itemsChanged()
 {
 	requiresItemUpdate = 1;
 	needsUpdate();
 }
 
-
-shared_ptr<AbstractEqSlot> EqSlotUIElement::getEqSlot() const
+shared_ptr<AbstractEqSlot> AbstractEqSlotUIElement::getEqSlot() const
 {
     return eqSlot;
 }

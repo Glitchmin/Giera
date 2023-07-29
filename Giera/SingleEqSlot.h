@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractEqSlot.h"
 
-class EqSlotUIElement;
+class AbstractEqSlotUIElement;
 
 class SingleEqSlot :
     public AbstractEqSlot, public std::enable_shared_from_this<SingleEqSlot>
@@ -14,9 +14,7 @@ public:
     virtual void insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item) override;
     virtual optional<shared_ptr<AbstractItem>> getItem(int x, int y) override;
     virtual optional<shared_ptr<AbstractItem>> removeItem(int x, int y) override;
-    virtual unique_ptr <EqSlotUIElement> generateUIElement(Rect <fr_pos_t> relRect,
+    virtual unique_ptr <AbstractEqSlotUIElement> generateUIElement(Rect <fr_pos_t> relRect,
         UIElement* parent, shared_ptr <InventoryInputHandler> inventoryInputHandler) override;
-    virtual void updateUIElementItems(EqSlotUIElement* eqSlotUIElement, 
-        shared_ptr <InventoryInputHandler> inventoryInputHandler) override;
 };
 

@@ -187,7 +187,7 @@
     <ClCompile Include="Dropslots.cpp" />
     <ClCompile Include="EffectsFileHandler.cpp" />
     <ClCompile Include="EffectsHandler.cpp" />
-    <ClCompile Include="EqSlotUIElement.cpp" />
+    <ClCompile Include="AbstractEqSlotUIElement.cpp" />
     <ClCompile Include="ExplosionSpellModifer.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="Hitbox.cpp" />
@@ -237,6 +237,7 @@
     <ClCompile Include="SelfSpell.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="SingleEqSlot.cpp" />
+    <ClCompile Include="SingleEqSlotUI.cpp" />
     <ClCompile Include="SpawningDetails.cpp" />
     <ClCompile Include="SpellProjectile.cpp" />
     <ClCompile Include="StatChangingEffect.cpp" />
@@ -299,7 +300,7 @@
     <ClInclude Include="DrawableEntityObserver.h" />
     <ClInclude Include="Dropslots.h" />
     <ClInclude Include="EqSlotTypes.h" />
-    <ClInclude Include="EqSlotUIElement.h" />
+    <ClInclude Include="AbstractEqSlotUIElement.h" />
     <ClInclude Include="FigureTypes.h" />
     <ClInclude Include="InventoryButtonUI.h" />
     <ClInclude Include="InventoryInputHandler.h" />
@@ -371,6 +372,7 @@
     <ClInclude Include="Shield.h" />
     <ClInclude Include="ShieldTypes.h" />
     <ClInclude Include="SingleEqSlot.h" />
+    <ClInclude Include="SingleEqSlotUI.h" />
     <ClInclude Include="SpawningDetails.h" />
     <ClInclude Include="SpellModifiersTypes.h" />
     <ClInclude Include="SpellProjectile.h" />

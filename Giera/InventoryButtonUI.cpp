@@ -1,12 +1,12 @@
 #include "InventoryButtonUI.h"
-#include "EqSlotUIElement.h"
+#include "AbstractEqSlotUIElement.h"
 #include "AbstractEqSlot.h"
 
 using std::min;
 using std::max;
 
 InventoryButtonUI::InventoryButtonUI(Rect<fr_pos_t> relativePosRect, optional <weak_ptr<AbstractItem>> item,
-	EqSlotUIElement* parent, double relativeEdgeThickness, shared_ptr<InventoryInputHandler> inventoryInputHandler)
+	AbstractEqSlotUIElement* parent, double relativeEdgeThickness, shared_ptr<InventoryInputHandler> inventoryInputHandler)
 	: ButtonUI(relativePosRect,
 		item.has_value() ? TextureLoader::getTexturePtr(item.value().lock()->getFilePath()) : nullptr,
 		(UIElement*)parent,
@@ -29,14 +29,13 @@ void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<in
 		edgeTransparency += timeDiff.getTimeMs();
 		edgeTransparency = min(edgeTransparency, maxEdgeTransparency);
 		if (mouseEventType == MouseEventTypes::PRESS_LEFT) {
-			auto selectedItem = inventoryInputHandler->getSelectedItem();
-			if (selectedItem && parent != inventoryInputHandler->getSelectedInventoryButtonUI()->parent) {
-				if (((EqSlotUIElement*)parent)->getEqSlot()->isAccepted(0, 0, selectedItem)) {
-					((EqSlotUIElement*)parent)->getEqSlot()->insertAcceptedItem(0, 0, selectedItem);
-					((EqSlotUIElement*)inventoryInputHandler->getSelectedInventoryButtonUI()->parent)->itemsChanged();
-					inventoryInputHandler->removeSelectedItem();
-					((EqSlotUIElement*)parent)->itemsChanged();
-				}
+			if (auto selectedItem = inventoryInputHandler->getSelectedItem()) {
+				//if (((AbstractEqSlotUIElement*)parent)->isItemAccepted(this)) { TODO
+					((AbstractEqSlotUIElement*)parent)->addItem(this);
+					((AbstractEqSlotUIElement*)inventoryInputHandler->getSelectedInventoryButtonUI()->parent)
+						->removeItem(inventoryInputHandler->getSelectedInventoryButtonUI());
+					inventoryInputHandler->resetSelectedItem();
+				//}
 			}
 			else {
 				if (item.has_value()) {

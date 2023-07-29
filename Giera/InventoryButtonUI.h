@@ -2,7 +2,7 @@
 #include "ButtonUI.h"
 #include "InventoryInputHandler.h"
 
-class EqSlotUIElement;
+class AbstractEqSlotUIElement;
 
 class InventoryButtonUI :
 	public ButtonUI
@@ -13,7 +13,7 @@ protected:
 	static inline int maxItemAlpha = 255;
 	int itemAlpha = maxItemAlpha;
 public:
-	InventoryButtonUI(Rect <fr_pos_t> relativePosRect, optional <weak_ptr<AbstractItem>> item, EqSlotUIElement* parent,
+	InventoryButtonUI(Rect <fr_pos_t> relativePosRect, optional <weak_ptr<AbstractItem>> item, AbstractEqSlotUIElement* parent,
 		double relativeEdgeThickness, shared_ptr <InventoryInputHandler> inventoryInputHandler);
 	void resetItemAlpha();
 	void handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
