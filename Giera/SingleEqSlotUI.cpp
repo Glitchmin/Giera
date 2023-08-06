@@ -15,11 +15,16 @@ void SingleEqSlotUI::removeItem(InventoryButtonUI* inventoryButtonUI)
 	requiresItemUpdate = 1;
 }
 
-void SingleEqSlotUI::addItem(InventoryButtonUI* inventoryButtonUI)
+void SingleEqSlotUI::insertAcceptedItem(InventoryButtonUI* inventoryButtonUI)
 {
 	eqSlot->insertAcceptedItem(0, 0, inventoryInputHandler->getSelectedItem());
 	needsUpdate();
 	requiresItemUpdate = 1;
+}
+
+bool SingleEqSlotUI::isItemAccepted(InventoryButtonUI* inventoryButtonUI)
+{
+	return eqSlot->isAccepted(0, 0, inventoryInputHandler->getSelectedItem());
 }
 
 void SingleEqSlotUI::updateItems()

@@ -17,12 +17,12 @@ SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<T
 
 void SpellProjectile::onWallHit(Coordinates hitCoords, shared_ptr<Board>& board)
 {
-	Logger::logDebug("projectile hit the wall", hitCoords);
+	//Logger::logDebug("projectile hit the wall", hitCoords);
  }
 
 void SpellProjectile::onNPCHit(shared_ptr<AbstractNPC> npc, shared_ptr<Board>& board)
 {
-	Logger::logDebug("projectile hit the NPC");
+	//Logger::logDebug("projectile hit the NPC");
 }
 
 void SpellProjectile::onGroundHit(Coordinates hitCoords, shared_ptr<Board>& board)
@@ -71,7 +71,7 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 					auto currCollision = calculateHitbox(hitbox, ls, collisionP, currPos);
 					if (currCollision.has_value()) {
 						hitMapTile = Coordinates(x, y);
-						Logger::logInfo(x, y, "map tile");
+						//Logger::logInfo(x, y, "map tile");
 						hitNPC = nullptr;
 						collisionP = currCollision;
 					}
@@ -99,7 +99,6 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 	if (!isReadyToBeRemoved) {
 		return;
 	}
-	Logger::logInfo("removing the projectile, its heigth", currPos.getZ(),hitMapTile.has_value(),hitNPC!=nullptr);
 	if (hitNPC) {
 		onNPCHit(hitNPC, board);
 		return;

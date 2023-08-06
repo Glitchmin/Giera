@@ -30,12 +30,12 @@ void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<in
 		edgeTransparency = min(edgeTransparency, maxEdgeTransparency);
 		if (mouseEventType == MouseEventTypes::PRESS_LEFT) {
 			if (auto selectedItem = inventoryInputHandler->getSelectedItem()) {
-				//if (((AbstractEqSlotUIElement*)parent)->isItemAccepted(this)) { TODO
-					((AbstractEqSlotUIElement*)parent)->addItem(this);
+				if (((AbstractEqSlotUIElement*)parent)->isItemAccepted(this)) {
+					((AbstractEqSlotUIElement*)parent)->insertAcceptedItem(this);
 					((AbstractEqSlotUIElement*)inventoryInputHandler->getSelectedInventoryButtonUI()->parent)
 						->removeItem(inventoryInputHandler->getSelectedInventoryButtonUI());
 					inventoryInputHandler->resetSelectedItem();
-				//}
+				}
 			}
 			else {
 				if (item.has_value()) {
@@ -65,3 +65,9 @@ void InventoryButtonUI::render(shared_ptr<Texture>& textureToDrawOn)
 		SDL_SetTextureAlphaMod(image->getTexture(), 255);
 	}
 }
+
+optional<weak_ptr<AbstractItem>> InventoryButtonUI::getItem() const
+{
+    return item;
+}
+

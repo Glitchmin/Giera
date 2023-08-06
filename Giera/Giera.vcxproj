@@ -222,6 +222,7 @@
     <ClCompile Include="ModifiersHandler.cpp" />
     <ClCompile Include="AbstractNPC.cpp" />
     <ClCompile Include="MultipleEqSlot.cpp" />
+    <ClCompile Include="MultipleEqSlotUI.cpp" />
     <ClCompile Include="NPCHitbox.cpp" />
     <ClCompile Include="NPCObserver.cpp" />
     <ClCompile Include="FlightPath.cpp" />
@@ -306,6 +307,7 @@
     <ClInclude Include="InventoryInputHandler.h" />
     <ClInclude Include="MouseButtonStateTypes.h" />
     <ClInclude Include="MouseButtonTypes.h" />
+    <ClInclude Include="MultipleEqSlotUI.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="HittableBoardEntity.h" />
     <ClInclude Include="HittableEntityObserver.h" />

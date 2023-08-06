@@ -19,5 +19,7 @@ public:
 	void handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
 	void render(shared_ptr<Texture>& textureToDrawOn) override;
 	
+    optional<weak_ptr<AbstractItem>> getItem() const;
+
 };
 

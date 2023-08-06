@@ -483,6 +483,9 @@
     <ClCompile Include="SingleEqSlotUI.cpp">
       <Filter>Source Files\Graphics\UI\EqSlotUI</Filter>
     </ClCompile>
+    <ClCompile Include="MultipleEqSlotUI.cpp">
+      <Filter>Source Files\Graphics\UI\EqSlotUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -888,6 +891,9 @@
       <Filter>Header Files\Graphics\UI\EqSlotUI</Filter>
     </ClInclude>
     <ClInclude Include="SingleEqSlotUI.h">
+      <Filter>Header Files\Graphics\UI\EqSlotUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MultipleEqSlotUI.h">
       <Filter>Header Files\Graphics\UI\EqSlotUI</Filter>
     </ClInclude>
   </ItemGroup>

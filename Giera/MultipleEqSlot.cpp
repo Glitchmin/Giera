@@ -1,6 +1,7 @@
 #include "MultipleEqSlot.h"
 #include "InventoryButtonUI.h"
 #include "AbstractEqSlotUIElement.h"
+#include "MultipleEqSlotUI.h"
 
 using std::make_unique;
 
@@ -31,27 +32,19 @@ optional<shared_ptr<AbstractItem>> MultipleEqSlot::removeItem(int x, int y)
 	if (item == nullptr) {
 		return nullopt;
 	}
-	for (int i = 0; i < width;i++) {
-		for (int j = 0; j < height; j++) {
-			if (items[i][j] == item) {
-				items[i][j] = nullptr;
-			}
+	for (int i = x; i < x + item->getWidth();i++) {
+		for (int j = y; j < y + item->getHeight(); j++) {
+			items[i][j] = nullptr;
 		}
 	}
 	return optional(item);
 }
 
 
-//unique_ptr<AbstractEqSlotUIElement> MultipleEqSlot::generateUIElement(Rect<fr_pos_t> relRect, UIElement* parent, shared_ptr<InventoryInputHandler> inventoryInputHandler)
-//{
-//	auto uiElement = make_unique <Si>(relRect, parent, shared_from_this(), inventoryInputHandler);
-//	for (int x = 0; x < width;x++) {
-//		for (int y = 0; y < height;y++) {
-//			//addItemUI(x, y, uiElement, inventoryInputHandler);
-//		}
-//	}
-//	return uiElement;
-//}
+unique_ptr<AbstractEqSlotUIElement> MultipleEqSlot::generateUIElement(Rect<fr_pos_t> relRect, UIElement* parent, shared_ptr<InventoryInputHandler> inventoryInputHandler)
+{
+	return make_unique <MultipleEqSlotUI>(relRect, parent, shared_from_this(), inventoryInputHandler);
+}
 
 
 void MultipleEqSlot::increaseWidth()
@@ -82,8 +75,8 @@ MultipleEqSlot::MultipleEqSlot(vector<ItemTypes>& acceptedItemTypes, int totalSi
 bool MultipleEqSlot::isAccepted(int x, int y, shared_ptr<AbstractItem> item)
 {
 	bool hasSpace = 1;
-	for (int i = x * width; i < x * width + item->getWidth();i++) {
-		for (int j = y * height; j < y * height + item->getHeight();j++) {
+	for (int i = x; i < x + item->getWidth();i++) {
+		for (int j = y; j < y + item->getHeight();j++) {
 			if (j >= height || i >= width || items[i][j]) {
 				hasSpace = 0;
 				break;
@@ -92,3 +85,13 @@ bool MultipleEqSlot::isAccepted(int x, int y, shared_ptr<AbstractItem> item)
 	}
 	return isAcceptedItemType[(int)item->getItemType()] && hasSpace;
 }
+int MultipleEqSlot::getWidth() const
+{
+	return width;
+}
+
+int MultipleEqSlot::getHeight() const
+{
+	return height;
+}
+
