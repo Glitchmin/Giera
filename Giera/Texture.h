@@ -1,8 +1,8 @@
 #pragma once
-#include "TextureLoader.h"
 #include <string>
 #include <SDL.h>
 #include <optional>
+#include "TextureLoader.h"
 
 using std::string;
 using std::optional;
@@ -13,7 +13,6 @@ using std::pair;
 class Texture
 {
 public:
-	Texture(string& textureName);
 	Texture();
 	Texture(SDL_Texture* texture);
 	~Texture();

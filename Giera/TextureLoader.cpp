@@ -1,8 +1,10 @@
 #include <SDL_image.h>
 #include "TextureLoader.h"
+#include "Texture.h"
 #include <filesystem>
 
 using std::make_shared;
+using std::to_string;
 
 shared_ptr<Texture> TextureLoader::getTexturePtr(string_view textureName)
 {
@@ -29,6 +31,20 @@ shared_ptr<Texture> TextureLoader::getTextureCopy(string_view textureName)
 	SDL_SetRenderTarget(renderer, oldTarget);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	return make_shared<Texture>(newCopy);
+}
+
+TTF_Font* TextureLoader::loadTTF_Font(FontTypes fontType, string_view text, int fontSize, SDL_Color color)
+{
+	string fontKey = to_string((int)fontType) + "_" + to_string(fontSize);
+	if (fontMap.find(fontKey) != fontMap.end()) {
+		return fontMap[fontKey];
+	}
+	TTF_Font* font = TTF_OpenFont(fontPaths[(int)fontType].c_str(),fontSize);
+	if (font == NULL) {
+		Logger::logError("couldn't find ", std::filesystem::absolute(fontPaths[(int)fontType]));
+	}
+	fontMap[fontKey] = font;
+	return font;
 }
 
 shared_ptr <Texture> TextureLoader::loadTexture(string_view textureName)

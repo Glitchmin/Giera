@@ -26,10 +26,13 @@ void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<in
 		if (edgeTransparency != maxEdgeTransparency) {
 			needsUpdate();
 		}
-		edgeTransparency += timeDiff.getTimeMs();
-		edgeTransparency = min(edgeTransparency, maxEdgeTransparency);
+		if ((int)(inventoryInputHandler->getSelectedItem() == nullptr) + (int)(item == nullopt) == 1) {
+			edgeTransparency += timeDiff.getTimeMs();
+			edgeTransparency = min(edgeTransparency, maxEdgeTransparency);
+		}
 		if (mouseEventType == MouseEventTypes::PRESS_LEFT) {
 			if (auto selectedItem = inventoryInputHandler->getSelectedItem()) {
+
 				if (((AbstractEqSlotUIElement*)parent)->isItemAccepted(this)) {
 					((AbstractEqSlotUIElement*)parent)->insertAcceptedItem(this);
 					((AbstractEqSlotUIElement*)inventoryInputHandler->getSelectedInventoryButtonUI()->parent)

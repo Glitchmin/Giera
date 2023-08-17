@@ -896,5 +896,8 @@
     <ClInclude Include="MultipleEqSlotUI.h">
       <Filter>Header Files\Graphics\UI\EqSlotUI</Filter>
     </ClInclude>
+    <ClInclude Include="FontTypes.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

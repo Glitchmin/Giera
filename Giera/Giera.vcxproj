@@ -80,13 +80,13 @@
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(ProjectDir)..\SDL\SDL2-2.0.20\lib\x64;$(ProjectDir)..\SDL\SDL2_image-2.0.5\lib\x64;$(ProjectDir)..\SDL\SDL2_ttf-2.0.18\lib\x64;$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir)..\SDL\SDL2-2.0.20\include;$(ProjectDir)..\SDL\SDL2_image-2.0.5\include;$(ProjectDir)..\SDL2_ttf-2.0.18\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\SDL\SDL2-2.0.20\include;$(ProjectDir)..\SDL\SDL2_image-2.0.5\include;$(ProjectDir)..\SDL\SDL2_ttf-2.0.18\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>$(ProjectDir)..\SDL\SDL2-2.0.20\lib\x64;$(ProjectDir)..\SDL\SDL2_image-2.0.5\lib\x64;$(ProjectDir)..\SDL\SDL2_ttf-2.0.18\lib\x64;$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir)..\SDL\SDL2-2.0.20\include;$(ProjectDir)..\SDL\SDL2_image-2.0.5\include;$(ProjectDir)..\SDL2_ttf-2.0.18\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\SDL\SDL2-2.0.20\include;$(ProjectDir)..\SDL\SDL2_image-2.0.5\include;$(ProjectDir)..\SDL\SDL2_ttf-2.0.18\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -303,6 +303,7 @@
     <ClInclude Include="EqSlotTypes.h" />
     <ClInclude Include="AbstractEqSlotUIElement.h" />
     <ClInclude Include="FigureTypes.h" />
+    <ClInclude Include="FontTypes.h" />
     <ClInclude Include="InventoryButtonUI.h" />
     <ClInclude Include="InventoryInputHandler.h" />
     <ClInclude Include="MouseButtonStateTypes.h" />

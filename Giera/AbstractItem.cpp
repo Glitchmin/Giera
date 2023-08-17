@@ -1,4 +1,5 @@
 #include "AbstractItem.h"
+#include "TextureLoader.h"
 using std::make_pair;
 using std::make_shared;
 
@@ -16,7 +17,7 @@ void AbstractItem::updateDrawables()
 {
     if (!texture) {
         string path = getFilePath();
-        texture = make_shared<Texture>(path);
+        texture = TextureLoader::getTexturePtr(path);
     }
     drawables.clear();
     if (boardRect) {

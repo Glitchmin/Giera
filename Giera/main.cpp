@@ -16,6 +16,9 @@ int main( int argc, char* args[] )
 		Logger::logError ("SDL could not initialize", SDL_GetError() );
 	}
 	else{
+		if (TTF_Init() == -1) {
+			Logger::logError("TTF could not initialize", TTF_GetError());
+		}
 		auto window = make_shared<Window>();
 		auto inputConfig = make_shared<InputConfig>();
 		inputConfig->setActionType(SDL_SCANCODE_A, PlayerActionTypes::MOVE_LEFT);

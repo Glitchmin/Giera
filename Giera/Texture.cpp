@@ -1,9 +1,5 @@
 #include "Texture.h"
 
-Texture::Texture(string& textureName)
-{
-	this->texture = TextureLoader::loadTexture(textureName)->getTexture();
-}
 
 Texture::Texture()
 {
