@@ -244,6 +244,7 @@
     <ClCompile Include="StatChangingEffect.cpp" />
     <ClCompile Include="SubTimer.cpp" />
     <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="TextUIElement.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="ThrownSpell.cpp" />
@@ -304,6 +305,7 @@
     <ClInclude Include="AbstractEqSlotUIElement.h" />
     <ClInclude Include="FigureTypes.h" />
     <ClInclude Include="FontTypes.h" />
+    <ClInclude Include="HorizontalAlignmentTypes.h" />
     <ClInclude Include="InventoryButtonUI.h" />
     <ClInclude Include="InventoryInputHandler.h" />
     <ClInclude Include="MouseButtonStateTypes.h" />
@@ -382,12 +384,14 @@
     <ClInclude Include="StatChangingEffect.h" />
     <ClInclude Include="SubTimer.h" />
     <ClInclude Include="Terrain.h" />
+    <ClInclude Include="TextUIElement.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="ThrownSpell.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="ValuesRange.h" />
+    <ClInclude Include="VerticalAlignmentTypes.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="MeleeWeaponTypes.h" />
     <ClInclude Include="Window.h" />

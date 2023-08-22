@@ -3,6 +3,8 @@
 #include "TextureLoader.h"
 #include "Rect.h"
 #include "MouseButtonTypes.h"
+#include "HorizontalAlignmentTypes.h"
+#include "VerticalAlignmentTypes.h"
 #include <array>
 #include <vector>
 using std::array;

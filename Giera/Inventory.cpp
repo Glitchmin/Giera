@@ -10,3 +10,8 @@ shared_ptr<AbstractEqSlot> Inventory::getEqSlot(EqSlotTypes eqSlotType)
 {
     return slots[(int)eqSlotType];
 }
+
+string Inventory::getEqSlotName(EqSlotTypes eqSlotType)
+{
+    return slotNames[(int)eqSlotType];
+}

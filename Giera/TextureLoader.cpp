@@ -33,41 +33,6 @@ shared_ptr<Texture> TextureLoader::getTextureCopy(string_view textureName)
 	return make_shared<Texture>(newCopy);
 }
 
-TTF_Font* TextureLoader::loadTTF_Font(FontTypes fontType, string_view text, int fontSize, SDL_Color color)
-{
-	string fontKey = to_string((int)fontType) + "_" + to_string(fontSize);
-	if (fontMap.find(fontKey) != fontMap.end()) {
-		return fontMap[fontKey];
-	}
-	TTF_Font* font = TTF_OpenFont(fontPaths[(int)fontType].c_str(),fontSize);
-	if (font == NULL) {
-		Logger::logError("couldn't find ", std::filesystem::absolute(fontPaths[(int)fontType]));
-	}
-	fontMap[fontKey] = font;
-	return font;
-}
-
-shared_ptr <Texture> TextureLoader::loadTexture(string_view textureName)
-{
-	if (textureMap.find(textureName.data()) != textureMap.end()) {
-		return textureMap[textureName.data()];
-	}
-	SDL_Surface* surface = IMG_Load(textureName.data());
-	if (surface == NULL) {
-		Logger::logError("couldn't find ", std::filesystem::absolute(textureName));
-	}
-	if (renderer == NULL) {
-		Logger::logError("no renderer");
-	}
-
-	SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
-	SDL_Texture* newSDLTexture = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_SetTextureBlendMode(newSDLTexture, SDL_BLENDMODE_BLEND);
-	SDL_FreeSurface(surface);
-	auto texture = make_shared<Texture>(newSDLTexture);
-	textureMap[textureName.data()] = texture;
-	return texture;
-}
 
 void TextureLoader::setRenderer(SDL_Renderer* renderer)
 {
@@ -94,3 +59,52 @@ shared_ptr<Texture> TextureLoader::makeUniColorTexture(int sizeX, int sizeY, SDL
 	return make_shared<Texture>(newTx);
 }
 
+shared_ptr<Texture> TextureLoader::makeTextTexture(FontTypes fontType, int fontSize, string_view text, SDL_Color color)
+{
+	TTF_Font* font = loadTTF_Font(fontType, fontSize);
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.data(), color);
+	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+	
+	SDL_SetSurfaceBlendMode(textSurface, SDL_BLENDMODE_BLEND);
+	SDL_Texture* newSDLTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+	SDL_SetTextureBlendMode(newSDLTexture, SDL_BLENDMODE_BLEND);
+	SDL_FreeSurface(textSurface);
+
+	return make_shared<Texture>(newSDLTexture);
+}
+
+shared_ptr <Texture> TextureLoader::loadTexture(string_view textureName)
+{
+	if (textureMap.find(textureName.data()) != textureMap.end()) {
+		return textureMap[textureName.data()];
+	}
+	SDL_Surface* surface = IMG_Load(textureName.data());
+	if (surface == NULL) {
+		Logger::logError("couldn't find ", std::filesystem::absolute(textureName));
+	}
+	if (renderer == NULL) {
+		Logger::logError("no renderer");
+	}
+
+	SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
+	SDL_Texture* newSDLTexture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_SetTextureBlendMode(newSDLTexture, SDL_BLENDMODE_BLEND);
+	SDL_FreeSurface(surface);
+	auto texture = make_shared<Texture>(newSDLTexture);
+	textureMap[textureName.data()] = texture;
+	return texture;
+}
+
+TTF_Font* TextureLoader::loadTTF_Font(FontTypes fontType, int fontSize)
+{
+	string fontKey = to_string((int)fontType) + "_" + to_string(fontSize);
+	if (fontMap.find(fontKey) != fontMap.end()) {
+		return fontMap[fontKey];
+	}
+	TTF_Font* font = TTF_OpenFont(fontPaths[(int)fontType].c_str(), fontSize);
+	if (font == NULL) {
+		Logger::logError("couldn't find ", std::filesystem::absolute(fontPaths[(int)fontType]));
+	}
+	fontMap[fontKey] = font;
+	return font;
+}

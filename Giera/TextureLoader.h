@@ -22,13 +22,16 @@ public:
 	static shared_ptr<Texture> getTextureCopy(string_view textureName);
     static void setRenderer(SDL_Renderer* renderer);
 	static shared_ptr<Texture> makeUniColorTexture(int x, int y, SDL_Color color);
+	static shared_ptr<Texture> makeTextTexture(FontTypes fontType, int fontSize,
+		string_view text, SDL_Color color);
 private:
 	static inline unordered_map <string, shared_ptr <Texture> > textureMap{};
 	static inline unordered_map <string, TTF_Font*> fontMap{};
-	static inline array<string, (int)FontTypes::COUNT> fontPaths = {"../../save_files/fonts/MedievalSharp-Regular.ttf" };
+	static inline array<string, (int)FontTypes::COUNT> fontPaths = 
+	{"../../save_files/fonts/MedievalSharp-Regular.ttf" };
 	static inline SDL_Renderer* renderer = NULL;
 	static shared_ptr <Texture> loadTexture(string_view textureName);
-	static TTF_Font* loadTTF_Font(FontTypes fontType, string_view text, int fontSize, SDL_Color color);
+	static TTF_Font* loadTTF_Font(FontTypes fontType, int fontSize);
 	friend class Texture;
 };
 
