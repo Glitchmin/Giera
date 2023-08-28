@@ -15,6 +15,7 @@ class AbstractEqSlot
 protected:
 	array <bool, (int)ItemTypes::COUNT> isAcceptedItemType;
 public:
+	//pass empty to make it accept every type of item
 	AbstractEqSlot(vector <ItemTypes>& acceptedItemTypes);
 	virtual bool isAccepted(int x, int y, shared_ptr<AbstractItem> item) = 0;
 	virtual void insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item) = 0;

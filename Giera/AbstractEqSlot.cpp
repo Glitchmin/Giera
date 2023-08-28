@@ -4,7 +4,7 @@
 AbstractEqSlot::AbstractEqSlot(vector<ItemTypes>& acceptedItemTypes)
 {
 	for (auto& b : isAcceptedItemType) {
-		b = 0;
+		b = acceptedItemTypes.empty();
 	}
 	for (auto itemType : acceptedItemTypes) {
 		isAcceptedItemType[(int)itemType] = 1;

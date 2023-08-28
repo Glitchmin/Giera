@@ -13,6 +13,7 @@ enum class ItemTypes {
 	SHIELD,
 	ARMOR,
 	FOOD,
+	POISON, //TODO
 	ARROW,
 	MISC,
 	READABLE,
