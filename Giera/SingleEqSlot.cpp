@@ -2,7 +2,7 @@
 #include "SingleEqSlotUI.h"
 #include "InventoryButtonUI.h"
 
-SingleEqSlot::SingleEqSlot(vector<ItemTypes>& acceptedItemTypes)
+SingleEqSlot::SingleEqSlot(vector<ItemTypes> acceptedItemTypes)
 	:AbstractEqSlot(acceptedItemTypes)
 {
 }

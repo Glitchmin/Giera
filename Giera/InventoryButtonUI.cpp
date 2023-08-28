@@ -23,12 +23,8 @@ void InventoryButtonUI::resetItemAlpha()
 void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
 	if (pxRealPosRect.isPointInside(pos.first, pos.second)) {
-		if (edgeTransparency != maxEdgeTransparency) {
-			needsUpdate();
-		}
 		if ((int)(inventoryInputHandler->getSelectedItem() == nullptr) + (int)(item == nullopt) == 1) {
-			edgeTransparency += timeDiff.getTimeMs();
-			edgeTransparency = min(edgeTransparency, maxEdgeTransparency);
+			changeEdgeTransparency(timeDiff,true);
 		}
 		if (mouseEventType == MouseEventTypes::PRESS_LEFT) {
 			if (auto selectedItem = inventoryInputHandler->getSelectedItem()) {
@@ -50,11 +46,7 @@ void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<in
 		}
 	}
 	else {
-		if (edgeTransparency != 0) {
-			needsUpdate();
-		}
-		edgeTransparency -= timeDiff.getTimeMs();
-		edgeTransparency = max(edgeTransparency, 0);
+		changeEdgeTransparency(timeDiff, false);
 	}
 }
 

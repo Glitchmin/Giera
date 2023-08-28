@@ -18,3 +18,6 @@ enum class ItemTypes {
 	READABLE,
 	COUNT
 };
+
+
+//POISON, //TODO

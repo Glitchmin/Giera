@@ -11,7 +11,7 @@ protected:
     void increaseWidth();
     void increaseHeight();
 public:
-    MultipleEqSlot(vector <ItemTypes>& acceptedItemTypes, int totalSize);
+    MultipleEqSlot(vector <ItemTypes> acceptedItemTypes, int totalSize);
     virtual bool isAccepted(int x, int y, shared_ptr<AbstractItem> item) override;
     virtual void insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item) override;
     virtual optional<shared_ptr<AbstractItem>> getItem(int x, int y) override;

@@ -68,12 +68,14 @@ bool MultipleEqSlotUI::isItemAccepted(InventoryButtonUI* inventoryButtonUI)
 		Logger::logWarning("button not found");
 	}
 	Logger::logInfo("found", inventoryButtonUI, pos.first, pos.second);
-	return eqSlot->isAccepted(pos.first, pos.second, inventoryInputHandler->getSelectedItem());
+	bool ans = eqSlot->isAccepted(pos.first, pos.second, inventoryInputHandler->getSelectedItem());
+	return ans;
 }
 
 void MultipleEqSlotUI::updateItems()
 {
 	children.clear();
+	emptyButton = nullptr;
 	buttonMapping.clear();
 	auto multipleEqSlot = std::dynamic_pointer_cast<MultipleEqSlot>(eqSlot);
 	for (int x = 0; x < multipleEqSlot->getWidth();x++) {

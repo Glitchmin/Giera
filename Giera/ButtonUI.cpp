@@ -26,6 +26,23 @@ void ButtonUI::drawEdges(shared_ptr<Texture>& texture)
 	}
 }
 
+void ButtonUI::changeEdgeTransparency(Time timeDiff, bool positive)
+{
+	if (positive) {
+		if (edgeTransparency != maxEdgeTransparency) {
+			needsUpdate();
+		}
+		edgeTransparency += timeDiff.getTimeMs();
+		edgeTransparency = min(edgeTransparency, maxEdgeTransparency);
+		return;
+	}
+	if (edgeTransparency != 0) {
+		needsUpdate();
+	}
+	edgeTransparency -= timeDiff.getTimeMs();
+	edgeTransparency = max(edgeTransparency, 0);
+}
+
 void ButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
 	if (pxRealPosRect.isPointInside(pos.first, pos.second)) {

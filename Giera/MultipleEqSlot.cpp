@@ -61,11 +61,11 @@ void MultipleEqSlot::increaseHeight()
 	}
 }
 
-MultipleEqSlot::MultipleEqSlot(vector<ItemTypes>& acceptedItemTypes, int totalSize)
+MultipleEqSlot::MultipleEqSlot(vector<ItemTypes> acceptedItemTypes, int totalSize)
 	:AbstractEqSlot(acceptedItemTypes), size(0), totalSize(totalSize)
 {
-	width = 2 * sqrt(totalSize / 2);
-	height = sqrt(totalSize / 2);
+	width = 2 * sqrt(totalSize / 2)+2;
+	height = sqrt(totalSize / 2)+2;
 	for (int i = 0; i < width;i++) {
 		vector<shared_ptr<AbstractItem>> tmp(height);
 		items.push_back(tmp);

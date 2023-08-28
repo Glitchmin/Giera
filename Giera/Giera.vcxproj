@@ -231,6 +231,7 @@
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="ProjectilesEngine.cpp" />
     <ClCompile Include="QuiverEqSlot.cpp" />
+    <ClCompile Include="QuiverEqSlotUI.cpp" />
     <ClCompile Include="RangedWeapon.cpp" />
     <ClCompile Include="Readable.cpp" />
     <ClCompile Include="Cuboid.cpp" />
@@ -311,6 +312,7 @@
     <ClInclude Include="MouseButtonStateTypes.h" />
     <ClInclude Include="MouseButtonTypes.h" />
     <ClInclude Include="MultipleEqSlotUI.h" />
+    <ClInclude Include="QuiverEqSlotUI.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="HittableBoardEntity.h" />
     <ClInclude Include="HittableEntityObserver.h" />

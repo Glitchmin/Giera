@@ -1,4 +1,6 @@
 #include "QuiverEqSlot.h"
+#include "QuiverEqSlotUI.h"
+#include "InventoryButtonUI.h"
 using std::dynamic_pointer_cast;
 
 QuiverEqSlot::QuiverEqSlot(int arrowCapacity)
@@ -43,4 +45,9 @@ optional<shared_ptr<AbstractItem>> QuiverEqSlot::removeItem(int x, int y)
 	auto item = slots[slotNum].back();
 	slots[slotNum].pop_back();
 	return optional(item);
+}
+
+unique_ptr<AbstractEqSlotUIElement> QuiverEqSlot::generateUIElement(Rect<fr_pos_t> relRect, UIElement* parent, shared_ptr<InventoryInputHandler> inventoryInputHandler)
+{
+	return make_unique <QuiverEqSlotUI>(relRect, parent, shared_from_this(), inventoryInputHandler);
 }
