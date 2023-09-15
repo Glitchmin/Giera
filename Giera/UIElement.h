@@ -53,6 +53,6 @@ public:
 	Rect<px_pos_t> getPixelRelativePosRect() const;
 
 	Rect<px_pos_t> getPixelRealPosRect() const;
-
+	void setPixelRealPosRect(Rect<px_pos_t> pixelRealPosRect);
 };
 

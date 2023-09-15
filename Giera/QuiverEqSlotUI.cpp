@@ -38,7 +38,7 @@ void QuiverEqSlotUI::updateItems()
 		auto eqSlotButton = make_unique<InventoryButtonUI>(rect, eqSlot->getItem(i, 0), this, .05, inventoryInputHandler);
 		eqSlotButtons[i] = eqSlotButton.get();
 		addChild(std::move(eqSlotButton));
-		rect.setPos(.5, nullopt);
+		rect.x=.5;
 	}
 }
 

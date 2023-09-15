@@ -25,10 +25,10 @@ void MultipleEqSlotUI::addItemUI(int x, int y, shared_ptr<InventoryInputHandler>
 		return;
 	}
 	auto item = multipleEqSlot->getItem(x, y).value();
-	px_pos_t tileSizePx = std::min(pxRealPosRect.getSize()[0] / multipleEqSlot->getWidth(),
-		pxRealPosRect.getSize()[1] / multipleEqSlot->getHeight());
-	fr_pos_t tileSizeFrX = (fr_pos_t)tileSizePx / pxRealPosRect.getSize()[0];
-	fr_pos_t tileSizeFrY = (fr_pos_t)tileSizePx / pxRealPosRect.getSize()[1];
+	px_pos_t tileSizePx = std::min(pxRealPosRect.w / multipleEqSlot->getWidth(),
+		pxRealPosRect.h / multipleEqSlot->getHeight());
+	fr_pos_t tileSizeFrX = (fr_pos_t)tileSizePx / pxRealPosRect.w;
+	fr_pos_t tileSizeFrY = (fr_pos_t)tileSizePx / pxRealPosRect.h;
 	Rect <fr_pos_t> relRect{ tileSizeFrX * x, tileSizeFrY * y,
 		(fr_pos_t)item->getWidth() * tileSizeFrX,(fr_pos_t)item->getHeight() * tileSizeFrY };
 	auto invButtonUI = make_unique<InventoryButtonUI>(relRect, item, this, .05, inventoryInputHandler);
@@ -103,13 +103,13 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 			}
 		}
 		auto multipleEqSlot = std::dynamic_pointer_cast<MultipleEqSlot>(eqSlot);
-		px_pos_t xPx = pos.first - pxRealPosRect.getPos()[0];
-		px_pos_t yPx = pos.second - pxRealPosRect.getPos()[1];
+		px_pos_t xPx = pos.first - pxRealPosRect.x;
+		px_pos_t yPx = pos.second - pxRealPosRect.y;
 
-		px_pos_t tileSizePx = std::min(pxRealPosRect.getSize()[0] / multipleEqSlot->getWidth(),
-			pxRealPosRect.getSize()[1] / multipleEqSlot->getHeight());
-		fr_pos_t tileSizeFrX = (fr_pos_t)tileSizePx / pxRealPosRect.getSize()[0];
-		fr_pos_t tileSizeFrY = (fr_pos_t)tileSizePx / pxRealPosRect.getSize()[1];
+		px_pos_t tileSizePx = std::min(pxRealPosRect.w / multipleEqSlot->getWidth(),
+			pxRealPosRect.h / multipleEqSlot->getHeight());
+		fr_pos_t tileSizeFrX = (fr_pos_t)tileSizePx / pxRealPosRect.w;
+		fr_pos_t tileSizeFrY = (fr_pos_t)tileSizePx / pxRealPosRect.h;
 
 		int x = xPx / tileSizePx;
 		int y = yPx / tileSizePx;

@@ -14,7 +14,6 @@ void AbstractEqSlotUIElement::render(shared_ptr<Texture>& textureToDrawOn)
 {
 	if (requiresItemUpdate) {
 		requiresItemUpdate = 0;
-		Logger::logInfo(this);
 		updateItems();
 	}
 	UIElement::render(textureToDrawOn);

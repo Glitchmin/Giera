@@ -2,7 +2,8 @@
 #include "AbstractEqSlotUIElement.h"
 #include "AbstractEqSlot.h"
 #include "InventoryInputHandler.h"
-#include "TextUIElement.h"
+#include "UIAligningElement.h"
+#include "ImageUIElement.h"
 using std::make_unique;
 
 InventoryUI::InventoryUI(shared_ptr<Window> window, shared_ptr <Inventory> inventory, 
@@ -18,10 +19,14 @@ InventoryUI::InventoryUI(shared_ptr<Window> window, shared_ptr <Inventory> inven
 		Rect <fr_pos_t> pos_rect (0, .025 + .2 * i, .15, .15);
 		children.push_back(inventory->getEqSlot((EqSlotTypes)i)->
 			generateUIElement(pos_rect, this, inventoryInputHandler));
-		pos_rect.setPos(nullopt, pos_rect.getPos()[1]-.025);
-		children.push_back(make_unique<TextUIElement>(pos_rect,
-			TextureLoader::makeTextTexture(FontTypes::SMALL, 12, Inventory::getEqSlotName((EqSlotTypes)i) ,
-				{ 196,196,196 }), VerticalAlignmentTypes::TOP, HorizontalAlignmentTypes::CENTER, this));
+		pos_rect.y-=.025;
+		auto uiAligningElement = make_unique<UIAligningElement>(pos_rect, this,
+			HorizontalAlignmentTypes::CENTER, VerticalAlignmentTypes::TOP);
+		uiAligningElement->addChild(
+			make_unique<ImageUIElement>(0, 0,
+			TextureLoader::makeTextTexture(FontTypes::SMALL, 12,
+				Inventory::getEqSlotName((EqSlotTypes)i), { 196,196,196 }), uiAligningElement.get()));
+		children.push_back(std::move(uiAligningElement));
 	}
 }
 

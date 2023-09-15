@@ -6,13 +6,12 @@ using std::make_shared;
 UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
 	shared_ptr<Texture> image, UIElement* parent) :
 	image(image), parent(parent), frRelPosRect(frRelPosRect),
-	pxRealPosRect({ (int)(frRelPosRect.getPos()[0] * parent->pxRealPosRect.getSize()[0] + parent->pxRealPosRect.getPos()[0]),
-		(int)(frRelPosRect.getPos()[1] * parent->pxRealPosRect.getSize()[1] + parent->pxRealPosRect.getPos()[1]),
-	(int)(frRelPosRect.getSize()[0] * parent->pxRealPosRect.getSize()[0]),
-		(int)(frRelPosRect.getSize()[1] * parent->pxRealPosRect.getSize()[1]) })
+	pxRealPosRect({ (int)(frRelPosRect.x * parent->pxRealPosRect.w + parent->pxRealPosRect.x),
+		(int)(frRelPosRect.y * parent->pxRealPosRect.h + parent->pxRealPosRect.y),
+	(int)(frRelPosRect.w * parent->pxRealPosRect.w),
+		(int)(frRelPosRect.h * parent->pxRealPosRect.h) })
 {
-	Logger::logInfo(frRelPosRect.getSize()[0] , parent->pxRealPosRect.getSize()[0],frRelPosRect.getSize()[0] * parent->pxRealPosRect.getSize()[0]);
-	texture = TextureLoader::makeUniColorTexture(pxRealPosRect.getSize()[0], pxRealPosRect.getSize()[1], { 0,0,0,0 });
+	texture = TextureLoader::makeUniColorTexture(pxRealPosRect.w, pxRealPosRect.h, { 0,0,0,0 });
 }
 
 UIElement::UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image)
@@ -85,14 +84,19 @@ Rect<fr_pos_t> UIElement::getFractionalRelativePosRect() const
 
 Rect<px_pos_t> UIElement::getPixelRelativePosRect() const
 {
-	return {pxRealPosRect.getPos()[0]-parent->pxRealPosRect.getPos()[0],
-	pxRealPosRect.getPos()[1] - parent->pxRealPosRect.getPos()[1],
-	pxRealPosRect.getSize()[0],pxRealPosRect.getSize()[1]};
+	return {pxRealPosRect.x-parent->pxRealPosRect.x,
+	pxRealPosRect.y - parent->pxRealPosRect.y,
+	pxRealPosRect.w,pxRealPosRect.h};
 }
 
 Rect<px_pos_t> UIElement::getPixelRealPosRect() const
 {
 	return pxRealPosRect;
+}
+
+void UIElement::setPixelRealPosRect(Rect<px_pos_t> pixelRealPosRect)
+{
+	pxRealPosRect = pixelRealPosRect;
 }
 
 

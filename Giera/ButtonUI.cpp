@@ -10,14 +10,14 @@ ButtonUI::ButtonUI(Rect<fr_pos_t> relativePosRect, shared_ptr<Texture> texture, 
 
 void ButtonUI::drawEdges(shared_ptr<Texture>& texture)
 {
-	int edgeSize = (relativeEdgeThickness * pxRealPosRect.getSize()[1] +
-		relativeEdgeThickness * pxRealPosRect.getSize()[0] + 1) / 2;
+	int edgeSize = (relativeEdgeThickness * pxRealPosRect.h +
+		relativeEdgeThickness * pxRealPosRect.w + 1) / 2;
 	SDL_SetRenderTarget(Texture::getRenderer(), texture->getTexture());
 	SDL_SetRenderDrawColor(Texture::getRenderer(), 255, 255, 255, edgeTransparency);
-	int x = pxRealPosRect.getPos()[0] - parent->getPixelRealPosRect().getPos()[0];
-	int y = pxRealPosRect.getPos()[1] - parent->getPixelRealPosRect().getPos()[1];
-	int Sx = pxRealPosRect.getSize()[0];
-	int Sy = pxRealPosRect.getSize()[1];
+	int x = pxRealPosRect.x - parent->getPixelRealPosRect().x;
+	int y = pxRealPosRect.y - parent->getPixelRealPosRect().y;
+	int Sx = pxRealPosRect.w;
+	int Sy = pxRealPosRect.h;
 	for (int i = 0; i < edgeSize;i++) {
 		SDL_RenderDrawLine(Texture::getRenderer(), x + i, y, x + i, y + Sy);
 		SDL_RenderDrawLine(Texture::getRenderer(), x + Sx - i - 1, y, x + Sx - i - 1, y + Sy);
