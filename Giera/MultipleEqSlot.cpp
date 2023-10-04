@@ -5,16 +5,21 @@
 
 using std::make_unique;
 
+MultipleEqSlot::MultipleEqSlot(vector<ItemTypes> acceptedItemTypes, int width, int height, int capacity, bool itemDimensionsMatter)
+	:AbstractEqSlot(acceptedItemTypes), width(width), height(height), fillLevel(0), capacity(capacity), itemDimensionsMatter(itemDimensionsMatter)
+{
+	for (int i = 0; i < width;i++) {
+		vector<shared_ptr<AbstractItem>> tmp(height);
+		items.push_back(tmp);
+	}
+}
+
 void MultipleEqSlot::insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item)
 {
-	for (int i = x; i < x + item->getWidth();i++) {
-		for (int j = y; j < y + item->getHeight();j++) {
-			while (i >= width) {
-				increaseWidth();
-			}
-			while (j >= height) {
-				increaseHeight();
-			}
+	int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
+	int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
+	for (int i = x; i < x + itemWidth;i++) {
+		for (int j = y; j < y + itemHeight;j++) {
 			items[i][j] = item;
 		}
 	}
@@ -32,8 +37,10 @@ optional<shared_ptr<AbstractItem>> MultipleEqSlot::removeItem(int x, int y)
 	if (item == nullptr) {
 		return nullopt;
 	}
-	for (int i = x; i < x + item->getWidth();i++) {
-		for (int j = y; j < y + item->getHeight(); j++) {
+	int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
+	int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
+	for (int i = x; i < x + itemWidth;i++) {
+		for (int j = y; j < y + itemHeight; j++) {
 			items[i][j] = nullptr;
 		}
 	}
@@ -61,29 +68,25 @@ void MultipleEqSlot::increaseHeight()
 	}
 }
 
-MultipleEqSlot::MultipleEqSlot(vector<ItemTypes> acceptedItemTypes, int totalSize)
-	:AbstractEqSlot(acceptedItemTypes), size(0), totalSize(totalSize)
-{
-	width = 2 * sqrt(totalSize / 2)+2;
-	height = sqrt(totalSize / 2)+2;
-	for (int i = 0; i < width;i++) {
-		vector<shared_ptr<AbstractItem>> tmp(height);
-		items.push_back(tmp);
-	}
-}
+
+
 
 bool MultipleEqSlot::isAccepted(int x, int y, shared_ptr<AbstractItem> item)
 {
-	bool hasSpace = 1;
-	for (int i = x; i < x + item->getWidth();i++) {
-		for (int j = y; j < y + item->getHeight();j++) {
+	bool hasSpace = isAcceptedItemType[(int)item->getItemType()];
+
+	int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
+	int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
+
+	for (int i = x; i < x + itemWidth;i++) {
+		for (int j = y; j < y + itemHeight;j++) {
 			if (j >= height || i >= width || items[i][j]) {
 				hasSpace = 0;
 				break;
 			}
 		}
 	}
-	return isAcceptedItemType[(int)item->getItemType()] && hasSpace;
+	return hasSpace;
 }
 int MultipleEqSlot::getWidth() const
 {

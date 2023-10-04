@@ -1,19 +1,14 @@
 #pragma once
-#include "AbstractEqSlot.h"
+#include "MultipleEqSlot.h"
 class Dropslots :
-    public AbstractEqSlot
+    public MultipleEqSlot
 {
 protected:
-    vector <shared_ptr<AbstractItem> > items;
-	int capacity;
-	int maxCapacity;
-	int rowsNr;
 	static inline vector <ItemTypes> emptyItemTypes = {};
 public:
-	Dropslots(int capacity, int rowsNr);
-	virtual bool isAccepted(int x, int y, shared_ptr<AbstractItem> item) override;
-	virtual void insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item) override;
-	virtual optional<shared_ptr<AbstractItem>> removeItem(int x, int y) override;
-	virtual optional<shared_ptr<AbstractItem>> getItem(int x, int y) override;
+	Dropslots(int width, int height);
+	unique_ptr<AbstractEqSlotUIElement> generateUIElement(Rect<fr_pos_t> relRect,
+		UIElement* parent, shared_ptr<InventoryInputHandler> inventoryInputHandler) override;
+
 };
 

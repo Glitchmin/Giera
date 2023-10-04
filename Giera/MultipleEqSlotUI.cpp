@@ -42,7 +42,6 @@ void MultipleEqSlotUI::removeItem(InventoryButtonUI* inventoryButtonUI)
 	if (buttonMapping.find(inventoryButtonUI) == buttonMapping.end()){
 		Logger::logWarning("button not found");
 	}
-	Logger::logInfo("removing item at", pos.first, pos.second);
 	eqSlot->removeItem(pos.first, pos.second);
 	requiresItemUpdate = 1;
 	needsUpdate();

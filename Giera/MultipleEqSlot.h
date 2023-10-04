@@ -5,13 +5,14 @@ class MultipleEqSlot :
 {
 protected:
     vector<vector<shared_ptr<AbstractItem>>> items;
-    unsigned int size;
-    unsigned int totalSize;
+    unsigned int fillLevel;
+    unsigned int capacity;
     int width, height;
     void increaseWidth();
     void increaseHeight();
+    bool itemDimensionsMatter;
 public:
-    MultipleEqSlot(vector <ItemTypes> acceptedItemTypes, int totalSize);
+    MultipleEqSlot(vector <ItemTypes> acceptedItemTypes, int width, int height, int capacity, bool itemDimensionsMatter);
     virtual bool isAccepted(int x, int y, shared_ptr<AbstractItem> item) override;
     virtual void insertAcceptedItem(int x, int y, shared_ptr<AbstractItem> item) override;
     virtual optional<shared_ptr<AbstractItem>> getItem(int x, int y) override;

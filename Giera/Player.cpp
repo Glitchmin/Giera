@@ -25,11 +25,13 @@ Player::Player() : AbstractNPC()
 	array<shared_ptr<AbstractEqSlot>, (int)EqSlotTypes::COUNT> slots;
 	vector <ItemTypes> itemTypes = {};
 	//Backpack
-	slots[0] = make_shared<MultipleEqSlot>(vector <ItemTypes>(), 40);
+	int backpackCapacity = 40;
+	slots[0] = make_shared<MultipleEqSlot>(vector <ItemTypes>(), 
+		2 * sqrt(backpackCapacity / 2) + 2, sqrt(backpackCapacity / 2) + 2, backpackCapacity, true);
 	//Satchel
-	slots[1] = make_shared<MultipleEqSlot>(vector <ItemTypes>{ItemTypes::FOOD}, 4);
+	slots[1] = make_shared<MultipleEqSlot>(vector <ItemTypes>{ItemTypes::FOOD},2,2, 4, false);
 	slots[1]->insertAcceptedItem(0, 0, BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0));
-	slots[1]->insertAcceptedItem(2, 0, BaseItemHandler::generate<Arrow>(ItemTypes::ARROW, 0));
+	slots[1]->insertAcceptedItem(1, 0, BaseItemHandler::generate<Arrow>(ItemTypes::ARROW, 0));
 	//Quiver
 	slots[2] = make_shared<QuiverEqSlot>(8);
 	slots[2]->insertAcceptedItem(0, 0, BaseItemHandler::generate<Arrow>(ItemTypes::ARROW, 0));
@@ -44,7 +46,7 @@ Player::Player() : AbstractNPC()
 	//Armor
 	slots[7] = make_shared<SingleEqSlot>(vector <ItemTypes> {ItemTypes::ARMOR});
 	//Dropslots
-	//slots[8] = make_shared<Dropslots>(vector <ItemTypes>());
+	slots[8] = make_shared<Dropslots>(10, 2);
 	inventory = make_shared<Inventory>(slots);
 }
 
