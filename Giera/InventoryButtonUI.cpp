@@ -30,9 +30,9 @@ void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<in
 			if (auto selectedItem = inventoryInputHandler->getSelectedItem()) {
 
 				if (((AbstractEqSlotUIElement*)parent)->isItemAccepted(this)) {
-					((AbstractEqSlotUIElement*)parent)->insertAcceptedItem(this);
 					((AbstractEqSlotUIElement*)inventoryInputHandler->getSelectedInventoryButtonUI()->parent)
 						->removeItem(inventoryInputHandler->getSelectedInventoryButtonUI());
+					((AbstractEqSlotUIElement*)parent)->insertAcceptedItem(this);
 					inventoryInputHandler->resetSelectedItem();
 				}
 			}

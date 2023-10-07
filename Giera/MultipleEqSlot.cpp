@@ -54,26 +54,9 @@ unique_ptr<AbstractEqSlotUIElement> MultipleEqSlot::generateUIElement(Rect<fr_po
 }
 
 
-void MultipleEqSlot::increaseWidth()
-{
-	width++;
-	items.push_back(vector<shared_ptr<AbstractItem>>(height));
-}
-
-void MultipleEqSlot::increaseHeight()
-{
-	height++;
-	for (auto& v : items) {
-		v.push_back(nullptr);
-	}
-}
-
-
-
-
 bool MultipleEqSlot::isAccepted(int x, int y, shared_ptr<AbstractItem> item)
 {
-	bool hasSpace = isAcceptedItemType[(int)item->getItemType()];
+	bool ans = isAcceptedItemType[(int)item->getItemType()];
 
 	int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
 	int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
@@ -81,13 +64,17 @@ bool MultipleEqSlot::isAccepted(int x, int y, shared_ptr<AbstractItem> item)
 	for (int i = x; i < x + itemWidth;i++) {
 		for (int j = y; j < y + itemHeight;j++) {
 			if (j >= height || i >= width || items[i][j]) {
-				hasSpace = 0;
+				if (items[i][j] == item) {
+					continue;
+				}
+				ans = 0;
 				break;
 			}
 		}
 	}
-	return hasSpace;
+	return ans;
 }
+
 int MultipleEqSlot::getWidth() const
 {
 	return width;
@@ -96,5 +83,11 @@ int MultipleEqSlot::getWidth() const
 int MultipleEqSlot::getHeight() const
 {
 	return height;
+}
+
+
+bool MultipleEqSlot::getItemDimensionsMatter() const
+{
+    return itemDimensionsMatter;
 }
 

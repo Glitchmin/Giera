@@ -46,7 +46,7 @@ Player::Player() : AbstractNPC()
 	//Armor
 	slots[7] = make_shared<SingleEqSlot>(vector <ItemTypes> {ItemTypes::ARMOR});
 	//Dropslots
-	slots[8] = make_shared<Dropslots>(10, 2);
+	slots[8] = make_shared<Dropslots>(4, 2);
 	inventory = make_shared<Inventory>(slots);
 }
 

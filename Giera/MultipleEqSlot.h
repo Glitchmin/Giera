@@ -8,8 +8,6 @@ protected:
     unsigned int fillLevel;
     unsigned int capacity;
     int width, height;
-    void increaseWidth();
-    void increaseHeight();
     bool itemDimensionsMatter;
 public:
     MultipleEqSlot(vector <ItemTypes> acceptedItemTypes, int width, int height, int capacity, bool itemDimensionsMatter);
@@ -23,6 +21,7 @@ public:
 
     int getWidth() const;
     int getHeight() const;
+    bool getItemDimensionsMatter() const;
 
 };
 

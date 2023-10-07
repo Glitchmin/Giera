@@ -7,11 +7,11 @@ using std::make_pair;
 using std::make_shared;
 
 Window::Window() :
-	UIElement(Rect<px_pos_t> (0, 0, 800, 640), 
+	UIElement(Rect<px_pos_t> (0, 0, 1200, 1200/1.6), 
 		nullptr)
 {
 	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		800, 640, SDL_WINDOW_SHOWN);
+		1200, 1200 / 1.6, SDL_WINDOW_SHOWN);
 	if (window == NULL) {
 		Logger::logError("Couldn't create window", SDL_GetError());
 	}
@@ -21,7 +21,7 @@ Window::Window() :
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		TextureLoader::setRenderer(renderer);
 		Texture::setRenderer(renderer);
-		texture = TextureLoader::makeUniColorTexture(800, 640, { 0,0,0,0 });
+		texture = TextureLoader::makeUniColorTexture(1200, 1200 / 1.6, { 0,0,0,0 });
 
 	}
 }
