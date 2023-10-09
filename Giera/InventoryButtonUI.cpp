@@ -52,6 +52,9 @@ void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<in
 
 void InventoryButtonUI::render(shared_ptr<Texture>& textureToDrawOn)
 {
+	if (item) {
+		setBgColor({ 255,255,255,128 });
+	}
 	if (image) {
 		SDL_SetTextureAlphaMod(image->getTexture(), itemAlpha);
 	}

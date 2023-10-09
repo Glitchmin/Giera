@@ -23,6 +23,7 @@ protected:
 	shared_ptr <Texture> texture;
 	vector<unique_ptr<UIElement>> children;
 	bool updateNeeded = 1;
+	SDL_Color bgColor;
 
 public:
 	enum class MouseEventTypes {
@@ -36,8 +37,8 @@ public:
 		COUNT
 	};
 
-	UIElement(Rect <fr_pos_t> frRelPosRect, shared_ptr<Texture> image, UIElement* parent);
-	UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image);
+	UIElement(Rect <fr_pos_t> frRelPosRect, shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor = { 0,0,0,0 });
+	UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image, SDL_Color bgColor = { 0,0,0,0 });
 	virtual void addChild(unique_ptr<UIElement> child);
 	virtual void render(shared_ptr <Texture>& textureToDrawOn);
 	virtual void handleMouseInput(MouseEventTypes mouseEventType, pair<int,int> pos, Time timeDiff);
@@ -54,5 +55,8 @@ public:
 
 	Rect<px_pos_t> getPixelRealPosRect() const;
 	void setPixelRealPosRect(Rect<px_pos_t> pixelRealPosRect);
+
+    void setBgColor(SDL_Color bgColor);
+
 };
 

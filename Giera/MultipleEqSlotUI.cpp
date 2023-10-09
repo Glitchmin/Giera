@@ -75,6 +75,12 @@ bool MultipleEqSlotUI::isItemAccepted(InventoryButtonUI* inventoryButtonUI)
 	return ans;
 }
 
+void MultipleEqSlotUI::render(shared_ptr<Texture>& textureToDrawOn)
+{
+
+	AbstractEqSlotUIElement::render(textureToDrawOn);
+}
+
 void MultipleEqSlotUI::updateItems()
 {
 	children.clear();

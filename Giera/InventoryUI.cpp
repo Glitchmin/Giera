@@ -16,9 +16,7 @@ InventoryUI::InventoryUI(shared_ptr<Window> window, shared_ptr <Inventory> inven
 	inventoryInputHandler(inventoryInputHandler)
 {
 	for (int i = 0; i < (int)EqSlotTypes::COUNT; i++) {
-		float x = (i / 5) * .5;
-		float y = .025 + .2 * i - (i/5);
-		Rect <fr_pos_t> pos_rect (x, y, .15, .15);
+		Rect <fr_pos_t> pos_rect = uiElementRectArray[i];
 		children.push_back(inventory->getEqSlot((EqSlotTypes)i)->
 			generateUIElement(pos_rect, this, inventoryInputHandler));
 		pos_rect.y-=.025;

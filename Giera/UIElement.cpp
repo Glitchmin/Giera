@@ -4,18 +4,18 @@
 using std::make_shared;
 
 UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
-	shared_ptr<Texture> image, UIElement* parent) :
+	shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor) :
 	image(image), parent(parent), frRelPosRect(frRelPosRect),
 	pxRealPosRect({ (int)(frRelPosRect.x * parent->pxRealPosRect.w + parent->pxRealPosRect.x),
 		(int)(frRelPosRect.y * parent->pxRealPosRect.h + parent->pxRealPosRect.y),
 	(int)(frRelPosRect.w * parent->pxRealPosRect.w),
-		(int)(frRelPosRect.h * parent->pxRealPosRect.h) })
+		(int)(frRelPosRect.h * parent->pxRealPosRect.h) }), bgColor(bgColor)
 {
 	texture = TextureLoader::makeUniColorTexture(pxRealPosRect.w, pxRealPosRect.h, { 0,0,0,0 });
 }
 
-UIElement::UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image)
-	:parent(nullptr), image(image), pxRealPosRect(pxRealPosRect), frRelPosRect(0, 0, 0, 0)
+UIElement::UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image, SDL_Color bgColor)
+	:parent(nullptr), image(image), pxRealPosRect(pxRealPosRect), frRelPosRect(0, 0, 0, 0), bgColor(bgColor)
 {
 }
 
@@ -23,8 +23,8 @@ void UIElement::render(shared_ptr <Texture>& textureToDrawOn)
 {
 	if (updateNeeded) {
 		updateNeeded = 0;
-		texture->fillWithColor({ 0,0,0,0 });
-		if (image != nullptr) {
+		texture->fillWithColor(bgColor);
+		if (image) {
 			image->draw(*texture, nullopt, nullopt);
 		}
 		for (auto& child : children) {
@@ -100,4 +100,10 @@ void UIElement::setPixelRealPosRect(Rect<px_pos_t> pixelRealPosRect)
 }
 
 
+
+
+void UIElement::setBgColor(SDL_Color bgColor)
+{
+    this->bgColor = bgColor;
+}
 

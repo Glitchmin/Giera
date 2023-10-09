@@ -19,6 +19,7 @@ public:
     virtual void removeItem(InventoryButtonUI* inventoryButtonUI) override;
     virtual void insertAcceptedItem(InventoryButtonUI* inventoryButtonUI) override;
     virtual bool isItemAccepted(InventoryButtonUI* inventoryButtonUI) override;
+    virtual void render(shared_ptr <Texture>& textureToDrawOn) override;
     virtual void updateItems() override;
 
     void removeEmptyButton();
