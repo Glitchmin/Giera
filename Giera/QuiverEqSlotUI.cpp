@@ -1,8 +1,13 @@
 #include "QuiverEqSlotUI.h"
 #include "AbstractEqSlot.h"
 #include "InventoryButtonUI.h"
+#include "UIAligningElement.h"
+#include "ImageUIElement.h"
+using std::make_unique;
+using std::dynamic_pointer_cast;
+using std::to_string;
 
-QuiverEqSlotUI::QuiverEqSlotUI(Rect<fr_pos_t> relRect, UIElement* parent, shared_ptr<AbstractEqSlot> eqSlot,
+QuiverEqSlotUI::QuiverEqSlotUI(Rect<fr_pos_t> relRect, UIElement* parent, shared_ptr<QuiverEqSlot> eqSlot,
 	shared_ptr<InventoryInputHandler> inventoryInputHandler) :
 	AbstractEqSlotUIElement(relRect, parent, eqSlot, inventoryInputHandler) {
 	updateItems();
@@ -33,13 +38,25 @@ bool QuiverEqSlotUI::isItemAccepted(InventoryButtonUI* inventoryButtonUI)
 void QuiverEqSlotUI::updateItems()
 {
 	children.clear();
-	Rect <fr_pos_t> rect{ 0,0,.5,1 };
+	auto quiverEqSlot = dynamic_pointer_cast<QuiverEqSlot>(eqSlot);
+	Rect <fr_pos_t> posRect{ 0,0,.5,1 };
+	auto fillLevels = quiverEqSlot->getFillLevels();
 	for (int i = 0; i < 2;i++) {
-		auto eqSlotButton = make_unique<InventoryButtonUI>(rect, eqSlot->getItem(i, 0), this, .05, inventoryInputHandler);
+		auto eqSlotButton = make_unique<InventoryButtonUI>(posRect, eqSlot->getItem(i, 0), this, .05, inventoryInputHandler);
 		eqSlotButtons[i] = eqSlotButton.get();
 		addChild(std::move(eqSlotButton));
-		rect.x=.5;
+		auto uiAligningElement = make_unique<UIAligningElement>(posRect, this,
+			HorizontalAlignmentTypes::RIGHT, VerticalAlignmentTypes::BOTTOM);
+
+		int fillLevel = i == 0 ? fillLevels.first : fillLevels.second;
+		uiAligningElement->addChild(
+		make_unique<ImageUIElement>(0,0,
+			TextureLoader::makeTextTexture(FontTypes::SMALL, pxRealPosRect.x / 6,
+				"x" + to_string(fillLevel), { 192,192,192 }), uiAligningElement.get()));
+		children.push_back(std::move(uiAligningElement));
+		posRect.x=.5;
 	}
+
 }
 
 void QuiverEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)

@@ -9,7 +9,6 @@ ImageUIElement::ImageUIElement(fr_pos_t xRel, fr_pos_t yRel, shared_ptr<Texture>
 
 void ImageUIElement::render(shared_ptr<Texture>& textureToDrawOn)
 {
-	Logger::logDebug(this->image);
 	UIElement::render(textureToDrawOn);
 }
 

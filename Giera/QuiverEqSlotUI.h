@@ -1,10 +1,11 @@
 #pragma once
 #include "AbstractEqSlotUIElement.h"
+#include "QuiverEqSlot.h"
 class QuiverEqSlotUI :
     public AbstractEqSlotUIElement
 {
 public:
-    QuiverEqSlotUI(Rect <fr_pos_t> relRect, UIElement* parent, shared_ptr <AbstractEqSlot> eqSlot,
+    QuiverEqSlotUI(Rect <fr_pos_t> relRect, UIElement* parent, shared_ptr <QuiverEqSlot> eqSlot,
         shared_ptr <InventoryInputHandler> inventoryInputHandler);
 
     virtual void removeItem(InventoryButtonUI* inventoryButtonUI) override;

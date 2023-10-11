@@ -24,7 +24,7 @@ InventoryUI::InventoryUI(shared_ptr<Window> window, shared_ptr <Inventory> inven
 			HorizontalAlignmentTypes::CENTER, VerticalAlignmentTypes::TOP);
 		uiAligningElement->addChild(
 			make_unique<ImageUIElement>(0, 0,
-			TextureLoader::makeTextTexture(FontTypes::SMALL, 12,
+			TextureLoader::makeTextTexture(FontTypes::SMALL, pxRealPosRect.h/35,
 				Inventory::getEqSlotName((EqSlotTypes)i), { 196,196,196 }), uiAligningElement.get()));
 		children.push_back(std::move(uiAligningElement));
 	}

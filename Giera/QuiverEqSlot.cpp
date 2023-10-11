@@ -51,3 +51,8 @@ unique_ptr<AbstractEqSlotUIElement> QuiverEqSlot::generateUIElement(Rect<fr_pos_
 {
 	return make_unique <QuiverEqSlotUI>(relRect, parent, shared_from_this(), inventoryInputHandler);
 }
+
+pair<int, int> QuiverEqSlot::getFillLevels() const
+{
+	return pair<int, int>(slots[0].size(),slots[1].size());
+}

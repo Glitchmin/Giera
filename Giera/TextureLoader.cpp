@@ -44,6 +44,9 @@ shared_ptr<Texture> TextureLoader::makeUniColorTexture(int sizeX, int sizeY, SDL
 	if (renderer == NULL) {
 		Logger::logError("no renderer");
 	}
+	if (sizeX + sizeY == 0) {
+		return nullptr;
+	}
 	Uint8 r, g, b, a;
 	SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
 	SDL_Texture* oldTarget = SDL_GetRenderTarget(renderer);
