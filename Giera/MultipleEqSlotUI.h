@@ -9,6 +9,7 @@ class MultipleEqSlotUI :
 {
 protected:
     std::map <InventoryButtonUI*, pair<int, int> > buttonMapping;
+    px_pos_t tileSizePx;
     void addItemUI(int x, int y, shared_ptr<InventoryInputHandler> inventoryInputHandler);
     InventoryButtonUI* emptyButton = nullptr;
     pair <int, int> emptyButtonPos;
@@ -19,6 +20,7 @@ public:
     virtual void removeItem(InventoryButtonUI* inventoryButtonUI) override;
     virtual void insertAcceptedItem(InventoryButtonUI* inventoryButtonUI) override;
     virtual bool isItemAccepted(InventoryButtonUI* inventoryButtonUI) override;
+    virtual void insertBackground() override;
     virtual void render(shared_ptr <Texture>& textureToDrawOn) override;
     virtual void updateItems() override;
 

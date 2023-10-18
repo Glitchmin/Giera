@@ -22,7 +22,7 @@ Window::Window() :
 		TextureLoader::setRenderer(renderer);
 		Texture::setRenderer(renderer);
 		texture = TextureLoader::makeUniColorTexture(1200, 1200 / 1.6, { 0,0,0,0 });
-
+		SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	}
 }
 

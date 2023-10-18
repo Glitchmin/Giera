@@ -18,12 +18,15 @@ void ButtonUI::drawEdges(shared_ptr<Texture>& texture)
 	int y = pxRealPosRect.y - parent->getPixelRealPosRect().y;
 	int Sx = pxRealPosRect.w;
 	int Sy = pxRealPosRect.h;
-	for (int i = 0; i < edgeSize;i++) {
-		SDL_RenderDrawLine(Texture::getRenderer(), x + i, y, x + i, y + Sy);
-		SDL_RenderDrawLine(Texture::getRenderer(), x + Sx - i - 1, y, x + Sx - i - 1, y + Sy);
-		SDL_RenderDrawLine(Texture::getRenderer(), x, y + i, x + Sx, y + i);
-		SDL_RenderDrawLine(Texture::getRenderer(), x, y + Sy - i - 1, x + Sx, y + Sy - i - 1);
-	}
+
+	auto edgePixel =
+		TextureLoader::makeUniColorTexture(1, 1, { 255,255,255,(Uint8)edgeTransparency });
+
+	edgePixel->draw(*texture, nullopt, SDL_Rect{ x,y + edgeSize,edgeSize,Sy - 2 * edgeSize });
+	edgePixel->draw(*texture, nullopt, SDL_Rect{ x+Sx-edgeSize,y+edgeSize,edgeSize,Sy - 2 * edgeSize });
+	edgePixel->draw(*texture, nullopt, SDL_Rect{ x,y,Sx,edgeSize });
+	edgePixel->draw(*texture, nullopt, SDL_Rect{ x,y+Sy-edgeSize,Sx,edgeSize });
+
 }
 
 void ButtonUI::changeEdgeTransparency(Time timeDiff, bool positive)

@@ -17,7 +17,7 @@ protected:
     static inline array<Rect<fr_pos_t>, (size_t)EqSlotTypes::COUNT> uiElementRectArray { Rect<fr_pos_t>(0.05,0.80,.3,.20),
         Rect<fr_pos_t>(0.05,0.25,.15,.15), Rect<fr_pos_t>(0.05,0.45,.15,.15), Rect<fr_pos_t>(0.05,0.65,.07,.07), 
         Rect<fr_pos_t>(0.05,0.05,.15,.15), Rect<fr_pos_t>(0.55,0.05,.15,.15), Rect<fr_pos_t>(0.55,0.25,.15,.15),
-        Rect<fr_pos_t>(0.55,0.45,.15,.15), Rect<fr_pos_t>(0.55,0.65,.15,.15) };
+        Rect<fr_pos_t>(0.55,0.45,.15,.15), Rect<fr_pos_t>(0.55,0.65,.16,.16) };
 
 public:
     InventoryUI(shared_ptr <Window> window, shared_ptr <Inventory> inventory,

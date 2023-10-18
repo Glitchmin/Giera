@@ -1,8 +1,6 @@
 #include "UIElement.h"
 #include "TextureLoader.h"
 
-using std::make_shared;
-
 UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
 	shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor) :
 	image(image), parent(parent), frRelPosRect(frRelPosRect),
@@ -22,8 +20,8 @@ UIElement::UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image, S
 void UIElement::render(shared_ptr <Texture>& textureToDrawOn)
 {
 	if (updateNeeded) {
-		updateNeeded = 0;
-		texture->fillWithColor(bgColor);
+		updateNeeded = false;
+		insertBackground();
 		if (image) {
 			image->draw(*texture, nullopt, nullopt);
 		}
@@ -47,6 +45,11 @@ void UIElement::addChild(unique_ptr<UIElement> child)
 	children.push_back(std::move(child));
 }
 
+void UIElement::insertBackground()
+{
+	texture->fillWithColor(bgColor);
+}
+
 const vector<unique_ptr<UIElement>>& UIElement::getChildren()
 {
 	return children;
@@ -68,7 +71,7 @@ void UIElement::needsUpdate()
 	if (parent == nullptr) {
 		return;
 	}
-	updateNeeded = 1;
+	updateNeeded = true;
 	parent->needsUpdate();
 }
 
