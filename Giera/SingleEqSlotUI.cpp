@@ -1,6 +1,7 @@
 #include "SingleEqSlotUI.h"
 #include "AbstractEqSlot.h"
 #include "InventoryButtonUI.h"
+#include "UIAligningElement.h"
 
 SingleEqSlotUI::SingleEqSlotUI(Rect <fr_pos_t> relRect, UIElement* parent, shared_ptr <AbstractEqSlot> eqSlot,
 	shared_ptr <InventoryInputHandler> inventoryInputHandler) :
@@ -31,6 +32,18 @@ void SingleEqSlotUI::updateItems()
 {
 	children.clear();
 	Rect <fr_pos_t> rect{ 0,0,1,1 };
-	addChild(make_unique<InventoryButtonUI>(rect, eqSlot->getItem(0, 0), this, .05, inventoryInputHandler));
+	auto uiAligningElement = make_unique<UIAligningElement>(rect, this, HorizontalAlignmentTypes::CENTER, VerticalAlignmentTypes::TOP);
+	rect.w = .5;
+	auto invButtonUI = make_unique<InventoryButtonUI>(rect, eqSlot->getItem(0, 0), uiAligningElement.get(), .05, inventoryInputHandler, this);
+	uiAligningElement->addChild(std::move(invButtonUI));
+	addChild(std::move(uiAligningElement));
 }
+
+void SingleEqSlotUI::render(shared_ptr<Texture>& textureToDrawOn)
+{
+	//SDL_SetTextureBlendMode(children[0]->getTexture()->getSDLTexture(), SDL_BLENDMODE_NONE);
+	AbstractEqSlotUIElement::render(textureToDrawOn);
+	//SDL_SetTextureBlendMode(children[0]->getTexture()->getSDLTexture(), SDL_BLENDMODE_BLEND);
+}
+
 

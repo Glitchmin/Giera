@@ -87,9 +87,9 @@ Rect<fr_pos_t> UIElement::getFractionalRelativePosRect() const
 
 Rect<px_pos_t> UIElement::getPixelRelativePosRect() const
 {
-	return {pxRealPosRect.x-parent->pxRealPosRect.x,
+	return { pxRealPosRect.x - parent->pxRealPosRect.x,
 	pxRealPosRect.y - parent->pxRealPosRect.y,
-	pxRealPosRect.w,pxRealPosRect.h};
+	pxRealPosRect.w,pxRealPosRect.h };
 }
 
 Rect<px_pos_t> UIElement::getPixelRealPosRect() const
@@ -107,6 +107,6 @@ void UIElement::setPixelRealPosRect(Rect<px_pos_t> pixelRealPosRect)
 
 void UIElement::setBgColor(SDL_Color bgColor)
 {
-    this->bgColor = bgColor;
+	this->bgColor = bgColor;
 }
 

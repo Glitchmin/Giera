@@ -14,6 +14,7 @@ protected:
     InventoryButtonUI* emptyButton = nullptr;
     pair <int, int> emptyButtonPos;
     bool itemDimensionsMatter;
+    bool isMouseInside;
 public:
     MultipleEqSlotUI(Rect <fr_pos_t> relRect, UIElement* parent, shared_ptr <MultipleEqSlot> eqSlot,
         shared_ptr <InventoryInputHandler> inventoryInputHandler);

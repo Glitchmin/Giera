@@ -42,7 +42,7 @@ void QuiverEqSlotUI::updateItems()
 	Rect <fr_pos_t> posRect{ 0,0,.5,1 };
 	auto fillLevels = quiverEqSlot->getFillLevels();
 	for (int i = 0; i < 2;i++) {
-		auto eqSlotButton = make_unique<InventoryButtonUI>(posRect, eqSlot->getItem(i, 0), this, .05, inventoryInputHandler);
+		auto eqSlotButton = make_unique<InventoryButtonUI>(posRect, eqSlot->getItem(i, 0), this, .05, inventoryInputHandler, this);
 		eqSlotButtons[i] = eqSlotButton.get();
 		addChild(std::move(eqSlotButton));
 		auto uiAligningElement = make_unique<UIAligningElement>(posRect, this,

@@ -12,7 +12,7 @@ public:
         double relativeEdgeThickness);
     void drawEdges(shared_ptr<Texture>& texture);
     void changeEdgeTransparency(Time timeDiff, bool positive);
-    virtual void handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff);
+    virtual void handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
     virtual void render(shared_ptr <Texture>& textureToDrawOn) override;
 };
 

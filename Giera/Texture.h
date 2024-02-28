@@ -18,7 +18,7 @@ public:
 	~Texture();
 	Texture(Texture& texture) = delete;
 	Texture(Texture&& texture) = delete;
-    SDL_Texture* getTexture() const;
+    SDL_Texture* getSDLTexture() const;
     void setTexture(SDL_Texture* texture);
     static SDL_Renderer* getRenderer();
 	static void setRenderer(SDL_Renderer* renderer);
@@ -26,8 +26,8 @@ public:
 	//srcRect - the source SDL_Rect structure or NULL for the entire texture
 	//dstRect - the destination SDL_Rect structure or NULL for the entire rendering target
 	void fillWithColor(SDL_Color color);
-	pair<int, int> getSize();
 
+	pair<int, int> getSize();
 private:
 	static inline SDL_Renderer* renderer = NULL;
 	SDL_Texture* texture;

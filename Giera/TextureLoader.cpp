@@ -14,7 +14,7 @@ shared_ptr<Texture> TextureLoader::getTexturePtr(string_view textureName)
 shared_ptr<Texture> TextureLoader::getTextureCopy(string_view textureName)
 {
 	int h, w;
-	SDL_QueryTexture(loadTexture(textureName)->getTexture(), NULL, NULL, &w, &h);
+	SDL_QueryTexture(loadTexture(textureName)->getSDLTexture(), NULL, NULL, &w, &h);
 	SDL_Texture* newCopy = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, w, h);
 
 	SDL_SetTextureBlendMode(newCopy, SDL_BLENDMODE_BLEND);
@@ -26,7 +26,7 @@ shared_ptr<Texture> TextureLoader::getTextureCopy(string_view textureName)
 	SDL_RenderClear(renderer);
 	SDL_Rect dstRect = { 0,0,w,h };
 
-	SDL_RenderCopy(renderer, loadTexture(textureName)->getTexture(), NULL, &dstRect);
+	SDL_RenderCopy(renderer, loadTexture(textureName)->getSDLTexture(), NULL, &dstRect);
 
 	SDL_SetRenderTarget(renderer, oldTarget);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);

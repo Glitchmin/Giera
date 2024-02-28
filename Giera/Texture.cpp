@@ -16,7 +16,7 @@ Texture::~Texture()
 	SDL_DestroyTexture(texture);
 }
 
-SDL_Texture* Texture::getTexture() const
+SDL_Texture* Texture::getSDLTexture() const
 {
 	return texture;
 }
@@ -44,7 +44,7 @@ void Texture::draw(Texture& target, optional<SDL_Rect> srcRect, optional<SDL_Rec
 		Logger::logError("no renderer");
 	}
 	SDL_Texture* oldTarget = SDL_GetRenderTarget(renderer);
-	SDL_SetRenderTarget(renderer, target.getTexture());
+	SDL_SetRenderTarget(renderer, target.getSDLTexture());
 	SDL_Rect* srcRect_p = srcRect.has_value() ? &(*srcRect) : NULL;
 	SDL_Rect* dstRect_p = dstRect.has_value() ? &(*dstRect) : NULL;
 	SDL_RenderCopy(renderer, texture, srcRect_p, dstRect_p);
@@ -69,7 +69,7 @@ void Texture::fillWithColor(SDL_Color color)
 pair<int, int> Texture::getSize()
 {
 	int h, w;
-	SDL_QueryTexture(getTexture(), NULL, NULL, &w, &h);
+	SDL_QueryTexture(getSDLTexture(), NULL, NULL, &w, &h);
 	return std::make_pair<>(w, h);
 }
 

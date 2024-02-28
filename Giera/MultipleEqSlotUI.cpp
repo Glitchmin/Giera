@@ -35,7 +35,7 @@ void MultipleEqSlotUI::addItemUI(int x, int y, shared_ptr<InventoryInputHandler>
 
 	Rect <fr_pos_t> relRect{ tileSizeFrX * x, tileSizeFrY * y,
 		(fr_pos_t)itemWidth * tileSizeFrX,(fr_pos_t)itemHeight * tileSizeFrY };
-	auto invButtonUI = make_unique<InventoryButtonUI>(relRect, item, this, .05, inventoryInputHandler);
+	auto invButtonUI = make_unique<InventoryButtonUI>(relRect, item, this, .05, inventoryInputHandler, this);
 	buttonMapping[invButtonUI.get()] = make_pair(x, y);
 	addChild(std::move(invButtonUI));
 }
@@ -79,11 +79,11 @@ void MultipleEqSlotUI::insertBackground()
 	auto multipleEqSlot = std::dynamic_pointer_cast<MultipleEqSlot>(eqSlot);
 	SDL_SetRenderDrawColor(Texture::getRenderer(), 139, 69, 19, 255);
 	for (int i=0; i<=multipleEqSlot->getWidth();i++){
-		SDL_SetRenderTarget(Texture::getRenderer(), texture->getTexture());
+		SDL_SetRenderTarget(Texture::getRenderer(), texture->getSDLTexture());
 		SDL_RenderDrawLine(Texture::getRenderer(), i*tileSizePx, 0, i * tileSizePx, multipleEqSlot->getHeight()*tileSizePx);
 	}
 	for (int i = 0; i <= multipleEqSlot->getHeight();i++) {
-		SDL_SetRenderTarget(Texture::getRenderer(), texture->getTexture());
+		SDL_SetRenderTarget(Texture::getRenderer(), texture->getSDLTexture());
 		SDL_RenderDrawLine(Texture::getRenderer(), 0, i*tileSizePx, multipleEqSlot->getWidth() * tileSizePx, i*tileSizePx);
 	}
 }
@@ -135,6 +135,9 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 		fr_pos_t tileSizeFrX = (fr_pos_t)tileSizePx / pxRealPosRect.w;
 		fr_pos_t tileSizeFrY = (fr_pos_t)tileSizePx / pxRealPosRect.h;
 
+		fr_pos_t pxSizeFrX = (fr_pos_t)1 / pxRealPosRect.w;
+		fr_pos_t pxSizeFrY = (fr_pos_t)1 / pxRealPosRect.h;
+
 		int x = xPx / tileSizePx;
 		int y = yPx / tileSizePx;
 
@@ -144,9 +147,10 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 		if (x + itemWidth <= multipleEqSlot->getWidth() && y + itemHeight <= multipleEqSlot->getHeight()&&
 			(x != emptyButtonPos.first || y!=emptyButtonPos.second || !emptyButton)) {
 			removeEmptyButton();
-			Rect <fr_pos_t> relRect{ x * tileSizeFrX,y * tileSizeFrY,
-				tileSizeFrX * itemWidth,tileSizeFrY * itemHeight };
-			auto button = make_unique<InventoryButtonUI>(relRect, nullopt, this, .05, inventoryInputHandler);
+			Rect relRect{ x * tileSizeFrX+pxSizeFrX,y * tileSizeFrY+pxSizeFrY,
+				tileSizeFrX * itemWidth-pxSizeFrX,tileSizeFrY * itemHeight-pxSizeFrY };
+			auto button = make_unique<InventoryButtonUI>(relRect, nullopt, this,
+				.05, inventoryInputHandler, this);
 			buttonMapping[button.get()] = make_pair(x, y);
 			emptyButton = button.get();
 			emptyButtonPos.first = x;
@@ -155,5 +159,17 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 			needsUpdate();
 		}
 	}
+
+	if (pxRealPosRect.isPointInside(pos.first, pos.second)) {
+		isMouseInside = true;
+	}
+	else {
+		if (isMouseInside) {
+			needsUpdate();
+			Logger::logInfo("mouse out!");
+		}
+		isMouseInside = false;
+	}
+
 	AbstractEqSlotUIElement::handleMouseInput(mouseEventType, pos, timeDiff);
 }

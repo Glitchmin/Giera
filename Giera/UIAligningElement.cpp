@@ -21,9 +21,9 @@ void UIAligningElement::alignChild()
 	child->setPixelRealPosRect(finalChildPos);
 }
 
-UIAligningElement::UIAligningElement(Rect<fr_pos_t> frRelPosRect, UIElement* parent, 
+UIAligningElement::UIAligningElement(Rect<fr_pos_t> frRelPosRect, UIElement* parent,
 	HorizontalAlignmentTypes hAlignment, VerticalAlignmentTypes vAlignment)
-	:UIElement(frRelPosRect,nullptr,parent), vAlignment(vAlignment), hAlignment(hAlignment)
+	:UIElement(frRelPosRect, nullptr, parent), vAlignment(vAlignment), hAlignment(hAlignment)
 {}
 
 void UIAligningElement::render(shared_ptr<Texture>& textureToDrawOn)
@@ -32,6 +32,7 @@ void UIAligningElement::render(shared_ptr<Texture>& textureToDrawOn)
 		alignChild();
 	}
 	UIElement::render(textureToDrawOn);
-
 }
+
+
 
