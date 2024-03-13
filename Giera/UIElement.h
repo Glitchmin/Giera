@@ -16,7 +16,6 @@ typedef float fr_pos_t; //proportional position using fraction, relative to the 
 class UIElement
 {
 protected:
-	Rect <fr_pos_t> frRelPosRect; //relative to the parent
 	Rect <px_pos_t> pxRealPosRect; //position on screen in pixels
 	UIElement* parent;
 	shared_ptr <Texture> image;
@@ -51,7 +50,6 @@ public:
 	virtual void needsUpdate();
     shared_ptr<Texture> getTexture() const;
 
-	Rect<fr_pos_t> getFractionalRelativePosRect() const;
 	Rect<px_pos_t> getPixelRelativePosRect() const;
 
 	Rect<px_pos_t> getPixelRealPosRect() const;

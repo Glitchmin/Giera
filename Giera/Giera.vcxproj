@@ -179,6 +179,7 @@
     <ClCompile Include="BoardTile.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ColumnLayout.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DamageEffect.cpp" />
     <ClCompile Include="Drawable.cpp" />
@@ -237,6 +238,7 @@
     <ClCompile Include="Readable.cpp" />
     <ClCompile Include="Cuboid.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="RowLayout.cpp" />
     <ClCompile Include="SelfSpell.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="SingleEqSlot.cpp" />
@@ -297,6 +299,7 @@
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ColumnLayout.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Damage.h" />
     <ClInclude Include="DamageEffect.h" />
@@ -377,6 +380,7 @@
     <ClInclude Include="ReadableTypes.h" />
     <ClInclude Include="Cuboid.h" />
     <ClInclude Include="Rotation.h" />
+    <ClInclude Include="RowLayout.h" />
     <ClInclude Include="SelfSpell.h" />
     <ClInclude Include="Shield.h" />
     <ClInclude Include="ShieldTypes.h" />

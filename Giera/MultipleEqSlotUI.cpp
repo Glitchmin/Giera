@@ -26,15 +26,18 @@ void MultipleEqSlotUI::addItemUI(int x, int y, shared_ptr<InventoryInputHandler>
 		return;
 	}
 	auto item = multipleEqSlot->getItem(x, y).value();
-	
+
 	fr_pos_t tileSizeFrX = (fr_pos_t)tileSizePx / pxRealPosRect.w;
 	fr_pos_t tileSizeFrY = (fr_pos_t)tileSizePx / pxRealPosRect.h;
 
 	int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
 	int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
 
-	Rect <fr_pos_t> relRect{ tileSizeFrX * x, tileSizeFrY * y,
-		(fr_pos_t)itemWidth * tileSizeFrX,(fr_pos_t)itemHeight * tileSizeFrY };
+	fr_pos_t pxSizeFrX = (fr_pos_t)1 / pxRealPosRect.w;
+	fr_pos_t pxSizeFrY = (fr_pos_t)1 / pxRealPosRect.h;
+
+	Rect relRect{ x * tileSizeFrX + pxSizeFrX,y * tileSizeFrY + pxSizeFrY,
+		tileSizeFrX * itemWidth - pxSizeFrX,tileSizeFrY * itemHeight - pxSizeFrY };
 	auto invButtonUI = make_unique<InventoryButtonUI>(relRect, item, this, .05, inventoryInputHandler, this);
 	buttonMapping[invButtonUI.get()] = make_pair(x, y);
 	addChild(std::move(invButtonUI));
@@ -77,14 +80,30 @@ void MultipleEqSlotUI::insertBackground()
 {
 	AbstractEqSlotUIElement::insertBackground();
 	auto multipleEqSlot = std::dynamic_pointer_cast<MultipleEqSlot>(eqSlot);
+	int w = multipleEqSlot->getWidth();
+	int h = multipleEqSlot->getHeight();
 	SDL_SetRenderDrawColor(Texture::getRenderer(), 139, 69, 19, 255);
-	for (int i=0; i<=multipleEqSlot->getWidth();i++){
-		SDL_SetRenderTarget(Texture::getRenderer(), texture->getSDLTexture());
-		SDL_RenderDrawLine(Texture::getRenderer(), i*tileSizePx, 0, i * tileSizePx, multipleEqSlot->getHeight()*tileSizePx);
+
+	SDL_SetRenderTarget(Texture::getRenderer(), texture->getSDLTexture());
+	SDL_RenderDrawLine(Texture::getRenderer(), 0, 0, 0, h * tileSizePx);
+	SDL_RenderDrawLine(Texture::getRenderer(), w * tileSizePx, 0, w * tileSizePx, h * tileSizePx);
+	SDL_RenderDrawLine(Texture::getRenderer(), 0, 0, w * tileSizePx, 0);
+	SDL_RenderDrawLine(Texture::getRenderer(), 0, h * tileSizePx, w * tileSizePx, h * tileSizePx);
+
+	for (int y=0; y < h; y++) {
+		for (int x = 0; x + 1 < w;x++) {
+			if (multipleEqSlot->getItem(x, y) == nullopt || multipleEqSlot->getItem(x,y) != multipleEqSlot->getItem(x+1, y)){
+				SDL_RenderDrawLine(Texture::getRenderer(), (x+1)*tileSizePx, y*tileSizePx, (x + 1) * tileSizePx, (y+1) * tileSizePx);
+			}
+		}
 	}
-	for (int i = 0; i <= multipleEqSlot->getHeight();i++) {
-		SDL_SetRenderTarget(Texture::getRenderer(), texture->getSDLTexture());
-		SDL_RenderDrawLine(Texture::getRenderer(), 0, i*tileSizePx, multipleEqSlot->getWidth() * tileSizePx, i*tileSizePx);
+
+	for (int y = 0; y + 1 < h; y++) {
+		for (int x = 0; x < w;x++) {
+			if (multipleEqSlot->getItem(x, y) == nullopt || multipleEqSlot->getItem(x, y) != multipleEqSlot->getItem(x, y + 1)) {
+				SDL_RenderDrawLine(Texture::getRenderer(), x * tileSizePx, (y+1) * tileSizePx, (x + 1) * tileSizePx, (y+1) * tileSizePx);
+			}
+		}
 	}
 }
 
@@ -127,36 +146,49 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 		}
 	}
 	auto item = inventoryInputHandler->getSelectedItem();
-	if (!isMouseInsideChild && item && pxRealPosRect.isPointInside(pos.first, pos.second)) {
-		auto multipleEqSlot = std::dynamic_pointer_cast<MultipleEqSlot>(eqSlot);
+	if (item && pxRealPosRect.isPointInside(pos.first, pos.second)) {
+
 		px_pos_t xPx = pos.first - pxRealPosRect.x;
 		px_pos_t yPx = pos.second - pxRealPosRect.y;
-
-		fr_pos_t tileSizeFrX = (fr_pos_t)tileSizePx / pxRealPosRect.w;
-		fr_pos_t tileSizeFrY = (fr_pos_t)tileSizePx / pxRealPosRect.h;
-
-		fr_pos_t pxSizeFrX = (fr_pos_t)1 / pxRealPosRect.w;
-		fr_pos_t pxSizeFrY = (fr_pos_t)1 / pxRealPosRect.h;
-
 		int x = xPx / tileSizePx;
 		int y = yPx / tileSizePx;
+		auto multipleEqSlot = std::dynamic_pointer_cast<MultipleEqSlot>(eqSlot);
 
-		int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
-		int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
 
-		if (x + itemWidth <= multipleEqSlot->getWidth() && y + itemHeight <= multipleEqSlot->getHeight()&&
-			(x != emptyButtonPos.first || y!=emptyButtonPos.second || !emptyButton)) {
+		if (x >= multipleEqSlot->getWidth() || y >= multipleEqSlot->getHeight()) {
 			removeEmptyButton();
-			Rect relRect{ x * tileSizeFrX+pxSizeFrX,y * tileSizeFrY+pxSizeFrY,
-				tileSizeFrX * itemWidth-pxSizeFrX,tileSizeFrY * itemHeight-pxSizeFrY };
-			auto button = make_unique<InventoryButtonUI>(relRect, nullopt, this,
-				.05, inventoryInputHandler, this);
-			buttonMapping[button.get()] = make_pair(x, y);
-			emptyButton = button.get();
-			emptyButtonPos.first = x;
-			emptyButtonPos.second = y;
-			addChild(std::move(button));
 			needsUpdate();
+		}
+		else {
+			if (!isMouseInsideChild) {
+
+				fr_pos_t tileSizeFrX = (fr_pos_t)tileSizePx / pxRealPosRect.w;
+				fr_pos_t tileSizeFrY = (fr_pos_t)tileSizePx / pxRealPosRect.h;
+
+				fr_pos_t pxSizeFrX = (fr_pos_t)1 / pxRealPosRect.w;
+				fr_pos_t pxSizeFrY = (fr_pos_t)1 / pxRealPosRect.h;
+
+
+				int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
+				int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
+
+				x = std::min(multipleEqSlot->getWidth() - itemWidth, x);
+				y = std::min(multipleEqSlot->getHeight() - itemHeight, y);
+				
+				if ((x != emptyButtonPos.first || y != emptyButtonPos.second || !emptyButton)) {
+					removeEmptyButton();
+					Rect relRect{ x * tileSizeFrX + pxSizeFrX,y * tileSizeFrY + pxSizeFrY,
+						tileSizeFrX * itemWidth - pxSizeFrX,tileSizeFrY * itemHeight - pxSizeFrY };
+					auto button = make_unique<InventoryButtonUI>(relRect, nullopt, this,
+						.05, inventoryInputHandler, this);
+					buttonMapping[button.get()] = make_pair(x, y);
+					emptyButton = button.get();
+					emptyButtonPos.first = x;
+					emptyButtonPos.second = y;
+					addChild(std::move(button));
+					needsUpdate();
+				}
+			}
 		}
 	}
 
@@ -165,11 +197,10 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 	}
 	else {
 		if (isMouseInside) {
+			removeEmptyButton();
 			needsUpdate();
-			Logger::logInfo("mouse out!");
 		}
 		isMouseInside = false;
 	}
-
 	AbstractEqSlotUIElement::handleMouseInput(mouseEventType, pos, timeDiff);
 }

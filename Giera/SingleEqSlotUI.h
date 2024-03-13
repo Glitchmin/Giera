@@ -10,6 +10,7 @@ public:
     virtual void removeItem(InventoryButtonUI* inventoryButtonUI) override;
     virtual void insertAcceptedItem(InventoryButtonUI* inventoryButtonUI) override;
     virtual bool isItemAccepted(InventoryButtonUI* inventoryButtonUI) override;
+    virtual void insertBackground() override;
     virtual void updateItems() override;
     virtual void render(shared_ptr<Texture>& textureToDrawOn) override;
 };

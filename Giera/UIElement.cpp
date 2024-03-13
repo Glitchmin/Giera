@@ -3,7 +3,7 @@
 
 UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
 	shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor) :
-	image(image), parent(parent), frRelPosRect(frRelPosRect),
+	image(image), parent(parent),
 	pxRealPosRect({ (int)(frRelPosRect.x * parent->pxRealPosRect.w + parent->pxRealPosRect.x),
 		(int)(frRelPosRect.y * parent->pxRealPosRect.h + parent->pxRealPosRect.y),
 	(int)(frRelPosRect.w * parent->pxRealPosRect.w),
@@ -13,7 +13,7 @@ UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
 }
 
 UIElement::UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image, SDL_Color bgColor)
-	:parent(nullptr), image(image), pxRealPosRect(pxRealPosRect), frRelPosRect(0, 0, 0, 0), bgColor(bgColor)
+	:parent(nullptr), image(image), pxRealPosRect(pxRealPosRect), bgColor(bgColor)
 {
 }
 
@@ -80,11 +80,6 @@ shared_ptr<Texture> UIElement::getTexture() const
 	return texture;
 }
 
-Rect<fr_pos_t> UIElement::getFractionalRelativePosRect() const
-{
-	return frRelPosRect;
-}
-
 Rect<px_pos_t> UIElement::getPixelRelativePosRect() const
 {
 	return { pxRealPosRect.x - parent->pxRealPosRect.x,
@@ -99,6 +94,14 @@ Rect<px_pos_t> UIElement::getPixelRealPosRect() const
 
 void UIElement::setPixelRealPosRect(Rect<px_pos_t> pixelRealPosRect)
 {
+	px_pos_t xShift = pixelRealPosRect.x - pxRealPosRect.x;
+	px_pos_t yShift = pixelRealPosRect.y - pxRealPosRect.y;
+	for (auto& child : children) {
+		auto posRect = child->getPixelRealPosRect();
+		posRect.x += xShift;
+		posRect.y += yShift;
+		child->setPixelRealPosRect(posRect);
+	}
 	pxRealPosRect = pixelRealPosRect;
 }
 

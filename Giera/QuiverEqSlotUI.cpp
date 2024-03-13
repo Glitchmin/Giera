@@ -45,16 +45,18 @@ void QuiverEqSlotUI::updateItems()
 		auto eqSlotButton = make_unique<InventoryButtonUI>(posRect, eqSlot->getItem(i, 0), this, .05, inventoryInputHandler, this);
 		eqSlotButtons[i] = eqSlotButton.get();
 		addChild(std::move(eqSlotButton));
+		posRect.w = .45;
 		auto uiAligningElement = make_unique<UIAligningElement>(posRect, this,
 			HorizontalAlignmentTypes::RIGHT, VerticalAlignmentTypes::BOTTOM);
 
 		int fillLevel = i == 0 ? fillLevels.first : fillLevels.second;
 		uiAligningElement->addChild(
 		make_unique<ImageUIElement>(0,0,
-			TextureLoader::makeTextTexture(FontTypes::SMALL, pxRealPosRect.x / 6,
+			TextureLoader::makeTextTexture(FontTypes::SMALL, pxRealPosRect.w / 6,
 				"x" + to_string(fillLevel), { 192,192,192 }), uiAligningElement.get()));
 		children.push_back(std::move(uiAligningElement));
 		posRect.x=.5;
+		posRect.w=.5;
 	}
 
 }

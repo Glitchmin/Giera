@@ -9,7 +9,6 @@ using std::string;
 using std::shared_ptr;
 using std::make_shared;
 
-typedef unsigned int item_size_t;
 class AbstractBaseItem
 {
 protected:
