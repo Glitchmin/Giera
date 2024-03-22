@@ -2,12 +2,14 @@
 #include "TextureLoader.h"
 
 UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
-	shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor) :
+	shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor, ImageResizePolicy imageResizePolicy,
+	VerticalAlignmentTypes vImageAlign, HorizontalAlignmentTypes hImageAlign) :
 	image(image), parent(parent),
 	pxRealPosRect({ (int)(frRelPosRect.x * parent->pxRealPosRect.w + parent->pxRealPosRect.x),
 		(int)(frRelPosRect.y * parent->pxRealPosRect.h + parent->pxRealPosRect.y),
 	(int)(frRelPosRect.w * parent->pxRealPosRect.w),
-		(int)(frRelPosRect.h * parent->pxRealPosRect.h) }), bgColor(bgColor)
+		(int)(frRelPosRect.h * parent->pxRealPosRect.h) }), bgColor(bgColor),
+	imageResizePolicy(imageResizePolicy), vImageAlign(vImageAlign), hImageAlign(hImageAlign)
 {
 	texture = TextureLoader::makeUniColorTexture(pxRealPosRect.w, pxRealPosRect.h, { 0,0,0,0 });
 }
@@ -17,14 +19,48 @@ UIElement::UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image, S
 {
 }
 
+void UIElement::drawImage() {
+	if (image==nullptr){
+		return;
+	}
+	if (imageResizePolicy == ImageResizePolicy::STRETCH) {
+		image->draw(*texture, nullopt, nullopt);
+		return;
+	}
+	int imSizeX = image->getSize().first;
+	int imSizeY = image->getSize().second;
+	if (imageResizePolicy == ImageResizePolicy::KEEP_ASPECT_RATIO){
+		double aspectRatio = ((double)imSizeX) / (double)imSizeY;
+		imSizeX = std::min((double)pxRealPosRect.w, imSizeX*aspectRatio);
+		imSizeY = std::min((double)pxRealPosRect.h, imSizeY/aspectRatio);
+	}
+	int x = 0;
+	int y = 0;
+	
+	if (hImageAlign == HorizontalAlignmentTypes::CENTER) {
+		x += (pxRealPosRect.w - imSizeX) / 2;
+	}
+	if (hImageAlign == HorizontalAlignmentTypes::RIGHT) {
+		x += pxRealPosRect.w - imSizeX;
+	}
+
+	if (vImageAlign == VerticalAlignmentTypes::CENTER) {
+		y += (pxRealPosRect.h - imSizeY) / 2;
+	}
+	if (vImageAlign == VerticalAlignmentTypes::BOTTOM) {
+		y += pxRealPosRect.h - imSizeY;
+	}
+	image->draw(*texture, nullopt, SDL_Rect{ x,y,imSizeX,imSizeY });
+}
+
+
+
 void UIElement::render(shared_ptr <Texture>& textureToDrawOn)
 {
 	if (updateNeeded) {
 		updateNeeded = false;
 		insertBackground();
-		if (image) {
-			image->draw(*texture, nullopt, nullopt);
-		}
+		drawImage();
 		for (auto& child : children) {
 			child->render(texture);
 		}

@@ -1,8 +1,6 @@
 #include "QuiverEqSlotUI.h"
 #include "AbstractEqSlot.h"
 #include "InventoryButtonUI.h"
-#include "UIAligningElement.h"
-#include "ImageUIElement.h"
 using std::make_unique;
 using std::dynamic_pointer_cast;
 using std::to_string;
@@ -38,26 +36,45 @@ bool QuiverEqSlotUI::isItemAccepted(InventoryButtonUI* inventoryButtonUI)
 void QuiverEqSlotUI::updateItems()
 {
 	children.clear();
+	fr_pos_t frPxW = 1. / pxRealPosRect.w;
+	fr_pos_t frPxH = 1. / pxRealPosRect.h;
 	auto quiverEqSlot = dynamic_pointer_cast<QuiverEqSlot>(eqSlot);
-	Rect <fr_pos_t> posRect{ 0,0,.5,1 };
+	Rect posRect{ frPxW,frPxH, (fr_pos_t).5 - 2 * frPxH,1 - 2 * frPxW };
 	auto fillLevels = quiverEqSlot->getFillLevels();
 	for (int i = 0; i < 2;i++) {
 		auto eqSlotButton = make_unique<InventoryButtonUI>(posRect, eqSlot->getItem(i, 0), this, .05, inventoryInputHandler, this);
 		eqSlotButtons[i] = eqSlotButton.get();
 		addChild(std::move(eqSlotButton));
 		posRect.w = .45;
-		auto uiAligningElement = make_unique<UIAligningElement>(posRect, this,
-			HorizontalAlignmentTypes::RIGHT, VerticalAlignmentTypes::BOTTOM);
 
 		int fillLevel = i == 0 ? fillLevels.first : fillLevels.second;
-		uiAligningElement->addChild(
-		make_unique<ImageUIElement>(0,0,
-			TextureLoader::makeTextTexture(FontTypes::SMALL, pxRealPosRect.w / 6,
-				"x" + to_string(fillLevel), { 192,192,192 }), uiAligningElement.get()));
-		children.push_back(std::move(uiAligningElement));
-		posRect.x=.5;
-		posRect.w=.5;
+
+		auto arrowNumTexture = TextureLoader::makeTextTexture(FontTypes::SMALL, pxRealPosRect.w / 6,
+			"x" + to_string(fillLevel), { 192,192,192 });
+		auto textUIElement = make_unique<UIElement>(posRect, arrowNumTexture, this, SDL_Color{ 0,0,0,0 }, 
+			ImageResizePolicy::NO_RESIZE, VerticalAlignmentTypes::BOTTOM, HorizontalAlignmentTypes::RIGHT);
+		addChild(std::move(textUIElement));
+		posRect.x = .5 + frPxW;
+		posRect.w = .5 - 2 * frPxH;
 	}
+
+}
+
+void QuiverEqSlotUI::insertBackground()
+{
+	AbstractEqSlotUIElement::insertBackground();
+	SDL_SetRenderDrawColor(Texture::getRenderer(), 139, 69, 19, 255);
+	int w = pxRealPosRect.w;
+	int h = pxRealPosRect.h;
+	int x = 0;
+	w--;
+	h--;
+	SDL_SetRenderTarget(Texture::getRenderer(), texture->getSDLTexture());
+	SDL_RenderDrawLine(Texture::getRenderer(), x, 0, x, h);
+	SDL_RenderDrawLine(Texture::getRenderer(), x + w, 0, x + w, h);
+	SDL_RenderDrawLine(Texture::getRenderer(), x, 0, x + w, 0);
+	SDL_RenderDrawLine(Texture::getRenderer(), x, h, x + w, h);
+	SDL_RenderDrawLine(Texture::getRenderer(), w / 2, 0, w / 2, h);
 
 }
 

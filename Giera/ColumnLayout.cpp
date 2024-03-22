@@ -21,8 +21,10 @@ void ColumnLayout::alignChildren() {
 }
 
 void ColumnLayout::render(std::shared_ptr<Texture>& textureToDrawOn) {
+    SDL_SetRenderDrawBlendMode(Texture::getRenderer(), SDL_BLENDMODE_NONE);
     if (updateNeeded) {
         alignChildren();
     }
     UIElement::render(textureToDrawOn);
+    SDL_SetRenderDrawBlendMode(Texture::getRenderer(), SDL_BLENDMODE_BLEND);
 }

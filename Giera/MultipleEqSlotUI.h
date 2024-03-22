@@ -15,6 +15,8 @@ protected:
     pair <int, int> emptyButtonPos;
     bool itemDimensionsMatter;
     bool isMouseInside;
+    px_pos_t pxShiftX, pxShiftY; //shifts of all elements to center inside a slot, in pixels
+    fr_pos_t frShiftX, frShiftY;
 public:
     MultipleEqSlotUI(Rect <fr_pos_t> relRect, UIElement* parent, shared_ptr <MultipleEqSlot> eqSlot,
         shared_ptr <InventoryInputHandler> inventoryInputHandler);

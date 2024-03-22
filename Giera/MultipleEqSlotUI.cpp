@@ -12,6 +12,10 @@ MultipleEqSlotUI::MultipleEqSlotUI(Rect<fr_pos_t> relRect, UIElement* parent, sh
 	}
 	tileSizePx = std::min((pxRealPosRect.w - 1) / eqSlot->getWidth(),
 		(pxRealPosRect.h - 1) / eqSlot->getHeight());
+	pxShiftX = (pxRealPosRect.w - tileSizePx * eqSlot->getWidth()) / 2;
+	pxShiftY = (pxRealPosRect.h - tileSizePx * eqSlot->getHeight()) / 2;
+	frShiftX = (pxRealPosRect.w - tileSizePx * eqSlot->getWidth()) / (2.*pxRealPosRect.w);
+	frShiftY = (pxRealPosRect.h - tileSizePx * eqSlot->getHeight()) / (2.*pxRealPosRect.h);
 }
 
 void MultipleEqSlotUI::addItemUI(int x, int y, shared_ptr<InventoryInputHandler> inventoryInputHandler) {
@@ -36,7 +40,7 @@ void MultipleEqSlotUI::addItemUI(int x, int y, shared_ptr<InventoryInputHandler>
 	fr_pos_t pxSizeFrX = (fr_pos_t)1 / pxRealPosRect.w;
 	fr_pos_t pxSizeFrY = (fr_pos_t)1 / pxRealPosRect.h;
 
-	Rect relRect{ x * tileSizeFrX + pxSizeFrX,y * tileSizeFrY + pxSizeFrY,
+	Rect relRect{ x * tileSizeFrX + pxSizeFrX + frShiftX,y * tileSizeFrY + pxSizeFrY + frShiftY,
 		tileSizeFrX * itemWidth - pxSizeFrX,tileSizeFrY * itemHeight - pxSizeFrY };
 	auto invButtonUI = make_unique<InventoryButtonUI>(relRect, item, this, .05, inventoryInputHandler, this);
 	buttonMapping[invButtonUI.get()] = make_pair(x, y);
@@ -84,16 +88,19 @@ void MultipleEqSlotUI::insertBackground()
 	int h = multipleEqSlot->getHeight();
 	SDL_SetRenderDrawColor(Texture::getRenderer(), 139, 69, 19, 255);
 
-	SDL_SetRenderTarget(Texture::getRenderer(), texture->getSDLTexture());
-	SDL_RenderDrawLine(Texture::getRenderer(), 0, 0, 0, h * tileSizePx);
-	SDL_RenderDrawLine(Texture::getRenderer(), w * tileSizePx, 0, w * tileSizePx, h * tileSizePx);
-	SDL_RenderDrawLine(Texture::getRenderer(), 0, 0, w * tileSizePx, 0);
-	SDL_RenderDrawLine(Texture::getRenderer(), 0, h * tileSizePx, w * tileSizePx, h * tileSizePx);
 
-	for (int y=0; y < h; y++) {
+
+	SDL_SetRenderTarget(Texture::getRenderer(), texture->getSDLTexture());
+	SDL_RenderDrawLine(Texture::getRenderer(), pxShiftX, pxShiftY, pxShiftX, pxShiftY + h * tileSizePx);
+	SDL_RenderDrawLine(Texture::getRenderer(), pxShiftX + w * tileSizePx, pxShiftY, pxShiftX + w * tileSizePx, pxShiftY + h * tileSizePx);
+	SDL_RenderDrawLine(Texture::getRenderer(), pxShiftX, pxShiftY, pxShiftX + w * tileSizePx, pxShiftY);
+	SDL_RenderDrawLine(Texture::getRenderer(), pxShiftX, pxShiftY + h * tileSizePx, pxShiftX + w * tileSizePx, pxShiftY + h * tileSizePx);
+
+	for (int y = 0; y < h; y++) {
 		for (int x = 0; x + 1 < w;x++) {
-			if (multipleEqSlot->getItem(x, y) == nullopt || multipleEqSlot->getItem(x,y) != multipleEqSlot->getItem(x+1, y)){
-				SDL_RenderDrawLine(Texture::getRenderer(), (x+1)*tileSizePx, y*tileSizePx, (x + 1) * tileSizePx, (y+1) * tileSizePx);
+			if (multipleEqSlot->getItem(x, y) == nullopt || multipleEqSlot->getItem(x, y) != multipleEqSlot->getItem(x + 1, y)) {
+				SDL_RenderDrawLine(Texture::getRenderer(), pxShiftX + (x + 1) * tileSizePx, pxShiftY + y * tileSizePx,
+					pxShiftX + (x + 1) * tileSizePx, pxShiftY + (y + 1) * tileSizePx);
 			}
 		}
 	}
@@ -101,7 +108,8 @@ void MultipleEqSlotUI::insertBackground()
 	for (int y = 0; y + 1 < h; y++) {
 		for (int x = 0; x < w;x++) {
 			if (multipleEqSlot->getItem(x, y) == nullopt || multipleEqSlot->getItem(x, y) != multipleEqSlot->getItem(x, y + 1)) {
-				SDL_RenderDrawLine(Texture::getRenderer(), x * tileSizePx, (y+1) * tileSizePx, (x + 1) * tileSizePx, (y+1) * tileSizePx);
+				SDL_RenderDrawLine(Texture::getRenderer(), pxShiftX + x * tileSizePx, pxShiftY + (y + 1) * tileSizePx, 
+					pxShiftX + (x + 1) * tileSizePx, pxShiftY + (y + 1) * tileSizePx);
 			}
 		}
 	}
@@ -148,14 +156,19 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 	auto item = inventoryInputHandler->getSelectedItem();
 	if (item && pxRealPosRect.isPointInside(pos.first, pos.second)) {
 
-		px_pos_t xPx = pos.first - pxRealPosRect.x;
-		px_pos_t yPx = pos.second - pxRealPosRect.y;
+		px_pos_t xPx = pos.first - pxRealPosRect.x - pxShiftX;
+		px_pos_t yPx = pos.second - pxRealPosRect.y - pxShiftY;
 		int x = xPx / tileSizePx;
 		int y = yPx / tileSizePx;
+		if (xPx < 0){
+			x--;
+		}
+		if (yPx < 0){
+			y--;
+		}
 		auto multipleEqSlot = std::dynamic_pointer_cast<MultipleEqSlot>(eqSlot);
 
-
-		if (x >= multipleEqSlot->getWidth() || y >= multipleEqSlot->getHeight()) {
+		if (x >= multipleEqSlot->getWidth() || y >= multipleEqSlot->getHeight() || x<0 || y<0) {
 			removeEmptyButton();
 			needsUpdate();
 		}
@@ -174,10 +187,10 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 
 				x = std::min(multipleEqSlot->getWidth() - itemWidth, x);
 				y = std::min(multipleEqSlot->getHeight() - itemHeight, y);
-				
+
 				if ((x != emptyButtonPos.first || y != emptyButtonPos.second || !emptyButton)) {
 					removeEmptyButton();
-					Rect relRect{ x * tileSizeFrX + pxSizeFrX,y * tileSizeFrY + pxSizeFrY,
+					Rect relRect{ x * tileSizeFrX + pxSizeFrX + frShiftX,y * tileSizeFrY + pxSizeFrY + frShiftY,
 						tileSizeFrX * itemWidth - pxSizeFrX,tileSizeFrY * itemHeight - pxSizeFrY };
 					auto button = make_unique<InventoryButtonUI>(relRect, nullopt, this,
 						.05, inventoryInputHandler, this);

@@ -1,7 +1,6 @@
 #include "SingleEqSlotUI.h"
 #include "AbstractEqSlot.h"
 #include "InventoryButtonUI.h"
-#include "UIAligningElement.h"
 
 SingleEqSlotUI::SingleEqSlotUI(Rect <fr_pos_t> relRect, UIElement* parent, shared_ptr <AbstractEqSlot> eqSlot,
 	shared_ptr <InventoryInputHandler> inventoryInputHandler) :
@@ -30,7 +29,6 @@ bool SingleEqSlotUI::isItemAccepted(InventoryButtonUI* inventoryButtonUI)
 
 void SingleEqSlotUI::insertBackground()
 {
-
 	AbstractEqSlotUIElement::insertBackground();
 	SDL_SetRenderDrawColor(Texture::getRenderer(), 139, 69, 19, 255);
 	int w = pxRealPosRect.w;
@@ -40,26 +38,24 @@ void SingleEqSlotUI::insertBackground()
 	h--;
 	SDL_SetRenderTarget(Texture::getRenderer(), texture->getSDLTexture());
 	SDL_RenderDrawLine(Texture::getRenderer(), x, 0, x, h);
-	SDL_RenderDrawLine(Texture::getRenderer(), x+w, 0, x+w, h);
-	SDL_RenderDrawLine(Texture::getRenderer(), x, 0, x+w, 0);
-	SDL_RenderDrawLine(Texture::getRenderer(), x, h,x+ w, h);
+	SDL_RenderDrawLine(Texture::getRenderer(), x + w, 0, x + w, h);
+	SDL_RenderDrawLine(Texture::getRenderer(), x, 0, x + w, 0);
+	SDL_RenderDrawLine(Texture::getRenderer(), x, h, x + w, h);
 }
 
 void SingleEqSlotUI::updateItems()
 {
 	children.clear();
-	Rect <fr_pos_t> rect{ 0,0,1,1 };
-	auto uiAligningElement = make_unique<UIAligningElement>(rect, this, HorizontalAlignmentTypes::CENTER, VerticalAlignmentTypes::TOP);
-	auto invButtonUI = make_unique<InventoryButtonUI>(rect, eqSlot->getItem(0, 0), uiAligningElement.get(), .05, inventoryInputHandler, this);
-	uiAligningElement->addChild(std::move(invButtonUI));
-	addChild(std::move(uiAligningElement));
+	fr_pos_t frPxW = 1. / pxRealPosRect.w;
+	fr_pos_t frPxH = 1. / pxRealPosRect.h;
+	Rect rect{ frPxW, frPxH, 1 - 2 * frPxW, 1 - 2 * frPxH };
+	auto invButtonUI = make_unique<InventoryButtonUI>(rect, eqSlot->getItem(0, 0), this, .05, inventoryInputHandler, this);
+	addChild(std::move(invButtonUI));
 }
 
 void SingleEqSlotUI::render(shared_ptr<Texture>& textureToDrawOn)
 {
-	//SDL_SetTextureBlendMode(children[0]->getTexture()->getSDLTexture(), SDL_BLENDMODE_NONE);
 	AbstractEqSlotUIElement::render(textureToDrawOn);
-	//SDL_SetTextureBlendMode(children[0]->getTexture()->getSDLTexture(), SDL_BLENDMODE_BLEND);
 }
 
 

@@ -2,21 +2,17 @@
 #include "AbstractEqSlotUIElement.h"
 #include "AbstractEqSlot.h"
 #include "InventoryInputHandler.h"
-#include "UIAligningElement.h"
-#include "ImageUIElement.h"
 #include "RowLayout.h"
 #include "ColumnLayout.h"
 using std::make_unique;
 
 void InventoryUI::addSlotUI(unique_ptr<RowLayout>& rowLayout, EqSlotTypes eqSlotType, Rect <fr_pos_t> frRelPosRect){
 	auto columnLayout = make_unique<ColumnLayout>(frRelPosRect, rowLayout.get());
-	auto uiAligningElement = make_unique<UIAligningElement>(Rect <fr_pos_t>({ 0,0,1, .2 }), columnLayout.get(),
-	                                                        HorizontalAlignmentTypes::CENTER, VerticalAlignmentTypes::CENTER);
-	uiAligningElement->addChild(
-		make_unique<ImageUIElement>(0, 0,
-		                            TextureLoader::makeTextTexture(FontTypes::SMALL, pxRealPosRect.h/35,
-		                                                           Inventory::getEqSlotName(eqSlotType), { 196,196,196 }), uiAligningElement.get()));
-	columnLayout->addChild(std::move(uiAligningElement));
+	auto eqSlotNameTexture = TextureLoader::makeTextTexture(FontTypes::SMALL, pxRealPosRect.h / 35,
+		Inventory::getEqSlotName(eqSlotType), { 196,196,196 });
+	auto textUIElement = make_unique<UIElement>(Rect <fr_pos_t>({ 0,0,1, .2 }), eqSlotNameTexture, columnLayout.get(),
+		SDL_Color{ 0,0,0,0 }, ImageResizePolicy::NO_RESIZE, VerticalAlignmentTypes::CENTER, HorizontalAlignmentTypes::CENTER);
+	columnLayout->addChild(std::move(textUIElement));
 	columnLayout->addChild(inventory->getEqSlot(eqSlotType)->
 	                                  generateUIElement({0,0,1, .8}, columnLayout.get(), inventoryInputHandler));
 	rowLayout->addChild(std::move(columnLayout));
@@ -24,22 +20,28 @@ void InventoryUI::addSlotUI(unique_ptr<RowLayout>& rowLayout, EqSlotTypes eqSlot
 
 InventoryUI::InventoryUI(shared_ptr<Window> window, shared_ptr <Inventory> inventory, 
                          shared_ptr <InventoryInputHandler> inventoryInputHandler)
-	: UIElement(Rect<fr_pos_t>(.05, .05, .9, .9),
+	: UIElement(Rect<fr_pos_t>(0, 0, 1, 1),
 		TextureLoader::makeUniColorTexture(
-			0.9 * window->getSize().first, 
-			0.9 * window->getSize().second, { 0,0,0,128 }),
+			window->getSize().first, 
+			window->getSize().second, { 0,0,0,128 }),
 		window.get()), inventory(inventory),
 	inventoryInputHandler(inventoryInputHandler)
 {
-	auto rowLayoutTop = make_unique<RowLayout>(Rect <fr_pos_t>({ 0,0,1,.4 }), this);
-	addSlotUI(rowLayoutTop, EqSlotTypes::MELEE, {0,0,.12,1});
-	addSlotUI(rowLayoutTop, EqSlotTypes::SHIELD, {0,0,.12,1});
-	addSlotUI(rowLayoutTop, EqSlotTypes::ARMOR, {0,0,.12,1});
-	addSlotUI(rowLayoutTop, EqSlotTypes::BOW, {0,0,.12,1});
-	addSlotUI(rowLayoutTop, EqSlotTypes::QUIVER, {0,0,.2,1});
-	addSlotUI(rowLayoutTop, EqSlotTypes::POISON, {0,.2,.12,.6});
+	auto topRowLayout = make_unique<RowLayout>(Rect <fr_pos_t>({ .1,.1,.8,.35 }), this);
+	auto bottomRowLayout = make_unique<RowLayout>(Rect <fr_pos_t>({ .1,.55,.8,.35 }), this);
+	addSlotUI(topRowLayout, EqSlotTypes::MELEE, {0,0,.12,1});
+	addSlotUI(topRowLayout, EqSlotTypes::SHIELD, {0,0,.12,1});
+	addSlotUI(topRowLayout, EqSlotTypes::ARMOR, {0,0,.12,1});
+	addSlotUI(topRowLayout, EqSlotTypes::BOW, {0,0,.12,1});
+	addSlotUI(topRowLayout, EqSlotTypes::QUIVER, {0,0,.2,1});
+	addSlotUI(topRowLayout, EqSlotTypes::POISON, {0,.2,.12,.6});
+
+	addSlotUI(bottomRowLayout, EqSlotTypes::SATCHEL, { 0,0,.2,1 });
+	addSlotUI(bottomRowLayout, EqSlotTypes::BACKPACK, { 0,0,.6,1 });
+	addSlotUI(bottomRowLayout, EqSlotTypes::DROPSLOTS, { 0,0,.2,1 });
 	
-	addChild(std::move(rowLayoutTop));
+	addChild(std::move(topRowLayout));
+	addChild(std::move(bottomRowLayout));
 }
 
 InventoryUI* InventoryUI::createInventoryUI(shared_ptr<Window> window, shared_ptr<Inventory> inventory)

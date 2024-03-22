@@ -489,12 +489,6 @@
     <ClCompile Include="QuiverEqSlotUI.cpp">
       <Filter>Source Files\Graphics\UI\EqSlotUI</Filter>
     </ClCompile>
-    <ClCompile Include="UIAligningElement.cpp">
-      <Filter>Source Files\Graphics\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageUIElement.cpp">
-      <Filter>Source Files\Graphics\UI</Filter>
-    </ClCompile>
     <ClCompile Include="RowLayout.cpp">
       <Filter>Source Files\Graphics\UI</Filter>
     </ClCompile>
@@ -923,16 +917,13 @@
     <ClInclude Include="QuiverEqSlotUI.h">
       <Filter>Header Files\Graphics\UI\EqSlotUI</Filter>
     </ClInclude>
-    <ClInclude Include="UIAligningElement.h">
-      <Filter>Header Files\Graphics\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageUIElement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RowLayout.h">
       <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
     <ClInclude Include="ColumnLayout.h">
+      <Filter>Header Files\Graphics\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageResizePolicy.h">
       <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
   </ItemGroup>

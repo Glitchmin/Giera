@@ -24,8 +24,14 @@ void RowLayout::alignChildren() {
 }
 
 void RowLayout::render(std::shared_ptr<Texture>& textureToDrawOn) {
+    for (auto& child: children){
+		SDL_SetTextureBlendMode(child->getTexture()->getSDLTexture(), SDL_BLENDMODE_NONE);
+    }
     if (updateNeeded){
         alignChildren();
     }
     UIElement::render(textureToDrawOn);
+    for (auto& child: children){
+		SDL_SetTextureBlendMode(child->getTexture()->getSDLTexture(), SDL_BLENDMODE_BLEND);
+    }
 }

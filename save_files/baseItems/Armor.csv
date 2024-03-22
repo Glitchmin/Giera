@@ -1,3 +1,3 @@
 VERSION 1 ROWS 1 BLANK_SPACES_IN_LINE 11 1 2 3 4 5 6 7 8 9 10 11  
 3 NAME DESC MIN_VALUE MAX_VALUE WIDTH HEIGHT m0 m1 m2 m3 m4 m5 m6 ARMOR_MIN ARMOR_MAX ID  
-3 body_block blocks_your_body 1 2 2 5 0 0 0 0 0 0 0 1.5 2.0 0  
+3 body_block blocks_your_body 1 2 3 4 0 0 0 0 0 0 0 1.5 2.0 0  
