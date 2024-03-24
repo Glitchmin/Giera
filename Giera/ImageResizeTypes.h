@@ -1,5 +1,5 @@
 #pragma once
-enum class ImageResizePolicy {
+enum class ImageResizeTypes {
 	STRETCH,
 	KEEP_ASPECT_RATIO,
 	NO_RESIZE

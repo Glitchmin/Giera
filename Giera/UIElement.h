@@ -5,7 +5,7 @@
 #include "MouseButtonTypes.h"
 #include "HorizontalAlignmentTypes.h"
 #include "VerticalAlignmentTypes.h"
-#include "ImageResizePolicy.h"
+#include "ImageResizeTypes.h"
 #include <array>
 #include <vector>
 using std::array;
@@ -24,7 +24,7 @@ protected:
 	vector<unique_ptr<UIElement>> children;
 	bool updateNeeded = 1;
 	SDL_Color bgColor;
-	ImageResizePolicy imageResizePolicy;
+	ImageResizeTypes imageResizePolicy;
 	VerticalAlignmentTypes vImageAlign;
 	HorizontalAlignmentTypes hImageAlign;
 
@@ -41,7 +41,7 @@ public:
 	};
 
 	UIElement(Rect <fr_pos_t> frRelPosRect, shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor = { 0,0,0,0 }, 
-		ImageResizePolicy imageResizePolicy = ImageResizePolicy::STRETCH, VerticalAlignmentTypes vImageAlign = VerticalAlignmentTypes::TOP,
+		ImageResizeTypes imageResizePolicy = ImageResizeTypes::STRETCH, VerticalAlignmentTypes vImageAlign = VerticalAlignmentTypes::TOP,
 		HorizontalAlignmentTypes hImageAlign = HorizontalAlignmentTypes::LEFT);
 	UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image, SDL_Color bgColor = { 0,0,0,0 });
 	virtual void addChild(unique_ptr<UIElement> child);

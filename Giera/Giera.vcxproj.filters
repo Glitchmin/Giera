@@ -923,7 +923,7 @@
     <ClInclude Include="ColumnLayout.h">
       <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
-    <ClInclude Include="ImageResizePolicy.h">
+    <ClInclude Include="ImageResizeTypes.h">
       <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
   </ItemGroup>

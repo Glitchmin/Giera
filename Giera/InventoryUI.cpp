@@ -11,7 +11,7 @@ void InventoryUI::addSlotUI(unique_ptr<RowLayout>& rowLayout, EqSlotTypes eqSlot
 	auto eqSlotNameTexture = TextureLoader::makeTextTexture(FontTypes::SMALL, pxRealPosRect.h / 35,
 		Inventory::getEqSlotName(eqSlotType), { 196,196,196 });
 	auto textUIElement = make_unique<UIElement>(Rect <fr_pos_t>({ 0,0,1, .2 }), eqSlotNameTexture, columnLayout.get(),
-		SDL_Color{ 0,0,0,0 }, ImageResizePolicy::NO_RESIZE, VerticalAlignmentTypes::CENTER, HorizontalAlignmentTypes::CENTER);
+		SDL_Color{ 0,0,0,0 }, ImageResizeTypes::NO_RESIZE, VerticalAlignmentTypes::CENTER, HorizontalAlignmentTypes::CENTER);
 	columnLayout->addChild(std::move(textUIElement));
 	columnLayout->addChild(inventory->getEqSlot(eqSlotType)->
 	                                  generateUIElement({0,0,1, .8}, columnLayout.get(), inventoryInputHandler));

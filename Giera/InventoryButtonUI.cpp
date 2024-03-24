@@ -10,7 +10,8 @@ InventoryButtonUI::InventoryButtonUI(Rect<fr_pos_t> relativePosRect, optional <w
 	AbstractEqSlotUIElement* eqSlotUIElement)
 	:item(item), ButtonUI(relativePosRect,
 		item.has_value() ? TextureLoader::getTexturePtr(item.value().lock()->getFilePath()) : nullptr,
-		parent, relativeEdgeThickness), inventoryInputHandler(inventoryInputHandler), eqSlotUIElement(eqSlotUIElement)
+		parent, relativeEdgeThickness, ImageResizeTypes::KEEP_ASPECT_RATIO, VerticalAlignmentTypes::CENTER, HorizontalAlignmentTypes::CENTER),
+inventoryInputHandler(inventoryInputHandler), eqSlotUIElement(eqSlotUIElement)
 {
 }
 

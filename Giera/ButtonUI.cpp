@@ -2,8 +2,9 @@
 using std::min;
 using std::max;
 
-ButtonUI::ButtonUI(Rect<fr_pos_t> relativePosRect, shared_ptr<Texture> texture, UIElement* parent, double relativeEdgeThickness)
-	:UIElement(relativePosRect, texture, parent), relativeEdgeThickness(relativeEdgeThickness), edgeTransparency(0)
+ButtonUI::ButtonUI(Rect<fr_pos_t> relativePosRect, shared_ptr<Texture> image, UIElement* parent, double relativeEdgeThickness,
+	ImageResizeTypes imageResizePolicy, VerticalAlignmentTypes vImageAlign,	HorizontalAlignmentTypes hImageAlign)
+	:UIElement(relativePosRect, image, parent,SDL_Color{0,0,0,0},imageResizePolicy,vImageAlign,hImageAlign), relativeEdgeThickness(relativeEdgeThickness), edgeTransparency(0)
 {
 
 }

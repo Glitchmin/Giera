@@ -2,7 +2,7 @@
 #include "TextureLoader.h"
 
 UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
-	shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor, ImageResizePolicy imageResizePolicy,
+	shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor, ImageResizeTypes imageResizePolicy,
 	VerticalAlignmentTypes vImageAlign, HorizontalAlignmentTypes hImageAlign) :
 	image(image), parent(parent),
 	pxRealPosRect({ (int)(frRelPosRect.x * parent->pxRealPosRect.w + parent->pxRealPosRect.x),
@@ -23,16 +23,19 @@ void UIElement::drawImage() {
 	if (image==nullptr){
 		return;
 	}
-	if (imageResizePolicy == ImageResizePolicy::STRETCH) {
+	if (imageResizePolicy == ImageResizeTypes::STRETCH) {
 		image->draw(*texture, nullopt, nullopt);
 		return;
 	}
 	int imSizeX = image->getSize().first;
 	int imSizeY = image->getSize().second;
-	if (imageResizePolicy == ImageResizePolicy::KEEP_ASPECT_RATIO){
+	if (imageResizePolicy == ImageResizeTypes::KEEP_ASPECT_RATIO){
 		double aspectRatio = ((double)imSizeX) / (double)imSizeY;
-		imSizeX = std::min((double)pxRealPosRect.w, imSizeX*aspectRatio);
-		imSizeY = std::min((double)pxRealPosRect.h, imSizeY/aspectRatio);
+		double resizeRatio = std::min((double)pxRealPosRect.w / (double)imSizeX,
+			(double)pxRealPosRect.h / (double)imSizeY);
+		Logger::logInfo(resizeRatio, pxRealPosRect.w, pxRealPosRect.h, imSizeX, imSizeY);
+		imSizeX *= resizeRatio;
+		imSizeY *= resizeRatio;
 	}
 	int x = 0;
 	int y = 0;
@@ -50,6 +53,7 @@ void UIElement::drawImage() {
 	if (vImageAlign == VerticalAlignmentTypes::BOTTOM) {
 		y += pxRealPosRect.h - imSizeY;
 	}
+	Logger::logInfo(imSizeX, imSizeY, x, y);
 	image->draw(*texture, nullopt, SDL_Rect{ x,y,imSizeX,imSizeY });
 }
 

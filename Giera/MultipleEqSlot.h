@@ -17,7 +17,6 @@ public:
     virtual optional<shared_ptr<AbstractItem>> removeItem(int x, int y) override;
     virtual unique_ptr <AbstractEqSlotUIElement> generateUIElement(Rect <fr_pos_t> relRect,
         UIElement* parent, shared_ptr <InventoryInputHandler> inventoryInputHandler) override;
-    //void reorganise() TODO;
 
     int getWidth() const;
     int getHeight() const;

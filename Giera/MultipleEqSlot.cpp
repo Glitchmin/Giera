@@ -61,6 +61,10 @@ bool MultipleEqSlot::isAccepted(int x, int y, shared_ptr<AbstractItem> item)
 	int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
 	int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
 
+	if (x < 0 || y < 0 || x + itemWidth > width || y + itemHeight > height) {
+		return false;
+	}
+
 	for (int i = x; i < x + itemWidth;i++) {
 		for (int j = y; j < y + itemHeight;j++) {
 			if (j >= height || i >= width || items[i][j]) {
@@ -88,6 +92,6 @@ int MultipleEqSlot::getHeight() const
 
 bool MultipleEqSlot::getItemDimensionsMatter() const
 {
-    return itemDimensionsMatter;
+	return itemDimensionsMatter;
 }
 

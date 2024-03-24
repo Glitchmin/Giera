@@ -52,7 +52,7 @@ void QuiverEqSlotUI::updateItems()
 		auto arrowNumTexture = TextureLoader::makeTextTexture(FontTypes::SMALL, pxRealPosRect.w / 6,
 			"x" + to_string(fillLevel), { 192,192,192 });
 		auto textUIElement = make_unique<UIElement>(posRect, arrowNumTexture, this, SDL_Color{ 0,0,0,0 }, 
-			ImageResizePolicy::NO_RESIZE, VerticalAlignmentTypes::BOTTOM, HorizontalAlignmentTypes::RIGHT);
+			ImageResizeTypes::NO_RESIZE, VerticalAlignmentTypes::BOTTOM, HorizontalAlignmentTypes::RIGHT);
 		addChild(std::move(textUIElement));
 		posRect.x = .5 + frPxW;
 		posRect.w = .5 - 2 * frPxH;

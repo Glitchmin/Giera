@@ -24,4 +24,3 @@ public:
 	AbstractEqSlotUIElement* getEqSlotUIElement() const;
 
 };
-

@@ -14,8 +14,8 @@ MultipleEqSlotUI::MultipleEqSlotUI(Rect<fr_pos_t> relRect, UIElement* parent, sh
 		(pxRealPosRect.h - 1) / eqSlot->getHeight());
 	pxShiftX = (pxRealPosRect.w - tileSizePx * eqSlot->getWidth()) / 2;
 	pxShiftY = (pxRealPosRect.h - tileSizePx * eqSlot->getHeight()) / 2;
-	frShiftX = (pxRealPosRect.w - tileSizePx * eqSlot->getWidth()) / (2.*pxRealPosRect.w);
-	frShiftY = (pxRealPosRect.h - tileSizePx * eqSlot->getHeight()) / (2.*pxRealPosRect.h);
+	frShiftX = (pxRealPosRect.w - tileSizePx * eqSlot->getWidth()) / (2. * pxRealPosRect.w);
+	frShiftY = (pxRealPosRect.h - tileSizePx * eqSlot->getHeight()) / (2. * pxRealPosRect.h);
 }
 
 void MultipleEqSlotUI::addItemUI(int x, int y, shared_ptr<InventoryInputHandler> inventoryInputHandler) {
@@ -108,7 +108,7 @@ void MultipleEqSlotUI::insertBackground()
 	for (int y = 0; y + 1 < h; y++) {
 		for (int x = 0; x < w;x++) {
 			if (multipleEqSlot->getItem(x, y) == nullopt || multipleEqSlot->getItem(x, y) != multipleEqSlot->getItem(x, y + 1)) {
-				SDL_RenderDrawLine(Texture::getRenderer(), pxShiftX + x * tileSizePx, pxShiftY + (y + 1) * tileSizePx, 
+				SDL_RenderDrawLine(Texture::getRenderer(), pxShiftX + x * tileSizePx, pxShiftY + (y + 1) * tileSizePx,
 					pxShiftX + (x + 1) * tileSizePx, pxShiftY + (y + 1) * tileSizePx);
 			}
 		}
@@ -160,19 +160,41 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 		px_pos_t yPx = pos.second - pxRealPosRect.y - pxShiftY;
 		int x = xPx / tileSizePx;
 		int y = yPx / tileSizePx;
-		if (xPx < 0){
+		if (xPx < 0) {
 			x--;
 		}
-		if (yPx < 0){
+		if (yPx < 0) {
 			y--;
 		}
 		auto multipleEqSlot = std::dynamic_pointer_cast<MultipleEqSlot>(eqSlot);
 
-		if (x >= multipleEqSlot->getWidth() || y >= multipleEqSlot->getHeight() || x<0 || y<0) {
+		if ((x >= multipleEqSlot->getWidth() || y >= multipleEqSlot->getHeight() || x < 0 || y < 0)) {
 			removeEmptyButton();
 			needsUpdate();
 		}
 		else {
+			int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
+			int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
+			x = std::min(multipleEqSlot->getWidth() - itemWidth, x);
+			y = std::min(multipleEqSlot->getHeight() - itemHeight, y);
+
+			bool found = false;
+			for (int i = 0; i < itemWidth && !found;i++) {
+				for (int j = 0; j < itemHeight;j++) {
+					if (multipleEqSlot->isAccepted(x - i, y - j, item)) {
+						x -= i;
+						y -= j;
+						found = true;
+						break;
+					}
+				}
+			}
+
+			if (!multipleEqSlot->isAccepted(x, y, item)) {
+				removeEmptyButton();
+				needsUpdate();
+			}
+
 			if (!isMouseInsideChild) {
 
 				fr_pos_t tileSizeFrX = (fr_pos_t)tileSizePx / pxRealPosRect.w;
@@ -182,13 +204,7 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 				fr_pos_t pxSizeFrY = (fr_pos_t)1 / pxRealPosRect.h;
 
 
-				int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
-				int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
-
-				x = std::min(multipleEqSlot->getWidth() - itemWidth, x);
-				y = std::min(multipleEqSlot->getHeight() - itemHeight, y);
-
-				if ((x != emptyButtonPos.first || y != emptyButtonPos.second || !emptyButton)) {
+				if (multipleEqSlot->isAccepted(x, y, item) && (x != emptyButtonPos.first || y != emptyButtonPos.second || !emptyButton)) {
 					removeEmptyButton();
 					Rect relRect{ x * tileSizeFrX + pxSizeFrX + frShiftX,y * tileSizeFrY + pxSizeFrY + frShiftY,
 						tileSizeFrX * itemWidth - pxSizeFrX,tileSizeFrY * itemHeight - pxSizeFrY };
