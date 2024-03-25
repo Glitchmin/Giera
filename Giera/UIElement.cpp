@@ -83,6 +83,18 @@ void UIElement::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> 
 void UIElement::addChild(unique_ptr<UIElement> child)
 {
 	children.push_back(std::move(child));
+	needsUpdate();
+}
+
+void UIElement::removeChild(UIElement* childToRemove)
+{
+	for (int i=0; i<children.size();i++){
+		if (children[i].get() == childToRemove){
+			children.erase(children.begin() + i);
+			break;
+		}
+	}
+	needsUpdate();
 }
 
 void UIElement::insertBackground()

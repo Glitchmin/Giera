@@ -44,14 +44,6 @@ InventoryUI::InventoryUI(shared_ptr<Window> window, shared_ptr <Inventory> inven
 	addChild(std::move(bottomRowLayout));
 }
 
-InventoryUI* InventoryUI::createInventoryUI(shared_ptr<Window> window, shared_ptr<Inventory> inventory)
-{
-	auto invUI = make_unique <InventoryUI>(window, inventory, make_shared<InventoryInputHandler> (inventory));
-	auto ptr = invUI.get();
-	window->addChild(std::move(invUI));
-	return ptr;
-}
-
 void InventoryUI::render(shared_ptr<Texture>& textureToDrawOn)
 {
 	UIElement::render(textureToDrawOn);

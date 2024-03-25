@@ -45,6 +45,7 @@ public:
 		HorizontalAlignmentTypes hImageAlign = HorizontalAlignmentTypes::LEFT);
 	UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image, SDL_Color bgColor = { 0,0,0,0 });
 	virtual void addChild(unique_ptr<UIElement> child);
+	virtual void removeChild(UIElement* childToRemove);
 	virtual void insertBackground();
 	virtual void render(shared_ptr <Texture>& textureToDrawOn);
 	virtual void handleMouseInput(MouseEventTypes mouseEventType, pair<int,int> pos, Time timeDiff);

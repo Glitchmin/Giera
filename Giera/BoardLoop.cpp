@@ -4,6 +4,7 @@
 #include "FlightPath.h"
 #include "SpellProjectile.h"
 #include "InventoryUI.h"
+#include "InventoryInputHandler.h"
 
 
 BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig)
@@ -23,7 +24,6 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	board->addItem(Coordinates(5, 0), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
 	board->addNPC(player);
 
-	auto invUI = InventoryUI::createInventoryUI(window, player->getInventory());
 	for (int i = 0; i < (int)MouseButtonTypes::COUNT;i++) {
 		mouseButtonStates[i] = MouseButtonStateTypes::NOT_PRESSED;
 	}
@@ -40,6 +40,7 @@ void BoardLoop::handleInput(Time timeDiff) {
 			mouseButtonStates[i] = MouseButtonStateTypes::NOT_PRESSED;
 		}
 	}
+	set<SDL_Scancode> justPressedKeys;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 		case SDL_QUIT:
@@ -47,6 +48,9 @@ void BoardLoop::handleInput(Time timeDiff) {
 			break;
 		case SDL_KEYDOWN:
 			//Logger::logInfo("down", (int)event.key.keysym.scancode);
+			if (keySet.find(event.key.keysym.scancode) == keySet.end()) {
+				justPressedKeys.insert(event.key.keysym.scancode);
+			}
 			keySet.insert(event.key.keysym.scancode);
 			break;
 		case SDL_KEYUP:
@@ -58,7 +62,7 @@ void BoardLoop::handleInput(Time timeDiff) {
 		int buttonUpID = event.button.button == 1 ?
 			(int)MouseButtonTypes::LEFT : (int)MouseButtonTypes::RIGHT;
 		mouseButtonStates[buttonUpID] = MouseButtonStateTypes::JUST_RELEASED;}
-		break;
+			break;
 		case SDL_MOUSEBUTTONDOWN:
 		{Logger::logInfo((int)event.button.button, " button down");
 		int buttonDownID = event.button.button == 1 ?
@@ -107,19 +111,34 @@ void BoardLoop::handleInput(Time timeDiff) {
 			break;
 		}
 	}
-
+	for (auto& key : justPressedKeys) {
+		PlayerActionTypes action = inputConfig->getActionType(key);
+		switch (action) {
+			using PlAct = PlayerActionTypes;
+		case PlAct::OPEN_EQUIPMENT:
+			if (!playerInventoryUI.has_value()) {
+				auto invUI = make_unique <InventoryUI>(window, player->getInventory(),
+					make_shared<InventoryInputHandler>(player->getInventory()));
+				playerInventoryUI = invUI.get();
+				window->addChild(std::move(invUI));
+			}
+			else {
+				window->removeChild(playerInventoryUI.value());
+				playerInventoryUI = nullopt;
+			}
+			break;
+		}
+	}
 }
 
 void BoardLoop::start()
 {
-	bool loopGoing = 1;
+	bool loopGoing = true;
 	GeneralTimer generalTimer;
 	generalTimer.updateTime();
 	Time lastGraphicUpdate(generalTimer.getTime());
 	Time lastInputHandling(generalTimer.getTime());
 	Time lastProjectileHandling(generalTimer.getTime());
-
-
 
 	while (loopGoing) {
 		Time inputTimeDiff = generalTimer.getTime() - lastInputHandling;
