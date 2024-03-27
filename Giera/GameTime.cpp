@@ -1,4 +1,4 @@
-#include "Time.h"
+#include "GameTime.h"
 #include <iomanip>
 Time::Time()
 {

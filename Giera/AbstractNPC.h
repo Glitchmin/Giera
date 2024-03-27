@@ -10,7 +10,7 @@
 //#include "Inventory.h"
 #include <vector>
 using std::vector;
-using npc_hp_t = typename unsigned int;
+using npc_hp_t = unsigned int;
 
 class Board;
 class Inventory;

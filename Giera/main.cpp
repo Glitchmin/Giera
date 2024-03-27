@@ -5,7 +5,7 @@
 #include <sstream>
 #include "Position.h"
 #include "GeneralTimer.h"
-#include "Time.h"
+#include "GameTime.h"
 #include "BoardLoop.h"
 
 
