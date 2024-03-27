@@ -14,7 +14,7 @@ project "Giera"
 	location "Giera"
 	kind "ConsoleApp"
 	language "C++"
-	cppdialect "C++17"
+	cppdialect "C++20"
 
 	targetdir ("bin/" .. outputdir .. "")
 	objdir ("bin/" .. outputdir .. "")
