@@ -1,6 +1,6 @@
 #pragma once
 #include "AbstractWeapon.h"
-#include "Time.h"
+#include "GameTime.h"
 
 class MeleeWeapon :
     public AbstractWeapon

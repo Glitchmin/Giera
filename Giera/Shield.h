@@ -1,6 +1,6 @@
 #pragma once
 #include "AbstractGearItem.h"
-#include "Time.h"
+#include "GameTime.h"
 #include "ShieldTypes.h"
 class Shield :
     public AbstractGearItem

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <sstream>
-#include "Time.h"
+#include "GameTime.h"
 #include "TextureLoader.h"
 
 class AbstractMapElement

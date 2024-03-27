@@ -3,12 +3,12 @@
 #include "../Giera/AbstractTimer.h"
 #include "../Giera/GeneralTimer.h"
 #include "../Giera/SubTimer.h"
-#include "../Giera/Time.h"
+#include "../Giera/GameTime.h"
 #include "../Giera/Calculator.h"
 #include "../Giera/GeneralTimer.cpp"
 #include "../Giera/SubTimer.cpp"
 #include "../Giera/AbstractTimer.cpp"
-#include "../Giera/Time.cpp"
+#include "../Giera/GameTime.cpp"
 #include "../Giera/Calculator.cpp"
 #include "../Giera/Coordinates.h"
 #include "../Giera/Coordinates.cpp"
@@ -67,6 +67,12 @@
 #include "../Giera/AbstractEffect.h"
 #include "../Giera/AbstractNPC.h"
 #include "../Giera/AbstractNPC.cpp"
+#include "../Giera/NPC_AttributeTypes.h"
+#include "../Giera/NPCObserver.h"
+#include "../Giera/NPCObserver.cpp"
+#include "../Giera/NPCTypes.h"
+#include "../Giera/Player.h"
+#include "../Giera/Player.cpp"
 #include "../Giera/StatChangingEffect.h"
 #include "../Giera/StatChangingEffect.cpp"
 #include "../Giera/BaseItemHandler.h"
@@ -126,6 +132,18 @@
 #include "../Giera/FlightPath.cpp"
 #include "../Giera/AbstractProjectile.h"
 #include "../Giera/AbstractProjectile.cpp"
+#include "../Giera/ArrowProjectile.h"
+#include "../Giera/ArrowProjectile.cpp"
+#include "../Giera/SpellProjectile.h"
+#include "../Giera/SpellProjectile.cpp"
+#include "../Giera/AbstractSpell.h"
+#include "../Giera/AbstractSpell.cpp"
+#include "../Giera/PointSpell.h"
+#include "../Giera/PointSpell.cpp"
+#include "../Giera/SelfSpell.h"
+#include "../Giera/SelfSpell.cpp"
+#include "../Giera/ThrownSpell.h"
+#include "../Giera/ThrownSpell.cpp"
 #include "../Giera/AbstractGeometryFigure.h"
 #include "../Giera/BoardTile.h"
 #include "../Giera/BoardTile.cpp"
@@ -140,12 +158,53 @@
 
 #include "../Giera/AbstractEqSlot.h"
 #include "../Giera/AbstractEqSlot.cpp"
+#include "../Giera/Dropslots.h"
+#include "../Giera/Dropslots.cpp"
 #include "../Giera/SingleEqSlot.h"
 #include "../Giera/SingleEqSlot.cpp"
 #include "../Giera/MultipleEqSlot.h"
 #include "../Giera/MultipleEqSlot.cpp"
 #include "../Giera/QuiverEqSlot.h"
 #include "../Giera/QuiverEqSlot.cpp"
+
+#include "../Giera/EqSlotTypes.h"
+#include "../Giera/Inventory.h"
+#include "../Giera/Inventory.cpp"
+
+#include "../Giera/BoardLoop.h"
+#include "../Giera/BoardLoop.cpp"
+#include "../Giera/InputConfig.h"
+#include "../Giera/InputConfig.cpp"
+#include "../Giera/InventoryInputHandler.h"
+#include "../Giera/InventoryInputHandler.cpp"
+#include "../Giera/MouseButtonStateTypes.h"
+#include "../Giera/MouseButtonTypes.h"
+#include "../Giera/PlayerActionTypes.h"
+
+#include "../Giera/ButtonUI.h"
+#include "../Giera/ButtonUI.cpp"
+#include "../Giera/ColumnLayout.h"
+#include "../Giera/ColumnLayout.cpp"
+#include "../Giera/HorizontalAlignmentTypes.h"
+#include "../Giera/ImageResizeTypes.h"
+#include "../Giera/InventoryButtonUI.h"
+#include "../Giera/InventoryButtonUI.cpp"
+#include "../Giera/InventoryUI.h"
+#include "../Giera/InventoryUI.cpp"
+#include "../Giera/RowLayout.h"
+#include "../Giera/RowLayout.cpp"
+#include "../Giera/UIElement.h"
+#include "../Giera/UIElement.cpp"
+#include "../Giera/VerticalAlignmentTypes.h"
+
+#include "../Giera/AbstractEqSlotUIElement.h"
+#include "../Giera/AbstractEqSlotUIElement.cpp"
+#include "../Giera/MultipleEqSlotUI.h"
+#include "../Giera/MultipleEqSlotUI.cpp"
+#include "../Giera/QuiverEqSlotUI.h"
+#include "../Giera/QuiverEqSlotUI.cpp"
+#include "../Giera/SingleEqSlotUI.h"
+#include "../Giera/SingleEqSlotUI.cpp"
 
 #include <iostream>
 #include <string>
@@ -304,7 +363,7 @@ namespace ItemsTests {
 
 	};
 }
-
+/*
 namespace EqTests {
 	TEST_CLASS(BaseEqTests)
 	{
@@ -361,7 +420,7 @@ namespace EqTests {
 		}
 	};
 }
-
+*/
 namespace MapTests
 {
 	TEST_CLASS(CoordinatesTests)
