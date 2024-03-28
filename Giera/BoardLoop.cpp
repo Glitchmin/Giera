@@ -127,7 +127,14 @@ void BoardLoop::handleInput(Time timeDiff) {
 				playerInventoryUI = nullopt;
 			}
 			break;
+			case PlAct::CLOSE_WINDOW:
+				if (playerInventoryUI.has_value()) {
+					window->removeChild(playerInventoryUI.value());
+					playerInventoryUI = nullopt;
+				}
+				break;
 		}
+
 	}
 }
 
