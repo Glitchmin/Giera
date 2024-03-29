@@ -21,7 +21,7 @@ void InventoryButtonUI::resetItemAlpha()
 	needsUpdate();
 }
 
-void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
+bool InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
 
 	if (pxRealPosRect.isPointInside(pos.first, pos.second)) {
@@ -46,9 +46,11 @@ void InventoryButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<in
 				itemAlpha = 196;
 			}
 		}
+		return true;
 	}
 	else {
 		changeEdgeTransparency(timeDiff, false);
+		return false;
 	}
 }
 

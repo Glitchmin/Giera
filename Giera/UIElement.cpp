@@ -73,11 +73,13 @@ void UIElement::render(shared_ptr <Texture>& textureToDrawOn)
 	texture->draw(*textureToDrawOn, nullopt, dstRect);
 }
 
-void UIElement::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
+bool UIElement::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
+	bool ans = false;
 	for (auto& child : children) {
-		child->handleMouseInput(mouseEventType, pos, timeDiff);
+		ans = ans || child->handleMouseInput(mouseEventType, pos, timeDiff);
 	}
+	return ans;
 }
 
 void UIElement::addChild(unique_ptr<UIElement> child)

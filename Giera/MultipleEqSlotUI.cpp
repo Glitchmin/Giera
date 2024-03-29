@@ -145,8 +145,9 @@ void MultipleEqSlotUI::removeEmptyButton()
 	}
 }
 
-void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
+bool MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
+	bool isHandled = false;
 	bool isMouseInsideChild = false;
 	for (auto& child : children) {
 		if (child.get() != emptyButton) {
@@ -173,6 +174,7 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 			needsUpdate();
 		}
 		else {
+			bool hasBeenHandled = true;
 			int itemWidth = itemDimensionsMatter ? item->getWidth() : 1;
 			int itemHeight = itemDimensionsMatter ? item->getHeight() : 1;
 			x = std::min(multipleEqSlot->getWidth() - itemWidth, x);
@@ -231,5 +233,6 @@ void MultipleEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int
 		}
 		isMouseInside = false;
 	}
-	AbstractEqSlotUIElement::handleMouseInput(mouseEventType, pos, timeDiff);
+	isHandled = AbstractEqSlotUIElement::handleMouseInput(mouseEventType, pos, timeDiff) || isHandled;
+	return isHandled;
 }

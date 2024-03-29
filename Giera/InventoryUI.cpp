@@ -57,10 +57,12 @@ void InventoryUI::render(shared_ptr<Texture>& textureToDrawOn)
 	}
 }
 
-void InventoryUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
+bool InventoryUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
 	if (mouseEventType == MouseEventTypes::PRESS_RIGHT) {
 		inventoryInputHandler->resetSelectedItem();
 	}
-	UIElement::handleMouseInput(mouseEventType, pos, timeDiff);
+	bool isHandled = UIElement::handleMouseInput(mouseEventType, pos, timeDiff);
+	isHandled = pxRealPosRect.isPointInside(pos.first, pos.second) || isHandled;
+	return isHandled;
 }

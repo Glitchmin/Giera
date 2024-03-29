@@ -47,15 +47,17 @@ void ButtonUI::changeEdgeTransparency(Time timeDiff, bool positive)
 	edgeTransparency = max(edgeTransparency, 0);
 }
 
-void ButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
+bool ButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
 	if (pxRealPosRect.isPointInside(pos.first, pos.second)) {
 		edgeTransparency += timeDiff.getTimeMs();
 		edgeTransparency = min(edgeTransparency, maxEdgeTransparency);
+		return true;
 	}
 	else {
 		edgeTransparency -= timeDiff.getTimeMs();
 		edgeTransparency = max(edgeTransparency, 0);
+		return false;
 	}
 }
 

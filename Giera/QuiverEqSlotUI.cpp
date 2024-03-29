@@ -78,15 +78,18 @@ void QuiverEqSlotUI::insertBackground()
 
 }
 
-void QuiverEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
+bool QuiverEqSlotUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
-	AbstractEqSlotUIElement::handleMouseInput(mouseEventType, pos, timeDiff);
+	bool ans = AbstractEqSlotUIElement::handleMouseInput(mouseEventType, pos, timeDiff);
 	for (auto eqSlotButton : eqSlotButtons) {
-		if (eqSlotButton->getPixelRealPosRect().isPointInside(pos.first, pos.second) &&
-			inventoryInputHandler->getSelectedItem() && eqSlotButton->getItem()) {
-			eqSlotButton->changeEdgeTransparency(timeDiff, true);
+		if (eqSlotButton->getPixelRealPosRect().isPointInside(pos.first, pos.second)) {
+			if (inventoryInputHandler->getSelectedItem() && eqSlotButton->getItem()) {
+				eqSlotButton->changeEdgeTransparency(timeDiff, true);
+			}
+			ans = true;
 		}
 	}
+	return ans;
 }
 
 

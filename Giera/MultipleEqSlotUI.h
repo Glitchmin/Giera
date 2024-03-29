@@ -29,6 +29,6 @@ public:
 
     void removeEmptyButton();
 
-    virtual void handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
+    virtual bool handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
 };
 

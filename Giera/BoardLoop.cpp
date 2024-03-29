@@ -74,40 +74,57 @@ void BoardLoop::handleInput(Time timeDiff) {
 
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
-	window->handleMouseInput(UIElement::MouseEventTypes::HOVER, make_pair(mouseX, mouseY), timeDiff);
+	
+	bool isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::HOVER, make_pair(mouseX, mouseY), timeDiff);
+	
 	if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::JUST_PRESSED) {
-		window->handleMouseInput(UIElement::MouseEventTypes::PRESS_LEFT, make_pair(mouseX, mouseY), timeDiff);
+		isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::PRESS_LEFT,
+			make_pair(mouseX, mouseY), timeDiff) || isMouseHandledByUI;
 	}
 	if (mouseButtonStates[(int)MouseButtonTypes::RIGHT] == MouseButtonStateTypes::JUST_PRESSED) {
-		window->handleMouseInput(UIElement::MouseEventTypes::PRESS_RIGHT, make_pair(mouseX, mouseY), timeDiff);
+		isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::PRESS_RIGHT,
+			make_pair(mouseX, mouseY), timeDiff) || isMouseHandledByUI;
+	}
+	if (!isMouseHandledByUI) {
+		if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::NOT_PRESSED) {
+			boardRenderer->getCamera().resetSecondaryTarget();
+		}
+		else {
+			Camera& camera = boardRenderer->getCamera();
+			camera.setMouseAsSecondaryTarget();
+		}
 	}
 
-	if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::NOT_PRESSED) {
-		boardRenderer->getCamera().resetSecondaryTarget();
-	}
-	else {
-		Camera& camera = boardRenderer->getCamera();
-		camera.setMouseAsSecondaryTarget();
-	}
+	bool isUIWindowOpen = playerInventoryUI.has_value();
 
 	for (auto& key : keySet) {
 		PlayerActionTypes action = inputConfig->getActionType(key);
 		switch (action) {
 			using PlAct = PlayerActionTypes;
 		case PlAct::MOVE_LEFT:
-			player->move(Position(-((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
+			if (!isUIWindowOpen) {
+				player->move(Position(-((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
+			}
 			break;
 		case PlAct::MOVE_DOWN:
-			player->move(Position(0, ((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0));
+			if (!isUIWindowOpen) {
+				player->move(Position(0, ((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0));
+			}
 			break;
 		case PlAct::MOVE_UP:
-			player->move(Position(0, -((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0));
+			if (!isUIWindowOpen) {
+				player->move(Position(0, -((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0));
+			}
 			break;
 		case PlAct::MOVE_RIGHT:
-			player->move(Position(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
+			if (!isUIWindowOpen) {
+				player->move(Position(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
+			}
 			break;
 		case PlAct::ADD_SECONDARY_CAMERA_TARGET:
-			boardRenderer->getCamera().setSecondaryTarget(board->getMap()->getMapTile(Coordinates(60, 60)));
+			if (!isUIWindowOpen) {
+				boardRenderer->getCamera().setSecondaryTarget(board->getMap()->getMapTile(Coordinates(60, 60)));
+			}
 			break;
 		}
 	}
@@ -168,7 +185,6 @@ void BoardLoop::start()
 			boardRenderer->drawBoard(renderTimeDiff);
 
 			window->renderUI();
-
 			window->updateRenderer();
 		}
 		generalTimer.updateTime();

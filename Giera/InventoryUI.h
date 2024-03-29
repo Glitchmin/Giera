@@ -20,6 +20,6 @@ public:
     InventoryUI(shared_ptr <Window> window, shared_ptr <Inventory> inventory,
                 shared_ptr <InventoryInputHandler> inventoryInputHandler);
     virtual void render(shared_ptr <Texture>& textureToDrawOn);
-    virtual void handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
+    virtual bool handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
 };
 

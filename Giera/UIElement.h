@@ -48,7 +48,7 @@ public:
 	virtual void removeChild(UIElement* childToRemove);
 	virtual void insertBackground();
 	virtual void render(shared_ptr <Texture>& textureToDrawOn);
-	virtual void handleMouseInput(MouseEventTypes mouseEventType, pair<int,int> pos, Time timeDiff);
+	virtual bool handleMouseInput(MouseEventTypes mouseEventType, pair<int,int> pos, Time timeDiff);
 	void drawImage();
 
     UIElement* getParent() const;

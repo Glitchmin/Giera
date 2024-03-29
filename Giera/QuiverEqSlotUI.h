@@ -13,7 +13,7 @@ public:
     virtual bool isItemAccepted(InventoryButtonUI* inventoryButtonUI) override;
     virtual void updateItems() override;
     virtual void insertBackground() override;
-    virtual void handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
+    virtual bool handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
 protected:
     array<InventoryButtonUI*, 2> eqSlotButtons;
 };

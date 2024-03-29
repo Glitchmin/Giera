@@ -17,7 +17,7 @@ public:
 	InventoryButtonUI(Rect <fr_pos_t> relativePosRect, optional <weak_ptr<AbstractItem>> item, UIElement* parent,
 		double relativeEdgeThickness, shared_ptr <InventoryInputHandler> inventoryInputHandler, AbstractEqSlotUIElement* eqSlotUIElement);
 	void resetItemAlpha();
-	void handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
+	bool handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
 	void render(shared_ptr<Texture>& textureToDrawOn) override;
 	
     optional<weak_ptr<AbstractItem>> getItem() const;
