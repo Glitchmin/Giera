@@ -15,16 +15,16 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	double viewRangeM = 20;
 	player = make_shared<Player>();
 	boardRenderer = make_shared<BoardRenderer>(map->getSizeX(), map->getSizeY(), window, viewRangeM, player);
-	for (int i = 0; i < map->getSizeX();i++) {
-		for (int j = 0; j < map->getSizeY();j++) {
+	for (int i = 0; i < map->getSizeX(); i++) {
+		for (int j = 0; j < map->getSizeY(); j++) {
 			boardRenderer->addDrawableBoardEntity(map->getMapTile(Coordinates(i, j)));
 		}
 	}
 	this->board = make_shared<Board>(std::move(map), boardRenderer);
 	board->addItem(Coordinates(5, 0), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
-	board->addNPC(player);
+	board->addCharacter(player);
 
-	for (int i = 0; i < (int)MouseButtonTypes::COUNT;i++) {
+	for (int i = 0; i < (int)MouseButtonTypes::COUNT; i++) {
 		mouseButtonStates[i] = MouseButtonStateTypes::NOT_PRESSED;
 	}
 	player->addDrawableObserver(boardRenderer);
@@ -32,7 +32,7 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 
 void BoardLoop::handleInput(Time timeDiff) {
 	SDL_Event event;
-	for (int i = 0; i < (int)MouseButtonTypes::COUNT;i++) {
+	for (int i = 0; i < (int)MouseButtonTypes::COUNT; i++) {
 		if (mouseButtonStates[i] == MouseButtonStateTypes::JUST_PRESSED) {
 			mouseButtonStates[i] = MouseButtonStateTypes::PRESSED;
 		}
@@ -58,25 +58,29 @@ void BoardLoop::handleInput(Time timeDiff) {
 			keySet.erase(event.key.keysym.scancode);
 			break;
 		case SDL_MOUSEBUTTONUP:
-		{Logger::logInfo((int)event.button.button, " button up");
-		int buttonUpID = event.button.button == 1 ?
-			(int)MouseButtonTypes::LEFT : (int)MouseButtonTypes::RIGHT;
-		mouseButtonStates[buttonUpID] = MouseButtonStateTypes::JUST_RELEASED;}
-			break;
+		{
+			Logger::logInfo((int)event.button.button, " button up");
+			int buttonUpID = event.button.button == 1 ?
+				(int)MouseButtonTypes::LEFT : (int)MouseButtonTypes::RIGHT;
+			mouseButtonStates[buttonUpID] = MouseButtonStateTypes::JUST_RELEASED;
+		}
+		break;
 		case SDL_MOUSEBUTTONDOWN:
-		{Logger::logInfo((int)event.button.button, " button down");
-		int buttonDownID = event.button.button == 1 ?
-			(int)MouseButtonTypes::LEFT : (int)MouseButtonTypes::RIGHT;
-		mouseButtonStates[buttonDownID] = MouseButtonStateTypes::JUST_PRESSED;}
-			break;
+		{
+			Logger::logInfo((int)event.button.button, " button down");
+			int buttonDownID = event.button.button == 1 ?
+				(int)MouseButtonTypes::LEFT : (int)MouseButtonTypes::RIGHT;
+			mouseButtonStates[buttonDownID] = MouseButtonStateTypes::JUST_PRESSED;
+		}
+		break;
 		}
 	}
 
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
-	
+
 	bool isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::HOVER, make_pair(mouseX, mouseY), timeDiff);
-	
+
 	if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::JUST_PRESSED) {
 		isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::PRESS_LEFT,
 			make_pair(mouseX, mouseY), timeDiff) || isMouseHandledByUI;
@@ -144,12 +148,12 @@ void BoardLoop::handleInput(Time timeDiff) {
 				playerInventoryUI = nullopt;
 			}
 			break;
-			case PlAct::CLOSE_WINDOW:
-				if (playerInventoryUI.has_value()) {
-					window->removeChild(playerInventoryUI.value());
-					playerInventoryUI = nullopt;
-				}
-				break;
+		case PlAct::CLOSE_WINDOW:
+			if (playerInventoryUI.has_value()) {
+				window->removeChild(playerInventoryUI.value());
+				playerInventoryUI = nullopt;
+			}
+			break;
 		}
 
 	}
@@ -172,7 +176,7 @@ void BoardLoop::start()
 			board->addProjectile(make_shared <SpellProjectile>(
 				make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
 					Position(Calculator::getRandomInt(15, 20), 10.7, 0.1),
-					1, 2 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), player));
+					1, 2 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), weak_ptr<HittableBoardEntity>()));
 		}
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
 		lastProjectileHandling = generalTimer.getTime();

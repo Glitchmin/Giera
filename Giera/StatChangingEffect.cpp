@@ -7,10 +7,10 @@ StatChangingEffect::StatChangingEffect()
 }
 
 StatChangingEffect::StatChangingEffect(Time duration, bool isBuff, short level,
-	weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC,
+	weak_ptr<AbstractCharacter> targetCharacter, weak_ptr<AbstractCharacter> originCharacter,
 	double initialPercentValue, double finalPercentValue, Time timeToReachFinal,
-	NPC_AttributeTypes attributeType): 
-	AbstractEffect(duration, isBuff, level, targetNPC, originNPC)
+	CharacterAttributeTypes attributeType): 
+	AbstractEffect(duration, isBuff, level, targetCharacter, originCharacter)
 {
 	this->initialPercentValue = initialPercentValue;
 	this->finalPercentValue = finalPercentValue;
@@ -43,7 +43,7 @@ double StatChangingEffect::getCurrentValue()
 		(finalPercentValue - initialPercentValue);
 }
 
-NPC_AttributeTypes StatChangingEffect::getAttributeType() const
+CharacterAttributeTypes StatChangingEffect::getAttributeType() const
 {
     return attributeType;
 }
@@ -66,6 +66,6 @@ istream& operator>>(istream& is, StatChangingEffect& ef)
 {
 	int tmp;
 	is >> (AbstractEffect&)ef>> ef.initialPercentValue >> ef.finalPercentValue >> ef.timeToReachFinal >> tmp;
-	ef.attributeType = (NPC_AttributeTypes)tmp;
+	ef.attributeType = (CharacterAttributeTypes)tmp;
 	return is;
 }

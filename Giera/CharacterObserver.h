@@ -2,9 +2,9 @@
 #include <memory>
 using std::shared_ptr;
 
-class AbstractNPC;
+class AbstractCharacter;
 
-class NPCObserver
+class CharacterObserver
 {
 public:
 	enum class Change {
@@ -15,6 +15,6 @@ public:
 		REMOVED,
 		COUNT
 	};
-	virtual void notifyNPCObserves(shared_ptr<AbstractNPC> npc, Change change) = 0;
+	virtual void notifyCharacterObservers(shared_ptr<AbstractCharacter> character, Change change) = 0;
 };
 

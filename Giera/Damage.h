@@ -1,6 +1,6 @@
 #pragma once
 #include "DamageTypes.h"
-#include "AbstractNPC.h"
+#include "AbstractCharacter.h"
 #include <memory>
 
 using std::weak_ptr;
@@ -11,11 +11,11 @@ protected:
 	double value;
 	double ap; //armor_piercing
 	DamageTypes damageType;
-	weak_ptr <AbstractNPC> damageDealer;
+	weak_ptr <AbstractCharacter> damageDealer;
 public:
 	Damage();
 	Damage(double value, double ap, DamageTypes damageType,
-		weak_ptr<AbstractNPC> damageDealer = std::shared_ptr<AbstractNPC>(nullptr));
+		weak_ptr<AbstractCharacter> damageDealer = std::shared_ptr<AbstractCharacter>(nullptr));
 	void multiply(double multiplier);
 	virtual bool isLifesteal();
 
@@ -25,5 +25,5 @@ public:
 
 	DamageTypes getDamageType() const;
 
-	weak_ptr<AbstractNPC> getDamageDealer() const;
+	weak_ptr<AbstractCharacter> getDamageDealer() const;
 };

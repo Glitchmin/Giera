@@ -17,12 +17,14 @@ SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<T
 
 void SpellProjectile::onWallHit(Coordinates hitCoords, shared_ptr<Board>& board)
 {
-	//Logger::logDebug("projectile hit the wall", hitCoords);
+	Logger::logDebug("projectile hit the wall", hitCoords);
+	isReadyToBeRemoved = true;
  }
 
-void SpellProjectile::onNPCHit(shared_ptr<AbstractNPC> npc, shared_ptr<Board>& board)
+void SpellProjectile::onCharacterHit(shared_ptr<AbstractCharacter> character, shared_ptr<Board>& board)
 {
-	//Logger::logDebug("projectile hit the NPC");
+	Logger::logDebug("projectile hit the Character");
+	isReadyToBeRemoved = true;
 }
 
 void SpellProjectile::onGroundHit(Coordinates hitCoords, shared_ptr<Board>& board)
@@ -59,11 +61,11 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 	int maxY = max(prevPos.getY(), currPos.getY());
 	LineSegment ls(prevPos, currPos);
 	optional<Position> collisionP;
-	shared_ptr<AbstractNPC> hitNPC;
+	shared_ptr<AbstractCharacter> hitCharacter;
 	optional <Coordinates> hitMapTile;
 
-	for (int x = minX; x <= maxX+1;x++) {
-		for (int y = minY; y <= maxY+1;y++) {
+	for (int x = minX; x <= maxX;x++) {
+		for (int y = minY; y <= maxY;y++) {
 			auto mapTile = board->getMap()->getMapTile(Coordinates(x, y));
 			if (mapTile != entityToIgnore.lock()) {
 				auto& hitboxes = mapTile->getHitboxes();
@@ -72,21 +74,21 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 					if (currCollision.has_value()) {
 						hitMapTile = Coordinates(x, y);
 						//Logger::logInfo(x, y, "map tile");
-						hitNPC = nullptr;
+						hitCharacter = nullptr;
 						collisionP = currCollision;
 					}
 				}
 			}
 
-			auto& npcs = board->getBoardTile(Coordinates(x, y)).getNpcs();
-			for (auto& npc : npcs) {
-				if (npc != entityToIgnore.lock()) {
-					for (auto& hitbox : npc->getHitboxes()) {
+			auto& characters = board->getBoardTile(Coordinates(x, y)).getcharacters();
+			for (auto& character : characters) {
+				if (character != entityToIgnore.lock()) {
+					for (auto& hitbox : character->getHitboxes()) {
 						auto currCollision = calculateHitbox(hitbox, ls, collisionP, currPos);
 						if (currCollision.has_value()) {
 							hitMapTile = nullopt;
-							Logger::logInfo(x, y, "npc");
-							hitNPC = npc;
+							Logger::logInfo(x, y, "character");
+							hitCharacter = character;
 							collisionP = currCollision;
 						}
 					}
@@ -94,13 +96,8 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 			}
 		}
 	}
-	isReadyToBeRemoved = collisionP.has_value();
-	isReadyToBeRemoved += currPos.getZ() <= 0;
-	if (!isReadyToBeRemoved) {
-		return;
-	}
-	if (hitNPC) {
-		onNPCHit(hitNPC, board);
+	if (hitCharacter) {
+		onCharacterHit(hitCharacter, board);
 		return;
 	}
 	if (hitMapTile) {

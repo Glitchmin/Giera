@@ -1,6 +1,6 @@
 #include "Lifesteal.h"
 
-Lifesteal::Lifesteal(double value,double ap, DamageTypes damageType, double percentStolen, double probability, weak_ptr<AbstractNPC> damageDealer):
+Lifesteal::Lifesteal(double value,double ap, DamageTypes damageType, double percentStolen, double probability, weak_ptr<AbstractCharacter> damageDealer):
     Damage(value,ap, damageType, damageDealer)
 {
     this->percentStolen = percentStolen;

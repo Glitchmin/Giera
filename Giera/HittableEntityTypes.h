@@ -1,6 +1,6 @@
 #pragma once
 enum class HittableEntityTypes {
-	NPC,
+	Character,
 	GROUND,
 	WALL,
 	COUNT

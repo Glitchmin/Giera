@@ -4,13 +4,13 @@ AbstractEffect::AbstractEffect()
 {
 }
 
-AbstractEffect::AbstractEffect(Time duration, bool isBuff, short level, weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC)
+AbstractEffect::AbstractEffect(Time duration, bool isBuff, short level, weak_ptr<AbstractCharacter> targetCharacter, weak_ptr<AbstractCharacter> originCharacter)
 {
     this->duration = duration;
     this->timeLeft = duration;
     this->level = level;
-    this->targetNPC = targetNPC;
-    this->originNPC = originNPC;
+    this->targetCharacter = targetCharacter;
+    this->originCharacter = originCharacter;
     this->isBuff = isBuff;
 }
 
@@ -40,21 +40,21 @@ short AbstractEffect::getLevel() const
     return level;
 }
 
-weak_ptr<AbstractNPC> AbstractEffect::getTargetNPC() const
+weak_ptr<AbstractCharacter> AbstractEffect::getTargetCharacter() const
 {
-    return targetNPC;
+    return targetCharacter;
 }
 
 
-weak_ptr<AbstractNPC> AbstractEffect::getOriginNPC() const
+weak_ptr<AbstractCharacter> AbstractEffect::getOriginCharacter() const
 {
-    return originNPC;
+    return originCharacter;
 }
 
 
-void AbstractEffect::setTargetNPC(weak_ptr<AbstractNPC> targetNPC)
+void AbstractEffect::setTargetCharacter(weak_ptr<AbstractCharacter> targetCharacter)
 {
-    this->targetNPC = targetNPC;
+    this->targetCharacter = targetCharacter;
 }
 
 istream& operator>>(istream& is, AbstractEffect& ef)

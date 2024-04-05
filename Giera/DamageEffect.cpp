@@ -15,8 +15,8 @@ DamageEffect::DamageEffect() {
 
 
 DamageEffect::DamageEffect(unique_ptr<Damage> damage, Time duration, bool isBuff, short level,
-    weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC, Time tickrate,double damageIncrease) :
-    AbstractEffect(duration, isBuff, level, targetNPC, originNPC)
+    weak_ptr<AbstractCharacter> targetCharacter, weak_ptr<AbstractCharacter> originCharacter, Time tickrate,double damageIncrease) :
+    AbstractEffect(duration, isBuff, level, targetCharacter, originCharacter)
 {
     this->damage = move (damage);
     this->tickrate = tickrate;
@@ -29,7 +29,7 @@ bool DamageEffect::subtractFromTimeLeft(Time amount)
     timeLeft -= amount;
     timeUntilTick -= amount;
     if (timeUntilTick.getTimeMs() == 0) {
-        //TODO: deal dmg to NPC
+        //TODO: deal dmg to Character
         timeUntilTick += tickrate;
         damage->multiply(damageIncrease);
     }
@@ -51,7 +51,7 @@ shared_ptr<AbstractEffect> DamageEffect::generate()
 {
        return  make_shared<DamageEffect>(
         make_unique<Damage>(*damage), Time(duration.getTimeMs()), isBuff, level,
-           targetNPC, originNPC, Time(tickrate.getTimeMs()), damageIncrease);;
+           targetCharacter, originCharacter, Time(tickrate.getTimeMs()), damageIncrease);;
 }
 
 Time DamageEffect::getTimeUntilTick() const

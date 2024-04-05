@@ -8,7 +8,7 @@ protected:
 
 public:
 	/*virtual void onWallHit(shared_ptr<MapTile> tile) override;
-	virtual void onNPCHit(shared_ptr<AbstractNPC> npc) override;
+	virtual void onCharacterHit(shared_ptr<AbstractCharacter> character) override;
 	virtual void onGroundHit(shared_ptr<MapTile> tile) override;
 	virtual void move(Time& timeDiff) override;*/
 };

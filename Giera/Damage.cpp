@@ -5,7 +5,7 @@ Damage::Damage()
 	
 }
 
-Damage::Damage(double value, double ap, DamageTypes damageType, weak_ptr<AbstractNPC> damageDealer)
+Damage::Damage(double value, double ap, DamageTypes damageType, weak_ptr<AbstractCharacter> damageDealer)
 {
     this->value = value;
     this->ap = ap;
@@ -38,7 +38,7 @@ DamageTypes Damage::getDamageType() const
     return damageType;
 }
 
-weak_ptr<AbstractNPC> Damage::getDamageDealer() const
+weak_ptr<AbstractCharacter> Damage::getDamageDealer() const
 {
     return damageDealer;
 }

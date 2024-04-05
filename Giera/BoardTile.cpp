@@ -16,18 +16,18 @@ void BoardTile::removeItem(shared_ptr<AbstractItem> item)
     items.erase(item);
 }
 
-set< shared_ptr <AbstractNPC> >& BoardTile::getNpcs()
+set< shared_ptr <AbstractCharacter> >& BoardTile::getcharacters()
 {
-    return npcs;
+    return characters;
 }
 
-void BoardTile::addNpc(shared_ptr<AbstractNPC> npc)
+void BoardTile::addcharacter(shared_ptr<AbstractCharacter> character)
 {
-    npcs.insert(npc);
+    characters.insert(character);
 }
 
-void BoardTile::removeNpc(shared_ptr<AbstractNPC> npc)
+void BoardTile::removecharacter(shared_ptr<AbstractCharacter> character)
 {
-    npcs.erase(npc);
+    characters.erase(character);
 }
 

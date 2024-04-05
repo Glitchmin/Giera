@@ -1,5 +1,5 @@
 #pragma once
-enum class NPC_AttributeTypes
+enum class CharacterAttributeTypes
 {
 	MOVEMENT_SPEED,
 	DMG,

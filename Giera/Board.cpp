@@ -42,11 +42,11 @@ BoardTile& Board::getBoardTile(Coordinates coords)
 }
 
 
-void Board::addNPC(shared_ptr<AbstractNPC> npc)
+void Board::addCharacter(shared_ptr<AbstractCharacter> character)
 {
-	npcs.push_back(npc);
-	npc->setBoard(getWeakPtr());
-	npc->addNPCObserver(getWeakPtr());
+	characters.push_back(character);
+	character->setBoard(getWeakPtr());
+	character->addCharacterObserver(getWeakPtr());
 	
 }
 
@@ -94,15 +94,15 @@ void Board::calculateProjectiles(Time timeDiff)
 	projectilesEngine.calculateProjectiles(timeDiff);
 }
 
-void Board::notifyNPCObserves(shared_ptr<AbstractNPC> npc, NPCObserver::Change change)
+void Board::notifyCharacterObservers(shared_ptr<AbstractCharacter> character, CharacterObserver::Change change)
 {
 	switch (change) {
-	case NPCObserver::Change::ADDED:
-	case NPCObserver::Change::BEFORE_MOVE:
-		tiles[npc->getPosition().getX()][npc->getPosition().getY()].removeNpc(npc);
+	case CharacterObserver::Change::ADDED:
+	case CharacterObserver::Change::BEFORE_MOVE:
+		tiles[character->getPosition().getX()][character->getPosition().getY()].removecharacter(character);
 		break;
-	case NPCObserver::Change::AFTER_MOVE:
-		tiles[npc->getPosition().getX()][npc->getPosition().getY()].addNpc(npc);
+	case CharacterObserver::Change::AFTER_MOVE:
+		tiles[character->getPosition().getX()][character->getPosition().getY()].addcharacter(character);
 		break;
 	}
 }

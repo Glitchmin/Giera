@@ -1,15 +1,14 @@
 #pragma once
 #include "Hitbox.h"
-class NPCHitbox :
+class CharacterHitbox :
     public Hitbox
 {
 protected:
     double damageMultiplier;
 public:
-    NPCHitbox(unique_ptr<AbstractGeometryFigure> hitbox, double damageMultiplier);
+    CharacterHitbox(unique_ptr<AbstractGeometryFigure> hitbox, double damageMultiplier);
 
     double getDamageMultiplier() const;
     void setDamageMultiplier(double damageMultiplier);
-
 };
 

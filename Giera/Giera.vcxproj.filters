@@ -63,12 +63,6 @@
     <Filter Include="Source Files\GameLogic\Damage &amp; Effects">
       <UniqueIdentifier>{9e774bb6-e82c-4aa9-adb6-f68a9596e4a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GameLogic\NPC">
-      <UniqueIdentifier>{1e9c47af-e93b-4931-9c59-087e85b7f931}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameLogic\NPC">
-      <UniqueIdentifier>{75173c39-0fe0-4c32-b867-4025a418ade5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\GameLogic\Damage &amp; Effects\Effects">
       <UniqueIdentifier>{729f2746-7050-4cde-937e-6d63d419c784}</UniqueIdentifier>
     </Filter>
@@ -147,18 +141,6 @@
     <Filter Include="Source Files\Utility\FlightPath&amp;Modifiers">
       <UniqueIdentifier>{19ccfc70-d946-4072-83b5-02f25d49e35e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GameLogic\NPC\Equipment">
-      <UniqueIdentifier>{3da18de4-ee77-4e31-a630-42f9f09f0b17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameLogic\NPC\Equipment">
-      <UniqueIdentifier>{d5879064-687e-4185-8237-dff25d45273d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameLogic\NPC\Equipment\EqSlots">
-      <UniqueIdentifier>{38d12d52-4a1f-49fb-9c0d-f4993f974010}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameLogic\NPC\Equipment\EqSlots">
-      <UniqueIdentifier>{df85b53f-4d67-480a-ac02-f41d9ed0cabc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Graphics\UI">
       <UniqueIdentifier>{d20eb813-319e-40d8-9a83-a6615756dcbb}</UniqueIdentifier>
     </Filter>
@@ -174,6 +156,24 @@
     </Filter>
     <Filter Include="Source Files\Graphics\UI\EqSlotUI">
       <UniqueIdentifier>{49cd6d03-be57-459f-a44a-4d7e6ff3b035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Character">
+      <UniqueIdentifier>{1e9c47af-e93b-4931-9c59-087e85b7f931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Character\Equipment">
+      <UniqueIdentifier>{3da18de4-ee77-4e31-a630-42f9f09f0b17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLogic\Character\Equipment\EqSlots">
+      <UniqueIdentifier>{38d12d52-4a1f-49fb-9c0d-f4993f974010}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Character">
+      <UniqueIdentifier>{75173c39-0fe0-4c32-b867-4025a418ade5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Character\Equipment">
+      <UniqueIdentifier>{d5879064-687e-4185-8237-dff25d45273d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Character\Equipment\EqSlots">
+      <UniqueIdentifier>{df85b53f-4d67-480a-ac02-f41d9ed0cabc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -246,8 +246,8 @@
     <ClCompile Include="MapElementsFileHandler.cpp">
       <Filter>Source Files\GameLogic\Map\MapElements</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractNPC.cpp">
-      <Filter>Source Files\GameLogic\NPC</Filter>
+    <ClCompile Include="AbstractCharacter.cpp">
+      <Filter>Source Files\GameLogic\Character</Filter>
     </ClCompile>
     <ClCompile Include="AbstractEffect.cpp">
       <Filter>Source Files\GameLogic\Damage &amp; Effects\Effects</Filter>
@@ -399,14 +399,14 @@
     <ClCompile Include="InputConfig.cpp">
       <Filter>Source Files\GameControl</Filter>
     </ClCompile>
-    <ClCompile Include="NPCObserver.cpp">
-      <Filter>Source Files\GameLogic\NPC</Filter>
+    <ClCompile Include="CharacterObserver.cpp">
+      <Filter>Source Files\GameLogic\Character</Filter>
     </ClCompile>
     <ClCompile Include="DrawableEntityObserver.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Source Files\GameLogic\NPC</Filter>
+      <Filter>Source Files\GameLogic\Character</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Graphics</Filter>
@@ -429,7 +429,7 @@
     <ClCompile Include="Hitbox.cpp">
       <Filter>Source Files\GameLogic\Hitboxes</Filter>
     </ClCompile>
-    <ClCompile Include="NPCHitbox.cpp">
+    <ClCompile Include="CharacterHitbox.cpp">
       <Filter>Source Files\GameLogic\Hitboxes</Filter>
     </ClCompile>
     <ClCompile Include="HittableBoardEntity.cpp">
@@ -439,22 +439,22 @@
       <Filter>Source Files\GameLogic\Board</Filter>
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
-      <Filter>Source Files\GameLogic\NPC\Equipment</Filter>
+      <Filter>Source Files\GameLogic\Character\Equipment</Filter>
     </ClCompile>
     <ClCompile Include="SingleEqSlot.cpp">
-      <Filter>Source Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+      <Filter>Source Files\GameLogic\Character\Equipment\EqSlots</Filter>
     </ClCompile>
     <ClCompile Include="AbstractEqSlot.cpp">
-      <Filter>Source Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+      <Filter>Source Files\GameLogic\Character\Equipment\EqSlots</Filter>
     </ClCompile>
     <ClCompile Include="MultipleEqSlot.cpp">
-      <Filter>Source Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+      <Filter>Source Files\GameLogic\Character\Equipment\EqSlots</Filter>
     </ClCompile>
     <ClCompile Include="QuiverEqSlot.cpp">
-      <Filter>Source Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+      <Filter>Source Files\GameLogic\Character\Equipment\EqSlots</Filter>
     </ClCompile>
     <ClCompile Include="Dropslots.cpp">
-      <Filter>Source Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+      <Filter>Source Files\GameLogic\Character\Equipment\EqSlots</Filter>
     </ClCompile>
     <ClCompile Include="UIElement.cpp">
       <Filter>Source Files\Graphics\UI</Filter>
@@ -587,8 +587,8 @@
     <ClInclude Include="MapElementsFileHandler.h">
       <Filter>Header Files\GameLogic\Map\MapElements</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractNPC.h">
-      <Filter>Header Files\GameLogic\NPC</Filter>
+    <ClInclude Include="AbstractCharacter.h">
+      <Filter>Header Files\GameLogic\Character</Filter>
     </ClInclude>
     <ClInclude Include="AbstractEffect.h">
       <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
@@ -605,8 +605,8 @@
     <ClInclude Include="DamageEffect.h">
       <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="NPC_AttributeTypes.h">
-      <Filter>Header Files\GameLogic\NPC</Filter>
+    <ClInclude Include="CharacterAttributeTypes.h">
+      <Filter>Header Files\GameLogic\Character</Filter>
     </ClInclude>
     <ClInclude Include="StatChangingEffect.h">
       <Filter>Header Files\GameLogic\Damage &amp; Effects\Effects</Filter>
@@ -752,8 +752,8 @@
     <ClInclude Include="SelfSpell.h">
       <Filter>Header Files\GameLogic\Spells</Filter>
     </ClInclude>
-    <ClInclude Include="NPCTypes.h">
-      <Filter>Header Files\GameLogic\NPC</Filter>
+    <ClInclude Include="CharacterTypes.h">
+      <Filter>Header Files\GameLogic\Character</Filter>
     </ClInclude>
     <ClInclude Include="SpawningDetails.h">
       <Filter>Header Files\GameLogic\Items</Filter>
@@ -797,14 +797,14 @@
     <ClInclude Include="PlayerActionTypes.h">
       <Filter>Header Files\GameControl</Filter>
     </ClInclude>
-    <ClInclude Include="NPCObserver.h">
-      <Filter>Header Files\GameLogic\NPC</Filter>
+    <ClInclude Include="CharacterObserver.h">
+      <Filter>Header Files\GameLogic\Character</Filter>
     </ClInclude>
     <ClInclude Include="DrawableEntityObserver.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files\GameLogic\NPC</Filter>
+      <Filter>Header Files\GameLogic\Character</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Graphics</Filter>
@@ -833,7 +833,7 @@
     <ClInclude Include="HittableEntityTypes.h">
       <Filter>Header Files\GameLogic\Hitboxes</Filter>
     </ClInclude>
-    <ClInclude Include="NPCHitbox.h">
+    <ClInclude Include="CharacterHitbox.h">
       <Filter>Header Files\GameLogic\Hitboxes</Filter>
     </ClInclude>
     <ClInclude Include="HittableBoardEntity.h">
@@ -849,25 +849,25 @@
       <Filter>Header Files\GameLogic\Board</Filter>
     </ClInclude>
     <ClInclude Include="Inventory.h">
-      <Filter>Header Files\GameLogic\NPC\Equipment</Filter>
+      <Filter>Header Files\GameLogic\Character\Equipment</Filter>
     </ClInclude>
     <ClInclude Include="EqSlotTypes.h">
-      <Filter>Header Files\GameLogic\NPC\Equipment</Filter>
+      <Filter>Header Files\GameLogic\Character\Equipment</Filter>
     </ClInclude>
     <ClInclude Include="AbstractEqSlot.h">
-      <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+      <Filter>Header Files\GameLogic\Character\Equipment\EqSlots</Filter>
     </ClInclude>
     <ClInclude Include="SingleEqSlot.h">
-      <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+      <Filter>Header Files\GameLogic\Character\Equipment\EqSlots</Filter>
     </ClInclude>
     <ClInclude Include="MultipleEqSlot.h">
-      <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+      <Filter>Header Files\GameLogic\Character\Equipment\EqSlots</Filter>
     </ClInclude>
     <ClInclude Include="QuiverEqSlot.h">
-      <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+      <Filter>Header Files\GameLogic\Character\Equipment\EqSlots</Filter>
     </ClInclude>
     <ClInclude Include="Dropslots.h">
-      <Filter>Header Files\GameLogic\NPC\Equipment\EqSlots</Filter>
+      <Filter>Header Files\GameLogic\Character\Equipment\EqSlots</Filter>
     </ClInclude>
     <ClInclude Include="UIElement.h">
       <Filter>Header Files\Graphics\UI</Filter>

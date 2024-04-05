@@ -7,9 +7,9 @@
 #include "BaseItemHandler.h"
 #include "Dropslots.h"
 
-Player::Player() : AbstractNPC()
+Player::Player() : AbstractCharacter()
 {
-	npcType = NPCTypes::PLAYER;
+	characterType = CharacterTypes::PLAYER;
 	string path = getTextureFilePath();
 	position = Position(1.5, 1.5, 0);
 	sizeXY = make_pair(.7, .5);
@@ -19,7 +19,7 @@ Player::Player() : AbstractNPC()
 	drawables.push_back(drawable);
 	updateDrawables();
 
-	hitbox = make_shared<NPCHitbox>(make_unique<Cuboid>(), 1.0);
+	hitbox = make_shared<CharacterHitbox>(make_unique<Cuboid>(), 1.0);
 	hitboxes.push_back(hitbox);
 	updateHitboxes();
 	array<shared_ptr<AbstractEqSlot>, (int)EqSlotTypes::COUNT> slots;

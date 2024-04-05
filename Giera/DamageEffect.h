@@ -14,7 +14,7 @@ private:
 public:
 	DamageEffect();
 	DamageEffect(unique_ptr<Damage> damage, Time duration, bool isBuff, short level,
-		weak_ptr<AbstractNPC> targetNPC, weak_ptr<AbstractNPC> originNPC, Time tickrate, double damageIncrease=1.0);
+		weak_ptr<AbstractCharacter> targetCharacter, weak_ptr<AbstractCharacter> originCharacter, Time tickrate, double damageIncrease=1.0);
 	shared_ptr<AbstractEffect> generate() override;
 
 	bool subtractFromTimeLeft(Time amount);

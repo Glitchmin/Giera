@@ -1,6 +1,6 @@
 #pragma once
 #include "AbstractEffect.h"
-#include "NPC_AttributeTypes.h"
+#include "CharacterAttributeTypes.h"
 class StatChangingEffect :
     public AbstractEffect
 {
@@ -8,17 +8,17 @@ private:
     double initialPercentValue;
     double finalPercentValue;
     Time timeToReachFinal;
-    NPC_AttributeTypes attributeType;
+    CharacterAttributeTypes attributeType;
 
 public:
     StatChangingEffect();
-    StatChangingEffect(Time duration, bool isBuff, short level, weak_ptr<AbstractNPC> targetNPC,
-        weak_ptr<AbstractNPC> originNPC, double initialPercentValue, 
-        double finalPercentValue, Time timeToReachFinal, NPC_AttributeTypes atrributeType);
+    StatChangingEffect(Time duration, bool isBuff, short level, weak_ptr<AbstractCharacter> targetCharacter,
+        weak_ptr<AbstractCharacter> originCharacter, double initialPercentValue, 
+        double finalPercentValue, Time timeToReachFinal, CharacterAttributeTypes atrributeType);
     shared_ptr<AbstractEffect> generate() override;
     void applyStatChange();
     double getCurrentValue();
-    NPC_AttributeTypes getAttributeType() const;
+    CharacterAttributeTypes getAttributeType() const;
     double getInitialPercentValue() const;
     double getFinalPercentValue() const;
     Time getTimeToReachFinal() const;

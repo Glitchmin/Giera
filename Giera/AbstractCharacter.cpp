@@ -1,65 +1,66 @@
-#include "AbstractNPC.h"
+#include "AbstractCharacter.h"
 #include "Board.h"
 #include "Cuboid.h"
-#include "NPCObserver.h"
+#include "CharacterObserver.h"
 
-AbstractNPC::AbstractNPC()
+AbstractCharacter::AbstractCharacter()
 {
 	resitances.resize((int)DamageTypes::COUNT, 1);
 }
 
 
-string AbstractNPC::getTextureFilePath()
+string AbstractCharacter::getTextureFilePath()
 {
 	stringstream ss;
-	ss << (int)npcType;
+	ss << (int)characterType;
 	return "../../save_files/tx/npc/npc" + ss.str() + ".png";
 }
 
-Position AbstractNPC::getPosition() const
+Position AbstractCharacter::getPosition() const
 {
 	return position;
 }
 
-void AbstractNPC::updateDrawables()
+void AbstractCharacter::updateDrawables()
 {
 	drawable->setPos(position);
 }
 
-void AbstractNPC::updateHitboxes()
+void AbstractCharacter::updateHitboxes()
 {
 	hitbox->setFigure(make_unique<Cuboid>(
 		Position(position.getX() - sizeXY.first / 2, position.getY() - sizeXY.second / 2, 0),
 		Position(position.getX() + sizeXY.first / 2, position.getY() + sizeXY.second / 2, height)));
+	Logger::logInfo("hitbox updated", hitbox->getFigure()->getCenter());
 }
 
-void AbstractNPC::addNPCObserver(weak_ptr<NPCObserver> observer)
+void AbstractCharacter::addCharacterObserver(weak_ptr<CharacterObserver> observer)
 {
-	npcObservers.push_back(observer);
-	observer.lock()->notifyNPCObserves(shared_from_this(), NPCObserver::Change::ADDED);
+	characterObservers.push_back(observer);
+	observer.lock()->notifyCharacterObservers(shared_from_this(), CharacterObserver::Change::ADDED);
 }
 
-void AbstractNPC::setBoard(weak_ptr<Board> board)
+void AbstractCharacter::setBoard(weak_ptr<Board> board)
 {
 	this->board = board;
 }
 
-void AbstractNPC::notifyNPCObservers(NPCObserver::Change change)
+void AbstractCharacter::notifyCharacterObservers(CharacterObserver::Change change)
 {
-	for (auto obs : npcObservers) {
+	for (auto obs : characterObservers) {
 		auto obsSp = obs.lock();
 		if (obsSp) {
-			obsSp->notifyNPCObserves(shared_from_this(), change);
+			obsSp->notifyCharacterObservers(shared_from_this(), change);
 		}
 	}
 }
 
-shared_ptr<Inventory> AbstractNPC::getInventory()
+shared_ptr<Inventory> AbstractCharacter::getInventory()
 {
 	return inventory;
 }
 
-void AbstractNPC::move(Position moveDifference)
+void AbstractCharacter::move(Position moveDifference)
 {
 	auto board_sh = board.lock();
 	if (board_sh == nullptr) {
@@ -69,13 +70,13 @@ void AbstractNPC::move(Position moveDifference)
 		board_sh->isStepablePosition(position + moveDifference + Position(sizeXY.first / 2, 0, 0))) {
 		notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
 		notifyHittableObservers(HittableEntityObserver::Change::REMOVED);
-		notifyNPCObservers(NPCObserver::Change::BEFORE_MOVE);
+		notifyCharacterObservers(CharacterObserver::Change::BEFORE_MOVE);
 		position += moveDifference;
 		updateDrawables();
 		updateHitboxes();
 		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
 		notifyHittableObservers(HittableEntityObserver::Change::ADDED);
-		notifyNPCObservers(NPCObserver::Change::AFTER_MOVE);
+		notifyCharacterObservers(CharacterObserver::Change::AFTER_MOVE);
 	}
 }
 

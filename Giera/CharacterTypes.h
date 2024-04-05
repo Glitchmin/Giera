@@ -1,5 +1,5 @@
 #pragma once
-enum class NPCTypes {
+enum class CharacterTypes {
 	PLAYER,
 	BANDIT_THUG,
 	BANDIT_FIGHTER,
