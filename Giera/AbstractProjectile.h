@@ -26,5 +26,6 @@ public:
 	virtual void onGroundHit(Coordinates hitCoords, shared_ptr<Board>& board) = 0;
 	virtual void move(Time& timeDiff, shared_ptr<Board>& board) = 0;
 
+	void updateAngle(Position prevPos, Position currPos);
 };
 

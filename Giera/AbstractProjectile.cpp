@@ -18,5 +18,8 @@ AbstractProjectile::AbstractProjectile(shared_ptr<FlightPath> flightPath, weak_p
 	this->entityToIgnore = entityToIgnore;
 }
 
-
-
+void AbstractProjectile::updateAngle(Position prevPos, Position currPos)
+{
+	Position diff = currPos - prevPos;
+	drawable->setAngle(atan2(diff.getX(), diff.getZ()) * 57.2957795130823);
+}

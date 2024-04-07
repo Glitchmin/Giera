@@ -47,9 +47,13 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 {
 	Position prevPos = flightPath->getPosition();
 	Position currPos = flightPath->updatePosition(timeDiff);
-	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
-	updateDrawables();
-	notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+
+	if (currPos != prevPos) {
+		notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+		updateAngle(prevPos, currPos);
+		updateDrawables();
+		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+	}
 	if (currPos.getX() < 0 || currPos.getX() >= board->getMap()->getSizeX() ||
 		currPos.getY() < 0 || currPos.getY() >= board->getMap()->getSizeY()) {
 		isReadyToBeRemoved = 1;

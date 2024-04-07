@@ -3,6 +3,7 @@
 #include "Position.h"
 #include <utility>
 using std::make_pair;
+using std::unique_ptr;
 
 class Drawable
 {
@@ -29,6 +30,9 @@ public:
 	void setSizeXY(pair<double, double> sizeXY);
 	shared_ptr<Texture> getTexture() const;
 	void setTexture(shared_ptr<Texture> texture);
+	void setAngle(float angle);
+	float getAngle()const;
+	void setRotationCenter(unique_ptr<SDL_Point> rotationCenter);
 
 	bool operator==(const Drawable& d) const;
 
@@ -41,6 +45,7 @@ protected:
 	pair<double, double> sizeXY;
 	double heightM;
 	Position pos;
-
+	float angle;
+	unique_ptr<SDL_Point> rotationCenter;
 };
 
