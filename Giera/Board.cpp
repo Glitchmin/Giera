@@ -1,4 +1,5 @@
 #include "Board.h"
+#include "Player.h"
 
 Board::Board()
 {
@@ -23,7 +24,6 @@ Board::Board(unique_ptr<Map> map, shared_ptr<BoardRenderer> boardRenderer) :
 		}
 	}
 	this->map = std::move(map);
-
 }
 
 void Board::addItem(Coordinates coords, shared_ptr<AbstractItem> item)
@@ -42,12 +42,20 @@ BoardTile& Board::getBoardTile(Coordinates coords)
 }
 
 
-void Board::addCharacter(shared_ptr<AbstractCharacter> character)
+void Board::addAiCharacter(shared_ptr<AiCharacter> character)
 {
-	characters.push_back(character);
+	AiCharacters.push_back(character);
 	character->setBoard(getWeakPtr());
 	character->addCharacterObserver(getWeakPtr());
-	
+	character->addDrawableObserver(boardRenderer);
+}
+
+void Board::addPlayerCharacter(shared_ptr<Player> player)
+{
+	this->player = player;
+	player->setBoard(getWeakPtr());
+	player->addCharacterObserver(getWeakPtr());
+	player->addDrawableObserver(boardRenderer);
 }
 
 void Board::addProjectile(shared_ptr<AbstractProjectile> proj)
@@ -98,11 +106,11 @@ void Board::notifyCharacterObservers(shared_ptr<AbstractCharacter> character, Ch
 {
 	switch (change) {
 	case CharacterObserver::Change::ADDED:
-	case CharacterObserver::Change::BEFORE_MOVE:
-		tiles[character->getPosition().getX()][character->getPosition().getY()].removecharacter(character);
-		break;
 	case CharacterObserver::Change::AFTER_MOVE:
-		tiles[character->getPosition().getX()][character->getPosition().getY()].addcharacter(character);
+		tiles[character->getPosition().getX()][character->getPosition().getY()].addCharacter(character);
+		break;
+	case CharacterObserver::Change::BEFORE_MOVE:
+		tiles[character->getPosition().getX()][character->getPosition().getY()].removeCharacter(character);
 		break;
 	}
 }
@@ -111,6 +119,11 @@ void Board::notifyCharacterObservers(shared_ptr<AbstractCharacter> character, Ch
 vector <shared_ptr<AbstractProjectile>>& Board::getProjectiles()
 {
 	return projectiles;
+}
+
+vector<shared_ptr<AiCharacter>>& Board::getAiCharacters()
+{
+	return AiCharacters;
 }
 
 

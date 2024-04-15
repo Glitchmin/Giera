@@ -495,6 +495,9 @@
     <ClCompile Include="GameTime.cpp">
       <Filter>Source Files\Utility\Time</Filter>
     </ClCompile>
+    <ClCompile Include="AiCharacter.cpp">
+      <Filter>Source Files\GameLogic\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -925,6 +928,9 @@
     </ClInclude>
     <ClInclude Include="GameTime.h">
       <Filter>Header Files\Utility\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="AiCharacter.h">
+      <Filter>Header Files\GameLogic\Character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

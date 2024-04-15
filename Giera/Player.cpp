@@ -52,3 +52,8 @@ Player::Player() : AbstractCharacter()
 	inventory = make_shared<Inventory>(slots);
 }
 
+void Player::updateBehaviour(Time timeDiff)
+{
+	return;
+}
+
