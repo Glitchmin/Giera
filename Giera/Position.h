@@ -21,6 +21,9 @@ public:
 
 	double getNormSq() const;
 	double getNorm() const;
+
+	Position grounded(double ground = 0.0)const;
+
 	Position operator + (Position const& p1) const;
 	Position operator * (double const& d) const;
 	Position& operator += (Position const& p1);

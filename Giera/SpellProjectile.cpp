@@ -9,6 +9,11 @@ SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<T
 	:AbstractProjectile(flightPath, entityToIgnore)
 {
 	this->spell = spell;
+	drawable = make_shared<Drawable>(flightPath->getPosition().grounded(),
+		TextureLoader::makeUniColorTexture(20, 20, { 0, 0, 0, 125 }),
+		Drawable::DrawableLayer::ENTITIES, make_pair(.3, .3), 0.1);
+	drawables.push_back(drawable);
+
 	drawable = make_shared<Drawable>(flightPath->getPosition(),
 		TextureLoader::makeUniColorTexture(20, 20, { 255,0,0,255 }),
 		Drawable::DrawableLayer::ENTITIES, make_pair(.3, .3), 0.1);
@@ -50,7 +55,13 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 
 	if (currPos != prevPos) {
 		notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
-		updateAngle(prevPos, currPos);
+
+		Position diff = currPos - prevPos;
+
+		updateAngle(diff);
+		drawables[0]->setAngle(atan2(diff.getY(), diff.getX()) * 57.2957795130823 + 90);
+		drawables[0]->setHeightModifier(1 - abs(atan2(diff.grounded().getNorm(), diff.getZ())) * 0.636619772367581);
+		updateHeightModifier(diff);
 		updateDrawables();
 		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
 	}
@@ -118,5 +129,6 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 
 void SpellProjectile::updateDrawables()
 {
+	drawables[0]->setPos(flightPath->getPosition().grounded());
 	drawable->setPos(flightPath->getPosition());
 }
