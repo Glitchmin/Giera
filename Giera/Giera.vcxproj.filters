@@ -498,6 +498,9 @@
     <ClCompile Include="AiCharacter.cpp">
       <Filter>Source Files\GameLogic\Character</Filter>
     </ClCompile>
+    <ClCompile Include="HpBarDrawable.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -931,6 +934,9 @@
     </ClInclude>
     <ClInclude Include="AiCharacter.h">
       <Filter>Header Files\GameLogic\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="HpBarDrawable.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

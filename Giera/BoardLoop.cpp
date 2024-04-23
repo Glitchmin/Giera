@@ -177,10 +177,17 @@ void BoardLoop::start()
 					1, 2 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), weak_ptr<HittableBoardEntity>()));
 		}
 		if (board->getAiCharacters().empty()) {
-			auto aiChar = make_shared<AiCharacter>(CharacterTypes::PLAYER, Position(14, 10.7, 0), 1);
+			auto aiChar = make_shared<AiCharacter>(CharacterTypes::PLAYER, Position(14, 4.7, 0), 1);
 			board->addAiCharacter(aiChar);
 			//player character type is needed to obtain npc0 texture
 		}
+		else {
+			auto aiChar = board->getAiCharacters().front();
+			if (aiChar->getPosition().getY() < 10.7) {
+				aiChar->move(Position(0, inputTimeDiff.getTimeS(), 0));
+			}
+		}
+		
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
 		lastProjectileHandling = generalTimer.getTime();
 		board->calculateProjectiles(projectileTimeDiff);

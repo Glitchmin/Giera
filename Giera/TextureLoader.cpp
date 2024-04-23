@@ -45,6 +45,7 @@ shared_ptr<Texture> TextureLoader::makeUniColorTexture(int sizeX, int sizeY, SDL
 		Logger::logError("no renderer");
 	}
 	if (sizeX + sizeY == 0) {
+		Logger::logWarning("sizeX and sizeY are 0");
 		return nullptr;
 	}
 	Uint8 r, g, b, a;

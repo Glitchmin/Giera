@@ -79,4 +79,9 @@ Position Cuboid::getCenter() const
     return (lowerLeft + upperRight)*0.5;
 }
 
+pair<Position, Position> Cuboid::getBoundingBox() const
+{
+    return std::make_pair(lowerLeft, upperRight);
+}
+
 
