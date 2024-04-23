@@ -5,5 +5,6 @@ class Player :
 {
 public:
     Player();
+    virtual void updateBehaviour(Time timeDiff);
 };
 

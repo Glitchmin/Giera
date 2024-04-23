@@ -23,4 +23,6 @@ public:
     void setUpperRight(Position upperRight);
 
 	Position getCenter() const override;
+
+	pair<Position, Position> getBoundingBox() const override;
 };

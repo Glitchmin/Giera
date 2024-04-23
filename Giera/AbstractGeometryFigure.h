@@ -6,6 +6,7 @@
 #include <optional>
 using std::make_unique;
 using std::unique_ptr;
+using std::pair;
 
 class AbstractGeometryFigure;
 
@@ -16,4 +17,5 @@ public:
 	static unique_ptr<AbstractGeometryFigure>
 		readFromFile(FileHandler& fileHandler) { return nullptr; };
 	virtual unique_ptr<AbstractGeometryFigure> clone(Position offset) = 0;
+	virtual pair<Position, Position> getBoundingBox() const = 0;
 };

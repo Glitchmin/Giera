@@ -67,6 +67,9 @@
 #include "../Giera/AbstractEffect.h"
 #include "../Giera/AbstractCharacter.h"
 #include "../Giera/AbstractCharacter.cpp"
+#include "../Giera/AiCharacter.cpp"
+#include "../Giera/AiCharacter.h"
+
 #include "../Giera/CharacterAttributeTypes.h"
 #include "../Giera/CharacterObserver.h"
 #include "../Giera/CharacterObserver.cpp"

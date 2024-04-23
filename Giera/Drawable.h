@@ -18,7 +18,7 @@ public:
 		Time updateTime = Time(0), int statesNumber = 1);
 	int updateCurrentState(Time timeDiff);
 	int getCurrentState();
-	void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio);
+	virtual void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio);
 
 	DrawableLayer getDrawableLayer() const;
 	int getCurrentState() const;

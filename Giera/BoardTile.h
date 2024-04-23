@@ -17,8 +17,8 @@ public:
 	set<shared_ptr<AbstractItem>>& getItems();
 	void addItem(shared_ptr<AbstractItem> item);
 	void removeItem(shared_ptr<AbstractItem> item);
-	void addcharacter(shared_ptr<AbstractCharacter> character);
-	void removecharacter(shared_ptr<AbstractCharacter> character);
+	void addCharacter(shared_ptr<AbstractCharacter> character);
+	void removeCharacter(shared_ptr<AbstractCharacter> character);
 	set< shared_ptr <AbstractCharacter>>& getcharacters();
 
 };

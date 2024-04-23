@@ -21,12 +21,12 @@ set< shared_ptr <AbstractCharacter> >& BoardTile::getcharacters()
     return characters;
 }
 
-void BoardTile::addcharacter(shared_ptr<AbstractCharacter> character)
+void BoardTile::addCharacter(shared_ptr<AbstractCharacter> character)
 {
     characters.insert(character);
 }
 
-void BoardTile::removecharacter(shared_ptr<AbstractCharacter> character)
+void BoardTile::removeCharacter(shared_ptr<AbstractCharacter> character)
 {
     characters.erase(character);
 }

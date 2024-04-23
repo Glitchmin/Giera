@@ -22,12 +22,10 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	}
 	this->board = make_shared<Board>(std::move(map), boardRenderer);
 	board->addItem(Coordinates(5, 0), BaseItemHandler::generate<Food>(ItemTypes::FOOD, (int)FoodTypes::BERRIES));
-	board->addCharacter(player);
-
+	board->addPlayerCharacter(player);
 	for (int i = 0; i < (int)MouseButtonTypes::COUNT; i++) {
 		mouseButtonStates[i] = MouseButtonStateTypes::NOT_PRESSED;
 	}
-	player->addDrawableObserver(boardRenderer);
 }
 
 void BoardLoop::handleInput(Time timeDiff) {
@@ -178,6 +176,18 @@ void BoardLoop::start()
 					Position(Calculator::getRandomInt(15, 20), Calculator::getRandomInt(-5, 5) + 10.7, 0.1),
 					1, 1.0 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), weak_ptr<HittableBoardEntity>()));
 		}
+		if (board->getAiCharacters().empty()) {
+			auto aiChar = make_shared<AiCharacter>(CharacterTypes::PLAYER, Position(14, 4.7, 0), 1);
+			board->addAiCharacter(aiChar);
+			//player character type is needed to obtain npc0 texture
+		}
+		else {
+			auto aiChar = board->getAiCharacters().front();
+			if (aiChar->getPosition().getY() < 10.7) {
+				aiChar->move(Position(0, inputTimeDiff.getTimeS(), 0));
+			}
+		}
+		
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
 		lastProjectileHandling = generalTimer.getTime();
 		board->calculateProjectiles(projectileTimeDiff);

@@ -29,6 +29,7 @@ void SpellProjectile::onWallHit(Coordinates hitCoords, shared_ptr<Board>& board)
 void SpellProjectile::onCharacterHit(shared_ptr<AbstractCharacter> character, shared_ptr<Board>& board)
 {
 	Logger::logDebug("projectile hit the Character");
+	(*(character->getHpPtr()))-=20;
 	isReadyToBeRemoved = true;
 }
 
@@ -37,11 +38,11 @@ void SpellProjectile::onGroundHit(Coordinates hitCoords, shared_ptr<Board>& boar
 	isReadyToBeRemoved = true;
 }
 
-optional<Position> SpellProjectile::calculateHitbox(std::shared_ptr<Hitbox>& hitbox, LineSegment& ls, std::optional<Position>& collisionP, Position& currPos)
+optional<Position> SpellProjectile::calculateHitbox(std::shared_ptr<Hitbox>& hitbox, LineSegment& ls, std::optional<Position>& prevCollisionP, Position& currPos)
 {
 	auto currCollision = hitbox->getFigure()->getLineSegmentIntersect(ls);
 	if (currCollision.has_value()) {
-		if (!collisionP.has_value() || (*currCollision - currPos).getNormSq() < (*collisionP - currPos).getNormSq()) {
+		if (!prevCollisionP.has_value() || (*currCollision - currPos).getNormSq() < (*prevCollisionP - currPos).getNormSq()) {
 			return currCollision;
 		}
 	}
