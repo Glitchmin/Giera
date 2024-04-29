@@ -17,7 +17,7 @@ SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<T
 
 void SpellProjectile::onWallHit(Coordinates hitCoords, shared_ptr<Board>& board)
 {
-	Logger::logDebug("projectile hit the wall", hitCoords);
+	Logger::logDebug("spell projectile hit the wall", hitCoords);
 	isReadyToBeRemoved = true;
  }
 

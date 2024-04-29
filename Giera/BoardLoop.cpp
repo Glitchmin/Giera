@@ -3,6 +3,7 @@
 #include "BaseItemHandler.h"
 #include "FlightPath.h"
 #include "SpellProjectile.h"
+#include "ArrowProjectile.h"
 #include "InventoryUI.h"
 #include "InventoryInputHandler.h"
 
@@ -171,10 +172,10 @@ void BoardLoop::start()
 		lastInputHandling = generalTimer.getTime();
 		handleInput(inputTimeDiff);
 		if (board->getProjectiles().empty()) {
-			board->addProjectile(make_shared <SpellProjectile>(
+			board->addProjectile(make_shared <ArrowProjectile>(
 				make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
 					Position(Calculator::getRandomInt(15, 20), 10.7, 0.1),
-					1, 2 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), weak_ptr<HittableBoardEntity>()));
+					1, 2 * Calculator::getRandomInt(5, 17)), weak_ptr<HittableBoardEntity>()));
 		}
 		if (board->getAiCharacters().empty()) {
 			auto aiChar = make_shared<AiCharacter>(CharacterTypes::PLAYER, Position(14, 4.7, 0), 1);
