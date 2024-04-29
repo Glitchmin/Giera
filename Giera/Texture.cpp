@@ -1,5 +1,5 @@
 #include "Texture.h"
-
+using std::unique_ptr;
 
 Texture::Texture()
 {
@@ -38,6 +38,19 @@ void Texture::setRenderer(SDL_Renderer* renderer)
 	Texture::renderer = renderer;
 }
 
+void Texture::draw(Texture& target, optional<SDL_Rect> srcRect, optional<SDL_Rect> dstRect, float angle, unique_ptr<SDL_Point>& rotationCenter)
+{
+	if (renderer == NULL) {
+		Logger::logError("no renderer");
+	}
+	SDL_Texture* oldTarget = SDL_GetRenderTarget(renderer);
+	SDL_SetRenderTarget(renderer, target.getSDLTexture());
+	SDL_Rect* srcRect_p = srcRect.has_value() ? &(*srcRect) : NULL;
+	SDL_Rect* dstRect_p = dstRect.has_value() ? &(*dstRect) : NULL;
+	SDL_RenderCopyEx(renderer, texture, srcRect_p, dstRect_p, angle, rotationCenter.get(), SDL_FLIP_NONE);
+	SDL_SetRenderTarget(renderer, oldTarget);
+}
+
 void Texture::draw(Texture& target, optional<SDL_Rect> srcRect, optional<SDL_Rect> dstRect)
 {
 	if (renderer == NULL) {
@@ -50,6 +63,7 @@ void Texture::draw(Texture& target, optional<SDL_Rect> srcRect, optional<SDL_Rec
 	SDL_RenderCopy(renderer, texture, srcRect_p, dstRect_p);
 	SDL_SetRenderTarget(renderer, oldTarget);
 }
+
 void Texture::fillWithColor(SDL_Color color)
 {
 	if (renderer == NULL) {

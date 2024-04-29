@@ -49,6 +49,11 @@ double Position::getNorm() const
 	return std::sqrtl(getNormSq());
 }
 
+Position Position::grounded(double ground) const
+{
+	return Position(x, y, ground);
+}
+
 Position Position::operator+(Position const& p1) const
 {
 	Position pos(p1.x + this->x, p1.y + this->y, p1.z + this->z);
