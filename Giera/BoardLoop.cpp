@@ -173,7 +173,7 @@ void BoardLoop::start()
 		if (board->getProjectiles().empty()) {
 			board->addProjectile(make_shared <SpellProjectile>(
 				make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
-					Position(Calculator::getRandomInt(15, 20), Calculator::getRandomInt(-5, 5) + 10.7, 0.1),
+					Position(Calculator::getRandomInt(15, 20), Calculator::getRandomInt(-1, 1) + 10.7, 0.1),
 					1, 1.0 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), weak_ptr<HittableBoardEntity>()));
 		}
 		if (board->getAiCharacters().empty()) {

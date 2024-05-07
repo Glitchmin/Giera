@@ -10,6 +10,7 @@ class Drawable
 public:
 	enum class DrawableLayer {
 		TERRAIN,
+		SHADOWS,
 		ENTITIES,
 		COUNT
 	};

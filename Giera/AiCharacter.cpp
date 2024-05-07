@@ -35,5 +35,5 @@ void AiCharacter::updateDrawables()
 {
 	AbstractCharacter::updateDrawables();
 	hpBarDrawable->setPos(Position(position.getX(), position.getY(), position.getZ() + height + .1));
-	shadow_drawable->setPos(Position(position.getX(), position.getY(),.01));
+	shadow_drawable->setPos(Position(position.getX(), position.getY(),-.01));
 }

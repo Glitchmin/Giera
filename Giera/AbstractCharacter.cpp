@@ -83,9 +83,9 @@ void AbstractCharacter::generateShadowTexture()
 		shadowUpperRight.setY(max(shadowUpperRight.getY(), hitbox->getFigure()->getBoundingBox().second.getY()));
 	}
 	shadow_drawable = make_shared<Drawable>(Position((shadowLowerLeft.getX() + shadowUpperRight.getX()) / 2,
-				(shadowLowerLeft.getY() + shadowUpperRight.getY()) / 2, .1),
+				(shadowLowerLeft.getY() + shadowUpperRight.getY()) / 2, 0),
 				TextureLoader::makeUniColorTexture(1,1, {0,0,0,128}),
-				Drawable::DrawableLayer::TERRAIN, make_pair(shadowUpperRight.getX() - shadowLowerLeft.getX(),
+				Drawable::DrawableLayer::SHADOWS, make_pair(shadowUpperRight.getX() - shadowLowerLeft.getX(),
 								shadowUpperRight.getY() - shadowLowerLeft.getY()), 0);
 	drawables.push_back(shadow_drawable);
 }
