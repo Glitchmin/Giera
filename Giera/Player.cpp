@@ -17,11 +17,14 @@ Player::Player() : AbstractCharacter()
 	drawable = make_shared<Drawable>(position, TextureLoader::getTextureCopy(path),
 		Drawable::DrawableLayer::ENTITIES, sizeXY, height);
 	drawables.push_back(drawable);
-	updateDrawables();
 
 	hitbox = make_shared<CharacterHitbox>(make_unique<Cuboid>(), 1.0);
 	hitboxes.push_back(hitbox);
 	updateHitboxes();
+
+	generateShadowTexture();
+	updateDrawables();
+
 	array<shared_ptr<AbstractEqSlot>, (int)EqSlotTypes::COUNT> slots;
 	vector <ItemTypes> itemTypes = {};
 	//Backpack

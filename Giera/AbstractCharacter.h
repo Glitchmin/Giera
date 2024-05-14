@@ -20,6 +20,7 @@ class AbstractCharacter : public DrawableBoardEntity, public HittableBoardEntity
 public:
 	AbstractCharacter();
 	virtual string getTextureFilePath();
+	virtual string getShadowFilePath();
 	void move(Position moveDifference);
 
 	Position getPosition() const;

@@ -13,7 +13,8 @@ AiCharacter::AiCharacter(CharacterTypes characterType, Position pos, int level) 
 	sizeXY = make_pair(.7, .5);
 	height = 1.5;
 
-	hitbox = make_shared<CharacterHitbox>(make_unique<Cuboid>(), 1.0);
+	hitbox = make_shared<CharacterHitbox>(make_unique<Cuboid>(Position{pos.getX() - sizeXY.first / 2, pos.getY() - sizeXY.second/2, 0},
+		Position{ pos.getX() + sizeXY.first / 2, pos.getY() + sizeXY.second / 2, height }), 1.0);
 	hitboxes.push_back(hitbox);
 	updateHitboxes();
 
@@ -35,5 +36,4 @@ void AiCharacter::updateDrawables()
 {
 	AbstractCharacter::updateDrawables();
 	hpBarDrawable->setPos(Position(position.getX(), position.getY(), position.getZ() + height + .1));
-	shadow_drawable->setPos(Position(position.getX(), position.getY(),-.01));
 }
