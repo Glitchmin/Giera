@@ -10,7 +10,7 @@ SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<T
 {
 	this->spell = spell;
 	drawable = make_shared<Drawable>(flightPath->getPosition().grounded(),
-		TextureLoader::makeUniColorTexture(20, 20, { 0, 0, 0, 125 }),
+		TextureLoader::makeUniColorTexture(20, 20, { 0, 0, 0, 128 }),
 		Drawable::DrawableLayer::ENTITIES, make_pair(.3, .3), 0.1);
 	drawables.push_back(drawable);
 

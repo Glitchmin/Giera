@@ -174,7 +174,7 @@ void BoardLoop::start()
 		if (board->getProjectiles().empty()) {
 			board->addProjectile(make_shared <ArrowProjectile>(
 				make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
-					Position(Calculator::getRandomInt(15, 20), 10.7, 0.1),
+					Position(Calculator::getRandomInt(15, 20), Calculator::getRandomInt(-3, 3) + 10.7, 0.1),
 					1, 2 * Calculator::getRandomInt(5, 17)), weak_ptr<HittableBoardEntity>()));
 		}
 		if (board->getAiCharacters().empty()) {
