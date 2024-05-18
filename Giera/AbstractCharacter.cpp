@@ -16,6 +16,11 @@ string AbstractCharacter::getTextureFilePath()
 	return "../../save_files/tx/npc/npc" + ss.str() + ".png";
 }
 
+string AbstractCharacter::getShadowFilePath()
+{
+	return "../../save_files/tx/shadows/shadow_medium.png";
+}
+
 Position AbstractCharacter::getPosition() const
 {
 	return position;
@@ -24,6 +29,7 @@ Position AbstractCharacter::getPosition() const
 void AbstractCharacter::updateDrawables()
 {
 	drawable->setPos(position);
+	shadow_drawable->setPos(Position(position.getX(), position.getY(),-.01));
 }
 
 void AbstractCharacter::updateHitboxes()
@@ -31,7 +37,8 @@ void AbstractCharacter::updateHitboxes()
 	hitbox->setFigure(make_unique<Cuboid>(
 		Position(position.getX() - sizeXY.first / 2, position.getY() - sizeXY.second / 2, 0),
 		Position(position.getX() + sizeXY.first / 2, position.getY() + sizeXY.second / 2, height)));
-	Logger::logInfo("hitbox updated", hitbox->getFigure()->getCenter());
+	Logger::logInfo("hitbox updated", hitbox->getFigure().get()->getBoundingBox().first, 
+		hitbox->getFigure().get()->getBoundingBox().second);
 }
 
 void AbstractCharacter::addCharacterObserver(weak_ptr<CharacterObserver> observer)
@@ -83,9 +90,9 @@ void AbstractCharacter::generateShadowTexture()
 		shadowUpperRight.setY(max(shadowUpperRight.getY(), hitbox->getFigure()->getBoundingBox().second.getY()));
 	}
 	shadow_drawable = make_shared<Drawable>(Position((shadowLowerLeft.getX() + shadowUpperRight.getX()) / 2,
-				(shadowLowerLeft.getY() + shadowUpperRight.getY()) / 2, .1),
-				TextureLoader::makeUniColorTexture(1,1, {0,0,0,128}),
-				Drawable::DrawableLayer::TERRAIN, make_pair(shadowUpperRight.getX() - shadowLowerLeft.getX(),
+				(shadowLowerLeft.getY() + shadowUpperRight.getY()) / 2, 0),
+				TextureLoader::getTexturePtr(getShadowFilePath()),
+				Drawable::DrawableLayer::SHADOWS, make_pair(shadowUpperRight.getX() - shadowLowerLeft.getX(),
 								shadowUpperRight.getY() - shadowLowerLeft.getY()), 0);
 	drawables.push_back(shadow_drawable);
 }
