@@ -1,8 +1,4 @@
 #pragma once
-#include <string>
-#include <SDL.h>
-#include <optional>
-#include "TextureLoader.h"
 
 using std::string;
 using std::optional;

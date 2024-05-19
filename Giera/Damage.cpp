@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Damage.h"
 
 Damage::Damage()

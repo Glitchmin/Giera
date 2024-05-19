@@ -1,9 +1,5 @@
 #pragma once
-#include <string>
-#include <memory>
-#include "ValuesRange.h"
 #include "ItemTypes.h"
-#include "Calculator.h"
 #include "AbstractItem.h"
 using std::string;
 using std::shared_ptr;

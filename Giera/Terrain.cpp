@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Terrain.h"
 
 std::string Terrain::trFolderPath = "map_tiles/tr/";

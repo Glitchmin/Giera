@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "DamageEffect.h"
-#include "Logger.h"
 
 using std::move;
 using std::make_shared;

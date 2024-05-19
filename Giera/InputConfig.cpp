@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "InputConfig.h"
 
 PlayerActionTypes InputConfig::getActionType(SDL_Keycode keycode)

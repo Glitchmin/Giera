@@ -1,6 +1,5 @@
 #pragma once
 #include "AbstractSpellModifier.h"
-#include "Position.h"
 #include "Board.h"
 class AbstractSpell
 {

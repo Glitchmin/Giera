@@ -3,8 +3,6 @@
 #include "BaseItems.h"
 #include "BaseItemHandler.h"
 #include "AbstractEntityFileLoader.h"
-#include <memory.h>
-#include <vector>
 using std::shared_ptr;
 using std::unique_ptr;
 using std::vector;

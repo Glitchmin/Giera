@@ -1,6 +1,6 @@
+#include "pch.h"
+
 #include "Position.h"
-#include <cmath>
-#include <sstream>
 
 using std::string;
 using std::stringstream;

@@ -1,7 +1,6 @@
-#include "Calculator.h"
+#include "pch.h"
 
-#include <stdlib.h>
-#include <math.h>
+#include "Calculator.h"
 
 unsigned int Calculator::getIntFromDoubleWithProb(double value) {
 	return (unsigned int)value + calculateChance(value - floor(value));

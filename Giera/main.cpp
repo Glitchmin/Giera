@@ -1,11 +1,5 @@
-#include <SDL.h>
-#include <stdio.h>
-#include <iostream>
-#include <memory>
-#include <sstream>
-#include "Position.h"
-#include "GeneralTimer.h"
-#include "GameTime.h"
+#include "pch.h"
+
 #include "BoardLoop.h"
 
 

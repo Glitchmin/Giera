@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "BaseMisc.h"
 #include "Misc.h"
 

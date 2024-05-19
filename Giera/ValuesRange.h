@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 using std::istream;
 using std::ostream;
 class ValuesRange {

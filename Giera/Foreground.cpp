@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Foreground.h"
 
 std::string Foreground::fgFolderPath = "map_tiles/fg/";

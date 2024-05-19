@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "EffectsHandler.h"
 #include "EffectsFileHandler.h"
 

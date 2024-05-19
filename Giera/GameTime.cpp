@@ -1,5 +1,5 @@
-#include "GameTime.h"
-#include <iomanip>
+#include "pch.h"
+
 Time::Time()
 {
 	this->ms = 0;
@@ -45,7 +45,7 @@ Time& Time::operator-=(Time const& t1)
 
 Time Time::operator*(double const& d) const
 {
-	return Time((unsigned int)this->ms * d);
+	return Time((unsigned int)(this->ms * d));
 }
 
 bool Time::operator<(Time const& t1) const

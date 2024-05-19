@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "HittableBoardEntity.h"
 
 vector<shared_ptr<Hitbox>>& HittableBoardEntity::getHitboxes()

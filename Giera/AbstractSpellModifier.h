@@ -1,7 +1,5 @@
 #pragma once
-#include "GameTime.h"
 #include "Effects.h"
-#include <vector>
 using std::vector;
 using sp_mass_t = unsigned int;
 class AbstractSpellModifier

@@ -1,6 +1,5 @@
 #pragma once
 #include "AbstractWeapon.h"
-#include "GameTime.h"
 class RangedWeapon :
     public AbstractWeapon
 {

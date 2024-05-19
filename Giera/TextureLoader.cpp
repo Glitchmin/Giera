@@ -1,7 +1,4 @@
-#include <SDL_image.h>
-#include "TextureLoader.h"
-#include "Texture.h"
-#include <filesystem>
+#include "pch.h"
 
 using std::make_shared;
 using std::to_string;

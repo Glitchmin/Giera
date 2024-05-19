@@ -1,6 +1,6 @@
 #pragma once
-#include "Drawable.h";
-#include "AbstractCharacter.h";
+#include "AbstractCharacter.h"
+
 class HpBarDrawable :
     public Drawable
 {   

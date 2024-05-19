@@ -5,9 +5,6 @@
 #include "Directions.h"
 #include "Coordinates.h"
 #include "AbstractMapGenerator.h"
-#include <memory>
-#include <vector>
-#include <map> 
 
 class MapTile;
 class AbstractMapGenerator;

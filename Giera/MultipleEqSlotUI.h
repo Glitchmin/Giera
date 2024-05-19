@@ -1,6 +1,5 @@
 #pragma once
 #include "AbstractEqSlotUIElement.h"
-#include <map>
 
 class MultipleEqSlot;
 

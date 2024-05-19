@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "HpBarDrawable.h"
 
 HpBarDrawable::HpBarDrawable(Position pos, AbstractCharacter* ch)
@@ -13,7 +15,7 @@ void HpBarDrawable::draw(Texture& textureToDrawOn, const double& pixelToMeterRat
 	if ((*hp) == 0) {
 		(*hp) = (*maxHp);
 	}
-	texture = TextureLoader::makeUniColorTexture(pixelToMeterRatio,0.2 * pixelToMeterRatio, {0,0,0,128});
+	texture = TextureLoader::makeUniColorTexture((int)pixelToMeterRatio,(int)(0.2 * pixelToMeterRatio), {0,0,0,128});
 	TextureLoader::makeUniColorTexture(1,1, { 255,0,0,224 })->draw(*texture.get(), nullopt,
 		SDL_Rect{ 0,0,(int)(hpRatio * pixelToMeterRatio), (int)(.2 * pixelToMeterRatio) });
 	Drawable::draw(textureToDrawOn, pixelToMeterRatio);

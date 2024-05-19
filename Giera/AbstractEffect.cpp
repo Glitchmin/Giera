@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "AbstractEffect.h"
 
 AbstractEffect::AbstractEffect()

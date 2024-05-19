@@ -1,13 +1,10 @@
 #pragma once
-#include "Position.h"
 #include "CharacterTypes.h"
-#include "DrawableBoardEntity.h"
 #include "DamageTypes.h"
 #include "SpawningDetails.h"
 #include "HittableBoardEntity.h"
 #include "CharacterHitbox.h"
 #include "CharacterObserver.h"
-#include <vector>
 using std::vector;
 using character_hp_t = unsigned int;
 

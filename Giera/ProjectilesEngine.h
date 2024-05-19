@@ -1,9 +1,5 @@
 #pragma once
 #include "AbstractProjectile.h"
-#include <mutex>
-#include <condition_variable>
-#include <atomic>
-#include <thread>
 
 using std::thread;
 

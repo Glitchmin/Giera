@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "DrawableBoardEntity.h"
 
 void DrawableBoardEntity::addDrawableObserver(weak_ptr<DrawableEntityObserver> observer)

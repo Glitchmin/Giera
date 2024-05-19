@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "UIElement.h"
-#include "TextureLoader.h"
 
 UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
 	shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor, ImageResizeTypes imageResizePolicy,
@@ -34,8 +35,8 @@ void UIElement::drawImage() {
 		double resizeRatio = std::min((double)pxRealPosRect.w / (double)imSizeX,
 			(double)pxRealPosRect.h / (double)imSizeY);
 		Logger::logInfo(resizeRatio, pxRealPosRect.w, pxRealPosRect.h, imSizeX, imSizeY);
-		imSizeX *= resizeRatio;
-		imSizeY *= resizeRatio;
+		imSizeX = (int)(imSizeX * resizeRatio);
+		imSizeY = (int)(imSizeY * resizeRatio);
 	}
 	int x = 0;
 	int y = 0;

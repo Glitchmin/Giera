@@ -1,13 +1,9 @@
 #pragma once
-#include "Texture.h"
-#include "TextureLoader.h"
 #include "Rect.h"
 #include "MouseButtonTypes.h"
 #include "HorizontalAlignmentTypes.h"
 #include "VerticalAlignmentTypes.h"
 #include "ImageResizeTypes.h"
-#include <array>
-#include <vector>
 using std::array;
 using std::vector;
 using std::unique_ptr;

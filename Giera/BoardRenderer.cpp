@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "BoardRenderer.h"
-#include <algorithm>
 #include "Player.h"
 
 using std::make_pair;
@@ -16,7 +17,7 @@ BoardRenderer::BoardRenderer(unsigned int sizeX, unsigned int sizeY,
 	layers.resize((int)Drawable::DrawableLayer::COUNT);
 	for (auto& layer : layers) {
 		layer.layerTexture = TextureLoader::makeUniColorTexture
-		(sizeX * pixelsPerMeter, sizeY * pixelsPerMeter, { 0,0,0,0 });
+		((int)(sizeX * pixelsPerMeter), (int)(sizeY * pixelsPerMeter), { 0,0,0,0 });
 	}
 	camera = Camera(make_pair(horizontalViewRangeM, verticalViewRangeM),
 		player, make_pair(sizeX, sizeY), window);
@@ -104,6 +105,9 @@ void BoardRenderer::lockMutex()
 }
 void BoardRenderer::unlockMutex()
 {
+#pragma warning( push )
+#pragma warning( disable : 26110)
 	mapMutex.unlock();
+#pragma warning( pop )
 }
 

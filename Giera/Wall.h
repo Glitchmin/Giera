@@ -1,7 +1,6 @@
 #pragma once
 #include "AbstractMapElement.h"
 #include "Hitbox.h"
-#include <memory>
 class Wall :
     public AbstractMapElement
 {

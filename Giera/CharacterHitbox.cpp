@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "CharacterHitbox.h"
 
 CharacterHitbox::CharacterHitbox(unique_ptr<AbstractGeometryFigure>figure, double damageMultiplier):

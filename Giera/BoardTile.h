@@ -1,6 +1,4 @@
 #pragma once
-#include <set>
-#include <memory>
 
 class AbstractItem;
 class AbstractCharacter;

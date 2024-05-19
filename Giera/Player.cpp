@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Player.h"
 #include "Cuboid.h"
 #include "Inventory.h"

@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "ModifiersHandler.h"
 
 const string& ModifiersHandler::getName(ModifiersTypes modifierType)

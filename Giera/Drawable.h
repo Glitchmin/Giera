@@ -1,7 +1,5 @@
 #pragma once
-#include "Texture.h"
-#include "Position.h"
-#include <utility>
+
 using std::make_pair;
 using std::unique_ptr;
 

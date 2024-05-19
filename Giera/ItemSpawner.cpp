@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "ItemSpawner.h"
 
 void ItemSpawner::generateSingleItem(Coordinates& coord, Board& board)

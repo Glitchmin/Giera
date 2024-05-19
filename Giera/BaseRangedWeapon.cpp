@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "BaseRangedWeapon.h"
 #include "RangedWeapon.h"
 
@@ -23,7 +25,7 @@ shared_ptr<AbstractItem> BaseRangedWeapon::generate()
         dmg = make_unique<Damage>(damage.getRandom(), armorPiercing.getRandom(), damageType);
     }
     return make_shared<RangedWeapon>(width,height,value.getRandom(),name,description,modifiers,dmg,
-        Time(drawSpeed.getRandom()),arrowSpeed.getAverage(),weaponType);
+        Time((unsigned int)(drawSpeed.getRandom())),arrowSpeed.getAverage(),weaponType);
 }
 
 istream& operator>>(istream& is, BaseRangedWeapon& it)

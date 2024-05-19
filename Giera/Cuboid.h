@@ -1,6 +1,5 @@
 #pragma once
 #include "AbstractGeometryFigure.h"
-#include "Position.h"
 
 using std::unique_ptr;
 

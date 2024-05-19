@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "AiCharacter.h"
 #include "Cuboid.h"
 #include "HpBarDrawable.h"

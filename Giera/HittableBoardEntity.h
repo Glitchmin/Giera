@@ -1,7 +1,6 @@
 #pragma once
 #include "Hitbox.h"
 #include "HittableEntityObserver.h"
-#include <vector>
 using std::vector;
 using std::shared_ptr;
 using std::weak_ptr;

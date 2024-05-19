@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "AbstractBaseWeapon.h"
 
 ValuesRange AbstractBaseWeapon::getDamage() const

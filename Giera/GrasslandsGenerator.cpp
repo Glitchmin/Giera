@@ -1,7 +1,6 @@
+#include "pch.h"
+
 #include "GrasslandsGenerator.h"
-#include "Logger.h"
-#include <sstream>
-#include <memory>
 #include "BaseItemHandler.h"
 ValuesRange GrasslandsGenerator::bushRatio = ValuesRange(0.005, 0.01);
 ValuesRange GrasslandsGenerator::rockRatio = ValuesRange(0.01, 0.015);
@@ -18,9 +17,9 @@ void GrasslandsGenerator::generateMap(Map& map)
 	int numberOf1 = 0;
 	int numberOf1s2 = map.sizeX * map.sizeY - (numberOfRocks + numberOfBushes);
 	int numberOf1s3 =(numberOfRocks + numberOfBushes);
-	for (int y = 0; y < map.sizeY; y++)
+	for (unsigned int y = 0; y < map.sizeY; y++)
 	{
-		for (int x = 0; x < map.sizeX; x++)
+		for (unsigned int x = 0; x < map.sizeX; x++)
 		{
 			numberOf1 += boolMap[x][y];
 			SetMapTile(boolMap, x, y, map, numberOfRocks, numberOfBushes);

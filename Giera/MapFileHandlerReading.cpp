@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "MapFileHandler.h"
-#include <sstream>
 
 Map MapFileHandler::readMap(MapTypes mapType)
 {
@@ -59,9 +60,9 @@ void MapFileHandler::readInitialData(Map& map,unsigned int version)
 
 void MapFileHandler::readTileByTile(Map& map,unsigned int version)
 {
-	for (int x = 0; x < map.sizeX; x++) 
+	for (unsigned int x = 0; x < map.sizeX; x++) 
 	{
-		for (int y = 0; y < map.sizeY; y++) 
+		for (unsigned int y = 0; y < map.sizeY; y++) 
 		{
 			readMapTile(map, Coordinates(x, y), 0, version);
 		}

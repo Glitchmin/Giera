@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "MapFileHandler.h"
-#include <sstream>
 
 void MapFileHandler::saveMap(Map& map)
 {
@@ -48,9 +49,9 @@ void MapFileHandler::saveInitialData(Map& map)
 
 void MapFileHandler::saveTileByTile(Map& map)
 {
-	for (int x = 0; x < map.sizeX; x++)
+	for (unsigned int x = 0; x < map.sizeX; x++)
 	{
-		for (int y = 0; y < map.sizeY; y++)
+		for (unsigned int y = 0; y < map.sizeY; y++)
 		{
 			saveMapTile(map, Coordinates(x, y), false);
 		}
@@ -65,7 +66,7 @@ void MapFileHandler::saveMapTile(Map& map, Coordinates coord, bool isSeed)
 void MapFileHandler::saveBySeed(Map& map)
 {
 	fileHandler->saveToFile(map.seed);
-	int mapChangesSize = map.mapChanges.size();
+	size_t mapChangesSize = map.mapChanges.size();
 	fileHandler->saveToFile(mapChangesSize);
 	for (auto const& mapChange : map.mapChanges) 
 	{

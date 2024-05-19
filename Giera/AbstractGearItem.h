@@ -1,7 +1,6 @@
 #pragma once
 #include "AbstractItem.h"
 #include "ModifiersTypes.h"
-#include <vector>
 using std::vector;
 
 typedef short item_mod_t;

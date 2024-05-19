@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Inventory.h"
 
 Inventory::Inventory(array <shared_ptr <AbstractEqSlot>, (int)EqSlotTypes::COUNT> slots)

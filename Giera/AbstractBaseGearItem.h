@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include "AbstractBaseItem.h"
 #include "ModifiersTypes.h"
 using std::vector;

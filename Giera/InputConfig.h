@@ -1,7 +1,4 @@
 #pragma once
-#include <map>
-#include <SDL.h>
-#include <stdexcept>
 #include "PlayerActionTypes.h"
 using std::string;
 using std::runtime_error;

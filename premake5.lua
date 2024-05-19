@@ -19,11 +19,15 @@ project "Giera"
 	targetdir ("bin/" .. outputdir .. "")
 	objdir ("bin/" .. outputdir .. "")
 
+	pchsource("%{prj.name}/pch.cpp")
+
 	files
 	{
 		"%{prj.name}/**.h",
 		"%{prj.name}/**.cpp"
 	}
+
+	pchheader "pch.h"
 
 	includedirs
 	{

@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "EffectsFileHandler.h"
 using std::make_unique;
 using std::make_shared;

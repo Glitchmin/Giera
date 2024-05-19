@@ -1,9 +1,6 @@
 #pragma once
-#include "Position.h"
 #include "LineSegment.h"
 #include "FileHandler.h"
-#include <memory>
-#include <optional>
 using std::make_unique;
 using std::unique_ptr;
 using std::pair;

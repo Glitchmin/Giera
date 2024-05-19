@@ -1,6 +1,4 @@
 #pragma once
-#include "Position.h"
-#include "DrawableBoardEntity.h"
 #include "Window.h"
 class Camera
 {

@@ -1,6 +1,6 @@
+#include "pch.h"
+
 #include "FileHandler.h"
-#include <sstream>
-#include <fstream>
 FileHandler::FileHandler(string fileName, FileModeTypes fileMode, string fileExtension)
 {
 	this->fileExtension = fileExtension;

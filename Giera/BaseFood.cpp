@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "BaseFood.h"
-#include "Logger.h"
 #include "EffectsHandler.h"
 #include "Food.h"
 

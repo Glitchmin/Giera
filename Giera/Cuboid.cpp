@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Cuboid.h"
 
 using std::min;

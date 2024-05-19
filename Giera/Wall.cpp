@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Wall.h"
 #include "FigureTypes.h"
 #include "Cuboid.h"

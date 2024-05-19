@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Background.h"
 
 std::string Background::bgFolderPath = "map_tiles/bg/";

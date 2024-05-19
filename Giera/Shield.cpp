@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Shield.h"
 
 Shield::Shield(item_size_t width, item_size_t height, int value, string& name,

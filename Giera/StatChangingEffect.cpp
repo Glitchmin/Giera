@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "StatChangingEffect.h"
 
 using std::make_shared;

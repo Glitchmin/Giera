@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "BaseItemHandler.h"
 #include "BaseItemFileHandler.h"
 

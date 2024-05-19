@@ -1,6 +1,4 @@
 #pragma once
-#include <array>
-#include <optional>
 #include "NormalItems.h"
 #include "AbstractEqSlotUIElement.h"
 using std::array;

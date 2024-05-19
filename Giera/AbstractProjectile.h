@@ -1,6 +1,5 @@
 #pragma once
 #include "FlightPath.h"
-#include "DrawableBoardEntity.h"
 #include "Coordinates.h"
 
 class Board;

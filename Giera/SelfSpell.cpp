@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "SelfSpell.h"
 
 void SelfSpell::cast(Position startPos, Position endPos, Board& board)

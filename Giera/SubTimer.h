@@ -1,8 +1,6 @@
 #pragma once
 
-#include <memory>
 #include "AbstractTimer.h"
-#include "GeneralTimer.h"
 
 class SubTimer : public AbstractTimer
 {

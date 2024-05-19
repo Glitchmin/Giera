@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "ExplosionSpellModifer.h"
 
 void ExplosionSpellModifer::takeEffect()

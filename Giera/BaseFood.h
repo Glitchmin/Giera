@@ -1,7 +1,4 @@
 #pragma once
-#include <memory>
-#include <vector>
-#include <string>
 #include "AbstractBaseItem.h"
 #include "DamageEffect.h"
 #include "StatChangingEffect.h"

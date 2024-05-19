@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "AbstractBaseItem.h"
 
 item_size_t AbstractBaseItem::getWidth() const

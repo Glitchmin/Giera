@@ -1,11 +1,6 @@
 #pragma once
-#include "Texture.h"
-#include "DrawableBoardEntity.h"
 #include "Window.h"
-#include "DrawableEntityObserver.h"
 #include "Camera.h"
-#include <map>
-#include <mutex>
 
 using std::mutex;
 using drawables_multimap_t = typename std::multimap<Position, shared_ptr<Drawable> >;

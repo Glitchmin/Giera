@@ -1,6 +1,4 @@
 #pragma once
-#include <memory>
-#include <vector>
 #include "AbstractEffect.h"
 #include "AbstractBaseItem.h"
 #include "DamageTypes.h"

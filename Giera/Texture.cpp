@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Texture.h"
 using std::unique_ptr;
 

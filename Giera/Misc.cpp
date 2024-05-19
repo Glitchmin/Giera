@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Misc.h"
 
 Misc::Misc(item_size_t width, item_size_t height, int Value, string& name,

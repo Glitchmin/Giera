@@ -1,6 +1,4 @@
 #pragma once
-#include "GameTime.h"
-#include "Position.h"
 
 class FlightPath
 {

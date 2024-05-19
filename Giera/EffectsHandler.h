@@ -2,7 +2,6 @@
 #include "AbstractEffect.h"
 #include "EffectTypes.h"
 #include "Effects.h"
-#include <vector>
 using std::shared_ptr;
 using std::make_shared;
 using std::vector;

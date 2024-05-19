@@ -1,13 +1,14 @@
+#include "pch.h"
+
 #include "ProjectilesEngine.h"
 #include "Board.h"
-#include <algorithm>
 
 
 void ProjectilesEngine::threadFunction(int id, shared_ptr<Board> board)
 {
 
-	int start = id * projectiles->size() / threadsNumber;
-	int end = id == threadsNumber - 1 ?
+	size_t start = id * projectiles->size() / threadsNumber;
+	size_t end = id == threadsNumber - 1 ?
 		projectiles->size() :
 		(id + 1) * projectiles->size() / threadsNumber;
 

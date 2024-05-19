@@ -2,8 +2,6 @@
 #include "MapTileEnums.h"
 #include "Rotation.h"
 #include "ItemSpawner.h"
-#include "DrawableBoardEntity.h"
-#include<iostream>
 
 class ItemSpawner;
 

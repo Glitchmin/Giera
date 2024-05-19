@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "AbstractProjectile.h"
 #include "Board.h"
 
@@ -20,7 +22,7 @@ AbstractProjectile::AbstractProjectile(shared_ptr<FlightPath> flightPath, weak_p
 
 void AbstractProjectile::updateAngle(Position diff)
 {
-	drawable->setAngle(atan2((diff.getX() + diff.getY() / 2.0)/2.0, diff.getZ()) * 57.2957795130823);
+	drawable->setAngle((float)(atan2((diff.getX() + diff.getY() / 2.0)/2.0, diff.getZ()) * 57.2957795130823));
 }
 
 void AbstractProjectile::updateHeightModifier(Position diff)

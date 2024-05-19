@@ -1,9 +1,11 @@
+#include "pch.h"
+
 #include "Camera.h"
 #include "MapTile.h"
 
 Position getAvgPos(shared_ptr<DrawableBoardEntity> entity) {
 	Position pos(0, 0, 0);
-	int drawablesCount = entity->getDrawables().size();
+	size_t drawablesCount = entity->getDrawables().size();
 	for (auto& ptr : entity->getDrawables()) {
 		pos += ptr->getPos();
 	}

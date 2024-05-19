@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "ButtonUI.h"
 using std::min;
 using std::max;
@@ -11,7 +13,7 @@ ButtonUI::ButtonUI(Rect<fr_pos_t> relativePosRect, shared_ptr<Texture> image, UI
 
 void ButtonUI::drawEdges(shared_ptr<Texture>& texture)
 {
-	int edgeSize = (relativeEdgeThickness * pxRealPosRect.h +
+	int edgeSize = (int)(relativeEdgeThickness * pxRealPosRect.h +
 		relativeEdgeThickness * pxRealPosRect.w + 1) / 2;
 	SDL_SetRenderTarget(Texture::getRenderer(), texture->getSDLTexture());
 	SDL_SetRenderDrawColor(Texture::getRenderer(), 255, 255, 255, edgeTransparency);

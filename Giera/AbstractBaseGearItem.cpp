@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "AbstractBaseGearItem.h"
 
 item_mod_t AbstractBaseGearItem::getModifier(ModifiersTypes modifierType) const

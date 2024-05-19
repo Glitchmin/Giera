@@ -1,6 +1,4 @@
 #pragma once
-#include <memory>
-#include <vector>
 #include "AbstractItem.h"
 #include "AbstractEffect.h"
 using std::shared_ptr;

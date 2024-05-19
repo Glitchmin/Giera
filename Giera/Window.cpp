@@ -1,7 +1,6 @@
+#include "pch.h"
+
 #include "Window.h"
-#include "Logger.h"
-#include "TextureLoader.h"
-#include "Texture.h"
 
 using std::make_pair;
 using std::make_shared;

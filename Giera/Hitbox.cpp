@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Hitbox.h"
 
 Hitbox::Hitbox(unique_ptr<AbstractGeometryFigure> figure, HittableEntityTypes hittableEntityType)

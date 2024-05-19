@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "GeneralTimer.h"
-#include <SDL.h>
 GeneralTimer::GeneralTimer()
 {
 	updateTime();

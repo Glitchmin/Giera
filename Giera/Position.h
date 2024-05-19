@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 using std::ostream;
 using std::istream;
 

@@ -1,11 +1,5 @@
 #pragma once
-#include <string>
-#include <sstream>
-#include <optional>
-#include <memory>
-#include "ValuesRange.h"
 #include "ItemTypes.h"
-#include "DrawableBoardEntity.h"
 using std::string;
 using std::stringstream;
 using std::optional;

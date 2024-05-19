@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "ArrowProjectile.h"
-#include "Drawable.h"
 #include "Board.h"
 
 using std::min;
@@ -13,7 +14,7 @@ ArrowProjectile::ArrowProjectile(shared_ptr<FlightPath> flightPath, weak_ptr <Hi
 	// generate shadow
 	drawable = make_shared<Drawable>(flightPath->getPosition().grounded(),
 		TextureLoader::makeUniColorTexture(20, 20, { 0, 0, 0, 128 }),
-		Drawable::DrawableLayer::ENTITIES, make_pair(.05, 1), 0.5);
+		Drawable::DrawableLayer::SHADOWS, make_pair(.05, 1), 0.5);
 	drawables.push_back(drawable);
 
 	// read texture not use hardcoded path
@@ -64,7 +65,7 @@ void ArrowProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 		Position diff = currPos - prevPos;
 
 		updateAngle(diff);
-		drawables[0]->setAngle(atan2(diff.getY(), diff.getX()) * 57.2957795130823 + 90);
+		drawables[0]->setAngle((float)(atan2(diff.getY(), diff.getX()) * 57.2957795130823 + 90.));
 		drawables[0]->setHeightModifier(1 - abs(atan2(diff.grounded().getNorm(), diff.getZ())) * 0.636619772367581);
 		updateHeightModifier(diff);
 		updateDrawables();
@@ -75,10 +76,15 @@ void ArrowProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 		isReadyToBeRemoved = 1;
 		return;
 	}
-	int minX = min(prevPos.getX(), currPos.getX());
-	int maxX = max(prevPos.getX(), currPos.getX());
-	int minY = min(prevPos.getY(), currPos.getY());
-	int maxY = max(prevPos.getY(), currPos.getY());
+
+	double maxSize = 2.;
+
+	int minX = (int)max(min(prevPos.getX(), currPos.getX()) - maxSize, 0.0);
+	int maxX = (int)min(max(prevPos.getX(), currPos.getX()) + maxSize, (double)board->getMap()->getSizeX());
+
+	int minY = (int)max(min(prevPos.getY(), currPos.getY()) - maxSize, 0.0);
+	int maxY = (int)min(max(prevPos.getY(), currPos.getY()) + maxSize, (double)board->getMap()->getSizeY());
+
 	LineSegment ls(prevPos, currPos);
 	optional<Position> collisionP;
 	shared_ptr<AbstractCharacter> hitCharacter;

@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "FlightPath.h"
-#include "Logger.h"
 
 FlightPath::FlightPath()
 {

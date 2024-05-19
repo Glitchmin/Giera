@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Dropslots.h"
 #include "MultipleEqSlotUI.h"
 

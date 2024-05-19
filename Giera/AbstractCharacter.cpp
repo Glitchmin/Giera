@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "AbstractCharacter.h"
 #include "Board.h"
 #include "Cuboid.h"
@@ -99,6 +101,10 @@ void AbstractCharacter::generateShadowTexture()
 
 void AbstractCharacter::move(Position moveDifference)
 {
+	// don't do anything when moving by distance of 0
+	if (moveDifference == Position{0,0,0})
+		return;
+
 	auto board_sh = board.lock();
 	if (board_sh == nullptr) {
 		throw "board is null";

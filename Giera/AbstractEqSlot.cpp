@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "AbstractEqSlot.h"
 #include "UIElement.h"
 

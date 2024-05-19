@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "Coordinates.h"
-#include "Position.h"
 
 Coordinates::Coordinates()
 {
@@ -15,8 +16,8 @@ Coordinates::Coordinates(unsigned int x, unsigned int y)
 
 Coordinates::Coordinates(Position pos)
 {
-    x = pos.getX();
-    y = pos.getY();
+    x = (unsigned int)pos.getX();
+    y = (unsigned int)pos.getY();
 }
 
 bool Coordinates::isInsideMap(unsigned int sizeX, unsigned int sizeY)

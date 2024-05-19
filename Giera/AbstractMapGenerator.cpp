@@ -1,8 +1,6 @@
+#include "pch.h"
+
 #include "AbstractMapGenerator.h"
-#include <queue>
-#include <algorithm>
-#include <sstream>
-#include "Logger.h"
 
 Coordinates getMoveCoordinates(Directions direction)
 {

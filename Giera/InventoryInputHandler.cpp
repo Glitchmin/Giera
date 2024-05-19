@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "InventoryInputHandler.h"
 #include "AbstractEqSlot.h"
 #include "InventoryButtonUI.h"

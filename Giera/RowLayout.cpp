@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "RowLayout.h"
 
 
@@ -12,8 +14,8 @@ void RowLayout::alignChildren() {
     for (auto& child : children) {
         childrenWSum += child->getPixelRealPosRect().w;
     }
-    int gap = (pxRealPosRect.w - childrenWSum) / (children.size() + 1);
-    int startX = pxRealPosRect.x + gap;
+    size_t gap = (pxRealPosRect.w - childrenWSum) / (children.size() + 1);
+    size_t startX = pxRealPosRect.x + gap;
     for (auto& child : children) {
         Rect<px_pos_t> childRect = child->getPixelRealPosRect();
         auto childPos = child->getPixelRealPosRect();

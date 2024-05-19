@@ -1,7 +1,5 @@
 #pragma once
-#include "Drawable.h"
 #include "DrawableEntityObserver.h"
-#include <memory>
 using std::vector;
 using std::weak_ptr;
 

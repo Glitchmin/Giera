@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include "GameTime.h"
 #include "AbstractCharacter.h"
 
 using std::weak_ptr;

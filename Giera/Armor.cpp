@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Armor.h"
 
 Armor::Armor(item_size_t width, item_size_t height, int value, string& name,

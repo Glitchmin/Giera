@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "RangedWeapon.h"
 
 RangedWeapon::RangedWeapon(item_size_t width, item_size_t height, int value,string& name,

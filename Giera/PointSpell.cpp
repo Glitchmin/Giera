@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "PointSpell.h"
 
 void PointSpell::cast(Position startPos, Position endPos, Board& board)

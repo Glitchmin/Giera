@@ -1,11 +1,4 @@
 #pragma once
-#include <string>
-#include "GeneralTimer.h"
-#include <SDL.h>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <iomanip>
 
 using std::string;
 using std::stringstream;

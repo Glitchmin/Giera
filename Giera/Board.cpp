@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Board.h"
 #include "Player.h"
 
@@ -14,8 +16,8 @@ Board::Board(unique_ptr<Map> map, shared_ptr<BoardRenderer> boardRenderer) :
 		v.resize(map->getSizeY());
 	}
 	this->boardRenderer = boardRenderer;
-	for (int i = 0; i < map->getSizeX();i++) {
-		for (int j = 0; j < map->getSizeY();j++) {
+	for (unsigned int i = 0; i < map->getSizeX();i++) {
+		for (unsigned int j = 0; j < map->getSizeY();j++) {
 			Coordinates coords = Coordinates(i, j);
 			auto& spawners = map->getMapTile(coords)->getItemSpawners();
 			for (auto& spawner : spawners) {
@@ -77,8 +79,8 @@ void Board::removeProjectile(int index)
 
 bool Board::isStepablePosition(Position position)
 {
-	int x = position.getX() * AbstractMapElement::getTilesPerMeter();
-	int y = position.getY() * AbstractMapElement::getTilesPerMeter();
+	unsigned int x = (unsigned int)(position.getX() * AbstractMapElement::getTilesPerMeter());
+	unsigned int y = (unsigned int)(position.getY() * AbstractMapElement::getTilesPerMeter());
 	if (position.getX() < 0 || position.getY() < 0 || x >= map->getSizeX() || y >= map->getSizeY()) {
 		return false;
 	}
@@ -107,10 +109,10 @@ void Board::notifyCharacterObservers(shared_ptr<AbstractCharacter> character, Ch
 	switch (change) {
 	case CharacterObserver::Change::ADDED:
 	case CharacterObserver::Change::AFTER_MOVE:
-		tiles[character->getPosition().getX()][character->getPosition().getY()].addCharacter(character);
+		tiles[(unsigned int)character->getPosition().getX()][(unsigned int)character->getPosition().getY()].addCharacter(character);
 		break;
 	case CharacterObserver::Change::BEFORE_MOVE:
-		tiles[character->getPosition().getX()][character->getPosition().getY()].removeCharacter(character);
+		tiles[(unsigned int)character->getPosition().getX()][(unsigned int)character->getPosition().getY()].removeCharacter(character);
 		break;
 	}
 }

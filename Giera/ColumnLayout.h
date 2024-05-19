@@ -1,6 +1,5 @@
 #pragma once
 #include "UIElement.h"
-#include <memory>
 
 class ColumnLayout : public UIElement {
 protected:

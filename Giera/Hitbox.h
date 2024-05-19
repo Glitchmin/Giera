@@ -1,7 +1,6 @@
 #pragma once
 #include "AbstractGeometryFigure.h"
 #include "HittableEntityTypes.h"
-#include <memory>
 using std::unique_ptr;
 
 class Hitbox

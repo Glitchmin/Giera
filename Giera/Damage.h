@@ -1,7 +1,6 @@
 #pragma once
 #include "DamageTypes.h"
 #include "AbstractCharacter.h"
-#include <memory>
 
 using std::weak_ptr;
 

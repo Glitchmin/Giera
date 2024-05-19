@@ -1,11 +1,5 @@
 #pragma once
-#include <unordered_map>
-#include <memory>
-#include <SDL.h>	
-#include <SDL_ttf.h>
-#include <string_view>
-#include <array>
-#include "Logger.h"
+
 #include "FontTypes.h"
 
 using std::unordered_map;

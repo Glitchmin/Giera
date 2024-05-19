@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Lifesteal.h"
 
 Lifesteal::Lifesteal(double value,double ap, DamageTypes damageType, double percentStolen, double probability, weak_ptr<AbstractCharacter> damageDealer):

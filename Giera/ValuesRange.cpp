@@ -1,6 +1,6 @@
+#include "pch.h"
+
 #include "ValuesRange.h"
-#include "Calculator.h"
-#include <stdlib.h>
 
 
 ValuesRange::ValuesRange()

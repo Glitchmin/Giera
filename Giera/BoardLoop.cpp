@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "BoardLoop.h"
 #include "Player.h"
 #include "BaseItemHandler.h"
@@ -16,8 +18,8 @@ BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputCon
 	double viewRangeM = 20;
 	player = make_shared<Player>();
 	boardRenderer = make_shared<BoardRenderer>(map->getSizeX(), map->getSizeY(), window, viewRangeM, player);
-	for (int i = 0; i < map->getSizeX(); i++) {
-		for (int j = 0; j < map->getSizeY(); j++) {
+	for (unsigned int i = 0; i < map->getSizeX(); i++) {
+		for (unsigned int j = 0; j < map->getSizeY(); j++) {
 			boardRenderer->addDrawableBoardEntity(map->getMapTile(Coordinates(i, j)));
 		}
 	}

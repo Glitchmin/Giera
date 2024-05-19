@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "ColumnLayout.h"
 
 ColumnLayout::ColumnLayout(Rect<fr_pos_t> frRelPosRect, UIElement* parent, SDL_Color bgColor)
@@ -10,8 +12,8 @@ void ColumnLayout::alignChildren() {
     for (auto& child : children) {
         childrenHSum += child->getPixelRealPosRect().h;
     }
-    int gap = (pxRealPosRect.h - childrenHSum) / (children.size() + 1);
-    int startY = pxRealPosRect.y + gap;
+    size_t gap = (pxRealPosRect.h - childrenHSum) / (children.size() + 1);
+    size_t startY = pxRealPosRect.y + gap;
     for (auto& child : children) {
         Rect<px_pos_t> childPos = child->getPixelRealPosRect();
         childPos.y = startY;

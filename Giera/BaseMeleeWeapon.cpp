@@ -1,8 +1,11 @@
+#include "pch.h"
+
 #include "BaseMeleeWeapon.h"
 #include "MeleeWeapon.h"
 
 BaseMeleeWeapon::BaseMeleeWeapon()
 {
+	//maybe throw something here?
 }
 
 ItemTypes BaseMeleeWeapon::getItemType()
@@ -22,7 +25,7 @@ shared_ptr<AbstractItem> BaseMeleeWeapon::generate()
 	{
 		dmg = make_unique<Damage>(damage.getRandom(), armorPiercing.getRandom(), damageType);
 	}
-	return make_shared<MeleeWeapon>(width, height, value.getRandom(),name,description,modifiers,
+	return make_shared<MeleeWeapon>(width, height, (unsigned int)(value.getRandom()),name,description,modifiers,
 		dmg,Time(attackSpeed.getAverage()),weaponType);
 }
 

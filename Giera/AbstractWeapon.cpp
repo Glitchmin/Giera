@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "AbstractWeapon.h"
 
 AbstractWeapon::AbstractWeapon(item_size_t width, item_size_t height, int value,

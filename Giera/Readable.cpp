@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Readable.h"
 
 Readable::Readable(item_size_t width, item_size_t height, int Value, string& name,

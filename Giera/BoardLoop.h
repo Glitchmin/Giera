@@ -1,9 +1,10 @@
 #pragma once
+
 #include "Board.h"
 #include "Window.h"
 #include "InputConfig.h"
 #include "MouseButtonStateTypes.h"
-#include <set>
+
 using std::set;
 
 class InventoryUI;

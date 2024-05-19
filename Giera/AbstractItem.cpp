@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "AbstractItem.h"
-#include "TextureLoader.h"
 using std::make_pair;
 using std::make_shared;
 

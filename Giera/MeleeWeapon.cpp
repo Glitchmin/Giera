@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "MeleeWeapon.h"
 
 MeleeWeapon::MeleeWeapon(item_size_t width, item_size_t height, int value, string& name,

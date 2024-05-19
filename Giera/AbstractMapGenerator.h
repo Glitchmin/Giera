@@ -1,11 +1,7 @@
 #pragma once
-#include <memory>
-#include <vector>
 #include "Coordinates.h"
 #include "Map.h"
-#include "ValuesRange.h"
 #include "Directions.h"
-#include "Calculator.h"
 
 class Map;
 

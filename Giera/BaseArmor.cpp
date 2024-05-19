@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "BaseArmor.h"
 #include "Armor.h"
 
