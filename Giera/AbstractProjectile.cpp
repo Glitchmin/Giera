@@ -22,10 +22,14 @@ AbstractProjectile::AbstractProjectile(shared_ptr<FlightPath> flightPath, weak_p
 
 void AbstractProjectile::updateAngle(Position diff)
 {
-	drawable->setAngle((float)(atan2((diff.getX() + diff.getY() / 2.0)/2.0, diff.getZ()) * 57.2957795130823));
+	double sina = 0.70710678118654;
+	double cosa = 0.70710678118654;
+	drawable->setAngle((float)(atan2(diff.getX(), - cosa * diff.getY() + sina * diff.getZ()) * 57.2957795130823));
 }
 
 void AbstractProjectile::updateHeightModifier(Position diff)
 {
-	drawable->setHeightModifier(1 - atan2(abs(diff.getX()), abs(diff.getY())) * 0.636619772367581);
+	double sina = 0.70710678118654;
+	double cosa = 0.70710678118654;
+	drawable->setHeightModifier(1 * sqrt( Calculator::squared( - cosa * diff.getY() + sina * diff.getZ()) + Calculator::squared(diff.getX())) / diff.getNorm());
 }

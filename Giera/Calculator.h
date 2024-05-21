@@ -5,5 +5,7 @@ namespace Calculator
 	bool calculateChance(double value);
 	double getRandomDouble(double min, double max);
 	int getRandomInt(int min, int max);
+
+	double squared(const double& x);
 }
 
