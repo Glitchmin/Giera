@@ -66,7 +66,7 @@ void ArrowProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 
 		updateAngle(diff);
 		drawables[0]->setAngle((float)(atan2(diff.getY(), diff.getX()) * 57.2957795130823 + 90.));
-		drawables[0]->setHeightModifier(1.8 / sqrt((Calculator::squared(diff.getZ())/diff.grounded().getNormSq()) + 1));
+		drawables[0]->setHeightModifier(1. / sqrt((Calculator::squared(diff.getZ())/diff.grounded().getNormSq()) + 1));
 		updateHeightModifier(diff);
 		updateDrawables();
 		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
