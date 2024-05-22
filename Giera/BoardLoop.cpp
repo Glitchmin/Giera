@@ -88,12 +88,16 @@ void BoardLoop::handleInput(Time timeDiff) {
 			make_pair(mouseX, mouseY), timeDiff) || isMouseHandledByUI;
 	}
 	if (!isMouseHandledByUI) {
-		if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::NOT_PRESSED) {
+		if (mouseButtonStates[(int)MouseButtonTypes::RIGHT] == MouseButtonStateTypes::NOT_PRESSED) {
 			boardRenderer->getCamera().resetSecondaryTarget();
 		}
 		else {
 			Camera& camera = boardRenderer->getCamera();
 			camera.setMouseAsSecondaryTarget();
+		}
+		if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::JUST_PRESSED) {
+			Logger::logInfo(boardRenderer->getCamera().getLeftUpperPosition());
+			player->startAttack(boardRenderer->getCamera().getBoardCursorPosition());
 		}
 	}
 
@@ -170,12 +174,7 @@ void BoardLoop::start()
 		Time inputTimeDiff = generalTimer.getTime() - lastInputHandling;
 		lastInputHandling = generalTimer.getTime();
 		handleInput(inputTimeDiff);
-		if (board->getProjectiles().empty()) {
-			board->addProjectile(make_shared <SpellProjectile>(
-				make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
-					Position(Calculator::getRandomInt(15, 20), Calculator::getRandomInt(-1, 1) + 10.7, 0.1),
-					1, 1.0 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), weak_ptr<HittableBoardEntity>()));
-		}
+		
 		if (board->getAiCharacters().empty()) {
 			auto aiChar = make_shared<AiCharacter>(CharacterTypes::PLAYER, Position(14, 4.7, 0), 1);
 			board->addAiCharacter(aiChar);
@@ -187,7 +186,7 @@ void BoardLoop::start()
 				aiChar->move(Position(0, inputTimeDiff.getTimeS(), 0));
 			}
 		}
-		
+
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
 		lastProjectileHandling = generalTimer.getTime();
 		board->calculateProjectiles(projectileTimeDiff);

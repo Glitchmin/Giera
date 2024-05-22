@@ -42,7 +42,6 @@ void Camera::updatePosition(Time timeDiff)
 
 		leftUpperTargetPosition.setX(leftUpperTargetPosition.getX() / 2);
 		leftUpperTargetPosition.setY(leftUpperTargetPosition.getY() / 2);
-		
 	}
 	leftUpperTargetPosition = leftUpperTargetPosition
 		- Position(viewRangeM.first / 2, viewRangeM.second / 2, 0);
@@ -58,6 +57,7 @@ void Camera::updatePosition(Time timeDiff)
 	if (leftUpperTargetPosition.getY() + viewRangeM.second > mapSize.second) {
 		leftUpperTargetPosition.setY(mapSize.second - viewRangeM.second);
 	}
+	leftUpperTargetPosition.setZ(0);
 	Position delta = leftUpperTargetPosition - leftUpperPosition;
 	leftUpperPosition += delta * timeDiff.getTimeMs() * cameraFollowSpeed;
 

@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Cuboid.h"
 #include "CharacterObserver.h"
+#include "Damage.h"
 
 AbstractCharacter::AbstractCharacter()
 {
@@ -75,6 +76,36 @@ character_hp_t* AbstractCharacter::getHpPtr()
 character_hp_t* AbstractCharacter::getMaxHpPtr()
 {
 	return &maxHp;
+}
+
+void AbstractCharacter::startAttack(Position target)
+{
+	if (attackState == AttackState::READY) {
+		notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+		attackState = AttackState::SWINGING;
+		Position attackPosition = (target - position) * (1. / (target - position).getNorm()) + position;
+		attackLine = LineSegment(position, attackPosition);
+		Logger::logInfo("attack started", target,position);
+		int attackShadowSize = 100;
+		auto attackShadowTexture = TextureLoader::makeUniColorTexture(attackShadowSize, attackShadowSize, { 0,0,0,0 });
+		auto prev_target = SDL_GetRenderTarget(Texture::getRenderer());
+		SDL_SetRenderDrawColor(Texture::getRenderer(), 0, 0, 0, 196);
+		SDL_SetRenderTarget(Texture::getRenderer(), attackShadowTexture->getSDLTexture());
+		SDL_RenderDrawLine(Texture::getRenderer(), attackShadowSize/2, attackShadowSize/2,
+			attackShadowSize / 2 + attackShadowSize / 2 *(attackPosition-position).getX(), 
+			attackShadowSize / 2 + attackShadowSize / 2 *(attackPosition - position).getY());
+		SDL_SetRenderTarget(Texture::getRenderer(), prev_target);
+		attackShadowDrawable = make_shared<Drawable>(position,attackShadowTexture, Drawable::DrawableLayer::SHADOWS, make_pair(2, 2), 0.);
+		drawables.push_back(attackShadowDrawable.value());
+		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+	}
+	else {
+		notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+		//remove attackShadowDrawable from drawables
+		drawables.erase(std::remove(drawables.begin(), drawables.end(), attackShadowDrawable.value()), drawables.end());
+		attackState = AttackState::READY;
+		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+	}
 }
 
 void AbstractCharacter::generateShadowTexture()
