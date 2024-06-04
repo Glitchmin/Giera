@@ -62,8 +62,8 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 
 		updateAngle(diff);
 		drawables[0]->setAngle((float)(atan2(diff.getY(), diff.getX()) * 57.2957795130823 + 90));
-		drawables[0]->setHeightModifier(1 - abs(atan2(diff.grounded().getNorm(), diff.getZ())) * 0.636619772367581);
-		updateHeightModifier(diff);
+		drawables[0]->setLengthModifier(1 - abs(atan2(diff.grounded().getNorm(), diff.getZ())) * 0.636619772367581);
+		updateLengthModifier(diff);
 		updateDrawables();
 		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
 	}

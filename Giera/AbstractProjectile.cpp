@@ -27,11 +27,11 @@ void AbstractProjectile::updateAngle(Position diff)
 	drawable->setAngle((float)(atan2(diff.getX(), - cosa * diff.getY() + sina * diff.getZ()) * 57.2957795130823));
 }
 
-void AbstractProjectile::updateHeightModifier(Position diff)
+void AbstractProjectile::updateLengthModifier(Position diff)
 {
 	double sina = 0.70710678118654;
 	double cosa = 0.70710678118654;
 	double x = sqrt(Calculator::squared(diff.getZ()) + Calculator::squared(diff.getY()));
-	x = diff.getNorm();
-	drawable->setHeightModifier(sqrt((Calculator::squared(-cosa * diff.getY() + sina * diff.getZ()) + Calculator::squared(diff.getX()))/ x) * 1);
+	x = diff.getNormSq();
+	drawable->setLengthModifier(sqrt((Calculator::squared(-cosa * diff.getY() + sina * diff.getZ()) + Calculator::squared(diff.getX()))/ x) * 1);
 }

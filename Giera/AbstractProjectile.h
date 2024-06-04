@@ -26,6 +26,6 @@ public:
 	virtual void move(Time& timeDiff, shared_ptr<Board>& board) = 0;
 
 	void updateAngle(Position diff);
-	void updateHeightModifier(Position diff);
+	void updateLengthModifier(Position diff);
 };
 

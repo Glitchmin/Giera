@@ -7,21 +7,20 @@ using std::min;
 using std::max;
 using std::nullopt;
 
-ArrowProjectile::ArrowProjectile(shared_ptr<FlightPath> flightPath, weak_ptr <HittableBoardEntity> entityToIgnore)
-	:AbstractProjectile(flightPath, entityToIgnore)
+ArrowProjectile::ArrowProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<Arrow> arrow, weak_ptr <HittableBoardEntity> entityToIgnore)
+	:AbstractProjectile(flightPath, entityToIgnore), arrow(arrow), prevLenVec(flightPath->getPosition())
 {
-
 	// generate shadow
 	drawable = make_shared<Drawable>(flightPath->getPosition().grounded(),
 		TextureLoader::makeUniColorTexture(20, 20, { 0, 0, 0, 128 }),
-		Drawable::DrawableLayer::SHADOWS, make_pair(.05, 1), 0.5);
+		Drawable::DrawableLayer::SHADOWS, make_pair(.05, 1), 0);
 	drawables.push_back(drawable);
 
 	// read texture not use hardcoded path
 	string path = "../../save_files/tx/items/arrow/arrow0.png";
 	drawable = make_shared<Drawable>(flightPath->getPosition(),
 		TextureLoader::getTextureCopy(path),
-		Drawable::DrawableLayer::ENTITIES, make_pair(1, 2), 1);
+		Drawable::DrawableLayer::ENTITIES, make_pair(1, 2), 0.);
 	drawables.push_back(drawable);
 }
 
@@ -63,12 +62,15 @@ void ArrowProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 		notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
 
 		Position diff = currPos - prevPos;
+		double l = (arrow->getLength() / diff.getNorm()) / 2.;
+		prevLenVec = diff * l;
 
 		updateAngle(diff);
 		drawables[0]->setAngle((float)(atan2(diff.getY(), diff.getX()) * 57.2957795130823 + 90.));
-		drawables[0]->setHeightModifier(1. / sqrt((Calculator::squared(diff.getZ())/diff.grounded().getNormSq()) + 1));
-		updateHeightModifier(diff);
+		drawables[0]->setLengthModifier(1. / sqrt((Calculator::squared(diff.getZ())/diff.grounded().getNormSq()) + 1));
+		updateLengthModifier(diff);
 		updateDrawables();
+
 		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
 	}
 	if (currPos.getX() < 0 || currPos.getX() >= board->getMap()->getSizeX() ||
@@ -85,7 +87,7 @@ void ArrowProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 	int minY = (int)max(min(prevPos.getY(), currPos.getY()) - maxSize, 0.0);
 	int maxY = (int)min(max(prevPos.getY(), currPos.getY()) + maxSize, (double)board->getMap()->getSizeY());
 
-	LineSegment ls(prevPos, currPos);
+	LineSegment ls(prevPos + prevLenVec, currPos + prevLenVec);
 	optional<Position> collisionP;
 	shared_ptr<AbstractCharacter> hitCharacter;
 	optional <Coordinates> hitMapTile;

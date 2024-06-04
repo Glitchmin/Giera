@@ -32,7 +32,7 @@ public:
 	void setAngle(float angle);
 	float getAngle()const;
 	void setRotationCenter(unique_ptr<SDL_Point> rotationCenter);
-	void setHeightModifier(double heightModifier);
+	void setLengthModifier(double lengthModifier);
 
 	bool operator==(const Drawable& d) const;
 
@@ -47,6 +47,6 @@ protected:
 	Position pos;
 	float angle;
 	unique_ptr<SDL_Point> rotationCenter;
-	double heightModifier;
+	double lengthModifier;
 };
 

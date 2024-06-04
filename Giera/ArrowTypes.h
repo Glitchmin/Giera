@@ -1,6 +1,15 @@
 #pragma once
-enum class ArrowTypes {
-	ARROW_1,
+enum ArrowTypes: unsigned int{
+	ARROW_1 = 0,
 	THE_PENETRATOR,
 	COUNT
 };
+
+
+namespace ArrowTypeProperties {
+
+	const static int length[]{
+		1,
+		1,
+	};
+}

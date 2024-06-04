@@ -35,3 +35,6 @@ std::string Arrow::getFilePath()
 	return txFolderPath + "arrow/arrow" + ss.str() + ".png";
 }
 
+int Arrow::getLength() const {
+	return ArrowTypeProperties::length[arrowType];
+}

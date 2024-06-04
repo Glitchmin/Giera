@@ -15,7 +15,7 @@ Drawable::Drawable(Position pos, shared_ptr<Texture> texture, DrawableLayer draw
 	this->pos = pos;
 	this->angle = 0.f;
 	this->rotationCenter = nullptr;
-	this->heightModifier = 1.0;
+	this->lengthModifier = 1.0;
 }
 
 int Drawable::updateCurrentState(Time timeDiff)
@@ -48,8 +48,8 @@ void Drawable::draw(Texture& textureToDrawOn, const double& pixelToMeterRatio)
 			SDL_Rect{ (currentState * texture->getSize().first) / statesNumber, 0,
 			(texture->getSize().first) / statesNumber,(texture->getSize().second) },
 			SDL_Rect{ (int)((pos.getX() - sizeXY.first / 2.) * pixelToMeterRatio),
-			(int)((pos.getY() - pos.getZ() - heightM * heightModifier - sizeXY.second / 2.) * pixelToMeterRatio),
-			(int)(pixelToMeterRatio * sizeXY.first),(int)(pixelToMeterRatio * (heightM * heightModifier + sizeXY.second)) },
+			(int)((pos.getY() - pos.getZ() - heightM - sizeXY.second / 2.) * pixelToMeterRatio),
+			(int)(pixelToMeterRatio * sizeXY.first),(int)(pixelToMeterRatio * (heightM * lengthModifier + sizeXY.second)) },
 			angle, rotationCenter);
 	}
 }
@@ -125,8 +125,8 @@ void Drawable::setRotationCenter(unique_ptr<SDL_Point> rotationCenter)
 	this->rotationCenter = std::move(rotationCenter);
 }
 
-void Drawable::setHeightModifier(double heightModifier) {
-	this->heightModifier = heightModifier;
+void Drawable::setLengthModifier(double lengthModifier) {
+	this->lengthModifier = lengthModifier;
 }
 
 bool Drawable::operator==(const Drawable& d) const

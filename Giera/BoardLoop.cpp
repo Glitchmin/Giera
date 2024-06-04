@@ -176,8 +176,10 @@ void BoardLoop::start()
 		if (board->getProjectiles().empty()) {
 			board->addProjectile(make_shared <ArrowProjectile>(
 				make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
-					Position(Calculator::getRandomInt(15, 20), Calculator::getRandomInt(-3, 3) + 10.7, 5.1),
-					1, 2 * Calculator::getRandomInt(5, 7)), weak_ptr<HittableBoardEntity>()));
+					Position(Calculator::getRandomInt(15, 18), Calculator::getRandomInt(-2, 2) + 10.7, 5.1),
+					1, 2 * Calculator::getRandomInt(5, 7)),
+				BaseItemHandler::generate<Arrow>(ItemTypes::ARROW, (int)ArrowTypes::THE_PENETRATOR),
+				weak_ptr<HittableBoardEntity>()));
 		}
 		if (board->getAiCharacters().empty()) {
 			auto aiChar = make_shared<AiCharacter>(CharacterTypes::PLAYER, Position(14, 4.7, 0), 1);
