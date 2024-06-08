@@ -7,6 +7,7 @@
 #include "HittableBoardEntity.h"
 #include "CharacterHitbox.h"
 #include "CharacterObserver.h"
+#include "AttackInfo.h"
 #include <vector>
 using std::vector;
 using character_hp_t = unsigned int;
@@ -18,12 +19,6 @@ class Damage;
 class AbstractCharacter : public DrawableBoardEntity, public HittableBoardEntity, public std::enable_shared_from_this<AbstractCharacter>
 {
 public:
-	enum class AttackState {
-		READY,
-		SWINGING,
-		AFTER_SWING,
-		COUNT
-	};
 	AbstractCharacter();
 	virtual string getTextureFilePath();
 	virtual string getShadowFilePath();
@@ -40,16 +35,17 @@ public:
 	character_hp_t* getMaxHpPtr();
 	virtual void updateBehaviour(Time timeDiff) = 0;
 	virtual void startAttack(Position target);
-	/*virtual void takeDamage(Damage damage);
-	virtual void updateAttack(Time timeDiff);*/
+	//virtual void takeDamage(Damage damage);
+	virtual void updateAttack(Time timeDiff);
+	bool canMove();
+	bool canAttack();
 protected:
 	void generateShadowTexture();
 	character_hp_t hp;
 	character_hp_t maxHp;
+	bool isStunned = false;
 	Position position;
-	optional <LineSegment> attackLine;
-	optional <shared_ptr<Drawable>> attackShadowDrawable;
-	AttackState attackState = AttackState::READY;
+	optional<AttackInfo> attackInfo; //if not empty, character is attacking
 	pair<double, double> sizeXY;
 	double height;
 	vector <double> resitances;

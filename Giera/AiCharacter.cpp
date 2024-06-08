@@ -29,7 +29,8 @@ AiCharacter::AiCharacter(CharacterTypes characterType, Position pos, int level) 
 
 void AiCharacter::updateBehaviour(Time timeDiff)
 {
-	Logger::logInfo("AiCharacter::updateBehaviour");
+	updateAttack(timeDiff);
+	//Logger::logInfo("AiCharacter::updateBehaviour");
 }
 
 void AiCharacter::updateDrawables()

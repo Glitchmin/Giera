@@ -501,6 +501,9 @@
     <ClCompile Include="HpBarDrawable.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="AttackInfo.cpp">
+      <Filter>Source Files\GameLogic\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -937,6 +940,9 @@
     </ClInclude>
     <ClInclude Include="HpBarDrawable.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackInfo.h">
+      <Filter>Header Files\GameLogic\Character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

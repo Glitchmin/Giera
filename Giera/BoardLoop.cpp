@@ -185,6 +185,9 @@ void BoardLoop::start()
 			if (aiChar->getPosition().getY() < 10.7) {
 				aiChar->move(Position(0, inputTimeDiff.getTimeS(), 0));
 			}
+		}player->updateAttack(inputTimeDiff);
+		for (auto& aiChar : board->getAiCharacters()) {
+			aiChar->updateBehaviour(inputTimeDiff);
 		}
 
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
