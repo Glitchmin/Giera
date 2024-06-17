@@ -1,6 +1,9 @@
 #include "Board.h"
 #include "Player.h"
 
+using std::min;
+using std::max;
+
 Board::Board()
 {
 	throw "default constructor";
@@ -124,6 +127,79 @@ vector <shared_ptr<AbstractProjectile>>& Board::getProjectiles()
 vector<shared_ptr<AiCharacter>>& Board::getAiCharacters()
 {
 	return AiCharacters;
+}
+
+optional<Position> calculateHitbox(std::shared_ptr<Hitbox>& hitbox, LineSegment& ls, std::optional<Position>& prevCollisionP, Position& prevPos)
+{
+	auto currCollision = hitbox->getFigure()->getLineSegmentIntersect(ls);
+	if (currCollision.has_value()) {
+		if (!prevCollisionP.has_value() || (*currCollision - prevPos).getNormSq() < (*prevCollisionP - prevPos).getNormSq()) {
+			return currCollision;
+		}
+	}
+	return nullopt;
+}
+
+optional<Board::HitResult> Board::calculateHit(LineSegment path, shared_ptr<HittableBoardEntity> entityToIgnore)
+{
+	int minX = min(path.getStart().getX(), path.getEnd().getX());
+	int maxX = max(path.getStart().getX(), path.getEnd().getX());
+	int minY = min(path.getStart().getY(), path.getEnd().getY());
+	int maxY = max(path.getStart().getY(), path.getEnd().getY());
+	Position prevPos = path.getStart();
+	Position currPos = path.getEnd();
+	optional<Position> collisionP;
+	shared_ptr<AbstractCharacter> hitCharacter;
+	optional <Position> hitMapTile;
+	Logger::logInfo("calculateHit", minX, maxX, minY, maxY);
+	for (int x = minX; x <= maxX; x++) {
+		for (int y = minY; y <= maxY; y++) {
+			auto mapTile = getMap()->getMapTile(Coordinates(x, y));
+			if (mapTile != entityToIgnore) {
+				auto& hitboxes = mapTile->getHitboxes();
+				for (auto& hitbox : hitboxes) {
+					auto currCollision = calculateHitbox(hitbox, path, collisionP, prevPos);
+					if (currCollision.has_value()) {
+						hitMapTile = currCollision;
+						//Logger::logInfo(x, y, "map tile");
+						hitCharacter = nullptr;
+						collisionP = currCollision;
+					}
+				}
+			}
+
+			auto& characters = getBoardTile(Coordinates(x, y)).getcharacters();
+			for (auto& character : characters) {
+				Logger::logInfo("found character", character != entityToIgnore);
+				if (character != entityToIgnore) {
+					for (auto& hitbox : character->getHitboxes()) {
+						auto currCollision = calculateHitbox(hitbox, path, collisionP, prevPos);
+						if (currCollision.has_value()) {
+							hitMapTile = nullopt;
+							Logger::logInfo(x, y, "character");
+							hitCharacter = character;
+							collisionP = currCollision;
+						}
+					}
+				}
+			}
+
+			HitResult hitResult;
+			if (hitCharacter) {
+				hitResult.character = hitCharacter;
+			}
+			else {
+				if (hitMapTile.has_value()) {
+					hitResult.mapHit = hitMapTile;
+				}
+				if (currPos.getZ() <= 0) {
+					hitResult.mapHit = currPos;
+					//to do later calculate the point were the ground was hit
+				}
+			}
+			return hitResult;
+		}
+	}
 }
 
 

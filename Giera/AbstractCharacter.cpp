@@ -110,14 +110,26 @@ void AbstractCharacter::startAttack(Position target)
 void AbstractCharacter::updateAttack(Time timeDiff)
 {
 	if (attackInfo.has_value()) {
-		Logger::logInfo("updateAttack", attackInfo->timeToAttack, attackInfo->cooldownAfterAttack);
+		//Logger::logInfo("updateAttack", attackInfo->timeToAttack, attackInfo->cooldownAfterAttack);
 		attackInfo->timeToAttack -= timeDiff;
 		if (attackInfo->timeToAttack.getTimeMs() <= 0) {
-			if (!attackInfo->hasHit) {
-				attackInfo->hasHit = true;
-				//calculate attack line and check if it hits any entity
-				//then deal damage to the hit entity
-				Logger::logInfo("attack hit");
+			if (!attackInfo->hasStruct) {
+				attackInfo->hasStruct = true;
+				auto lineStart = attackInfo->attackLine.getStart();
+				auto lineEnd = attackInfo->attackLine.getEnd();
+				lineStart.setZ(.1);
+				lineEnd.setZ(.1);
+				attackInfo->attackLine = LineSegment(lineStart, lineEnd);
+				auto hitResult = board.lock()->calculateHit(attackInfo->attackLine, shared_from_this());
+				Logger::logInfo("attackLine: ", attackInfo->attackLine.getStart(), attackInfo->attackLine.getEnd());
+				Logger::logInfo("attack calculated", hitResult.has_value());
+				if (hitResult.has_value()) {
+					Logger::logInfo("attack hit", hitResult.value().character.has_value(), hitResult.value().mapHit.has_value());
+				}
+				if (hitResult.has_value() && hitResult.value().character.has_value()) {
+					(*hitResult.value().character.value()->getHpPtr())-=20;
+					Logger::logInfo("attack hit");
+				}
 			}
 			else {
 				attackInfo->cooldownAfterAttack -= timeDiff;

@@ -1,8 +1,6 @@
 #include "SpellProjectile.h"
 #include "Drawable.h"
 
-using std::min;
-using std::max;
 using std::nullopt;
 
 SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<ThrownSpell> spell, weak_ptr <HittableBoardEntity> entityToIgnore)
@@ -20,9 +18,9 @@ SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<T
 	drawables.push_back(drawable);
 }
 
-void SpellProjectile::onWallHit(Coordinates hitCoords, shared_ptr<Board>& board)
+void SpellProjectile::onWallHit(Position hitPos, shared_ptr<Board>& board)
 {
-	Logger::logDebug("projectile hit the wall", hitCoords);
+	Logger::logDebug("projectile hit the wall", hitPos);
 	isReadyToBeRemoved = true;
  }
 
@@ -33,20 +31,9 @@ void SpellProjectile::onCharacterHit(shared_ptr<AbstractCharacter> character, sh
 	isReadyToBeRemoved = true;
 }
 
-void SpellProjectile::onGroundHit(Coordinates hitCoords, shared_ptr<Board>& board)
+void SpellProjectile::onGroundHit(Position hitPos, shared_ptr<Board>& board)
 {
 	isReadyToBeRemoved = true;
-}
-
-optional<Position> SpellProjectile::calculateHitbox(std::shared_ptr<Hitbox>& hitbox, LineSegment& ls, std::optional<Position>& prevCollisionP, Position& currPos)
-{
-	auto currCollision = hitbox->getFigure()->getLineSegmentIntersect(ls);
-	if (currCollision.has_value()) {
-		if (!prevCollisionP.has_value() || (*currCollision - currPos).getNormSq() < (*prevCollisionP - currPos).getNormSq()) {
-			return currCollision;
-		}
-	}
-	return nullopt;
 }
 
 void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
@@ -71,60 +58,23 @@ void SpellProjectile::move(Time& timeDiff, shared_ptr<Board>& board)
 		isReadyToBeRemoved = 1;
 		return;
 	}
-	int minX = min(prevPos.getX(), currPos.getX());
-	int maxX = max(prevPos.getX(), currPos.getX());
-	int minY = min(prevPos.getY(), currPos.getY());
-	int maxY = max(prevPos.getY(), currPos.getY());
-	LineSegment ls(prevPos, currPos);
-	optional<Position> collisionP;
-	shared_ptr<AbstractCharacter> hitCharacter;
-	optional <Coordinates> hitMapTile;
 
-	for (int x = minX; x <= maxX;x++) {
-		for (int y = minY; y <= maxY;y++) {
-			auto mapTile = board->getMap()->getMapTile(Coordinates(x, y));
-			if (mapTile != entityToIgnore.lock()) {
-				auto& hitboxes = mapTile->getHitboxes();
-				for (auto& hitbox : hitboxes) {
-					auto currCollision = calculateHitbox(hitbox, ls, collisionP, currPos);
-					if (currCollision.has_value()) {
-						hitMapTile = Coordinates(x, y);
-						//Logger::logInfo(x, y, "map tile");
-						hitCharacter = nullptr;
-						collisionP = currCollision;
-					}
-				}
-			}
-
-			auto& characters = board->getBoardTile(Coordinates(x, y)).getcharacters();
-			for (auto& character : characters) {
-				if (character != entityToIgnore.lock()) {
-					for (auto& hitbox : character->getHitboxes()) {
-						auto currCollision = calculateHitbox(hitbox, ls, collisionP, currPos);
-						if (currCollision.has_value()) {
-							hitMapTile = nullopt;
-							Logger::logInfo(x, y, "character");
-							hitCharacter = character;
-							collisionP = currCollision;
-						}
-					}
-				}
-			}
+	auto hitResult = board->calculateHit(LineSegment(prevPos, currPos), entityToIgnore.lock());
+	if (!hitResult.has_value()) {
+		return;
+	}
+	if (hitResult.value().character.has_value()) {
+		onCharacterHit(hitResult.value().character.value(), board);
+		return;
+	}
+	if (hitResult.value().mapHit.has_value()) {
+		if (hitResult.value().mapHit.value().getZ()<=0.) {
+			onGroundHit(hitResult.value().mapHit.value(), board);
+		}
+		else {
+			onWallHit(hitResult.value().mapHit.value(), board);
 		}
 	}
-	if (hitCharacter) {
-		onCharacterHit(hitCharacter, board);
-		return;
-	}
-	if (hitMapTile) {
-		onWallHit(hitMapTile.value(), board);
-		return;
-	}
-	if (currPos.getZ() <= 0) {
-		onGroundHit(currPos, board);
-		return;
-	}
-	
 }
 
 

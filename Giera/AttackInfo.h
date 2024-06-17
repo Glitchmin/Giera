@@ -14,5 +14,5 @@ public:
 	shared_ptr<Drawable> attackDrawable; //unused for now
 	Time timeToAttack; // time until attack will hit
 	Time cooldownAfterAttack; // time after hitting until able to attack again or move
-	bool hasHit = false; // true if already checked if attack hit
+	bool hasStruct = false; // true if already checked if attack hit
 };

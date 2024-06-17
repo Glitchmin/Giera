@@ -21,9 +21,9 @@ public:
 
 	virtual bool canBeRemoved();
 
-	virtual void onWallHit(Coordinates hitCoords, shared_ptr<Board>& board) = 0;
+	virtual void onWallHit(Position hitPos, shared_ptr<Board>& board) = 0;
 	virtual void onCharacterHit(shared_ptr<AbstractCharacter> character, shared_ptr<Board>& board) = 0;
-	virtual void onGroundHit(Coordinates hitCoords, shared_ptr<Board>& board) = 0;
+	virtual void onGroundHit(Position hitPos, shared_ptr<Board>& board) = 0;
 	virtual void move(Time& timeDiff, shared_ptr<Board>& board) = 0;
 
 	void updateAngle(Position diff);

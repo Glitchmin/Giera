@@ -13,6 +13,12 @@ class Map;
 class Board : public std::enable_shared_from_this<Board>, public CharacterObserver
 {
 public:
+	class HitResult {
+	public:
+	//class that is returned by calculateHit method containing optionals with pointers to character/map element that was hit
+	optional<shared_ptr<AbstractCharacter>> character;
+	optional<Position> mapHit; //if pos.z <= 0 it means the ground was hit otherwise the wall
+	};
 	Board();
 	Board(unique_ptr<Map> map, shared_ptr<BoardRenderer> boardRenderer);
 	void addItem(Coordinates coords, shared_ptr<AbstractItem> item);
@@ -28,8 +34,8 @@ public:
 	void notifyCharacterObservers(shared_ptr<AbstractCharacter> character, CharacterObserver::Change change) override;
 
 	vector<shared_ptr<AbstractProjectile>>& getProjectiles();
-	vector <shared_ptr <AiCharacter> >& getAiCharacters();	
-
+	vector <shared_ptr <AiCharacter> >& getAiCharacters();
+	optional<HitResult> calculateHit(LineSegment path, shared_ptr<HittableBoardEntity> entityToIgnore);
 
 private:
 	vector <vector <BoardTile> > tiles;
