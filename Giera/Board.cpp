@@ -152,6 +152,7 @@ optional<Board::HitResult> Board::calculateHit(LineSegment path, shared_ptr<Hitt
 	shared_ptr<AbstractCharacter> hitCharacter;
 	optional <Position> hitMapTile;
 	Logger::logInfo("calculateHit", minX, maxX, minY, maxY);
+	HitResult hitResult;
 	for (int x = minX; x <= maxX; x++) {
 		for (int y = minY; y <= maxY; y++) {
 			auto mapTile = getMap()->getMapTile(Coordinates(x, y));
@@ -184,7 +185,6 @@ optional<Board::HitResult> Board::calculateHit(LineSegment path, shared_ptr<Hitt
 				}
 			}
 
-			HitResult hitResult;
 			if (hitCharacter) {
 				hitResult.character = hitCharacter;
 			}
@@ -192,14 +192,14 @@ optional<Board::HitResult> Board::calculateHit(LineSegment path, shared_ptr<Hitt
 				if (hitMapTile.has_value()) {
 					hitResult.mapHit = hitMapTile;
 				}
-				if (currPos.getZ() <= 0) {
+				if (currPos.getZ() < 0) {
 					hitResult.mapHit = currPos;
 					//to do later calculate the point were the ground was hit
 				}
 			}
-			return hitResult;
 		}
 	}
+	return hitResult;
 }
 
 
