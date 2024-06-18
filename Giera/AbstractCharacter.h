@@ -39,6 +39,7 @@ public:
 	virtual void updateAttack(Time timeDiff);
 	bool canMove();
 	bool canAttack();
+	void die(shared_ptr<AbstractCharacter> me);
 protected:
 	void generateShadowTexture();
 	character_hp_t hp;

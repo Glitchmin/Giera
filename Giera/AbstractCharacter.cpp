@@ -127,7 +127,12 @@ void AbstractCharacter::updateAttack(Time timeDiff)
 					Logger::logInfo("attack hit", hitResult.value().character.has_value(), hitResult.value().mapHit.has_value());
 				}
 				if (hitResult.has_value() && hitResult.value().character.has_value()) {
-					(*hitResult.value().character.value()->getHpPtr())-=20;
+					auto character = hitResult.value().character.value();
+					(*character->getHpPtr())-=20;
+					if ((*hitResult.value().character.value()->getHpPtr()) <= 0) {
+						Logger::logInfo("killed");
+						character->die(character);
+					}
 					Logger::logInfo("attack hit");
 				}
 			}
@@ -151,6 +156,13 @@ bool AbstractCharacter::canMove()
 
 bool AbstractCharacter::canAttack() {
 	return !attackInfo.has_value() && !isStunned;
+}
+
+void AbstractCharacter::die(shared_ptr<AbstractCharacter> me) {
+	board.lock()->getBoardTile(Coordinates(getPosition())).removeCharacter(me);
+	notifyCharacterObservers(CharacterObserver::Change::REMOVED);
+	notifyHittableObservers(HittableEntityObserver::Change::REMOVED);
+	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
 }
 
 void AbstractCharacter::generateShadowTexture()

@@ -170,6 +170,8 @@ void BoardLoop::start()
 	Time lastInputHandling(generalTimer.getTime());
 	Time lastProjectileHandling(generalTimer.getTime());
 
+	bool once = true;
+
 	while (loopGoing) {
 		Time inputTimeDiff = generalTimer.getTime() - lastInputHandling;
 		lastInputHandling = generalTimer.getTime();
@@ -182,7 +184,8 @@ void BoardLoop::start()
 					1, 2 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), weak_ptr<HittableBoardEntity>()));
 		}*/
 		
-		if (board->getAiCharacters().empty()) {
+		if (board->getAiCharacters().empty() && once) {
+			once = false;
 			auto aiChar = make_shared<AiCharacter>(CharacterTypes::PLAYER, Position(14, 4.7, 0), 1);
 			board->addAiCharacter(aiChar);
 			//player character type is needed to obtain npc0 texture
