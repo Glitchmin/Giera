@@ -192,7 +192,7 @@ optional<Board::HitResult> Board::calculateHit(LineSegment path, shared_ptr<Hitt
 				if (hitMapTile.has_value()) {
 					hitResult.mapHit = hitMapTile;
 				}
-				if (currPos.getZ() < 0) {
+				if (currPos.getZ() <= 0) {
 					hitResult.mapHit = currPos;
 					//to do later calculate the point were the ground was hit
 				}
