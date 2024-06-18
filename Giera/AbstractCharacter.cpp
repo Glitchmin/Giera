@@ -131,7 +131,7 @@ void AbstractCharacter::updateAttack(Time timeDiff)
 					(*character->getHpPtr())-=20;
 					if ((*hitResult.value().character.value()->getHpPtr()) <= 0) {
 						Logger::logInfo("killed");
-						character->die(character);
+						character->die();
 					}
 					Logger::logInfo("attack hit");
 				}
@@ -158,8 +158,8 @@ bool AbstractCharacter::canAttack() {
 	return !attackInfo.has_value() && !isStunned;
 }
 
-void AbstractCharacter::die(shared_ptr<AbstractCharacter> me) {
-	board.lock()->getBoardTile(Coordinates(getPosition())).removeCharacter(me);
+void AbstractCharacter::die() {
+	board.lock()->getBoardTile(Coordinates(getPosition())).removeCharacter(shared_from_this());
 	notifyCharacterObservers(CharacterObserver::Change::REMOVED);
 	notifyHittableObservers(HittableEntityObserver::Change::REMOVED);
 	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);

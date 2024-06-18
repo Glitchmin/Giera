@@ -190,10 +190,10 @@ void BoardLoop::start()
 			board->addAiCharacter(aiChar);
 			//player character type is needed to obtain npc0 texture
 		}
-		else {
+		else if (!board->getAiCharacters().empty()){
 			auto aiChar = board->getAiCharacters().front();
 			if (aiChar->getPosition().getY() < 10.7) {
-				aiChar->move(Position(0, inputTimeDiff.getTimeS(), 0));
+				//aiChar->move(Position(0, inputTimeDiff.getTimeS(), 0));
 			}
 		}player->updateAttack(inputTimeDiff);
 		for (auto& aiChar : board->getAiCharacters()) {

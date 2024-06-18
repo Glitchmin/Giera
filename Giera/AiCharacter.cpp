@@ -1,6 +1,8 @@
 #include "AiCharacter.h"
 #include "Cuboid.h"
 #include "HpBarDrawable.h"
+#include "Board.h"
+#include "Player.h"
 
 AiCharacter::AiCharacter(CharacterTypes characterType, Position pos, int level) : AbstractCharacter()
 {
@@ -31,10 +33,19 @@ void AiCharacter::updateBehaviour(Time timeDiff)
 {
 	updateAttack(timeDiff);
 	//Logger::logInfo("AiCharacter::updateBehaviour");
+	Position diff = (board.lock()->getPlayerCharacter()->getPosition() - getPosition());
+	move(diff * ((double)(timeDiff.getTimeS()) / diff.getNorm()));
 }
 
 void AiCharacter::updateDrawables()
 {
 	AbstractCharacter::updateDrawables();
 	hpBarDrawable->setPos(Position(position.getX(), position.getY(), position.getZ() + height + .1));
+}
+
+void AiCharacter::die(){
+	Logger::logInfo("i'm dying");
+	AbstractCharacter::die();
+	// TODO change to remove the correct ai character :P
+	board.lock()->getAiCharacters().clear();
 }

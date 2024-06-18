@@ -9,6 +9,7 @@ public:
 	AiCharacter(CharacterTypes characterType, Position pos, int level);
 	virtual void updateBehaviour(Time timeDiff) override;
 	void updateDrawables() override;
+	void die() override;
 protected:
 	vector <SpawningDetails> drops;
 	Position target;

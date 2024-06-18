@@ -61,6 +61,10 @@ void Board::addPlayerCharacter(shared_ptr<Player> player)
 	player->addDrawableObserver(boardRenderer);
 }
 
+shared_ptr<Player> Board::getPlayerCharacter() {
+	return player;
+}
+
 void Board::addProjectile(shared_ptr<AbstractProjectile> proj)
 {
 	projectilesMutex.lock();

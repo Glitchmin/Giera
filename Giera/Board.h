@@ -25,6 +25,7 @@ public:
 	BoardTile& getBoardTile(Coordinates coords);
 	void addAiCharacter(shared_ptr<AiCharacter> character);
 	void addPlayerCharacter(shared_ptr<Player> player);
+	shared_ptr<Player> getPlayerCharacter();
 	void addProjectile(shared_ptr<AbstractProjectile> proj);
 	void removeProjectile(int index);
 	bool isStepablePosition(Position position);
