@@ -33,7 +33,13 @@ void AiCharacter::updateBehaviour(Time timeDiff)
 {
 	updateAttack(timeDiff);
 	//Logger::logInfo("AiCharacter::updateBehaviour");
-	Position diff = (board.lock()->getPlayerCharacter()->getPosition() - getPosition());
+	Position playerPos = board.lock()->getPlayerCharacter()->getPosition();
+	Position diff = (playerPos - getPosition());
+	//Logger::logDebug("AiCharacter position diff norm: ", diff.getNorm());
+	if (diff.getNorm() < 1.0 && canAttack())
+	{
+		startAttack(playerPos);
+	}
 	move(diff * ((double)(timeDiff.getTimeS()) / diff.getNorm()));
 }
 

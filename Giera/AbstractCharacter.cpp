@@ -38,8 +38,8 @@ void AbstractCharacter::updateHitboxes()
 	hitbox->setFigure(make_unique<Cuboid>(
 		Position(position.getX() - sizeXY.first / 2, position.getY() - sizeXY.second / 2, 0),
 		Position(position.getX() + sizeXY.first / 2, position.getY() + sizeXY.second / 2, height)));
-	Logger::logInfo("hitbox updated", hitbox->getFigure().get()->getBoundingBox().first,
-		hitbox->getFigure().get()->getBoundingBox().second);
+	//Logger::logInfo("hitbox updated", hitbox->getFigure().get()->getBoundingBox().first,
+	//	hitbox->getFigure().get()->getBoundingBox().second);
 }
 
 void AbstractCharacter::addCharacterObserver(weak_ptr<CharacterObserver> observer)
@@ -109,42 +109,46 @@ void AbstractCharacter::startAttack(Position target)
 
 void AbstractCharacter::updateAttack(Time timeDiff)
 {
-	if (attackInfo.has_value()) {
-		//Logger::logInfo("updateAttack", attackInfo->timeToAttack, attackInfo->cooldownAfterAttack);
-		attackInfo->timeToAttack -= timeDiff;
-		if (attackInfo->timeToAttack.getTimeMs() <= 0) {
-			if (!attackInfo->hasStruct) {
-				attackInfo->hasStruct = true;
-				auto lineStart = attackInfo->attackLine.getStart();
-				auto lineEnd = attackInfo->attackLine.getEnd();
-				lineStart.setZ(.1);
-				lineEnd.setZ(.1);
-				attackInfo->attackLine = LineSegment(lineStart, lineEnd);
-				auto hitResult = board.lock()->calculateHit(attackInfo->attackLine, shared_from_this());
-				Logger::logInfo("attackLine: ", attackInfo->attackLine.getStart(), attackInfo->attackLine.getEnd());
-				Logger::logInfo("attack calculated", hitResult.has_value());
-				if (hitResult.has_value()) {
-					Logger::logInfo("attack hit", hitResult.value().character.has_value(), hitResult.value().mapHit.has_value());
-				}
-				if (hitResult.has_value() && hitResult.value().character.has_value()) {
-					auto character = hitResult.value().character.value();
-					(*character->getHpPtr())-=20;
-					if ((*hitResult.value().character.value()->getHpPtr()) <= 0) {
-						Logger::logInfo("killed");
-						character->die();
-					}
-					Logger::logInfo("attack hit");
-				}
+	if (!attackInfo.has_value()) 
+	{
+		//no ongoing attack - nothing to update
+		return;
+	}
+	//Logger::logInfo("updateAttack", attackInfo->timeToAttack, attackInfo->cooldownAfterAttack);
+	attackInfo->timeToAttack -= timeDiff;
+	if (attackInfo->timeToAttack.getTimeMs() > 0) {
+		return;
+	}
+	if (!attackInfo->hasStruct) {
+		attackInfo->hasStruct = true;
+		auto lineStart = attackInfo->attackLine.getStart();
+		auto lineEnd = attackInfo->attackLine.getEnd();
+		lineStart.setZ(.1);
+		lineEnd.setZ(.1);
+		attackInfo->attackLine = LineSegment(lineStart, lineEnd);
+		auto hitResult = board.lock()->calculateHit(attackInfo->attackLine, shared_from_this());
+		Logger::logInfo("attackLine: ", attackInfo->attackLine.getStart(), attackInfo->attackLine.getEnd());
+		Logger::logInfo("attack calculated", hitResult.has_value());
+		if (hitResult.has_value()) {
+			Logger::logInfo("attack hit", hitResult.value().character.has_value(), hitResult.value().mapHit.has_value());
+		}
+		if (hitResult.has_value() && hitResult.value().character.has_value()) {
+			auto character = hitResult.value().character.value();
+			(*character->getHpPtr())-=20;
+			if ((*hitResult.value().character.value()->getHpPtr()) <= 0) {
+				Logger::logInfo("killed");
+				character->die();
 			}
-			else {
-				attackInfo->cooldownAfterAttack -= timeDiff;
-				if (attackInfo->cooldownAfterAttack.getTimeMs() <= 0) {
-					notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
-					drawables.erase((std::find(drawables.begin(), drawables.end(), attackInfo->attackShadowDrawable)));
-					notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
-					attackInfo.reset();
-				}
-			}
+			Logger::logInfo("attack hit");
+		}
+	}
+	else {
+		attackInfo->cooldownAfterAttack -= timeDiff;
+		if (attackInfo->cooldownAfterAttack.getTimeMs() <= 0) {
+			notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+			drawables.erase((std::find(drawables.begin(), drawables.end(), attackInfo->attackShadowDrawable)));
+			notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+			attackInfo.reset();
 		}
 	}
 }
@@ -192,7 +196,7 @@ void AbstractCharacter::move(Position moveDifference)
 		throw "board is null";
 	}
 	if (!canMove()) {
-		Logger::logInfo("cannot move");
+		//Logger::logInfo("cannot move");
 		return;
 	}
 	if (board_sh->isStepablePosition(position + moveDifference - Position(sizeXY.first / 2, 0, 0)) &&
