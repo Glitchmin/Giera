@@ -15,6 +15,7 @@ using character_hp_t = unsigned int;
 class Board;
 class Inventory;
 class Damage;
+class HpBarDrawable;
 
 class AbstractCharacter : public DrawableBoardEntity, public HittableBoardEntity, public std::enable_shared_from_this<AbstractCharacter>
 {
@@ -56,6 +57,7 @@ protected:
 	CharacterTypes characterType;
 	shared_ptr <Drawable> drawable;
 	shared_ptr <Drawable> shadow_drawable;
+	shared_ptr <HpBarDrawable> hpBarDrawable;
 	shared_ptr <CharacterHitbox> hitbox;
 	weak_ptr <Board> board;
 	int level;

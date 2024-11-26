@@ -1,6 +1,5 @@
 #include "AiCharacter.h"
 #include "Cuboid.h"
-#include "HpBarDrawable.h"
 #include "Board.h"
 #include "Player.h"
 
@@ -23,8 +22,6 @@ AiCharacter::AiCharacter(CharacterTypes characterType, Position pos, int level) 
 	drawable = make_shared<Drawable>(position, TextureLoader::getTextureCopy(path),
 		Drawable::DrawableLayer::ENTITIES, sizeXY, height);
 	drawables.push_back(drawable);
-	hpBarDrawable = make_shared<HpBarDrawable>(Position(position.getX(), position.getY(), position.getZ() + height + .1), this);
-	drawables.push_back(hpBarDrawable);
 	generateShadowTexture();
 	updateDrawables();
 }
@@ -41,12 +38,6 @@ void AiCharacter::updateBehaviour(Time timeDiff)
 		startAttack(playerPos);
 	}
 	move(diff * ((double)(timeDiff.getTimeS()) / diff.getNorm()));
-}
-
-void AiCharacter::updateDrawables()
-{
-	AbstractCharacter::updateDrawables();
-	hpBarDrawable->setPos(Position(position.getX(), position.getY(), position.getZ() + height + .1));
 }
 
 void AiCharacter::die(){

@@ -2,11 +2,14 @@
 #include "Board.h"
 #include "Cuboid.h"
 #include "CharacterObserver.h"
+#include "HpBarDrawable.h"
 #include "Damage.h"
 
 AbstractCharacter::AbstractCharacter()
 {
 	resitances.resize((int)DamageTypes::COUNT, 1);
+	hpBarDrawable = make_shared<HpBarDrawable>(Position(position.getX(), position.getY(), position.getZ() + height + .1), this);
+	drawables.push_back(hpBarDrawable);
 }
 
 
@@ -31,6 +34,7 @@ void AbstractCharacter::updateDrawables()
 {
 	drawable->setPos(position);
 	shadow_drawable->setPos(Position(position.getX(), position.getY(), -.01));
+	hpBarDrawable->setPos(Position(position.getX(), position.getY(), position.getZ() + height + .1));
 }
 
 void AbstractCharacter::updateHitboxes()
