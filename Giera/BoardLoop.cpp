@@ -186,9 +186,9 @@ void BoardLoop::start()
 		
 		if (board->getAiCharacters().empty() && once) {
 			once = false;
-			auto aiChar = make_shared<AiCharacter>(CharacterTypes::PLAYER, Position(14, 4.7, 0), 1);
+			auto aiChar = make_shared<AiCharacter>(CharacterTypes::BANDIT_THUG, Position(14, 4.7, 0), 1);
 			board->addAiCharacter(aiChar);
-			//player character type is needed to obtain npc0 texture
+
 		}
 		else if (!board->getAiCharacters().empty()){
 			auto aiChar = board->getAiCharacters().front();
