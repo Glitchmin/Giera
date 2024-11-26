@@ -14,6 +14,8 @@ Player::Player() : AbstractCharacter()
 	position = Position(1.5, 1.5, 0);
 	sizeXY = make_pair(.7, .5);
 	height = 1.1;
+	hp = 100; //TODO hardcoded for now
+	maxHp = 100; //TODO hardcoded for now
 	drawable = make_shared<Drawable>(position, TextureLoader::getTextureCopy(path),
 		Drawable::DrawableLayer::ENTITIES, sizeXY, height);
 	drawables.push_back(drawable);
@@ -59,4 +61,17 @@ void Player::updateBehaviour(Time timeDiff)
 {
 	return;
 }
+
+shared_ptr<AbstractWeapon> Player::getSelectedWeapon()
+{
+	return static_pointer_cast<AbstractWeapon>(
+		getInventory()->getEqSlot(EqSlotTypes::MELEE)->getItem(0, 0).value_or(
+					std::static_pointer_cast<AbstractItem>(
+						//TODO Replace with default "bare hands" weapon
+						BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0) 
+					)
+		)
+	);
+}
+
 

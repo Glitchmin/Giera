@@ -7,8 +7,8 @@ AiCharacter::AiCharacter(CharacterTypes characterType, Position pos, int level) 
 {
 	this->characterType = characterType;
 	this->level = level;
-	hp = 100; //hardcoded for now
-	maxHp = 100; //hardcoded for now
+	hp = 100; //TODO hardcoded for now
+	maxHp = 100; //TODO hardcoded for now
 	string path = getTextureFilePath();
 	position = pos;
 	sizeXY = make_pair(.7, .5);

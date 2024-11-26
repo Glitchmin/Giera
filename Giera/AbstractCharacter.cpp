@@ -4,6 +4,8 @@
 #include "CharacterObserver.h"
 #include "HpBarDrawable.h"
 #include "Damage.h"
+#include <AbstractWeapon.h>
+#include <BaseItemHandler.h>
 
 AbstractCharacter::AbstractCharacter()
 {
@@ -72,6 +74,11 @@ shared_ptr<Inventory> AbstractCharacter::getInventory()
 	return inventory;
 }
 
+shared_ptr<AbstractWeapon> AbstractCharacter::getSelectedWeapon()
+{
+	return BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0);
+}
+
 character_hp_t* AbstractCharacter::getHpPtr()
 {
 	return &hp;
@@ -138,7 +145,11 @@ void AbstractCharacter::updateAttack(Time timeDiff)
 		}
 		if (hitResult.has_value() && hitResult.value().character.has_value()) {
 			auto character = hitResult.value().character.value();
-			(*character->getHpPtr())-=20;
+			//(*character->getHpPtr())-=20;
+			auto damageValue = getSelectedWeapon()->getDamage()->getValue();
+			Logger::logInfo("updateAttack: dealing damage: ", damageValue);
+			(*character->getHpPtr()) -= damageValue;
+
 			if ((*hitResult.value().character.value()->getHpPtr()) <= 0) {
 				Logger::logInfo("killed");
 				character->die();

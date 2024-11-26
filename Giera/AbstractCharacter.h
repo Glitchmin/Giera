@@ -16,6 +16,7 @@ class Board;
 class Inventory;
 class Damage;
 class HpBarDrawable;
+class AbstractWeapon;
 
 class AbstractCharacter : public DrawableBoardEntity, public HittableBoardEntity, public std::enable_shared_from_this<AbstractCharacter>
 {
@@ -32,6 +33,7 @@ public:
 	void setBoard(weak_ptr<Board> board);
 	void notifyCharacterObservers(CharacterObserver::Change change);
 	shared_ptr <Inventory> getInventory();
+	virtual shared_ptr <AbstractWeapon> getSelectedWeapon();
 	character_hp_t* getHpPtr();
 	character_hp_t* getMaxHpPtr();
 	virtual void updateBehaviour(Time timeDiff) = 0;

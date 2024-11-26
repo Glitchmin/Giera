@@ -1,4 +1,5 @@
 #include "Damage.h"
+#include "Logger.h"
 
 Damage::Damage()
 {
@@ -25,6 +26,7 @@ bool Damage::isLifesteal()
 
 double Damage::getValue() const
 {
+    Logger::logDebug("Damage:getValue: ", value);
     return value;
 }
 
