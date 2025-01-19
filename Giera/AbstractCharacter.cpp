@@ -1,5 +1,6 @@
 #include "AbstractCharacter.h"
 #include "Board.h"
+#include "Calculator.h"
 #include "Cuboid.h"
 #include "CharacterObserver.h"
 #include "HpBarDrawable.h"
@@ -76,7 +77,8 @@ shared_ptr<Inventory> AbstractCharacter::getInventory()
 
 shared_ptr<AbstractWeapon> AbstractCharacter::getSelectedWeapon()
 {
-	return BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0);
+	//TODO probably AbstractCharacter should just have a random weapon
+	return BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0); 
 }
 
 character_hp_t* AbstractCharacter::getHpPtr()
@@ -145,10 +147,11 @@ void AbstractCharacter::updateAttack(Time timeDiff)
 		}
 		if (hitResult.has_value() && hitResult.value().character.has_value()) {
 			auto character = hitResult.value().character.value();
-			//(*character->getHpPtr())-=20;
-			auto damageValue = getSelectedWeapon()->getDamage()->getValue();
-			Logger::logInfo("updateAttack: dealing damage: ", damageValue);
-			(*character->getHpPtr()) -= damageValue;
+			
+			//we need to deal dmg in int so we use calculator
+			auto dealtDamage = Calculator::getIntFromDoubleWithProb(getSelectedWeapon()->getDamage()->getValue()); 
+			Logger::logInfo("updateAttack: dealing damage: ", dealtDamage);
+			(*character->getHpPtr()) -= dealtDamage;
 
 			if ((*hitResult.value().character.value()->getHpPtr()) <= 0) {
 				Logger::logInfo("killed");
