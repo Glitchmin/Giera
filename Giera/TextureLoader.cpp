@@ -96,6 +96,7 @@ shared_ptr <Texture> TextureLoader::loadTexture(string_view textureName)
 	SDL_FreeSurface(surface);
 	auto texture = make_shared<Texture>(newSDLTexture);
 	textureMap[textureName.data()] = texture;
+    Logger::logInfo("loaded texture ", textureName, texture->getSize().first, texture->getSize().second);
 	return texture;
 }
 

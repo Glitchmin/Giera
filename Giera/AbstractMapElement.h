@@ -7,7 +7,7 @@
 class AbstractMapElement
 {
 protected:
-	static inline std::string txFolderPath = "../../save_files/tx/";
+	static inline std::string txFolderPath = string(SAVE_FILES_PATH) + "/tx/";
 	static inline int tilesPerMeter = 1;
 	unsigned int elementID;
 	Time updateDelay;

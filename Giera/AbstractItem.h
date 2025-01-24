@@ -6,6 +6,7 @@
 #include "ValuesRange.h"
 #include "ItemTypes.h"
 #include "DrawableBoardEntity.h"
+
 using std::string;
 using std::stringstream;
 using std::optional;
@@ -20,7 +21,7 @@ protected:
 	string name;
 	string description;
 	shared_ptr <Texture> texture;
-	static inline string txFolderPath = "../../save_files/tx/items/";
+	static inline string txFolderPath = string(SAVE_FILES_PATH)+"/tx/items/";
 	optional <pair<Position, pair<double, double> > > boardRect;
 	shared_ptr <Drawable> drawable;
 

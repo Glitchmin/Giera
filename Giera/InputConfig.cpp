@@ -10,8 +10,7 @@ PlayerActionTypes InputConfig::getActionType(SDL_Keycode keycode)
     return action->second;
 }
 
-void InputConfig::setActionType(SDL_Keycode keycode, PlayerActionTypes action)
-throw (AlreadyTakenException)
+void InputConfig::setActionType(SDL_Keycode keycode, PlayerActionTypes action) noexcept(false)
 {
     if (inputActionMap.find(keycode) == inputActionMap.end()) {
         inputActionMap.erase(actionInputMap[action]);
@@ -19,6 +18,6 @@ throw (AlreadyTakenException)
         actionInputMap[action] = keycode;
     }
     else {
-        throw AlreadyTakenException("this keycode is taken by other action");
+        throw AlreadyTakenException();
     }
 }

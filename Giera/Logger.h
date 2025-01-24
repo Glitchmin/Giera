@@ -1,11 +1,18 @@
 #pragma once
 #include <string>
 #include "GeneralTimer.h"
+#include "Defines.h"
 #include <SDL.h>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#if ANDROID_BUILD
+#include <android/log.h>
+#endif //ANDROID_BUILD
+
+
+#define LOG_TAG "Giera"
 
 using std::string;
 using std::stringstream;
@@ -112,7 +119,12 @@ template<typename T, typename... Args> void Logger::emit(LoggingLevels level, T 
 
 	if (level >= loggingLevel && toConsole)
 	{
-		std::cout << fullMessage.str();
+
+#if ANDROID_BUILD:
+			__android_log_print(ANDROID_LOG_INFO, LOG_TAG, "%s", fullMessage.str().c_str());
+#else //ANDROID_BUILD
+			std::cout << fullMessage.str();
+#endif //ANDROID_BUILD
 	}
 	if (level >= loggingLevel && toFile)
 	{

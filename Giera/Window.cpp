@@ -2,7 +2,7 @@
 #include "Logger.h"
 #include "TextureLoader.h"
 #include "Texture.h"
-
+#include "Defines.h"
 using std::make_pair;
 using std::make_shared;
 
@@ -10,14 +10,26 @@ Window::Window() :
 	UIElement(Rect<px_pos_t> (0, 0, 1200, 1200/1.6), 
 		nullptr)
 {
+#if ANDROID_BUILD:
+	SDL_WindowFlags windowFlags = static_cast<SDL_WindowFlags>(SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+#else:
+	SDL_WindowFlags windowFlags = SDL_WINDOW_SHOWN;
+#endif
 	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		1200, 1200 / 1.6, SDL_WINDOW_SHOWN);
+		1200, 1200 / 1.6, windowFlags);
 	if (window == NULL) {
 		Logger::logError("Couldn't create window", SDL_GetError());
 	}
 	else {
 		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+        SDL_RendererInfo info;
+        SDL_GetRendererInfo(renderer, &info);
+        if (info.flags & SDL_RENDERER_ACCELERATED) {
+            Logger::logInfo("Renderer is hardware accelerated", info.name, info.num_texture_formats);
+        } else {
+            Logger::logWarning("Renderer is not hardware accelerated");
+        }
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		TextureLoader::setRenderer(renderer);
 		Texture::setRenderer(renderer);
