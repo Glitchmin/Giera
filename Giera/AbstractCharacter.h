@@ -4,6 +4,7 @@
 #include "DrawableBoardEntity.h"
 #include "DamageTypes.h"
 #include "SpawningDetails.h"
+#include "GameTime.h"
 #include "HittableBoardEntity.h"
 #include "CharacterHitbox.h"
 #include "CharacterObserver.h"
@@ -42,6 +43,8 @@ public:
 	virtual void updateAttack(Time timeDiff);
 	bool canMove();
 	bool canAttack();
+	virtual void parry(Time timeDiff);
+	void cancelParry();
 	virtual void die();
 protected:
 	void generateShadowTexture();
@@ -54,6 +57,8 @@ protected:
 	double height;
 	vector <double> resitances;
 	double armor;
+	double parryCompleteness = 0.; //values from 0 to 1.0
+	Time timeToParry = Time(500);
 	shared_ptr <Inventory> inventory;
 	vector <weak_ptr<CharacterObserver>> characterObservers;
 	CharacterTypes characterType;

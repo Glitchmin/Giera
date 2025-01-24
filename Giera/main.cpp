@@ -28,6 +28,7 @@ int main( int argc, char* args[] )
 		inputConfig->setActionType(SDL_SCANCODE_C, PlayerActionTypes::ADD_SECONDARY_CAMERA_TARGET);
 		inputConfig->setActionType(SDL_SCANCODE_I, PlayerActionTypes::OPEN_EQUIPMENT);
 		inputConfig->setActionType(SDL_SCANCODE_ESCAPE, PlayerActionTypes::CLOSE_WINDOW);
+		inputConfig->setActionType(SDL_SCANCODE_LCTRL, PlayerActionTypes::PARRY);
 		BoardLoop boardLoop(window, inputConfig);
 		Logger::logInfo(window->getSize().first, "window", window->getSize().second);
 		boardLoop.start();

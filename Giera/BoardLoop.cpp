@@ -102,14 +102,14 @@ void BoardLoop::handleInput(Time timeDiff) {
 	}
 
 	bool isUIWindowOpen = playerInventoryUI.has_value();
-
+	bool parryPressed = false;
 	for (auto& key : keySet) {
 		PlayerActionTypes action = inputConfig->getActionType(key);
 		switch (action) {
 			using PlAct = PlayerActionTypes;
 		case PlAct::MOVE_LEFT:
 			if (!isUIWindowOpen) {
-				player->move(Position(-((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
+				player->move(Position(-((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0)); //TODO refactor
 			}
 			break;
 		case PlAct::MOVE_DOWN:
@@ -132,8 +132,17 @@ void BoardLoop::handleInput(Time timeDiff) {
 				boardRenderer->getCamera().setSecondaryTarget(board->getMap()->getMapTile(Coordinates(60, 60)));
 			}
 			break;
+		case PlAct::PARRY:
+			parryPressed = true;
+			break;
 		}
 	}
+	if (parryPressed) {
+		player->parry(timeDiff);
+	} else {
+		player->cancelParry();
+	}
+
 	for (auto& key : justPressedKeys) {
 		PlayerActionTypes action = inputConfig->getActionType(key);
 		switch (action) {

@@ -180,6 +180,25 @@ bool AbstractCharacter::canAttack() {
 	return !attackInfo.has_value() && !isStunned;
 }
 
+void AbstractCharacter::parry(Time timeDiff) {
+	auto prevParryCompleteness = parryCompleteness;
+	parryCompleteness = std::min(1.0, parryCompleteness + (timeDiff / timeToParry));
+
+	if (prevParryCompleteness == 0.) {
+		Logger::logDebug("parry started with timeDiff: ", timeDiff, "parryCompl: ", parryCompleteness);
+	}
+	if (prevParryCompleteness != 1. && parryCompleteness == 1.) {
+		Logger::logDebug("parry completed (1.) with timeDiff: ", timeDiff);
+	}
+}
+
+void AbstractCharacter::cancelParry() {
+	if (parryCompleteness) {
+		Logger::logDebug("Parry cancelled");
+	}
+	parryCompleteness = 0;
+}
+
 void AbstractCharacter::die() {
 	board.lock()->getBoardTile(Coordinates(getPosition())).removeCharacter(shared_from_this());
 	notifyCharacterObservers(CharacterObserver::Change::REMOVED);
