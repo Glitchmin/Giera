@@ -18,6 +18,7 @@ class Inventory;
 class Damage;
 class HpBarDrawable;
 class AbstractWeapon;
+class Shield;
 
 class AbstractCharacter : public DrawableBoardEntity, public HittableBoardEntity, public std::enable_shared_from_this<AbstractCharacter>
 {
@@ -35,6 +36,8 @@ public:
 	void notifyCharacterObservers(CharacterObserver::Change change);
 	shared_ptr <Inventory> getInventory();
 	virtual shared_ptr <AbstractWeapon> getSelectedWeapon();
+	virtual shared_ptr <Shield> getSelectedShield();
+	Position getShieldPos() const;
 	character_hp_t* getHpPtr();
 	character_hp_t* getMaxHpPtr();
 	virtual void updateBehaviour(Time timeDiff) = 0;
@@ -46,8 +49,11 @@ public:
 	virtual void parry(Time timeDiff);
 	void cancelParry();
 	virtual void die();
+
 protected:
 	void generateShadowTexture();
+	void showShieldDrawable();
+	void removeShieldDrawable();
 	character_hp_t hp;
 	character_hp_t maxHp;
 	bool isStunned = false;
@@ -65,6 +71,7 @@ protected:
 	shared_ptr <Drawable> drawable;
 	shared_ptr <Drawable> shadow_drawable;
 	shared_ptr <HpBarDrawable> hpBarDrawable;
+	shared_ptr <Drawable> shieldDrawable;
 	shared_ptr <CharacterHitbox> hitbox;
 	weak_ptr <Board> board;
 	int level;

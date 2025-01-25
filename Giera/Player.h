@@ -7,5 +7,6 @@ public:
     Player();
     virtual void updateBehaviour(Time timeDiff);
     shared_ptr<AbstractWeapon> getSelectedWeapon() override;
+    shared_ptr<Shield> getSelectedShield() override;
 };
 

@@ -40,9 +40,14 @@ public:
 		COUNT
 	};
 
-	UIElement(Rect <fr_pos_t> frRelPosRect, shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor = { 0,0,0,0 }, 
-		ImageResizeTypes imageResizePolicy = ImageResizeTypes::STRETCH, VerticalAlignmentTypes vImageAlign = VerticalAlignmentTypes::TOP,
-		HorizontalAlignmentTypes hImageAlign = HorizontalAlignmentTypes::LEFT);
+	UIElement(Rect <fr_pos_t> frRelPosRect, //initial positition of the top-left corner of the UIelemnt
+		shared_ptr<Texture> image,
+		UIElement* parent,
+		SDL_Color bgColor = { 0,0,0,0 }, 
+		ImageResizeTypes imageResizePolicy = ImageResizeTypes::STRETCH,
+		VerticalAlignmentTypes vImageAlign = VerticalAlignmentTypes::TOP,
+		HorizontalAlignmentTypes hImageAlign = HorizontalAlignmentTypes::LEFT
+	);
 	UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image, SDL_Color bgColor = { 0,0,0,0 });
 	virtual void addChild(unique_ptr<UIElement> child);
 	virtual void removeChild(UIElement* childToRemove);

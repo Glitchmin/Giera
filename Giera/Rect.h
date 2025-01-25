@@ -6,7 +6,7 @@ using std::optional;
 
 template <class T> class Rect {
 public:
-	T x,y,w,h;
+	T x,y,w,h;  //(x, y) is top-left
 
 	Rect();
 	Rect(T x, T y, T sizeX, T sizeY);

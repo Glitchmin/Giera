@@ -5,6 +5,8 @@
 #include "CharacterObserver.h"
 #include "HpBarDrawable.h"
 #include "Damage.h"
+#include <algorithm>
+#include <memory>
 #include <AbstractWeapon.h>
 #include <BaseItemHandler.h>
 
@@ -38,6 +40,9 @@ void AbstractCharacter::updateDrawables()
 	drawable->setPos(position);
 	shadow_drawable->setPos(Position(position.getX(), position.getY(), -.01));
 	hpBarDrawable->setPos(Position(position.getX(), position.getY(), position.getZ() + height + .1));
+	if (shieldDrawable) {
+		shieldDrawable->setPos(getShieldPos());
+	}	
 }
 
 void AbstractCharacter::updateHitboxes()
@@ -128,6 +133,7 @@ void AbstractCharacter::updateAttack(Time timeDiff)
 		return;
 	}
 	//Logger::logInfo("updateAttack", attackInfo->timeToAttack, attackInfo->cooldownAfterAttack);
+	cancelParry();
 	attackInfo->timeToAttack -= timeDiff;
 	if (attackInfo->timeToAttack.getTimeMs() > 0) {
 		return;
@@ -180,23 +186,75 @@ bool AbstractCharacter::canAttack() {
 	return !attackInfo.has_value() && !isStunned;
 }
 
+shared_ptr<Shield> AbstractCharacter::getSelectedShield()
+{
+	return nullptr;
+}
+
+Position AbstractCharacter::getShieldPos() const
+{
+	return Position(position.getX() + 0.1, position.getY() + 0.5, position.getZ() + 0.6);
+}
+
+void AbstractCharacter::showShieldDrawable() {
+	if (!getSelectedShield()) {
+		Logger::logDebug("No shield to show");
+		return;
+	}
+	auto shieldTx = shared_ptr(getSelectedShield()->getTexture());
+	if (!shieldTx) {
+		return;
+	}
+	shieldDrawable = make_shared<Drawable>(getShieldPos(),
+		shieldTx,
+		Drawable::DrawableLayer::ENTITIES,
+		make_pair(0.67, 0.4),
+		0.35);
+	drawables.push_back(shieldDrawable);
+	notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+	Logger::logDebug("shieldDrawable set: ", shieldDrawable);
+}
+
 void AbstractCharacter::parry(Time timeDiff) {
+	if (attackInfo.has_value()) {
+		Logger::logDebug("Parry not initialized because of ongoing attack");
+		return;
+	}
 	auto prevParryCompleteness = parryCompleteness;
 	parryCompleteness = std::min(1.0, parryCompleteness + (timeDiff / timeToParry));
 
 	if (prevParryCompleteness == 0.) {
 		Logger::logDebug("parry started with timeDiff: ", timeDiff, "parryCompl: ", parryCompleteness);
+		return;
 	}
-	if (prevParryCompleteness != 1. && parryCompleteness == 1.) {
-		Logger::logDebug("parry completed (1.) with timeDiff: ", timeDiff);
+	if (!(prevParryCompleteness != 1. && parryCompleteness == 1.)) {
+		return; //already completed parry and handled displaying the shield
 	}
+
+	Logger::logDebug("parry completed (1.) with timeDiff: ", timeDiff);
+	showShieldDrawable();
+}
+
+void AbstractCharacter::removeShieldDrawable() {
+	if (!shieldDrawable) {
+		return; //no drawable to remove
+	}
+	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+	std::vector<shared_ptr<Drawable>>::iterator endAfterRemove =
+		std::remove(drawables.begin(), drawables.end(), shieldDrawable);
+	if (endAfterRemove != drawables.end()) {
+		drawables.erase(endAfterRemove, drawables.end());
+	}
+	shieldDrawable = nullptr;
 }
 
 void AbstractCharacter::cancelParry() {
-	if (parryCompleteness) {
-		Logger::logDebug("Parry cancelled");
+	if (!parryCompleteness) {
+		return; //parry already cancelled
 	}
+	Logger::logDebug("Parry cancelled");
 	parryCompleteness = 0;
+	removeShieldDrawable();
 }
 
 void AbstractCharacter::die() {
