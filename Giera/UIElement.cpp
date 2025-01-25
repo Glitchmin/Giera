@@ -19,6 +19,10 @@ UIElement::UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image, S
 {
 }
 
+void UIElement::drawInside() {
+	drawImage();
+}
+
 void UIElement::drawImage() {
 	if (image==nullptr){
 		return;
@@ -64,7 +68,7 @@ void UIElement::render(shared_ptr <Texture>& textureToDrawOn)
 	if (updateNeeded) {
 		updateNeeded = false;
 		insertBackground();
-		drawImage();
+		drawInside();
 		for (auto& child : children) {
 			child->render(texture);
 		}
