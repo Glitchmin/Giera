@@ -34,18 +34,19 @@ public:
 	void addCharacterObserver(weak_ptr<CharacterObserver> observer);
 	void setBoard(weak_ptr<Board> board);
 	void notifyCharacterObservers(CharacterObserver::Change change);
-	shared_ptr <Inventory> getInventory();
-	virtual shared_ptr <AbstractWeapon> getSelectedWeapon();
-	virtual shared_ptr <Shield> getSelectedShield();
+	shared_ptr <Inventory> getInventory() const;
+	virtual shared_ptr <AbstractWeapon> getSelectedWeapon() const;
+	virtual shared_ptr <Shield> getSelectedShield() const;
 	Position getShieldPos() const;
+	double getTotalArmor() const;
 	character_hp_t* getHpPtr();
 	character_hp_t* getMaxHpPtr();
 	virtual void updateBehaviour(Time timeDiff) = 0;
 	virtual void startAttack(Position target);
 	//virtual void takeDamage(Damage damage);
 	virtual void updateAttack(Time timeDiff);
-	bool canMove();
-	bool canAttack();
+	bool canMove() const;
+	bool canAttack() const;
 	virtual void parry(Time timeDiff);
 	void cancelParry();
 	virtual void die();
@@ -62,7 +63,7 @@ protected:
 	pair<double, double> sizeXY;
 	double height;
 	vector <double> resitances;
-	double armor;
+	//double armor;
 	double parryCompleteness = 0.; //values from 0 to 1.0
 	Time timeToParry = Time(500);
 	shared_ptr <Inventory> inventory;

@@ -75,12 +75,12 @@ void AbstractCharacter::notifyCharacterObservers(CharacterObserver::Change chang
 	}
 }
 
-shared_ptr<Inventory> AbstractCharacter::getInventory()
+shared_ptr<Inventory> AbstractCharacter::getInventory() const
 {
 	return inventory;
 }
 
-shared_ptr<AbstractWeapon> AbstractCharacter::getSelectedWeapon()
+shared_ptr<AbstractWeapon> AbstractCharacter::getSelectedWeapon() const
 {
 	//TODO probably AbstractCharacter should just have a random weapon
 	return BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0); 
@@ -152,16 +152,19 @@ void AbstractCharacter::updateAttack(Time timeDiff)
 			Logger::logInfo("attack hit", hitResult.value().character.has_value(), hitResult.value().mapHit.has_value());
 		}
 		if (hitResult.has_value() && hitResult.value().character.has_value()) {
-			auto character = hitResult.value().character.value();
+			auto enemy = hitResult.value().character.value();
 			
 			//we need to deal dmg in int so we use calculator
-			auto dealtDamage = Calculator::getIntFromDoubleWithProb(getSelectedWeapon()->getDamage()->getValue()); 
-			Logger::logInfo("updateAttack: dealing damage: ", dealtDamage);
-			(*character->getHpPtr()) -= dealtDamage;
+			auto dealtDamage = Calculator::getIntFromDoubleWithProb(
+				std::max(0., getSelectedWeapon()->getDamage()->getValue() - enemy->getTotalArmor())
+			); 
+			Logger::logInfo("updateAttack: dealing damage: ", dealtDamage,
+				"(calc from dmg: ", getSelectedWeapon()->getDamage()->getValue(), " - arm: ", enemy->getTotalArmor(), ")");
+			(*enemy->getHpPtr()) -= dealtDamage;
 
-			if ((*hitResult.value().character.value()->getHpPtr()) <= 0) {
+			if ((*enemy->getHpPtr()) <= 0) {
 				Logger::logInfo("killed");
-				character->die();
+				enemy->die();
 			}
 			Logger::logInfo("attack hit");
 		}
@@ -177,23 +180,27 @@ void AbstractCharacter::updateAttack(Time timeDiff)
 	}
 }
 
-bool AbstractCharacter::canMove()
-{
+bool AbstractCharacter::canMove() const {
 	return !attackInfo.has_value() && !isStunned;
 }
 
-bool AbstractCharacter::canAttack() {
+bool AbstractCharacter::canAttack() const {
 	return !attackInfo.has_value() && !isStunned;
 }
 
-shared_ptr<Shield> AbstractCharacter::getSelectedShield()
-{
+shared_ptr<Shield> AbstractCharacter::getSelectedShield() const {
 	return nullptr;
 }
 
-Position AbstractCharacter::getShieldPos() const
-{
+Position AbstractCharacter::getShieldPos() const {
 	return Position(position.getX() + 0.1, position.getY() + 0.5, position.getZ() + 0.6);
+}
+
+double AbstractCharacter::getTotalArmor() const {
+	// TODO armor part
+	// TODO maybe without the shield you should also be able to parry (eg. with the sword)
+	auto shield = getSelectedShield();
+	return (shield ? shield->getArmor() : 0.) * parryCompleteness; 
 }
 
 void AbstractCharacter::showShieldDrawable() {
@@ -231,7 +238,7 @@ void AbstractCharacter::parry(Time timeDiff) {
 		return; //already completed parry and handled displaying the shield
 	}
 
-	Logger::logDebug("parry completed (1.) with timeDiff: ", timeDiff);
+	Logger::logDebug("parry completed (1.) with timeDiff: ", timeDiff, "armor: ", getTotalArmor());
 	showShieldDrawable();
 }
 

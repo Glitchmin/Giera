@@ -63,7 +63,7 @@ void Player::updateBehaviour(Time timeDiff)
 	return;
 }
 
-shared_ptr<AbstractWeapon> Player::getSelectedWeapon()
+shared_ptr<AbstractWeapon> Player::getSelectedWeapon() const
 {
 	return static_pointer_cast<AbstractWeapon>(
 		getInventory()->getEqSlot(EqSlotTypes::MELEE)->getItem(0, 0).value_or(
@@ -75,7 +75,7 @@ shared_ptr<AbstractWeapon> Player::getSelectedWeapon()
 	);
 }
 
-shared_ptr<Shield> Player::getSelectedShield()
+shared_ptr<Shield> Player::getSelectedShield() const
 {
 	return static_pointer_cast<Shield>(
 		getInventory()->getEqSlot(EqSlotTypes::SHIELD)->getItem(0, 0).value_or(nullptr)

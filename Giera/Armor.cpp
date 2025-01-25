@@ -27,6 +27,6 @@ std::string Armor::getFilePath()
 {
     stringstream ss;
     ss << (int)armorType;
-    return txFolderPath + "armour/armour" + ss.str()+".png";
+    return txFolderPath + "armor/armor" + ss.str()+".png";
 }
 
