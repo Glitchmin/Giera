@@ -186,7 +186,7 @@ void BoardLoop::start()
         Logger::logInfo("input", generalTimer.getTime().getTimeMs());
 		
 		while (board->getAiCharacters().size()<1) {
-			auto aiChar = make_shared<AiCharacter>(CharacterTypes::PLAYER, Position(14, 4.7, 0), 1);
+			auto aiChar = make_shared<AiCharacter>(CharacterTypes::BANDIT_THUG, Position(14, 4.7, 0), 1);
 			board->addAiCharacter(aiChar);
 			//player character type is needed to obtain npc0 texture
 		}
