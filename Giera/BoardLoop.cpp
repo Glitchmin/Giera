@@ -88,6 +88,14 @@ void BoardLoop::handleInput(Time timeDiff) {
 		isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::PRESS_RIGHT,
 			make_pair(mouseX, mouseY), timeDiff) || isMouseHandledByUI;
 	}
+	if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::JUST_RELEASED) {
+		isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::RELEASE_LEFT,
+			make_pair(mouseX, mouseY), timeDiff) || isMouseHandledByUI;
+	}
+	if (mouseButtonStates[(int)MouseButtonTypes::RIGHT] == MouseButtonStateTypes::JUST_RELEASED) {
+		isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::RELEASE_RIGHT,
+			make_pair(mouseX, mouseY), timeDiff) || isMouseHandledByUI;
+	}
 	if (!isMouseHandledByUI) {
 		if (mouseButtonStates[(int)MouseButtonTypes::RIGHT] == MouseButtonStateTypes::NOT_PRESSED) {
 			boardRenderer->getCamera().resetSecondaryTarget();
@@ -138,11 +146,11 @@ void BoardLoop::handleInput(Time timeDiff) {
 			break;
 		}
 	}
-	if (parryPressed) {
+	/*if (parryPressed) {
 		player->parry(timeDiff);
 	} else {
 		player->cancelParry();
-	}
+	}*/
 
 	for (auto& key : justPressedKeys) {
 		PlayerActionTypes action = inputConfig->getActionType(key);
@@ -156,6 +164,10 @@ void BoardLoop::handleInput(Time timeDiff) {
 				window->addChild(std::move(invUI));
 				window->removeChild(joystickUI.value());
 				joystickUI = nullopt;
+				window->removeChild(shieldButton.value());
+				shieldButton = nullopt;
+				window->removeChild(changeWeaponButton.value());
+				changeWeaponButton = nullopt;
 			}
 			else {
 				window->removeChild(playerInventoryUI.value());
@@ -163,6 +175,8 @@ void BoardLoop::handleInput(Time timeDiff) {
 				auto joyUI = make_unique <JoystickUIElement>(Rect<fr_pos_t>{0, .5, .5, .5}, window.get(), player);
 				joystickUI = joyUI.get();
 				window->addChild(std::move(joyUI));
+				addShieldButton();
+				addChangeWeaponButton();
 			}
 			break;
 		case PlAct::CLOSE_WINDOW:
@@ -172,11 +186,49 @@ void BoardLoop::handleInput(Time timeDiff) {
 				auto joyUI = make_unique <JoystickUIElement>(Rect<fr_pos_t>{0, .5, .5, .5}, window.get(), player);
 				joystickUI = joyUI.get();
 				window->addChild(std::move(joyUI));
+				addShieldButton();
+				addChangeWeaponButton();
 			}
 			break;
 		}
 
 	}
+}
+
+void BoardLoop::addShieldButton()
+{
+	auto shieldTx = player->getSelectedShield()? 
+		player->getSelectedShield()->getTexture() :
+		TextureLoader::getTexturePtr(
+			string(SAVE_FILES_PATH) + "/tx/items/" + "shield/shield" + "0" + ".png"
+		);
+	auto shieldButtonUniquePtr = make_unique<ShieldButtonUI>(
+		ButtonUI(Rect<fr_pos_t>(0.85, 0.35, 0.12, 0.12),
+				shieldTx,
+				window.get(),
+				0.1
+		),
+		player
+	);
+	shieldButton = shieldButtonUniquePtr.get();
+	window->addChild(std::move(shieldButtonUniquePtr));
+}
+
+void BoardLoop::addChangeWeaponButton()
+{
+	auto weaponTx = player->getSelectedWeapon() ?
+		player->getSelectedWeapon()->getTexture() :
+		TextureLoader::getTexturePtr(
+			string(SAVE_FILES_PATH) + "/tx/items/" + "arrows/arrow" + "0" + ".png"
+		);
+	auto changeWeaponButtonUniquePtr = make_unique<ButtonUI>(
+		Rect<fr_pos_t>(0.85, 0.15, 0.12, 0.12),
+		weaponTx,
+		window.get(),
+		0.8
+	);
+	changeWeaponButton = changeWeaponButtonUniquePtr.get();
+	window->addChild(std::move(changeWeaponButtonUniquePtr));
 }
 
 void BoardLoop::start()
@@ -187,6 +239,9 @@ void BoardLoop::start()
 	Time lastGraphicUpdate(generalTimer.getTime());
 	Time lastInputHandling(generalTimer.getTime());
 	Time lastProjectileHandling(generalTimer.getTime());
+
+	addShieldButton();
+	addChangeWeaponButton();
 
 	auto joyUI = make_unique <JoystickUIElement>(Rect<fr_pos_t>{0,.5,.5,.5},window.get(), player);
 	joystickUI = joyUI.get();

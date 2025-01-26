@@ -5,7 +5,6 @@
 bool JoystickUIElement::handleMouseInput(MouseEventTypes mouseEventType, std::pair<int, int> pos, Time timeDiff)
 {
     auto fieldSize = texture->getSize();
-    Logger::logInfo(pos.first, pos.second, fieldSize.first*2, fieldSize.second*2);
 	bool ans = false;
 	for (auto& child : children) {
 		ans = ans || child->handleMouseInput(mouseEventType, pos, timeDiff);

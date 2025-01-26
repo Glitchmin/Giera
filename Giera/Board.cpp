@@ -174,7 +174,7 @@ optional<Board::HitResult> Board::calculateHit(LineSegment path, shared_ptr<Hitt
 
 			auto& characters = getBoardTile(Coordinates(x, y)).getcharacters();
 			for (auto& character : characters) {
-				Logger::logInfo("found character", character != entityToIgnore);
+				//Logger::logInfo("found character", character != entityToIgnore);
 				if (character != entityToIgnore) {
 					for (auto& hitbox : character->getHitboxes()) {
 						auto currCollision = calculateHitbox(hitbox, path, collisionP, prevPos);

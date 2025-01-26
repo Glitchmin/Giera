@@ -38,6 +38,7 @@ public:
 		MOUSE_SCROLL_UP,
 		MOUSE_SCROLL_DOWN,
 		COUNT
+
 	};
 
 	UIElement(Rect <fr_pos_t> frRelPosRect, //initial positition of the top-left corner of the UIelemnt
@@ -73,3 +74,4 @@ public:
 
 };
 
+std::ostream& operator<<(std::ostream& os, UIElement::MouseEventTypes eventType);

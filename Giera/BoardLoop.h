@@ -5,6 +5,8 @@
 #include "MouseButtonStateTypes.h"
 #include "JoystickUIElement.h"
 #include <set>
+#include <ButtonUI.h>
+#include <ShieldButtonUI.h>
 using std::set;
 
 class InventoryUI;
@@ -15,11 +17,15 @@ class BoardLoop
 public:
 	
 	BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig);
+	void addShieldButton();
+	void addChangeWeaponButton();
 	void start();
 
 protected:
 	optional<InventoryUI*> playerInventoryUI;
 	optional<JoystickUIElement*> joystickUI;
+	optional<ShieldButtonUI*> shieldButton;
+	optional<ButtonUI*> changeWeaponButton;
 	shared_ptr<Board> board;
 	set <SDL_Scancode> keySet;
 	array<MouseButtonStateTypes, (int)MouseButtonTypes::COUNT> mouseButtonStates;

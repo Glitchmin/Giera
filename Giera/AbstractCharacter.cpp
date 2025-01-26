@@ -230,8 +230,8 @@ void AbstractCharacter::parry(Time timeDiff) {
 	auto prevParryCompleteness = parryCompleteness;
 	parryCompleteness = std::min(1.0, parryCompleteness + (timeDiff / timeToParry));
 
-	if (prevParryCompleteness == 0.) {
 		Logger::logDebug("parry started with timeDiff: ", timeDiff, "parryCompl: ", parryCompleteness);
+	if (prevParryCompleteness == 0.) {
 		return;
 	}
 	if (!(prevParryCompleteness != 1. && parryCompleteness == 1.)) {
