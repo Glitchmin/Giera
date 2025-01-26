@@ -22,12 +22,12 @@ string AbstractCharacter::getTextureFilePath()
 {
 	stringstream ss;
 	ss << (int)characterType;
-	return "../../save_files/tx/npc/npc" + ss.str() + ".png";
+	return string(SAVE_FILES_PATH) +"/tx/npc/npc" + ss.str() + ".png";
 }
 
 string AbstractCharacter::getShadowFilePath()
 {
-	return "../../save_files/tx/shadows/shadow_medium.png";
+	return string(SAVE_FILES_PATH) +"/tx/shadows/shadow_medium.png";
 }
 
 Position AbstractCharacter::getPosition() const

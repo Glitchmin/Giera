@@ -52,9 +52,10 @@ public:
 	virtual void addChild(unique_ptr<UIElement> child);
 	virtual void removeChild(UIElement* childToRemove);
 	virtual void insertBackground();
-	virtual void render(shared_ptr <Texture>& textureToDrawOn);
+	virtual void render(shared_ptr <Texture>& textureToDrawOn); //TODO make final, all changes should now be done with drawInside
 	virtual bool handleMouseInput(MouseEventTypes mouseEventType, pair<int,int> pos, Time timeDiff);
 	void drawImage();
+	virtual void drawInside();
 
     UIElement* getParent() const;
 	virtual const vector<unique_ptr<UIElement>>& getChildren();

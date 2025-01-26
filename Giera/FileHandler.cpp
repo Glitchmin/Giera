@@ -15,33 +15,40 @@ FileHandler::~FileHandler()
 }
 void FileHandler::openFile(string fileName, FileModeTypes fileMode)
 {
-	int mode = 0;
+	string mode;
 	switch (fileMode) {
 	case FileModeTypes::READ:
-		mode = ios_base::in;
+		mode = "r";
 		break;
 	case FileModeTypes::WRITE:
-		mode = ios_base::out;
+		mode = "w";
 		break;
 	case FileModeTypes::APPEND:
-		mode = ios_base::app;
+		mode = "a";
 		break;
 	case FileModeTypes::READ_WRITE:
-		mode = ios_base::in | ios_base::out;
+		mode = "r+";
 		break;
 	}
-	fs = fstream(folderPath+fileName + fileExtension, mode);
-	if (!fs.is_open()) 
+    string fullPath = folderPath + fileName + fileExtension;
+    file = SDL_RWFromFile(fullPath.c_str(),mode.c_str());
+	if (!file)
 	{
-		Logger::logError("could not open file: " + folderPath + fileName+ fileExtension +" in mode ",mode);
+        Logger::logError("File",folderPath + fileName+ fileExtension,
+                         " could not be opened in mode",mode,". SDL_Error: ", SDL_GetError());
 		return;
 	}
-	Logger::logInfo("opened " + folderPath + fileName + fileExtension + " in mode ", mode);
+    Logger::logInfo("Opened",folderPath + fileName+ fileExtension," in mode",mode);
+    Logger::logInfo("File size is",SDL_RWsize(file));
+    Sint64 length = SDL_RWsize(file);
+    char* buffer = new char[length];
+    SDL_RWread(file,buffer,1,length);
+    std::stringstream ss;
+    ss << buffer;
+    fileContent = std::move(ss);
 }
-
-
 
 void FileHandler::closeFile()
 {
-	fs.close();
+    //SDL_RWclose(file);
 }

@@ -155,7 +155,6 @@ optional<Board::HitResult> Board::calculateHit(LineSegment path, shared_ptr<Hitt
 	optional<Position> collisionP;
 	shared_ptr<AbstractCharacter> hitCharacter;
 	optional <Position> hitMapTile;
-	Logger::logInfo("calculateHit", minX, maxX, minY, maxY);
 	HitResult hitResult;
 	for (int x = minX; x <= maxX; x++) {
 		for (int y = minY; y <= maxY; y++) {

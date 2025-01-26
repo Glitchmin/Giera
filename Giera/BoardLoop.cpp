@@ -179,48 +179,45 @@ void BoardLoop::start()
 	Time lastInputHandling(generalTimer.getTime());
 	Time lastProjectileHandling(generalTimer.getTime());
 
-	bool once = true;
-
 	while (loopGoing) {
 		Time inputTimeDiff = generalTimer.getTime() - lastInputHandling;
 		lastInputHandling = generalTimer.getTime();
 		handleInput(inputTimeDiff);
-
-		/*if (board->getProjectiles().empty()) {
-			board->addProjectile(make_shared <SpellProjectile>(
-				make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
-					Position(Calculator::getRandomInt(15, 20), 10.7, 0.1),
-					1, 2 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), weak_ptr<HittableBoardEntity>()));
-		}*/
+        Logger::logInfo("input", generalTimer.getTime().getTimeMs());
 		
-		if (board->getAiCharacters().empty() && once) {
-			once = false;
-			auto aiChar = make_shared<AiCharacter>(CharacterTypes::BANDIT_THUG, Position(14, 4.7, 0), 1);
+		while (board->getAiCharacters().size()<1) {
+			auto aiChar = make_shared<AiCharacter>(CharacterTypes::PLAYER, Position(14, 4.7, 0), 1);
 			board->addAiCharacter(aiChar);
-
+			//player character type is needed to obtain npc0 texture
 		}
-		else if (!board->getAiCharacters().empty()){
-			auto aiChar = board->getAiCharacters().front();
-			if (aiChar->getPosition().getY() < 10.7) {
-				//aiChar->move(Position(0, inputTimeDiff.getTimeS(), 0));
-			}
-		}player->updateAttack(inputTimeDiff);
+		player->updateAttack(inputTimeDiff);
 		for (auto& aiChar : board->getAiCharacters()) {
 			aiChar->updateBehaviour(inputTimeDiff);
 		}
+        Logger::logInfo("ai characters", generalTimer.getTime().getTimeMs());
+
+        while (board->getProjectiles().size()<5) {
+            board->addProjectile(make_shared <SpellProjectile>(
+                    make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
+                                            Position(Calculator::getRandomInt(15, 20), Calculator::getRandomInt(0, 12), 0.1),
+                                            1, 2 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), weak_ptr<HittableBoardEntity>()));
+        }
 
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
 		lastProjectileHandling = generalTimer.getTime();
 		board->calculateProjectiles(projectileTimeDiff);
+        Logger::logInfo("projectiles", generalTimer.getTime().getTimeMs());
 
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
 			Time renderTimeDiff = generalTimer.getTime() - lastGraphicUpdate;
 			lastGraphicUpdate = generalTimer.getTime();
-
 			boardRenderer->drawBoard(renderTimeDiff);
+            Logger::logInfo("rendering1", generalTimer.getTime().getTimeMs());
 
 			window->renderUI();
+            Logger::logInfo("rendering2", generalTimer.getTime().getTimeMs());
 			window->updateRenderer();
+            Logger::logInfo("rendering3", generalTimer.getTime().getTimeMs());
 		}
 		generalTimer.updateTime();
 	}

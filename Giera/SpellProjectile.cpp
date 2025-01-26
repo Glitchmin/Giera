@@ -20,13 +20,13 @@ SpellProjectile::SpellProjectile(shared_ptr<FlightPath> flightPath, shared_ptr<T
 
 void SpellProjectile::onWallHit(Position hitPos, shared_ptr<Board>& board)
 {
-	Logger::logDebug("projectile hit the wall", hitPos);
+	//Logger::logDebug("projectile hit the wall", hitPos);
 	isReadyToBeRemoved = true;
  }
 
 void SpellProjectile::onCharacterHit(shared_ptr<AbstractCharacter> character, shared_ptr<Board>& board)
 {
-	Logger::logDebug("projectile hit the Character");
+	//Logger::logDebug("projectile hit the Character");
 	(*(character->getHpPtr()))-=20;
 	isReadyToBeRemoved = true;
 }

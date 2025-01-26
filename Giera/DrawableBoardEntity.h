@@ -2,6 +2,7 @@
 #include "Drawable.h"
 #include "DrawableEntityObserver.h"
 #include <memory>
+#include <vector>
 using std::vector;
 using std::weak_ptr;
 
