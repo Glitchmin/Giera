@@ -504,6 +504,9 @@
     <ClCompile Include="AttackInfo.cpp">
       <Filter>Source Files\GameLogic\Character</Filter>
     </ClCompile>
+    <ClCompile Include="JoystickUIElement.cpp">
+      <Filter>Source Files\Graphics\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -946,6 +949,9 @@
     </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JoystickUIElement.h">
+      <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
