@@ -120,7 +120,7 @@ template<typename T, typename... Args> void Logger::emit(LoggingLevels level, T 
 	if (level >= loggingLevel && toConsole)
 	{
 
-#if ANDROID_BUILD:
+#if ANDROID_BUILD
 			__android_log_print(ANDROID_LOG_INFO, LOG_TAG, "%s", fullMessage.str().c_str());
 #else //ANDROID_BUILD
 			std::cout << fullMessage.str();

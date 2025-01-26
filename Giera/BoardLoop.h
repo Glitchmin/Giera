@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "InputConfig.h"
 #include "MouseButtonStateTypes.h"
+#include "JoystickUIElement.h"
 #include <set>
 using std::set;
 
@@ -18,6 +19,7 @@ public:
 
 protected:
 	optional<InventoryUI*> playerInventoryUI;
+	optional<JoystickUIElement*> joystickUI;
 	shared_ptr<Board> board;
 	set <SDL_Scancode> keySet;
 	array<MouseButtonStateTypes, (int)MouseButtonTypes::COUNT> mouseButtonStates;
@@ -25,6 +27,7 @@ protected:
 	shared_ptr<Window> window;
 	shared_ptr<BoardRenderer> boardRenderer;
 	shared_ptr<Player> player;
+
 
 	void handleInput(Time timeDiff);
 };

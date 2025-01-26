@@ -16,4 +16,3 @@ public:
     virtual bool handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff) override;
     virtual void render(shared_ptr <Texture>& textureToDrawOn) override;
 };
-

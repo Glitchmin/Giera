@@ -7,16 +7,17 @@ using std::make_pair;
 using std::make_shared;
 
 Window::Window() :
-	UIElement(Rect<px_pos_t> (0, 0, 1200, 1200/1.6), 
+	UIElement(Rect<px_pos_t> (0, 0, 0, 0),
 		nullptr)
 {
-#if ANDROID_BUILD:
-	SDL_WindowFlags windowFlags = static_cast<SDL_WindowFlags>(SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
-#else:
-	SDL_WindowFlags windowFlags = SDL_WINDOW_SHOWN;
+#if ANDROID_BUILD
+    window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                              0, 0, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+#else
+    window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                              1200, 1200 / 1.6, SDL_WINDOW_SHOWN);
 #endif
-	window = SDL_CreateWindow("Giera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		1200, 1200 / 1.6, windowFlags);
+
 	if (window == NULL) {
 		Logger::logError("Couldn't create window", SDL_GetError());
 	}
@@ -33,7 +34,11 @@ Window::Window() :
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		TextureLoader::setRenderer(renderer);
 		Texture::setRenderer(renderer);
-		texture = TextureLoader::makeUniColorTexture(1200, 1200 / 1.6, { 0,0,0,0 });
+        int w, h;
+        SDL_GetWindowSize(window, &w, &h);
+        pxRealPosRect.w = w;
+        pxRealPosRect.h = h;
+		texture = TextureLoader::makeUniColorTexture(w, h, { 0,0,0,0 });
 		SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	}
 }

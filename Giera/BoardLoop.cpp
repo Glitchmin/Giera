@@ -5,6 +5,7 @@
 #include "SpellProjectile.h"
 #include "InventoryUI.h"
 #include "InventoryInputHandler.h"
+#include "JoystickUIElement.h"
 
 
 BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig)
@@ -153,16 +154,24 @@ void BoardLoop::handleInput(Time timeDiff) {
 					make_shared<InventoryInputHandler>(player->getInventory()));
 				playerInventoryUI = invUI.get();
 				window->addChild(std::move(invUI));
+				window->removeChild(joystickUI.value());
+				joystickUI = nullopt;
 			}
 			else {
 				window->removeChild(playerInventoryUI.value());
 				playerInventoryUI = nullopt;
+				auto joyUI = make_unique <JoystickUIElement>(Rect<fr_pos_t>{0, .5, .5, .5}, window.get(), player);
+				joystickUI = joyUI.get();
+				window->addChild(std::move(joyUI));
 			}
 			break;
 		case PlAct::CLOSE_WINDOW:
 			if (playerInventoryUI.has_value()) {
 				window->removeChild(playerInventoryUI.value());
 				playerInventoryUI = nullopt;
+				auto joyUI = make_unique <JoystickUIElement>(Rect<fr_pos_t>{0, .5, .5, .5}, window.get(), player);
+				joystickUI = joyUI.get();
+				window->addChild(std::move(joyUI));
 			}
 			break;
 		}
@@ -179,11 +188,14 @@ void BoardLoop::start()
 	Time lastInputHandling(generalTimer.getTime());
 	Time lastProjectileHandling(generalTimer.getTime());
 
+	auto joyUI = make_unique <JoystickUIElement>(Rect<fr_pos_t>{0,.5,.5,.5},window.get(), player);
+	joystickUI = joyUI.get();
+	window->addChild(std::move(joyUI));
+
 	while (loopGoing) {
 		Time inputTimeDiff = generalTimer.getTime() - lastInputHandling;
 		lastInputHandling = generalTimer.getTime();
 		handleInput(inputTimeDiff);
-        Logger::logInfo("input", generalTimer.getTime().getTimeMs());
 		
 		while (board->getAiCharacters().size()<1) {
 			auto aiChar = make_shared<AiCharacter>(CharacterTypes::BANDIT_THUG, Position(14, 4.7, 0), 1);
@@ -194,7 +206,6 @@ void BoardLoop::start()
 		for (auto& aiChar : board->getAiCharacters()) {
 			aiChar->updateBehaviour(inputTimeDiff);
 		}
-        Logger::logInfo("ai characters", generalTimer.getTime().getTimeMs());
 
         while (board->getProjectiles().size()<5) {
             board->addProjectile(make_shared <SpellProjectile>(
@@ -206,18 +217,14 @@ void BoardLoop::start()
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
 		lastProjectileHandling = generalTimer.getTime();
 		board->calculateProjectiles(projectileTimeDiff);
-        Logger::logInfo("projectiles", generalTimer.getTime().getTimeMs());
 
 		if (generalTimer.getTime() > lastGraphicUpdate + Time(16)) {
 			Time renderTimeDiff = generalTimer.getTime() - lastGraphicUpdate;
 			lastGraphicUpdate = generalTimer.getTime();
 			boardRenderer->drawBoard(renderTimeDiff);
-            Logger::logInfo("rendering1", generalTimer.getTime().getTimeMs());
 
 			window->renderUI();
-            Logger::logInfo("rendering2", generalTimer.getTime().getTimeMs());
 			window->updateRenderer();
-            Logger::logInfo("rendering3", generalTimer.getTime().getTimeMs());
 		}
 		generalTimer.updateTime();
 	}
