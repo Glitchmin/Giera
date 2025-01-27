@@ -42,9 +42,15 @@ public:
 	character_hp_t* getHpPtr();
 	character_hp_t* getMaxHpPtr();
 	virtual void updateBehaviour(Time timeDiff) = 0;
+	void startShoot(Position& target);
 	virtual void startAttack(Position target);
+	void startMelee(Position& target);
 	//virtual void takeDamage(Damage damage);
 	virtual void updateAttack(Time timeDiff);
+	//void applyMeleeAttackToEnemy(std::optional<Board::HitResult>& hitResult);
+	void visualiseMeleeAttack();
+	void updateMelee(Time& timeDiff, bool& retFlag);
+	bool meleeMode = false;
 	bool canMove() const;
 	bool canAttack() const;
 	virtual void parry(Time timeDiff);
@@ -59,7 +65,7 @@ protected:
 	character_hp_t maxHp;
 	bool isStunned = false;
 	Position position;
-	optional<AttackInfo> attackInfo; //if not empty, character is attacking
+	optional<MeleeAttackInfo> meleeAttackInfo; //if not empty, character is attacking
 	pair<double, double> sizeXY;
 	double height;
 	vector <double> resitances;

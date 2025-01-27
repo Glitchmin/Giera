@@ -504,7 +504,10 @@
     <ClCompile Include="JoystickUIElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShieldButtonUI.cpp">
+    <ClCompile Include="ShieldButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeWeaponButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -947,7 +950,10 @@
     <ClInclude Include="JoystickUIElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShieldButtonUI.h">
+    <ClInclude Include="ShieldButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeWeaponButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

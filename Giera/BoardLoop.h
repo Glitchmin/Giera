@@ -6,7 +6,8 @@
 #include "JoystickUIElement.h"
 #include <set>
 #include <ButtonUI.h>
-#include <ShieldButtonUI.h>
+#include <ShieldButton.h>
+#include <ChangeWeaponButton.h>
 using std::set;
 
 class InventoryUI;
@@ -24,8 +25,8 @@ public:
 protected:
 	optional<InventoryUI*> playerInventoryUI;
 	optional<JoystickUIElement*> joystickUI;
-	optional<ShieldButtonUI*> shieldButton;
-	optional<ButtonUI*> changeWeaponButton;
+	optional<ShieldButton*> shieldButton;
+	optional<ChangeWeaponButton*> changeWeaponButton;
 	shared_ptr<Board> board;
 	set <SDL_Scancode> keySet;
 	array<MouseButtonStateTypes, (int)MouseButtonTypes::COUNT> mouseButtonStates;

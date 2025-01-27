@@ -6,6 +6,7 @@
 #include "InventoryUI.h"
 #include "InventoryInputHandler.h"
 #include "JoystickUIElement.h"
+#include <ChangeWeaponButton.h>
 
 
 BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig)
@@ -202,7 +203,7 @@ void BoardLoop::addShieldButton()
 		TextureLoader::getTexturePtr(
 			string(SAVE_FILES_PATH) + "/tx/items/" + "shield/shield" + "0" + ".png"
 		);
-	auto shieldButtonUniquePtr = make_unique<ShieldButtonUI>(
+	auto shieldButtonUniquePtr = make_unique<ShieldButton>(
 		ButtonUI(Rect<fr_pos_t>(0.85, 0.35, 0.12, 0.12),
 				shieldTx,
 				window.get(),
@@ -221,11 +222,14 @@ void BoardLoop::addChangeWeaponButton()
 		TextureLoader::getTexturePtr(
 			string(SAVE_FILES_PATH) + "/tx/items/" + "arrows/arrow" + "0" + ".png"
 		);
-	auto changeWeaponButtonUniquePtr = make_unique<ButtonUI>(
-		Rect<fr_pos_t>(0.85, 0.15, 0.12, 0.12),
-		weaponTx,
-		window.get(),
-		0.8
+	auto changeWeaponButtonUniquePtr = make_unique<ChangeWeaponButton>(
+		ButtonUI(
+			Rect<fr_pos_t>(0.85, 0.15, 0.12, 0.12),
+			weaponTx,
+			window.get(),
+			0.8
+		),
+		player
 	);
 	changeWeaponButton = changeWeaponButtonUniquePtr.get();
 	window->addChild(std::move(changeWeaponButtonUniquePtr));
@@ -262,12 +266,23 @@ void BoardLoop::start()
 			aiChar->updateBehaviour(inputTimeDiff);
 		}
 
-        while (board->getProjectiles().size()<5) {
-            board->addProjectile(make_shared <SpellProjectile>(
-                    make_shared<FlightPath>(Position(1.5, 10.7, 0.1),
-                                            Position(Calculator::getRandomInt(15, 20), Calculator::getRandomInt(0, 12), 0.1),
-                                            1, 2 * Calculator::getRandomInt(5, 17)), make_shared<ThrownSpell>(), weak_ptr<HittableBoardEntity>()));
-        }
+		// PROJECTILES TEST
+   //     while (board->getProjectiles().size()<5) {
+   //         board->addProjectile(make_shared <SpellProjectile>(
+   //                 make_shared<FlightPath>(
+			//			Position(1.5, 10.7, 0.1),
+   //                     Position(Calculator::getRandomInt(15, 20),
+			//					Calculator::getRandomInt(0, 12),
+			//					0.1
+			//			),
+   //                     1,
+			//			2 * Calculator::getRandomInt(5, 17)
+			//		),
+			//		make_shared<ThrownSpell>(),
+			//		weak_ptr<HittableBoardEntity>()
+			//	)
+			//);
+   //     }
 
 		Time projectileTimeDiff = generalTimer.getTime() - lastProjectileHandling;
 		lastProjectileHandling = generalTimer.getTime();

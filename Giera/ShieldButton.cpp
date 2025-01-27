@@ -1,12 +1,12 @@
-#include "ShieldButtonUI.h"
+#include "ShieldButton.h"
 
-ShieldButtonUI::ShieldButtonUI(ButtonUI button, shared_ptr<Player> player):
+ShieldButton::ShieldButton(ButtonUI button, shared_ptr<Player> player):
 	ButtonUI(std::move(button)),
 	player(player)
 {
 }
 
-bool ShieldButtonUI::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
+bool ShieldButton::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> pos, Time timeDiff)
 {
 	auto baseHandled = ButtonUI::handleMouseInput(mouseEventType, pos, timeDiff);
 	/*if (baseHandled && mouseEventType != MouseEventTypes::HOVER) {

@@ -9,6 +9,7 @@
 #include <memory>
 #include <AbstractWeapon.h>
 #include <BaseItemHandler.h>
+#include <SpellProjectile.h>
 
 AbstractCharacter::AbstractCharacter()
 {
@@ -96,16 +97,44 @@ character_hp_t* AbstractCharacter::getMaxHpPtr()
 	return &maxHp;
 }
 
+void AbstractCharacter::startShoot(Position& target)
+{
+	Logger::logInfo("start school shooting");
+	while (board.lock()->getProjectiles().size() < 5) {
+		board.lock()->addProjectile(make_shared <SpellProjectile>(
+			make_shared<FlightPath>(
+				position,
+				target,
+				1,
+				2 * Calculator::getRandomInt(5, 17)
+			),
+			make_shared<ThrownSpell>(),
+			std::enable_shared_from_this<AbstractCharacter>::weak_from_this()
+		)
+		);
+	}
+}
+
 void AbstractCharacter::startAttack(Position target)
 {
 	if (!canAttack()) {
 		Logger::logInfo("cannot attack");
 		return;
 	}
-	attackInfo = AttackInfo();
+	if (meleeMode) {
+		startMelee(target);
+	}
+	else {
+		startShoot(target);
+	}
+
+}
+
+void AbstractCharacter::startMelee(Position& target) {
+	meleeAttackInfo = MeleeAttackInfo();
 	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
 	Position attackPosition = (target - position) * (1. / (target - position).getNorm()) + position;
-	attackInfo->attackLine = LineSegment(position, attackPosition);
+	meleeAttackInfo->attackLine = LineSegment(position, attackPosition);
 	Logger::logInfo("attack started", target, position);
 	int attackShadowSize = 100;
 	auto attackShadowTexture = TextureLoader::makeUniColorTexture(attackShadowSize, attackShadowSize, { 0,0,0,0 });
@@ -116,48 +145,65 @@ void AbstractCharacter::startAttack(Position target)
 		attackShadowSize / 2 + attackShadowSize / 2 * (attackPosition - position).getX(),
 		attackShadowSize / 2 + attackShadowSize / 2 * (attackPosition - position).getY());
 	SDL_SetRenderTarget(Texture::getRenderer(), prev_target);
-	attackInfo->attackShadowDrawable =
+	meleeAttackInfo->attackShadowDrawable =
 		make_shared<Drawable>(position, attackShadowTexture, Drawable::DrawableLayer::SHADOWS, make_pair(2, 2), 0.);
-	drawables.push_back(attackInfo->attackShadowDrawable);
-	attackInfo->timeToAttack = Time(300);
-	attackInfo->cooldownAfterAttack = Time(700);
+	drawables.push_back(meleeAttackInfo->attackShadowDrawable);
+	meleeAttackInfo->timeToAttack = Time(300);
+	meleeAttackInfo->cooldownAfterAttack = Time(700);
 	notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
-
 }
 
-void AbstractCharacter::updateAttack(Time timeDiff)
+void AbstractCharacter::updateAttack(Time timeDiff) {
+	if (meleeMode) {
+		bool retFlag;
+		updateMelee(timeDiff, retFlag);
+		if (retFlag) return;
+	}
+	else {
+		// TODO update shoot
+	}
+}
+
+
+void AbstractCharacter::visualiseMeleeAttack()
 {
-	if (!attackInfo.has_value()) 
+	auto lineStart = meleeAttackInfo->attackLine.getStart();
+	auto lineEnd = meleeAttackInfo->attackLine.getEnd();
+	lineStart.setZ(.1);
+	lineEnd.setZ(.1);
+	meleeAttackInfo->attackLine = LineSegment(lineStart, lineEnd);
+	Logger::logInfo("attackLine: ", meleeAttackInfo->attackLine.getStart(), meleeAttackInfo->attackLine.getEnd());
+}
+
+void AbstractCharacter::updateMelee(Time& timeDiff, bool& retFlag)
+{
+	retFlag = true;
+	if (!meleeAttackInfo.has_value())
 	{
 		//no ongoing attack - nothing to update
 		return;
 	}
 	//Logger::logInfo("updateAttack", attackInfo->timeToAttack, attackInfo->cooldownAfterAttack);
 	cancelParry();
-	attackInfo->timeToAttack -= timeDiff;
-	if (attackInfo->timeToAttack.getTimeMs() > 0) {
+	meleeAttackInfo->timeToAttack -= timeDiff;
+	if (meleeAttackInfo->timeToAttack.getTimeMs() > 0) {
 		return;
 	}
-	if (!attackInfo->hasStruct) {
-		attackInfo->hasStruct = true;
-		auto lineStart = attackInfo->attackLine.getStart();
-		auto lineEnd = attackInfo->attackLine.getEnd();
-		lineStart.setZ(.1);
-		lineEnd.setZ(.1);
-		attackInfo->attackLine = LineSegment(lineStart, lineEnd);
-		auto hitResult = board.lock()->calculateHit(attackInfo->attackLine, shared_from_this());
-		Logger::logInfo("attackLine: ", attackInfo->attackLine.getStart(), attackInfo->attackLine.getEnd());
+	if (!meleeAttackInfo->hasStruct) {
+		meleeAttackInfo->hasStruct = true;
+		visualiseMeleeAttack();
+		auto hitResult = board.lock()->calculateHit(meleeAttackInfo->attackLine, shared_from_this());
 		Logger::logInfo("attack calculated", hitResult.has_value());
 		if (hitResult.has_value()) {
 			Logger::logInfo("attack hit", hitResult.value().character.has_value(), hitResult.value().mapHit.has_value());
 		}
 		if (hitResult.has_value() && hitResult.value().character.has_value()) {
 			auto enemy = hitResult.value().character.value();
-			
+
 			//we need to deal dmg in int so we use calculator
 			auto dealtDamage = Calculator::getIntFromDoubleWithProb(
 				std::max(0., getSelectedWeapon()->getDamage()->getValue() - enemy->getTotalArmor())
-			); 
+			);
 			Logger::logInfo("updateAttack: dealing damage: ", dealtDamage,
 				"(calc from dmg: ", getSelectedWeapon()->getDamage()->getValue(), " - arm: ", enemy->getTotalArmor(), ")");
 			(*enemy->getHpPtr()) -= dealtDamage;
@@ -170,22 +216,23 @@ void AbstractCharacter::updateAttack(Time timeDiff)
 		}
 	}
 	else {
-		attackInfo->cooldownAfterAttack -= timeDiff;
-		if (attackInfo->cooldownAfterAttack.getTimeMs() <= 0) {
+		meleeAttackInfo->cooldownAfterAttack -= timeDiff;
+		if (meleeAttackInfo->cooldownAfterAttack.getTimeMs() <= 0) {
 			notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
-			drawables.erase((std::find(drawables.begin(), drawables.end(), attackInfo->attackShadowDrawable)));
+			drawables.erase((std::find(drawables.begin(), drawables.end(), meleeAttackInfo->attackShadowDrawable)));
 			notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
-			attackInfo.reset();
+			meleeAttackInfo.reset();
 		}
 	}
+	retFlag = false;
 }
 
 bool AbstractCharacter::canMove() const {
-	return !attackInfo.has_value() && !isStunned;
+	return !meleeAttackInfo.has_value() && !isStunned;
 }
 
 bool AbstractCharacter::canAttack() const {
-	return !attackInfo.has_value() && !isStunned;
+	return !meleeAttackInfo.has_value() && !isStunned;
 }
 
 shared_ptr<Shield> AbstractCharacter::getSelectedShield() const {
@@ -223,7 +270,7 @@ void AbstractCharacter::showShieldDrawable() {
 }
 
 void AbstractCharacter::parry(Time timeDiff) {
-	if (attackInfo.has_value()) {
+	if (meleeAttackInfo.has_value()) {
 		Logger::logDebug("Parry not initialized because of ongoing attack");
 		return;
 	}
