@@ -40,12 +40,14 @@ void JoystickUIElement::drawInside()
 UIElement::EventHandleResult
 JoystickUIElement::handleEvent(const SDL_Event &e, Time timeDiff, int screenSizeX,
                                int screenSizeY) {
+    bool atLeastOneFingerInside = false;
     for (auto f:fingerPositions){
         if (pxRealPosRect.isPointInside(f.first,f.second)){
+            atLeastOneFingerInside = true;
             handleMouseInput(UIElement::MouseEventTypes::PRESS_LEFT,f,timeDiff);
         }
     }
-    if (fingerPositions.empty()){
+    if (!atLeastOneFingerInside){
         pressed = false;
         updateNeeded = true;
     }

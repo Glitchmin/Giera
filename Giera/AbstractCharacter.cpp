@@ -99,14 +99,13 @@ character_hp_t* AbstractCharacter::getMaxHpPtr()
 
 void AbstractCharacter::startShoot(Position& target)
 {
-	Logger::logInfo("start school shooting");
 	while (board.lock()->getProjectiles().size() < 5) {
 		board.lock()->addProjectile(make_shared <SpellProjectile>(
 			make_shared<FlightPath>(
 				position,
 				target,
 				1,
-				2 * Calculator::getRandomInt(5, 17)
+				2 * Calculator::getRandomInt(15, 17)
 			),
 			make_shared<ThrownSpell>(),
 			std::enable_shared_from_this<AbstractCharacter>::weak_from_this()
@@ -183,7 +182,7 @@ void AbstractCharacter::updateMelee(Time& timeDiff, bool& retFlag)
 		//no ongoing attack - nothing to update
 		return;
 	}
-	//Logger::logInfo("updateAttack", attackInfo->timeToAttack, attackInfo->cooldownAfterAttack);
+	Logger::logDebug("updateAttack, cancel parry");
 	cancelParry();
 	meleeAttackInfo->timeToAttack -= timeDiff;
 	if (meleeAttackInfo->timeToAttack.getTimeMs() > 0) {
@@ -251,6 +250,7 @@ double AbstractCharacter::getTotalArmor() const {
 }
 
 void AbstractCharacter::showShieldDrawable() {
+    Logger::logDebug("showing shield!");
 	if (!getSelectedShield()) {
 		Logger::logDebug("No shield to show");
 		return;

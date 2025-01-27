@@ -35,7 +35,6 @@ Player::Player() : AbstractCharacter()
 		2 * sqrt(backpackCapacity / 2) + 2, sqrt(backpackCapacity / 2) + 2, backpackCapacity, true);
 	slots[0]->insertAcceptedItem(0, 0, BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0));
 	slots[0]->insertAcceptedItem(3, 0, BaseItemHandler::generate<Armor>(ItemTypes::ARMOR, 0));
-	slots[0]->insertAcceptedItem(6, 0, BaseItemHandler::generate<Shield>(ItemTypes::SHIELD, 0));
 	//Satchel
 	slots[1] = make_shared<MultipleEqSlot>(vector{ ItemTypes::FOOD }, 2, 2, 4, false);
 	slots[1]->insertAcceptedItem(0, 0, BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0));
@@ -51,6 +50,7 @@ Player::Player() : AbstractCharacter()
 	slots[5] = make_shared<SingleEqSlot>(vector{ ItemTypes::RANGED_WEAPON });
 	//Shield
 	slots[6] = make_shared<SingleEqSlot>(vector{ ItemTypes::SHIELD });
+    slots[6]->insertAcceptedItem(6, 0, BaseItemHandler::generate<Shield>(ItemTypes::SHIELD, 0));
 	//Armor
 	slots[7] = make_shared<SingleEqSlot>(vector{ ItemTypes::ARMOR });
 	//Dropslots

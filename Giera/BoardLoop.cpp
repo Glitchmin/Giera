@@ -118,44 +118,41 @@ void BoardLoop::handleInput(Time timeDiff) {
 	bool isUIWindowOpen = playerInventoryUI.has_value();
 	bool parryPressed = false;
 	for (auto& key : keySet) {
-		PlayerActionTypes action = inputConfig->getActionType(key);
-		switch (action) {
-			using PlAct = PlayerActionTypes;
-		case PlAct::MOVE_LEFT:
-			if (!isUIWindowOpen) {
-				player->move(Position(-((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0)); //TODO refactor
-			}
-			break;
-		case PlAct::MOVE_DOWN:
-			if (!isUIWindowOpen) {
-				player->move(Position(0, ((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0));
-			}
-			break;
-		case PlAct::MOVE_UP:
-			if (!isUIWindowOpen) {
-				player->move(Position(0, -((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0));
-			}
-			break;
-		case PlAct::MOVE_RIGHT:
-			if (!isUIWindowOpen) {
-				player->move(Position(((double)timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
-			}
-			break;
-		case PlAct::ADD_SECONDARY_CAMERA_TARGET:
-			if (!isUIWindowOpen) {
-				boardRenderer->getCamera().setSecondaryTarget(board->getMap()->getMapTile(Coordinates(60, 60)));
-			}
-			break;
-		case PlAct::PARRY:
-			parryPressed = true;
-			break;
-		}
-	}
-	/*if (parryPressed) {
-		player->parry(timeDiff);
-	} else {
-		player->cancelParry();
-	}*/
+        PlayerActionTypes action = inputConfig->getActionType(key);
+        switch (action) {
+            using PlAct = PlayerActionTypes;
+            case PlAct::MOVE_LEFT:
+                if (!isUIWindowOpen) {
+                    player->move(Position(-((double) timeDiff.getTimeMs() * 4.0 / 1000.0), 0,
+                                          0)); //TODO refactor
+                }
+                break;
+            case PlAct::MOVE_DOWN:
+                if (!isUIWindowOpen) {
+                    player->move(Position(0, ((double) timeDiff.getTimeMs() * 4.0 / 1000.0), 0));
+                }
+                break;
+            case PlAct::MOVE_UP:
+                if (!isUIWindowOpen) {
+                    player->move(Position(0, -((double) timeDiff.getTimeMs() * 4.0 / 1000.0), 0));
+                }
+                break;
+            case PlAct::MOVE_RIGHT:
+                if (!isUIWindowOpen) {
+                    player->move(Position(((double) timeDiff.getTimeMs() * 4.0 / 1000.0), 0, 0));
+                }
+                break;
+            case PlAct::ADD_SECONDARY_CAMERA_TARGET:
+                if (!isUIWindowOpen) {
+                    boardRenderer->getCamera().setSecondaryTarget(
+                            board->getMap()->getMapTile(Coordinates(60, 60)));
+                }
+                break;
+            case PlAct::PARRY:
+                parryPressed = true;
+                break;
+        }
+    }
 
 	for (auto& key : justPressedKeys) {
 		PlayerActionTypes action = inputConfig->getActionType(key);

@@ -15,7 +15,7 @@ bool AttackJoystickUIElement::handleMouseInput(MouseEventTypes mouseEventType, s
 		yDeflection /= deflectionsLength;
 		pressed = true;
 		updateNeeded = true;
-		Logger::logInfo("player would attack here", xDeflection, yDeflection);
+		player->startAttack(player->getPosition()+Position(20*xDeflection,20*yDeflection,0));
 		return true;
 	}
 	if (pressed) {
