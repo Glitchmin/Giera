@@ -205,3 +205,34 @@ UIElement::EventHandleResult UIElement::handleEvent(const SDL_Event& e, Time tim
 		this->bgColor = bgColor;
 	}
 
+std::ostream& operator<<(std::ostream& os, UIElement::MouseEventTypes eventType) {
+	switch (eventType) {
+	case UIElement::MouseEventTypes::HOVER:
+		os << "HOVER";
+		break;
+	case UIElement::MouseEventTypes::PRESS_LEFT:
+		os << "PRESS_LEFT";
+		break;
+	case UIElement::MouseEventTypes::RELEASE_LEFT:
+		os << "RELEASE_LEFT";
+		break;
+	case UIElement::MouseEventTypes::PRESS_RIGHT:
+		os << "PRESS_RIGHT";
+		break;
+	case UIElement::MouseEventTypes::RELEASE_RIGHT:
+		os << "RELEASE_RIGHT";
+		break;
+	case UIElement::MouseEventTypes::MOUSE_SCROLL_UP:
+		os << "MOUSE_SCROLL_UP";
+		break;
+	case UIElement::MouseEventTypes::MOUSE_SCROLL_DOWN:
+		os << "MOUSE_SCROLL_DOWN";
+		break;
+	case UIElement::MouseEventTypes::COUNT:
+		os << "COUNT";
+		break;
+	default:
+		os << "UNKNOWN_EVENT";
+	}
+	return os;
+}

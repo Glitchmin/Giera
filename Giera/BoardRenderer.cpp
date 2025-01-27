@@ -77,7 +77,9 @@ void BoardRenderer::removeDrawableBoardEntity(DrawableBoardEntity* entity)
 		while ( !(itLB == map.end() || (itLB->second == drawable))) {
 			itLB++;
 		}
-		map.erase(itLB);
+		if (itLB != map.end()) {
+			map.erase(itLB);
+		}
 	}
 	mapMutex.unlock();
 }

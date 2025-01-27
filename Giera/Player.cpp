@@ -35,6 +35,7 @@ Player::Player() : AbstractCharacter()
 		2 * sqrt(backpackCapacity / 2) + 2, sqrt(backpackCapacity / 2) + 2, backpackCapacity, true);
 	slots[0]->insertAcceptedItem(0, 0, BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0));
 	slots[0]->insertAcceptedItem(3, 0, BaseItemHandler::generate<Armor>(ItemTypes::ARMOR, 0));
+	slots[0]->insertAcceptedItem(6, 0, BaseItemHandler::generate<Shield>(ItemTypes::SHIELD, 0));
 	//Satchel
 	slots[1] = make_shared<MultipleEqSlot>(vector{ ItemTypes::FOOD }, 2, 2, 4, false);
 	slots[1]->insertAcceptedItem(0, 0, BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0));
@@ -62,16 +63,21 @@ void Player::updateBehaviour(Time timeDiff)
 	return;
 }
 
-shared_ptr<AbstractWeapon> Player::getSelectedWeapon()
+shared_ptr<AbstractWeapon> Player::getSelectedWeapon() const
 {
 	return static_pointer_cast<AbstractWeapon>(
 		getInventory()->getEqSlot(EqSlotTypes::MELEE)->getItem(0, 0).value_or(
-					std::static_pointer_cast<AbstractItem>(
-						//TODO Replace with default "bare hands" weapon
-						BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0) 
-					)
+			std::static_pointer_cast<AbstractItem>(
+				//TODO Replace with default "bare hands" weapon
+				BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0) 
+			)
 		)
 	);
 }
 
-
+shared_ptr<Shield> Player::getSelectedShield() const
+{
+	return static_pointer_cast<Shield>(
+		getInventory()->getEqSlot(EqSlotTypes::SHIELD)->getItem(0, 0).value_or(nullptr)
+	);
+}

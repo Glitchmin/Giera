@@ -15,14 +15,10 @@ AbstractItem::AbstractItem(item_size_t width, item_size_t height, int value, str
 
 void AbstractItem::updateDrawables()
 {
-    if (!texture) {
-        string path = getFilePath();
-        texture = TextureLoader::getTexturePtr(path);
-    }
     drawables.clear();
     if (boardRect) {
         if (drawable == nullptr) {
-            drawable = make_shared<Drawable>(boardRect.value().first, texture,
+            drawable = make_shared<Drawable>(boardRect.value().first, getTexture(),
                 Drawable::DrawableLayer::ENTITIES, make_pair(boardRect.value().second.first,
                     boardRect.value().second.second), 0);
         }
@@ -63,6 +59,17 @@ optional<pair<Position, pair<double, double>>> AbstractItem::getBoardRect() cons
 void AbstractItem::setBoardRect(optional<pair<Position, pair<double, double>>> boardRect)
 {
     this->boardRect = boardRect;
+}
+
+shared_ptr<Drawable> AbstractItem::getDrawable() {
+    return drawable;
+}
+
+shared_ptr <Texture> AbstractItem::getTexture() {
+    if (!texture) {
+        texture = TextureLoader::getTexturePtr(getFilePath());
+    }
+    return texture;
 }
 
 

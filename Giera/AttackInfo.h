@@ -3,11 +3,16 @@
 #include "Drawable.h"
 #include <optional>
 
-class AttackInfo
+class MeleeAttackInfo
 {
 public:
-	AttackInfo() = default;
-	AttackInfo(Time timeToAttack, Time cooldownAfterAttack, LineSegment attackLine, shared_ptr<Drawable> attackShadowDrawable, shared_ptr<Drawable> attackDrawable);
+	MeleeAttackInfo() = default;
+	MeleeAttackInfo(Time timeToAttack,
+		Time cooldownAfterAttack,
+		LineSegment attackLine,
+		shared_ptr<Drawable> attackShadowDrawable,
+		shared_ptr<Drawable> attackDrawable
+	);
 
 	LineSegment attackLine;
 	shared_ptr<Drawable> attackShadowDrawable;

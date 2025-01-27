@@ -18,6 +18,7 @@ class Inventory;
 class Damage;
 class HpBarDrawable;
 class AbstractWeapon;
+class Shield;
 
 class AbstractCharacter : public DrawableBoardEntity, public HittableBoardEntity, public std::enable_shared_from_this<AbstractCharacter>
 {
@@ -33,30 +34,42 @@ public:
 	void addCharacterObserver(weak_ptr<CharacterObserver> observer);
 	void setBoard(weak_ptr<Board> board);
 	void notifyCharacterObservers(CharacterObserver::Change change);
-	shared_ptr <Inventory> getInventory();
-	virtual shared_ptr <AbstractWeapon> getSelectedWeapon();
+	shared_ptr <Inventory> getInventory() const;
+	virtual shared_ptr <AbstractWeapon> getSelectedWeapon() const;
+	virtual shared_ptr <Shield> getSelectedShield() const;
+	Position getShieldPos() const;
+	double getTotalArmor() const;
 	character_hp_t* getHpPtr();
 	character_hp_t* getMaxHpPtr();
 	virtual void updateBehaviour(Time timeDiff) = 0;
+	void startShoot(Position& target);
 	virtual void startAttack(Position target);
+	void startMelee(Position& target);
 	//virtual void takeDamage(Damage damage);
 	virtual void updateAttack(Time timeDiff);
-	bool canMove();
-	bool canAttack();
+	//void applyMeleeAttackToEnemy(std::optional<Board::HitResult>& hitResult);
+	void visualiseMeleeAttack();
+	void updateMelee(Time& timeDiff, bool& retFlag);
+	bool meleeMode = false;
+	bool canMove() const;
+	bool canAttack() const;
 	virtual void parry(Time timeDiff);
 	void cancelParry();
 	virtual void die();
+
 protected:
 	void generateShadowTexture();
+	void showShieldDrawable();
+	void removeShieldDrawable();
 	character_hp_t hp;
 	character_hp_t maxHp;
 	bool isStunned = false;
 	Position position;
-	optional<AttackInfo> attackInfo; //if not empty, character is attacking
+	optional<MeleeAttackInfo> meleeAttackInfo; //if not empty, character is attacking
 	pair<double, double> sizeXY;
 	double height;
 	vector <double> resitances;
-	double armor;
+	//double armor;
 	double parryCompleteness = 0.; //values from 0 to 1.0
 	Time timeToParry = Time(500);
 	shared_ptr <Inventory> inventory;
@@ -65,6 +78,7 @@ protected:
 	shared_ptr <Drawable> drawable;
 	shared_ptr <Drawable> shadow_drawable;
 	shared_ptr <HpBarDrawable> hpBarDrawable;
+	shared_ptr <Drawable> shieldDrawable;
 	shared_ptr <CharacterHitbox> hitbox;
 	weak_ptr <Board> board;
 	int level;

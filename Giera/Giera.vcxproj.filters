@@ -510,6 +510,12 @@
     <ClCompile Include="AttackJoystickUIElement.cpp">
       <Filter>Source Files\Graphics\UI</Filter>
     </ClCompile>
+    <ClCompile Include="ShieldButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeWeaponButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValuesRange.h">
@@ -958,6 +964,12 @@
     </ClInclude>
     <ClInclude Include="AttackJoystickUIElement.h">
       <Filter>Header Files\Graphics\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ShieldButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeWeaponButton.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

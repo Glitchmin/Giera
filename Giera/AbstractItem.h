@@ -37,10 +37,10 @@ public:
     string getDescription() const;
 	optional <pair<Position, pair<double, double> > > getBoardRect() const;
     void setBoardRect(optional <pair<Position, pair<double, double> > >);
+	shared_ptr <Texture> getTexture();
+	shared_ptr <Drawable> getDrawable();
 
 	virtual std::string getFilePath() = 0;
 	virtual ItemTypes getItemType() = 0;
-
-
 };
 
