@@ -23,8 +23,9 @@ public:
      */
     JoystickUIElement(
         Rect<fr_pos_t> frRelPosRect,
-        UIElement* parent,
-        shared_ptr<Player> player);
+        UIElement* parent, shared_ptr<Player> player)
+        :UIElement(frRelPosRect, nullptr, parent, bgColor = { 255,255,255,12 }),
+        player(player) {};
 
     /**
      * @brief Handles mouse input events for the joystick.
