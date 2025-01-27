@@ -1,5 +1,18 @@
 #include "JoystickUIElement.h"
 
+/**
+ * @brief Handles mouse input events for the joystick UI element.
+ *
+ * Processes mouse events such as clicks or movements, checks whether the
+ * mouse input is within the boundaries of this joystick element, and
+ * calculates deflection values for player movement accordingly.
+ *
+ * @param mouseEventType The type of mouse event (e.g., click, move).
+ * @param pos A pair representing the mouse position (x, y) in screen coordinates.
+ * @param timeDiff The time difference between the current and the previous input event.
+ *
+ * @return True if the mouse event was handled within the joystick's bounds, false otherwise.
+ */
 bool JoystickUIElement::handleMouseInput(MouseEventTypes mouseEventType, std::pair<int, int> pos, Time timeDiff)
 {
     auto fieldSize = texture->getSize();
