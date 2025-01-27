@@ -1,11 +1,11 @@
 #pragma once
-#include <UIElement.h>
-#include <Player.h>
+#include "UIElement.h"
+#include "Player.h"
 
-class JoystickUIElement: public UIElement
+class AttackJoystickUIElement: public UIElement
 {
 public:
-    JoystickUIElement(
+    AttackJoystickUIElement(
         Rect<fr_pos_t> frRelPosRect,
         UIElement* parent, shared_ptr<Player> player) 
         :UIElement(frRelPosRect, nullptr,parent,bgColor={255,255,255,12}),

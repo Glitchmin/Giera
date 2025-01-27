@@ -8,9 +8,11 @@
 #include "ImageResizeTypes.h"
 #include <array>
 #include <vector>
+#include <SDL.h>
 using std::array;
 using std::vector;
 using std::unique_ptr;
+
 
 typedef int px_pos_t; //pixel position
 typedef float fr_pos_t; //proportional position using fraction, relative to the parent
@@ -27,6 +29,7 @@ protected:
 	ImageResizeTypes imageResizePolicy;
 	VerticalAlignmentTypes vImageAlign;
 	HorizontalAlignmentTypes hImageAlign;
+    static inline vector<std::pair<float, float>> fingerPositions ={};
 
 public:
 	enum class MouseEventTypes {
@@ -39,31 +42,37 @@ public:
 		MOUSE_SCROLL_DOWN,
 		COUNT
 	};
+	struct EventHandleResult
+	{
+		bool mouseHandled = false;
+		vector<bool> touchesHandled;
+	};
 
 	UIElement(Rect <fr_pos_t> frRelPosRect, shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor = { 0,0,0,0 }, 
 		ImageResizeTypes imageResizePolicy = ImageResizeTypes::STRETCH, VerticalAlignmentTypes vImageAlign = VerticalAlignmentTypes::TOP,
 		HorizontalAlignmentTypes hImageAlign = HorizontalAlignmentTypes::LEFT);
 	UIElement(Rect <px_pos_t> pxRealPosRect, shared_ptr<Texture> image, SDL_Color bgColor = { 0,0,0,0 });
+	
 	virtual void addChild(unique_ptr<UIElement> child);
 	virtual void removeChild(UIElement* childToRemove);
-	virtual void insertBackground();
-	virtual void render(shared_ptr <Texture>& textureToDrawOn); //TODO make final, all changes should now be done with drawInside
-	virtual bool handleMouseInput(MouseEventTypes mouseEventType, pair<int,int> pos, Time timeDiff);
-	void drawImage();
-	virtual void drawInside();
-
     UIElement* getParent() const;
 	virtual const vector<unique_ptr<UIElement>>& getChildren();
 	virtual void clearChildren();
+	
+	virtual void render(shared_ptr <Texture>& textureToDrawOn); //TODO make final, all changes should now be done with drawInside
+	virtual void insertBackground();
+	void drawImage();
+	virtual void drawInside();
+	
+	virtual bool handleMouseInput(MouseEventTypes mouseEventType, pair<int,int> pos, Time timeDiff);
+	virtual EventHandleResult handleEvent(const SDL_Event& e, Time timeDiff, int screenSizeX, int screenSizeY);
 
 	virtual void needsUpdate();
+
     shared_ptr<Texture> getTexture() const;
-
 	Rect<px_pos_t> getPixelRelativePosRect() const;
-
 	Rect<px_pos_t> getPixelRealPosRect() const;
 	void setPixelRealPosRect(Rect<px_pos_t> pixelRealPosRect);
-
     void setBgColor(SDL_Color bgColor);
 
 };

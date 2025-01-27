@@ -6,6 +6,7 @@
 #include "InventoryUI.h"
 #include "InventoryInputHandler.h"
 #include "JoystickUIElement.h"
+#include "AttackJoystickUIElement.h"
 
 
 BoardLoop::BoardLoop(shared_ptr<Window> window, shared_ptr<InputConfig> inputConfig)
@@ -61,7 +62,7 @@ void BoardLoop::handleInput(Time timeDiff) {
 			Logger::logInfo((int)event.button.button, " button up");
 			int buttonUpID = event.button.button == 1 ?
 				(int)MouseButtonTypes::LEFT : (int)MouseButtonTypes::RIGHT;
-			mouseButtonStates[buttonUpID] = MouseButtonStateTypes::JUST_RELEASED;
+			//mouseButtonStates[buttonUpID] = MouseButtonStateTypes::JUST_RELEASED;
 		}
 		break;
 		case SDL_MOUSEBUTTONDOWN:
@@ -69,7 +70,7 @@ void BoardLoop::handleInput(Time timeDiff) {
 			Logger::logInfo((int)event.button.button, " button down");
 			int buttonDownID = event.button.button == 1 ?
 				(int)MouseButtonTypes::LEFT : (int)MouseButtonTypes::RIGHT;
-			mouseButtonStates[buttonDownID] = MouseButtonStateTypes::JUST_PRESSED;
+			//mouseButtonStates[buttonDownID] = MouseButtonStateTypes::JUST_PRESSED;
 		}
 		break;
 		}
@@ -77,8 +78,11 @@ void BoardLoop::handleInput(Time timeDiff) {
 
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
+    window->handleEvent(event,timeDiff,window->getSize().first, window->getSize().second);
 
-	bool isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::HOVER, make_pair(mouseX, mouseY), timeDiff);
+	//bool isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::HOVER, make_pair(mouseX, mouseY), timeDiff);
+	bool isMouseHandledByUI = false; //tmp for Android
+
 
 	if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::JUST_PRESSED) {
 		isMouseHandledByUI = window->handleMouseInput(UIElement::MouseEventTypes::PRESS_LEFT,
@@ -192,6 +196,10 @@ void BoardLoop::start()
 	joystickUI = joyUI.get();
 	window->addChild(std::move(joyUI));
 
+    auto attackJoyUI = make_unique <AttackJoystickUIElement>(Rect<fr_pos_t>{.5,.5,.5,.5},window.get(), player);
+    attackJoystickUI = attackJoyUI.get();
+    window->addChild(std::move(attackJoyUI));
+
 	while (loopGoing) {
 		Time inputTimeDiff = generalTimer.getTime() - lastInputHandling;
 		lastInputHandling = generalTimer.getTime();
@@ -200,7 +208,6 @@ void BoardLoop::start()
 		while (board->getAiCharacters().size()<1) {
 			auto aiChar = make_shared<AiCharacter>(CharacterTypes::BANDIT_THUG, Position(14, 4.7, 0), 1);
 			board->addAiCharacter(aiChar);
-			//player character type is needed to obtain npc0 texture
 		}
 		player->updateAttack(inputTimeDiff);
 		for (auto& aiChar : board->getAiCharacters()) {

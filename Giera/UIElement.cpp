@@ -1,5 +1,6 @@
 #include "UIElement.h"
 #include "TextureLoader.h"
+#include <SDL.h>
 
 UIElement::UIElement(Rect <fr_pos_t> frRelPosRect,
 	shared_ptr<Texture> image, UIElement* parent, SDL_Color bgColor, ImageResizeTypes imageResizePolicy,
@@ -24,7 +25,7 @@ void UIElement::drawInside() {
 }
 
 void UIElement::drawImage() {
-	if (image==nullptr){
+	if (image == nullptr) {
 		return;
 	}
 	if (imageResizePolicy == ImageResizeTypes::STRETCH) {
@@ -33,17 +34,16 @@ void UIElement::drawImage() {
 	}
 	int imSizeX = image->getSize().first;
 	int imSizeY = image->getSize().second;
-	if (imageResizePolicy == ImageResizeTypes::KEEP_ASPECT_RATIO){
+	if (imageResizePolicy == ImageResizeTypes::KEEP_ASPECT_RATIO) {
 		double aspectRatio = ((double)imSizeX) / (double)imSizeY;
 		double resizeRatio = std::min((double)pxRealPosRect.w / (double)imSizeX,
 			(double)pxRealPosRect.h / (double)imSizeY);
-		Logger::logInfo(resizeRatio, pxRealPosRect.w, pxRealPosRect.h, imSizeX, imSizeY);
 		imSizeX *= resizeRatio;
 		imSizeY *= resizeRatio;
 	}
 	int x = 0;
 	int y = 0;
-	
+
 	if (hImageAlign == HorizontalAlignmentTypes::CENTER) {
 		x += (pxRealPosRect.w - imSizeX) / 2;
 	}
@@ -57,7 +57,6 @@ void UIElement::drawImage() {
 	if (vImageAlign == VerticalAlignmentTypes::BOTTOM) {
 		y += pxRealPosRect.h - imSizeY;
 	}
-	Logger::logInfo(imSizeX, imSizeY, x, y);
 	image->draw(*texture, nullopt, SDL_Rect{ x,y,imSizeX,imSizeY });
 }
 
@@ -85,89 +84,124 @@ bool UIElement::handleMouseInput(MouseEventTypes mouseEventType, pair<int, int> 
 	}
 	return ans;
 }
-
-void UIElement::addChild(unique_ptr<UIElement> child)
+UIElement::EventHandleResult UIElement::handleEvent(const SDL_Event& e, Time timeDiff, int screenSizeX, int screenSizeY)
 {
-	children.push_back(std::move(child));
-	needsUpdate();
+    // After handling the event, always refresh fingerPositions
+    // with all active fingers across all touch devices:
+    fingerPositions.clear();
+    int numDevices = SDL_GetNumTouchDevices();
+    for (int d = 0; d < numDevices; ++d)
+    {
+        SDL_TouchID touchId = SDL_GetTouchDevice(d);
+        if (touchId == 0) continue;
+
+        int nFingers = SDL_GetNumTouchFingers(touchId);
+        for (int i = 0; i < nFingers; ++i)
+        {
+            SDL_Finger* finger = SDL_GetTouchFinger(touchId, i);
+            if (finger)
+            {
+                float x = finger->x * screenSizeX;
+                float y = finger->y * screenSizeY;
+                fingerPositions.emplace_back(x, y);
+            }
+        }
+    }
+
+    // Pass the event down to children (if any)
+    for (auto& child : children)
+    {
+        child->handleEvent(e, timeDiff, screenSizeX, screenSizeY);
+    }
+
+    EventHandleResult ret{ false, {} };
+    return ret;
 }
 
-void UIElement::removeChild(UIElement* childToRemove)
-{
-	for (int i=0; i<children.size();i++){
-		if (children[i].get() == childToRemove){
-			children.erase(children.begin() + i);
-			break;
+
+
+	void UIElement::addChild(unique_ptr<UIElement> child)
+	{
+		children.push_back(std::move(child));
+		needsUpdate();
+	}
+
+	void UIElement::removeChild(UIElement * childToRemove)
+	{
+		for (int i = 0; i < children.size(); i++) {
+			if (children[i].get() == childToRemove) {
+				children.erase(children.begin() + i);
+				break;
+			}
 		}
+		needsUpdate();
 	}
-	needsUpdate();
-}
 
-void UIElement::insertBackground()
-{
-	texture->fillWithColor(bgColor);
-}
-
-const vector<unique_ptr<UIElement>>& UIElement::getChildren()
-{
-	return children;
-}
-
-void UIElement::clearChildren()
-{
-	children.clear();
-}
-
-
-UIElement* UIElement::getParent() const
-{
-	return parent;
-}
-
-void UIElement::needsUpdate()
-{
-	if (parent == nullptr) {
-		return;
+	void UIElement::insertBackground()
+	{
+		texture->fillWithColor(bgColor);
 	}
-	updateNeeded = true;
-	parent->needsUpdate();
-}
 
-shared_ptr<Texture> UIElement::getTexture() const
-{
-	return texture;
-}
-
-Rect<px_pos_t> UIElement::getPixelRelativePosRect() const
-{
-	return { pxRealPosRect.x - parent->pxRealPosRect.x,
-	pxRealPosRect.y - parent->pxRealPosRect.y,
-	pxRealPosRect.w,pxRealPosRect.h };
-}
-
-Rect<px_pos_t> UIElement::getPixelRealPosRect() const
-{
-	return pxRealPosRect;
-}
-
-void UIElement::setPixelRealPosRect(Rect<px_pos_t> pixelRealPosRect)
-{
-	px_pos_t xShift = pixelRealPosRect.x - pxRealPosRect.x;
-	px_pos_t yShift = pixelRealPosRect.y - pxRealPosRect.y;
-	for (auto& child : children) {
-		auto posRect = child->getPixelRealPosRect();
-		posRect.x += xShift;
-		posRect.y += yShift;
-		child->setPixelRealPosRect(posRect);
+	const vector<unique_ptr<UIElement>>& UIElement::getChildren()
+	{
+		return children;
 	}
-	pxRealPosRect = pixelRealPosRect;
-}
+
+	void UIElement::clearChildren()
+	{
+		children.clear();
+	}
+
+
+	UIElement* UIElement::getParent() const
+	{
+		return parent;
+	}
+
+	void UIElement::needsUpdate()
+	{
+		if (parent == nullptr) {
+			return;
+		}
+		updateNeeded = true;
+		parent->needsUpdate();
+	}
+
+	shared_ptr<Texture> UIElement::getTexture() const
+	{
+		return texture;
+	}
+
+	Rect<px_pos_t> UIElement::getPixelRelativePosRect() const
+	{
+		return { pxRealPosRect.x - parent->pxRealPosRect.x,
+		pxRealPosRect.y - parent->pxRealPosRect.y,
+		pxRealPosRect.w,pxRealPosRect.h };
+	}
+
+	Rect<px_pos_t> UIElement::getPixelRealPosRect() const
+	{
+		return pxRealPosRect;
+	}
+
+	void UIElement::setPixelRealPosRect(Rect<px_pos_t> pixelRealPosRect)
+	{
+		px_pos_t xShift = pixelRealPosRect.x - pxRealPosRect.x;
+		px_pos_t yShift = pixelRealPosRect.y - pxRealPosRect.y;
+		for (auto& child : children) {
+			auto posRect = child->getPixelRealPosRect();
+			posRect.x += xShift;
+			posRect.y += yShift;
+			child->setPixelRealPosRect(posRect);
+		}
+		pxRealPosRect = pixelRealPosRect;
+	}
 
 
 
 
-void UIElement::setBgColor(SDL_Color bgColor)
-{
-	this->bgColor = bgColor;
-}
+	void UIElement::setBgColor(SDL_Color bgColor)
+	{
+		this->bgColor = bgColor;
+	}
 

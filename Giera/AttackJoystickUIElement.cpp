@@ -1,6 +1,6 @@
-#include "JoystickUIElement.h"
+#include "AttackJoystickUIElement.h"
 
-bool JoystickUIElement::handleMouseInput(MouseEventTypes mouseEventType, std::pair<int, int> pos, Time timeDiff)
+bool AttackJoystickUIElement::handleMouseInput(MouseEventTypes mouseEventType, std::pair<int, int> pos, Time timeDiff)
 {
     auto fieldSize = texture->getSize();
 	bool ans = false;
@@ -15,7 +15,7 @@ bool JoystickUIElement::handleMouseInput(MouseEventTypes mouseEventType, std::pa
 		yDeflection /= deflectionsLength;
 		pressed = true;
 		updateNeeded = true;
-		player->move(Position(xDeflection * timeDiff.getTimeS()*4, yDeflection * timeDiff.getTimeS()*4, 0));
+		Logger::logInfo("player would attack here", xDeflection, yDeflection);
 		return true;
 	}
 	if (pressed) {
@@ -25,7 +25,7 @@ bool JoystickUIElement::handleMouseInput(MouseEventTypes mouseEventType, std::pa
 	return false;
 }
 
-void JoystickUIElement::drawInside()
+void AttackJoystickUIElement::drawInside()
 {
 	auto fieldSize = texture->getSize();
 	image->draw(*texture, nullopt, SDL_Rect{
@@ -38,14 +38,16 @@ void JoystickUIElement::drawInside()
 }
 
 UIElement::EventHandleResult
-JoystickUIElement::handleEvent(const SDL_Event &e, Time timeDiff, int screenSizeX,
+AttackJoystickUIElement::handleEvent(const SDL_Event &e, Time timeDiff, int screenSizeX,
                                int screenSizeY) {
+    bool atLeastOneFingerInside = false;
     for (auto f:fingerPositions){
         if (pxRealPosRect.isPointInside(f.first,f.second)){
+            atLeastOneFingerInside = true;
             handleMouseInput(UIElement::MouseEventTypes::PRESS_LEFT,f,timeDiff);
         }
     }
-    if (fingerPositions.empty()){
+    if (!atLeastOneFingerInside){
         pressed = false;
         updateNeeded = true;
     }

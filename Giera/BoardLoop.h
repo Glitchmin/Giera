@@ -4,6 +4,7 @@
 #include "InputConfig.h"
 #include "MouseButtonStateTypes.h"
 #include "JoystickUIElement.h"
+#include "AttackJoystickUIElement.h"
 #include <set>
 using std::set;
 
@@ -20,6 +21,7 @@ public:
 protected:
 	optional<InventoryUI*> playerInventoryUI;
 	optional<JoystickUIElement*> joystickUI;
+    optional<AttackJoystickUIElement*> attackJoystickUI;
 	shared_ptr<Board> board;
 	set <SDL_Scancode> keySet;
 	array<MouseButtonStateTypes, (int)MouseButtonTypes::COUNT> mouseButtonStates;
