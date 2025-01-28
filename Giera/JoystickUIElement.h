@@ -17,7 +17,8 @@ public:
      *
      * Initializes the joystick with its relative position, parent element, and associated player object.
      *
-     * @param frRelPosRect The relative position and size of the joystick in fractional coordinates.
+     * @param frRelPosRect The area where the touch is intercepted to steer the joystick. Defined as fractional coordinates
+     * relative to the parent.
      * @param parent The parent `UIElement` that this joystick is part of.
      * @param player A shared pointer to the player object that this joystick controls.
      */
