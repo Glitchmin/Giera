@@ -501,13 +501,7 @@
     <ClCompile Include="HpBarDrawable.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="AttackInfo.cpp">
-      <Filter>Source Files\GameLogic\Character</Filter>
-    </ClCompile>
     <ClCompile Include="JoystickUIElement.cpp">
-      <Filter>Source Files\Graphics\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackJoystickUIElement.cpp">
       <Filter>Source Files\Graphics\UI</Filter>
     </ClCompile>
     <ClCompile Include="ShieldButton.cpp">
@@ -515,6 +509,9 @@
     </ClCompile>
     <ClCompile Include="ChangeWeaponButton.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackJoystickUIElement.cpp">
+      <Filter>Source Files\Graphics\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -953,16 +950,7 @@
     <ClInclude Include="HpBarDrawable.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="AttackInfo.h">
-      <Filter>Header Files\GameLogic\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Defines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JoystickUIElement.h">
-      <Filter>Header Files\Graphics\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackJoystickUIElement.h">
       <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
     <ClInclude Include="ShieldButton.h">
@@ -970,6 +958,9 @@
     </ClInclude>
     <ClInclude Include="ChangeWeaponButton.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackJoystickUIElement.h">
+      <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
