@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #include <unordered_map>
 #include <memory>
 #include <SDL.h>	
@@ -28,7 +28,7 @@ private:
 	static inline unordered_map <string, shared_ptr <Texture> > textureMap{};
 	static inline unordered_map <string, TTF_Font*> fontMap{};
 	static inline array<string, (int)FontTypes::COUNT> fontPaths = 
-	{"../../save_files/fonts/MedievalSharp-Regular.ttf" };
+	{ string(SAVE_FILES_PATH) + "/fonts/MedievalSharp-Regular.ttf" };
 	static inline SDL_Renderer* renderer = NULL;
 	static shared_ptr <Texture> loadTexture(string_view textureName);
 	static TTF_Font* loadTTF_Font(FontTypes fontType, int fontSize);

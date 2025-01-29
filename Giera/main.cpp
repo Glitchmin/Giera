@@ -12,6 +12,12 @@
 int main( int argc, char* args[] )
 {
 	ios_base::sync_with_stdio(0);
+
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        std::cerr << "SDL could not initialize. SDL_Error: " << SDL_GetError() << std::endl;
+        return 1;
+    }
+
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ){
 		Logger::logError ("SDL could not initialize", SDL_GetError() );
 	}
@@ -28,12 +34,12 @@ int main( int argc, char* args[] )
 		inputConfig->setActionType(SDL_SCANCODE_C, PlayerActionTypes::ADD_SECONDARY_CAMERA_TARGET);
 		inputConfig->setActionType(SDL_SCANCODE_I, PlayerActionTypes::OPEN_EQUIPMENT);
 		inputConfig->setActionType(SDL_SCANCODE_ESCAPE, PlayerActionTypes::CLOSE_WINDOW);
+		inputConfig->setActionType(SDL_SCANCODE_LCTRL, PlayerActionTypes::PARRY);
 		BoardLoop boardLoop(window, inputConfig);
 		Logger::logInfo(window->getSize().first, "window", window->getSize().second);
 		boardLoop.start();
 
 	}
-
 
 	Logger::logInfo("end of the program");
 	Logger::close();

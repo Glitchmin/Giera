@@ -1,6 +1,5 @@
 #include "AiCharacter.h"
 #include "Cuboid.h"
-#include "HpBarDrawable.h"
 #include "Board.h"
 #include "Player.h"
 
@@ -8,8 +7,8 @@ AiCharacter::AiCharacter(CharacterTypes characterType, Position pos, int level) 
 {
 	this->characterType = characterType;
 	this->level = level;
-	hp = 100; //hardcoded for now
-	maxHp = 100; //hardcoded for now
+	hp = 100; //TODO hardcoded for now
+	maxHp = 100; //TODO hardcoded for now
 	string path = getTextureFilePath();
 	position = pos;
 	sizeXY = make_pair(.7, .5);
@@ -23,8 +22,6 @@ AiCharacter::AiCharacter(CharacterTypes characterType, Position pos, int level) 
 	drawable = make_shared<Drawable>(position, TextureLoader::getTextureCopy(path),
 		Drawable::DrawableLayer::ENTITIES, sizeXY, height);
 	drawables.push_back(drawable);
-	hpBarDrawable = make_shared<HpBarDrawable>(Position(position.getX(), position.getY(), position.getZ() + height + .1), this);
-	drawables.push_back(hpBarDrawable);
 	generateShadowTexture();
 	updateDrawables();
 }
@@ -33,14 +30,14 @@ void AiCharacter::updateBehaviour(Time timeDiff)
 {
 	updateAttack(timeDiff);
 	//Logger::logInfo("AiCharacter::updateBehaviour");
-	Position diff = (board.lock()->getPlayerCharacter()->getPosition() - getPosition());
+	Position playerPos = board.lock()->getPlayerCharacter()->getPosition();
+	Position diff = (playerPos - getPosition());
+	//Logger::logDebug("AiCharacter position diff norm: ", diff.getNorm());
+	if (diff.getNorm() < 1.0 && canAttack())
+	{
+		startAttack(playerPos);
+	}
 	move(diff * ((double)(timeDiff.getTimeS()) / diff.getNorm()));
-}
-
-void AiCharacter::updateDrawables()
-{
-	AbstractCharacter::updateDrawables();
-	hpBarDrawable->setPos(Position(position.getX(), position.getY(), position.getZ() + height + .1));
 }
 
 void AiCharacter::die(){

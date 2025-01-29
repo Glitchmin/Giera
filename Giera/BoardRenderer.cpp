@@ -28,6 +28,7 @@ void BoardRenderer::drawBoard(Time timeDiff)
 	SDL_SetRenderDrawColor(Texture::getRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Texture::getRenderer());
 	camera.updatePosition(timeDiff);
+    Texture generalTexture(NULL);
 	for (auto& layer : layers) {
 		auto& drawablesMap = layer.drawablesMap;
 		auto& layerTexture = layer.layerTexture;
@@ -37,11 +38,8 @@ void BoardRenderer::drawBoard(Time timeDiff)
 				it->getPos().getX()-it->getSizeXY().first/2 <= camera.getLeftUpperPosition().getX() + camera.getViewRangeM().first)) {
 				it->updateCurrentState(timeDiff);
 				it->draw(*layerTexture, pixelsPerMeter);
-			}
-
+            }
 		}
-
-		Texture generalTexture(NULL);
 		layerTexture->draw(generalTexture, (SDL_Rect{ (int)(camera.getLeftUpperPosition().getX() * pixelsPerMeter)
 			,(int)(camera.getLeftUpperPosition().getY() * pixelsPerMeter),window->getSize().first, window->getSize().second }),
 			(SDL_Rect{ 0,0,window->getSize().first, window->getSize().second }));
@@ -79,7 +77,9 @@ void BoardRenderer::removeDrawableBoardEntity(DrawableBoardEntity* entity)
 		while ( !(itLB == map.end() || (itLB->second == drawable))) {
 			itLB++;
 		}
-		map.erase(itLB);
+		if (itLB != map.end()) {
+			map.erase(itLB);
+		}
 	}
 	mapMutex.unlock();
 }

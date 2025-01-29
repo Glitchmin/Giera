@@ -43,12 +43,10 @@ void Texture::draw(Texture& target, optional<SDL_Rect> srcRect, optional<SDL_Rec
 	if (renderer == NULL) {
 		Logger::logError("no renderer");
 	}
-	SDL_Texture* oldTarget = SDL_GetRenderTarget(renderer);
 	SDL_SetRenderTarget(renderer, target.getSDLTexture());
 	SDL_Rect* srcRect_p = srcRect.has_value() ? &(*srcRect) : NULL;
 	SDL_Rect* dstRect_p = dstRect.has_value() ? &(*dstRect) : NULL;
 	SDL_RenderCopyEx(renderer, texture, srcRect_p, dstRect_p, angle, rotationCenter.get(), SDL_FLIP_NONE);
-	SDL_SetRenderTarget(renderer, oldTarget);
 }
 
 void Texture::draw(Texture& target, optional<SDL_Rect> srcRect, optional<SDL_Rect> dstRect)
@@ -56,12 +54,10 @@ void Texture::draw(Texture& target, optional<SDL_Rect> srcRect, optional<SDL_Rec
 	if (renderer == NULL) {
 		Logger::logError("no renderer");
 	}
-	SDL_Texture* oldTarget = SDL_GetRenderTarget(renderer);
 	SDL_SetRenderTarget(renderer, target.getSDLTexture());
 	SDL_Rect* srcRect_p = srcRect.has_value() ? &(*srcRect) : NULL;
 	SDL_Rect* dstRect_p = dstRect.has_value() ? &(*dstRect) : NULL;
 	SDL_RenderCopy(renderer, texture, srcRect_p, dstRect_p);
-	SDL_SetRenderTarget(renderer, oldTarget);
 }
 
 void Texture::fillWithColor(SDL_Color color)

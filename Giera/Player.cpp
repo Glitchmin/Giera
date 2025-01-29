@@ -14,6 +14,8 @@ Player::Player() : AbstractCharacter()
 	position = Position(1.5, 1.5, 0);
 	sizeXY = make_pair(.7, .5);
 	height = 1.1;
+	hp = 100; //TODO hardcoded for now
+	maxHp = 100; //TODO hardcoded for now
 	drawable = make_shared<Drawable>(position, TextureLoader::getTextureCopy(path),
 		Drawable::DrawableLayer::ENTITIES, sizeXY, height);
 	drawables.push_back(drawable);
@@ -48,6 +50,7 @@ Player::Player() : AbstractCharacter()
 	slots[5] = make_shared<SingleEqSlot>(vector{ ItemTypes::RANGED_WEAPON });
 	//Shield
 	slots[6] = make_shared<SingleEqSlot>(vector{ ItemTypes::SHIELD });
+    slots[6]->insertAcceptedItem(6, 0, BaseItemHandler::generate<Shield>(ItemTypes::SHIELD, 0));
 	//Armor
 	slots[7] = make_shared<SingleEqSlot>(vector{ ItemTypes::ARMOR });
 	//Dropslots
@@ -60,3 +63,21 @@ void Player::updateBehaviour(Time timeDiff)
 	return;
 }
 
+shared_ptr<AbstractWeapon> Player::getSelectedWeapon() const
+{
+	return static_pointer_cast<AbstractWeapon>(
+		getInventory()->getEqSlot(EqSlotTypes::MELEE)->getItem(0, 0).value_or(
+			std::static_pointer_cast<AbstractItem>(
+				//TODO Replace with default "bare hands" weapon
+				BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0) 
+			)
+		)
+	);
+}
+
+shared_ptr<Shield> Player::getSelectedShield() const
+{
+	return static_pointer_cast<Shield>(
+		getInventory()->getEqSlot(EqSlotTypes::SHIELD)->getItem(0, 0).value_or(nullptr)
+	);
+}

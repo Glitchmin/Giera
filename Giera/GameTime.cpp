@@ -48,6 +48,11 @@ Time Time::operator*(double const& d) const
 	return Time((unsigned int)this->ms * d);
 }
 
+double Time::operator/(Time const& t1) const
+{
+	return (double)this->ms / t1.ms;
+}
+
 bool Time::operator<(Time const& t1) const
 {
 	return this->ms < t1.ms;
@@ -58,9 +63,9 @@ bool Time::operator>(Time const& t1) const
 	return this->ms > t1.ms;
 }
 
-std::ostream& operator << (std::ostream& out, const Time& t)
+std::ostream& operator<<(std::ostream& out, const Time& t)
 {
-	out <<std::setprecision(1)<<std::fixed<<  t.getTimeS()<<"s";
+	out <<std::setprecision(4)<<std::fixed<< t.getTimeS()<<"s";
 	return out;
 }
 

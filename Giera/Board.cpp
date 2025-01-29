@@ -155,7 +155,6 @@ optional<Board::HitResult> Board::calculateHit(LineSegment path, shared_ptr<Hitt
 	optional<Position> collisionP;
 	shared_ptr<AbstractCharacter> hitCharacter;
 	optional <Position> hitMapTile;
-	Logger::logInfo("calculateHit", minX, maxX, minY, maxY);
 	HitResult hitResult;
 	for (int x = minX; x <= maxX; x++) {
 		for (int y = minY; y <= maxY; y++) {
@@ -175,7 +174,7 @@ optional<Board::HitResult> Board::calculateHit(LineSegment path, shared_ptr<Hitt
 
 			auto& characters = getBoardTile(Coordinates(x, y)).getcharacters();
 			for (auto& character : characters) {
-				Logger::logInfo("found character", character != entityToIgnore);
+
 				if (character != entityToIgnore) {
 					for (auto& hitbox : character->getHitboxes()) {
 						auto currCollision = calculateHitbox(hitbox, path, collisionP, prevPos);
