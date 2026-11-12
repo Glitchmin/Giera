@@ -1,0 +1,103 @@
+#pragma once
+#include "Position.h"
+#include "CharacterTypes.h"
+#include "DrawableBoardEntity.h"
+#include "DamageTypes.h"
+#include "SpawningDetails.h"
+#include "GameTime.h"
+#include "HittableBoardEntity.h"
+#include "CharacterHitbox.h"
+#include "CharacterObserver.h"
+#include "AttackInfo.h"
+#include <vector>
+using std::vector;
+using character_hp_t = unsigned int;
+
+class Board;
+class Inventory;
+class Damage;
+class HpBarDrawable;
+class AbstractWeapon;
+class Shield;
+
+class AbstractCharacter : public DrawableBoardEntity, public HittableBoardEntity, public std::enable_shared_from_this<AbstractCharacter>
+{
+public:
+	AbstractCharacter();
+	virtual string getTextureFilePath();
+	virtual string getShadowFilePath();
+	void move(Position moveDifference);
+
+	Position getPosition() const;
+	virtual void updateDrawables() override;
+	virtual void updateHitboxes() override;
+	void addCharacterObserver(weak_ptr<CharacterObserver> observer);
+	void setBoard(weak_ptr<Board> board);
+	void notifyCharacterObservers(CharacterObserver::Change change);
+	shared_ptr <Inventory> getInventory() const;
+	virtual shared_ptr <AbstractWeapon> getSelectedWeapon() const;
+	virtual shared_ptr <Shield> getSelectedShield() const;
+	Position getShieldPos() const;
+	double getTotalArmor() const;
+	character_hp_t* getHpPtr();
+	character_hp_t* getMaxHpPtr();
+	virtual void updateBehaviour(Time timeDiff) = 0;
+	void startShoot(Position& target);
+	virtual void startAttack(Position target);
+	void startMelee(Position& target);
+	//virtual void takeDamage(Damage damage);
+	virtual void updateAttack(Time timeDiff);
+	//void applyMeleeAttackToEnemy(std::optional<Board::HitResult>& hitResult);
+	void visualiseMeleeAttack();
+	void updateMelee(Time& timeDiff, bool& retFlag);
+	bool meleeMode = false;
+	bool canMove() const;
+	bool canAttack() const;
+	virtual void parry(Time timeDiff);
+	void cancelParry();
+	virtual void die();
+
+	/**
+	 * @brief Subtracts damage from hp, clamping at 0 (hp is unsigned, so a plain
+	 * subtraction used to wrap around to ~4 billion and the character never died).
+	 * Calls die() exactly once when hp reaches 0.
+	 * @return true if this hit killed the character.
+	 */
+	bool takeDamage(character_hp_t damage);
+	bool isDead() const;
+	/// Brings a dead character back with full hp at the given position.
+	void revive(Position newPosition);
+	character_hp_t getHp() const;
+	character_hp_t getMaxHp() const;
+	double getParryCompleteness() const;
+
+protected:
+	void generateShadowTexture();
+	void showShieldDrawable();
+	void removeShieldDrawable();
+	character_hp_t hp = 0;
+	character_hp_t maxHp = 0;
+	bool dead = false;
+	bool isStunned = false;
+	Position position;
+	optional<MeleeAttackInfo> meleeAttackInfo; //if not empty, character is attacking
+	pair<double, double> sizeXY{ 0., 0. };
+	double height = 0.;
+	vector <double> resitances;
+	//double armor;
+	double parryCompleteness = 0.; //values from 0 to 1.0
+	Time timeToParry = Time(500);
+	Time rangedCooldown = Time(400);
+	Time rangedCooldownLeft = Time(0);
+	shared_ptr <Inventory> inventory;
+	vector <weak_ptr<CharacterObserver>> characterObservers;
+	CharacterTypes characterType;
+	shared_ptr <Drawable> drawable;
+	shared_ptr <Drawable> shadow_drawable;
+	shared_ptr <HpBarDrawable> hpBarDrawable;
+	shared_ptr <Drawable> shieldDrawable;
+	shared_ptr <CharacterHitbox> hitbox;
+	weak_ptr <Board> board;
+	int level = 1;
+};
+

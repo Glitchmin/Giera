@@ -1,0 +1,95 @@
+{
+  "version": "2.0.0",
+  // Gradle needs JDK 17+; the system Java (23) is too new for Gradle 8.9,
+  // so the Android tasks use the JDK bundled with Android Studio.
+  "options": {
+    "env": {
+      "JAVA_HOME": "C:\\Program Files\\Android\\Android Studio\\jbr",
+      "ADB": "${env:LOCALAPPDATA}\\Android\\Sdk\\platform-tools\\adb.exe"
+    }
+  },
+  "tasks": [
+    {
+      "label": "CMake: build",
+      "type": "cmake",
+      "command": "build",
+      "problemMatcher": ["$msCompile"],
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "CMake: run tests",
+      "type": "cmake",
+      "command": "test",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Fetch dependencies (SDL)",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ${workspaceFolder}/tools/fetch_deps.ps1",
+      "problemMatcher": []
+    },
+    {
+      "label": "Fetch dependencies (SDL + premake)",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ${workspaceFolder}/tools/fetch_deps.ps1 -Premake",
+      "problemMatcher": []
+    },
+    {
+      "label": "Premake: generate VS2022 solution",
+      "type": "shell",
+      "command": "${workspaceFolder}/premake/premake5.exe vs2022",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Premake: build Debug and run tests",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ${workspaceFolder}/tools/build_premake.ps1 -Test",
+      "problemMatcher": ["$msCompile"],
+      "group": "test"
+    },
+    {
+      "label": "Premake: build Release",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ${workspaceFolder}/tools/build_premake.ps1 -Config Release",
+      "problemMatcher": ["$msCompile"],
+      "group": "build"
+    },
+    {
+      "label": "Android: build debug APK",
+      "type": "shell",
+      "command": ".\\gradlew.bat assembleDebug",
+      "options": { "cwd": "${workspaceFolder}/android" },
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Android: install and run",
+      "type": "shell",
+      "command": ".\\gradlew.bat installDebug; if ($?) { & $env:ADB shell am start -n com.glitchmin.giera/.GieraActivity }",
+      "options": {
+        "cwd": "${workspaceFolder}/android",
+        "shell": { "executable": "powershell.exe", "args": ["-NoProfile", "-Command"] }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Android: logcat (game log)",
+      "type": "shell",
+      "command": "& $env:ADB logcat -s Giera:* SDL:* SDL/APP:* AndroidRuntime:E DEBUG:*",
+      "options": {
+        "shell": { "executable": "powershell.exe", "args": ["-NoProfile", "-Command"] }
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Android: clean",
+      "type": "shell",
+      "command": ".\\gradlew.bat clean",
+      "options": { "cwd": "${workspaceFolder}/android" },
+      "problemMatcher": []
+    }
+  ]
+}

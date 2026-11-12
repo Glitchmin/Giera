@@ -61,3 +61,10 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+# Shell scripts must keep LF (gradlew is run by sh on Linux/macOS CI)
+*.sh text eol=lf
+android/gradlew text eol=lf
+*.bat text eol=crlf
+*.jar binary
+*.ttf binary

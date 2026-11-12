@@ -1,0 +1,22 @@
+// Top-level build file. The game itself is built by the repository's root
+// CMakeLists.txt (see app/build.gradle -> externalNativeBuild).
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.6.0'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+tasks.register('clean', Delete) {
+    delete rootProject.layout.buildDirectory
+}

@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Giera (Windows)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "preLaunchTask": "CMake: build",
+      "program": "${command:cmake.buildDirectory}/bin/Giera.exe",
+      "args": [],
+      "cwd": "${command:cmake.buildDirectory}/bin",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Giera (Windows, Android touch controls)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "preLaunchTask": "CMake: build",
+      "program": "${command:cmake.buildDirectory}/bin/Giera.exe",
+      "args": ["--touch-ui"],
+      "cwd": "${command:cmake.buildDirectory}/bin",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Giera (Windows, autoplay demo)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "preLaunchTask": "CMake: build",
+      "program": "${command:cmake.buildDirectory}/bin/Giera.exe",
+      "args": ["--autoplay", "--verbose"],
+      "cwd": "${command:cmake.buildDirectory}/bin",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Unit tests (debug)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "preLaunchTask": "CMake: build",
+      "program": "${command:cmake.buildDirectory}/bin/GieraTests.exe",
+      "args": [],
+      "cwd": "${command:cmake.buildDirectory}/bin",
+      "console": "integratedTerminal"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  // CMake Tools drives the Windows build from CMakePresets.json
+  // (status bar: pick "Windows Debug", then Build / Debug / Run Tests).
+  "cmake.useCMakePresets": "always",
+  "cmake.configureOnOpen": true,
+  "cmake.ctest.testExplorerIntegrationEnabled": true,
+  "cmake.copyCompileCommands": "${workspaceFolder}/build/compile_commands.json",
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "C_Cpp.default.cppStandard": "c++20",
+
+  // Keep the 160+ MB of SDL sources and build output out of search / file watching.
+  "search.exclude": {
+    "build/**": true,
+    "external/**": true,
+    "android/**/build/**": true,
+    "android/.gradle/**": true,
+    "android/app/.cxx/**": true
+  },
+  "files.watcherExclude": {
+    "**/build/**": true,
+    "**/external/**": true,
+    "**/.gradle/**": true,
+    "**/.cxx/**": true
+  },
+  "files.associations": {
+    "*.gradle": "groovy"
+  }
+}
