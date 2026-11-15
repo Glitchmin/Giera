@@ -1,0 +1,51 @@
+# Fight system rules - read once when the game starts.
+# Format: key value   (everything after # is a comment)
+# Item numbers (damage, swing / draw time, armor, crit modifiers, break chance...) are in assets/baseItems/*.csv.
+# What every value means: docs/FightSystem.md
+
+# --- characters ---
+playerMaxHp          100
+enemyMaxHp           100
+playerWalkSpeed      4.0    # m/s
+enemyWalkSpeed       1.0    # m/s
+enemyAttackRange     1.0    # m - enemy swings when closer than this
+enemyStopDistance    0.8    # m - enemy stops walking when closer than this
+enemyMeleeWeaponId   1      # row of Melee.csv the enemies carry (0 = first row)
+enemyArmor           15     # enemies' armor, full effect vs physical damage
+
+# --- damage ---
+armorK               50     # reduction = armor / (armor + armorK): 50 armor = 50%, 100 = 67%
+baseCritChancePct    5      # % - added to the CRIT_CHANCE modifiers of your gear
+defaultCritDamagePct 150    # % - crit multiplier of weapons whose CRIT_DAMAGE is 0
+
+# --- melee ---
+bareHandsDamage      5      # damage when no melee weapon is equipped
+bareHandsSwingMs     700    # swing time when no melee weapon is equipped
+meleeReach           1.0    # m
+meleeWindupShare     0.3    # part of a weapon's swing time (AT_SPD) before the hit lands
+
+# --- bow ---
+minDrawToShoot       0.25   # release before 25% drawn = no shot, arrow stays in the quiver
+arrowSpawnHeight     1.0    # m - arrows leave the bow at this height
+
+# --- blocking ---
+shieldBlockStaggerMs 600    # a melee hit on a fully raised shield staggers the attacker this long
+parryWindowMs        250    # no shield: press block at most this long before the hit lands
+parryMissCooldownMs  600    # no shield: a missed parry can't be retried for this long
+riposteStaggerMs     1000   # a parried attacker is staggered this long
+
+# --- movement ---
+moveSpeedWhileBusy      0.5 # walking speed multiplier while drawing / shield up / eating
+actionSpeedWhileMoving  0.5 # bow draw / shield raise speed multiplier while walking
+dashDistance         2.5    # m
+dashDurationMs       200    # the dash takes this long and you can't be hit during it
+dashCooldownMs       1000
+
+# --- arrows ---
+arrowPickupRadius    0.6    # m - walk this close to an arrow to pick it up
+quiverCapacity       20     # arrows per quiver stack (the quiver has 2 stacks)
+startingArrows       20
+
+# --- healing ---
+eatTimeMs            500    # eating food from the satchel takes this long
+startingFood         2      # berries in the satchel at start

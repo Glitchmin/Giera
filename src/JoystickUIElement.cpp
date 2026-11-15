@@ -1,4 +1,5 @@
 #include "JoystickUIElement.h"
+#include "CombatRules.h"
 
 /**
  * @brief Handles mouse input events for the joystick UI element.
@@ -29,7 +30,8 @@ bool JoystickUIElement::handleMouseInput(MouseEventTypes mouseEventType, std::pa
 		yDeflection /= deflectionsLength;
 		pressed = true;
 		updateNeeded = true;
-		player->move(Position(xDeflection * timeDiff.getTimeS()*4, yDeflection * timeDiff.getTimeS()*4, 0));
+		const double speed = CombatRules::get().playerWalkSpeed;
+		player->move(Position(xDeflection * timeDiff.getTimeS() * speed, yDeflection * timeDiff.getTimeS() * speed, 0));
 		return true;
 	}
 	if (pressed) {

@@ -25,6 +25,7 @@ struct TestWorld {
 };
 
 /// Builds a board of the given size with no walls, so movement tests are deterministic.
+/// Also resets CombatRules to the shipped file with forceRolls = false (no crits / lifesteal rolls).
 TestWorld makeTestWorld(int sizeX = 16, int sizeY = 16);
 
 }

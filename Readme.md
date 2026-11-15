@@ -54,8 +54,12 @@ ctest --preset windows-debug
 build/windows-debug/bin/Giera.exe
 ```
 
-Controls: `WASD` move, left click attack (towards the cursor), `Q` switch melee/ranged,
-hold `Left Ctrl` to raise the shield (parry), `I` inventory, `Esc` close, hold right mouse to look around.
+Controls: `WASD` move, left click melee attack towards the cursor (bow: hold to draw, release to shoot),
+`Q` switch melee/bow, `Left Ctrl` block (hold to raise the shield; without a shield press just before a hit to parry),
+`Space` dash, `1`-`4` eat food from the satchel, `I` inventory, `Esc` close, hold right mouse to look around.
+
+Fight system rules and how to tune them: [docs/FightSystem.md](docs/FightSystem.md)
+(numbers in `assets/rules/Combat.txt` and `assets/baseItems/*.csv`).
 
 Command line options: `--touch-ui`, `--autoplay`, `--verbose`, `--smoke-test <seconds>`.
 

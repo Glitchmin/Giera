@@ -8,8 +8,8 @@ class Shield :
 //VIKINGS RAISE THE SHIELD WALL
 //HOLD THE FRONTLINE FIGHT 'TIL DEATH
 protected:
-    double armor;
-    Time timeToRaise;
+    double armor;        ///< armor added when fully raised (Shield.csv ARMOR)
+    Time timeToRaise;    ///< time to raise the shield fully (Shield.csv RAISE_TIME)
     ShieldTypes shieldType;
 
 public:

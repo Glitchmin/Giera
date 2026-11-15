@@ -25,6 +25,9 @@ public:
 	virtual void onCharacterHit(shared_ptr<AbstractCharacter> character, shared_ptr<Board>& board) = 0;
 	virtual void onGroundHit(Position hitPos, shared_ptr<Board>& board) = 0;
 	virtual void move(Time& timeDiff, shared_ptr<Board>& board) = 0;
+	/// Called on the main thread just before the board drops the projectile
+	/// (the place for board changes such as leaving an item behind).
+	virtual void onRemoved(shared_ptr<Board>& board) {}
 
 	void updateAngle(Position diff);
 	void updateHeightModifier(Position diff);

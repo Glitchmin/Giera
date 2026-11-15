@@ -15,6 +15,7 @@ protected:
     ValuesRange damage;
     DamageTypes damageType;
     ValuesRange armorPiercing;
+    double breakChance = 0.;
     vector<shared_ptr<AbstractEffect>> effects;
     vector<ValuesRange> values;
     ArrowTypes arrowType;

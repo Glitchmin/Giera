@@ -71,11 +71,11 @@ TEST_CASE("Effects", "effects handler reads csv")
     auto dmg = EffectsHandler::getEffect<DamageEffect>(EffectTypes::DAMAGE_EFFECT, 0);
     REQUIRE(dmg != nullptr);
     CHECK(!dmg->IsBuff());
-    CHECK_EQ(dmg->getDuration().getTimeMs(), 1000u);
+    CHECK_EQ(dmg->getDuration().getTimeMs(), 2000u);
     CHECK_EQ(dmg->getLevel(), (short)3);
-    CHECK_APPROX(dmg->getDamage()->getValue(), 1.5);
-    CHECK_EQ(dmg->getTickrate().getTimeMs(), 100u);
-    CHECK_APPROX(dmg->getDamageIncrease(), 1.2);
+    CHECK_APPROX(dmg->getDamage()->getValue(), 1.0);
+    CHECK_EQ(dmg->getTickrate().getTimeMs(), 250u);
+    CHECK_APPROX(dmg->getDamageIncrease(), 1.0);
 
     auto stat = EffectsHandler::getEffect<StatChangingEffect>(EffectTypes::STAT_CHANGING_EFFECT, 0);
     REQUIRE(stat != nullptr);

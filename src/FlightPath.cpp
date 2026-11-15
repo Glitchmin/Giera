@@ -43,7 +43,10 @@ void FlightPath::calculateThrowPath(Position& startPos, Position& endPos, double
 	double dX = endPos.getX() - startPos.getX();
 	double dY = endPos.getY() - startPos.getY();
 	double distH = sqrt((startPos.getX() - endPos.getX()) * (startPos.getX() - endPos.getX()) + (startPos.getY() - endPos.getY()) * (startPos.getY() - endPos.getY()));
-	double min = 0, max = 45;
+	// Down to -45 degrees: from bow height a near target needs a downward shot
+	// (with 0..45 every short shot flew flat and overshot the target by metres).
+	// Height at the target grows with the angle for any reachable distance, so bisection works.
+	double min = -45, max = 45;
 	while (max - min >= 0.01) {
 		throwAngle = (min + max) / 2.;
 		if (getHeight(distH)+startPos.getZ() > endPos.getZ()) {
@@ -65,7 +68,8 @@ void FlightPath::calculateThrowPath(Position& startPos, Position& endPos, double
 	vY = (dY) / (abs(dX) + abs(dY));
 	vX *= v * cos(throwAngle * PI / 180.);
 	vY *= v * cos(throwAngle * PI / 180.);
-	isTargetInRange = getHeight(distH) + startPos.getZ() >= endPos.getZ();
+	// 1 cm tolerance: the bisection lands on the target height, give or take rounding
+	isTargetInRange = getHeight(distH) + startPos.getZ() >= endPos.getZ() - 0.01;
 }
 
 bool FlightPath::willReachTarget()

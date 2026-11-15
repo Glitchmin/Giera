@@ -18,6 +18,8 @@ public:
 	shared_ptr<AbstractEffect> generate() override;
 
 	bool subtractFromTimeLeft(Time amount);
+	/// Advances the effect by @p amount. @return damage (or healing) of the ticks that happened.
+	double advance(Time amount);
 	double calculateTotalDamage();
 
     const unique_ptr<Damage>& getDamage() const;

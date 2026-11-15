@@ -18,6 +18,8 @@ protected:
 public:
     void addDrawableObserver(weak_ptr<DrawableEntityObserver> observer);
     void notifyDrawableObservers(DrawableEntityObserver::Change change);
+    /// Forgets all observers (e.g. an item picked up from the ground).
+    void clearDrawableObservers();
     vector<shared_ptr<Drawable>>& getDrawables();
     virtual void updateDrawables() = 0;
 

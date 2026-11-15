@@ -15,6 +15,8 @@ using std::set;
 
 class InventoryUI;
 class Player;
+class CombatHudUI;
+class ActionButton;
 
 /**
  * @class BoardLoop
@@ -115,6 +117,17 @@ protected:
 
     /// Button switching between bow and melee setup (touch controls only).
     std::optional<ChangeWeaponButton*> changeWeaponButton;
+
+    /// Dash and eat buttons (touch controls only).
+    std::optional<ActionButton*> dashButton;
+    std::optional<ActionButton*> eatButton;
+
+    /// Top-centre text: weapon mode, arrows, food, status; bow draw / shield / eating bar.
+    std::optional<CombatHudUI*> combatHud;
+
+    /// Left mouse button was pressed on the board (not on UI) and is still held:
+    /// aims the drawn bow, shoots on release.
+    bool attackHeldInWorld = false;
 
     /**
      * @brief A shared pointer to the game board.

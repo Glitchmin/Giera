@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "BaseItemHandler.h"
 #include "TextureLoader.h"
+#include "CombatRules.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <cstdlib>
@@ -37,6 +38,7 @@ void initTestEnvironment()
     // Creates the renderer that TextureLoader / Texture use.
     sharedWindow = std::make_shared<Window>();
     BaseItemHandler::initialize();
+    CombatRules::load();
 }
 
 void shutdownTestEnvironment()
@@ -54,6 +56,10 @@ std::shared_ptr<Window> testWindow()
 
 TestWorld makeTestWorld(int sizeX, int sizeY)
 {
+    // Every test starts from the shipped rules, with chance rolls (crit, lifesteal) off
+    // so damage numbers are predictable; tests that need a roll set forceRolls = true.
+    CombatRules::resetToLoaded();
+    CombatRules::get().forceRolls = false;
     TestWorld world;
     world.window = sharedWindow;
     auto map = std::make_unique<Map>(LandscapeTypes::GRASSLAND, MapTypes::QUEST_MAP, Directions::NORTH, sizeX, sizeY, 1);

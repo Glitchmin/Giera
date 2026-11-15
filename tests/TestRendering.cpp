@@ -44,6 +44,7 @@ TEST_CASE("Rendering", "every character texture loads")
     for (const char* path : { "assets/tx/npc/npc0.png", "assets/tx/npc/npc1.png",
                               "assets/tx/shadows/shadow_medium.png",
                               "assets/tx/items/shield/shield0.png", "assets/tx/items/arrow/arrow0.png",
+                              "assets/tx/items/arrow/arrow1.png", "assets/tx/items/ranged/ranged0.png",
                               "assets/tx/items/armor/armor0.png", "assets/tx/items/melee/melee0.png" }) {
         auto tx = TextureLoader::getTexturePtr(path);
         REQUIRE(tx != nullptr);

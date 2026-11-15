@@ -25,6 +25,8 @@ public:
 	/// (the static cache was otherwise destroyed after SDL_Quit at program exit).
 	static void clearCache();
 	static shared_ptr<Texture> makeUniColorTexture(int x, int y, SDL_Color color);
+	/// A round dot with a thin dark outline (transparent corners).
+	static shared_ptr<Texture> makeCircleTexture(int diameter, SDL_Color color);
 	static shared_ptr<Texture> makeTextTexture(FontTypes fontType, int fontSize,
 		string_view text, SDL_Color color);
 private:

@@ -24,7 +24,7 @@ bool ChangeWeaponButton::handleMouseInput(MouseEventTypes mouseEventType, pair<i
     // Only presses inside the button count (any left click anywhere used to switch weapons).
     if (mouseEventType == MouseEventTypes::PRESS_LEFT && !isPressed && pxRealPosRect.isPointInside(pos.first, pos.second)) {
         Logger::logDebug("ChangeWeaponButton::handleMouseInput:changing mode");
-        player->meleeMode = !(player->meleeMode);
+        player->toggleWeaponMode(); // stays in melee if no bow is equipped
         isPressed = true;
     }
     return false;

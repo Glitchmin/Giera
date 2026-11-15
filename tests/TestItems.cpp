@@ -29,7 +29,12 @@ TEST_CASE("Items", "armor from csv")
     for (int i = 0; i < (int)ModifiersTypes::COUNT_MODIFIERS; i++) {
         CHECK_EQ(arm->getModifier((ModifiersTypes)i), (item_mod_t)0);
     }
-    CHECK_BETWEEN(arm->getArmor(), 1.5, 2.0);
+    CHECK_BETWEEN(arm->getArmor(), 15.0, 25.0);
+    // effectiveness vs damage types (EFF_SLASH / EFF_PIERCE / EFF_BLUNT columns)
+    CHECK_APPROX(arm->getEffectiveness(DamageTypes::SLASHING), 1.0);
+    CHECK_APPROX(arm->getEffectiveness(DamageTypes::PIERCING), 0.6);
+    CHECK_APPROX(arm->getEffectiveness(DamageTypes::BLUDGEONING), 0.5);
+    CHECK_APPROX(arm->getEffectiveness(DamageTypes::FIRE), 0.0);
 }
 
 TEST_CASE("Items", "melee weapon from csv")
@@ -41,14 +46,15 @@ TEST_CASE("Items", "melee weapon from csv")
     CHECK_BETWEEN(mel->getValue(), 10.0, 30.0);
     CHECK_EQ(mel->getWidth(), (item_size_t)2);
     CHECK_EQ(mel->getHeight(), (item_size_t)5);
-    for (int i = 0; i < (int)ModifiersTypes::COUNT_MODIFIERS; i++) {
-        CHECK_EQ(mel->getModifier((ModifiersTypes)i), (item_mod_t)i);
-    }
-    CHECK_BETWEEN(mel->getDamage()->getValue(), 1.0, 2.0);
+    // modifiers are % values: crit chance 5 %, crit damage 150 % (x1.5)
+    CHECK_EQ(mel->getModifier(ModifiersTypes::DAMAGE), (item_mod_t)0);
+    CHECK_EQ(mel->getModifier(ModifiersTypes::CRIT_CHANCE), (item_mod_t)5);
+    CHECK_EQ(mel->getModifier(ModifiersTypes::CRIT_DAMAGE), (item_mod_t)150);
+    CHECK_BETWEEN(mel->getDamage()->getValue(), 15.0, 25.0); // rebalanced for 100 hp
     CHECK_EQ((int)mel->getDamage()->getDamageType(), (int)DamageTypes::SLASHING);
-    CHECK_BETWEEN(mel->getDamage()->getAp(), 1.0, 1.5);
+    CHECK_BETWEEN(mel->getDamage()->getAp(), 0.0, 5.0);
     CHECK(!mel->getDamage()->isLifesteal());
-    CHECK_BETWEEN(mel->getAttackSpeed().getTimeMs(), 69u, 420u);
+    CHECK_BETWEEN(mel->getAttackSpeed().getTimeMs(), 1000u, 1200u); // swing time in ms
 }
 
 TEST_CASE("Items", "melee lifesteal weapon")
@@ -70,10 +76,10 @@ TEST_CASE("Items", "ranged weapon from csv")
     CHECK_BETWEEN(rang->getValue(), 4.0, 12.0);
     CHECK_EQ(rang->getWidth(), (item_size_t)2);
     CHECK_EQ(rang->getHeight(), (item_size_t)5);
-    CHECK_BETWEEN(rang->getDamage()->getValue(), 0.5, 2.5);
+    CHECK_BETWEEN(rang->getDamage()->getValue(), 8.0, 12.0);
     CHECK(!rang->getDamage()->isLifesteal());
-    CHECK_BETWEEN(rang->getDrawTime().getTimeMs(), 1000u, 1500u);
-    CHECK_BETWEEN(rang->getArrowVelocity(), 2.0, 4.0);
+    CHECK_BETWEEN(rang->getDrawTime().getTimeMs(), 800u, 1200u);
+    CHECK_BETWEEN(rang->getArrowVelocity(), 25.0, 30.0);
 }
 
 TEST_CASE("Items", "ranged lifesteal weapon")
@@ -95,17 +101,18 @@ TEST_CASE("Items", "arrow with damage effect")
     CHECK_BETWEEN(arr->getValue(), 2.0, 5.0);
     CHECK_EQ(arr->getWidth(), (item_size_t)1);
     CHECK_EQ(arr->getHeight(), (item_size_t)2);
-    CHECK_BETWEEN(arr->getDamage()->getValue(), 1.0, 2.0);
+    CHECK_BETWEEN(arr->getDamage()->getValue(), 10.0, 15.0);
+    CHECK_APPROX(arr->getBreakChance(), 0.25);
     CHECK_EQ((int)arr->getDamage()->getDamageType(), (int)DamageTypes::PIERCING);
     REQUIRE(arr->getEffects().size() == 1);
     auto eff = std::dynamic_pointer_cast<DamageEffect>(arr->getEffects()[0]);
     REQUIRE(eff != nullptr);
     CHECK(!eff->IsBuff());
-    CHECK_EQ(eff->getDuration().getTimeMs(), 1000u);
+    CHECK_EQ(eff->getDuration().getTimeMs(), 2000u); // bleeding: 1 dmg every 250 ms for 2 s
     CHECK_EQ(eff->getLevel(), (short)3);
-    CHECK_APPROX(eff->getDamage()->getValue(), 1.5);
-    CHECK_EQ(eff->getTickrate().getTimeMs(), 100u);
-    CHECK_APPROX(eff->getDamageIncrease(), 1.2);
+    CHECK_APPROX(eff->getDamage()->getValue(), 1.0);
+    CHECK_EQ(eff->getTickrate().getTimeMs(), 250u);
+    CHECK_APPROX(eff->getDamageIncrease(), 1.0);
 }
 
 TEST_CASE("Items", "food with healing effect")
@@ -120,7 +127,7 @@ TEST_CASE("Items", "food with healing effect")
     REQUIRE(eff != nullptr);
     CHECK(eff->IsBuff());
     CHECK_EQ((int)eff->getDamage()->getDamageType(), (int)DamageTypes::HEALING);
-    CHECK_EQ(eff->getTickrate().getTimeMs(), 200u);
+    CHECK_EQ(eff->getTickrate().getTimeMs(), 300u); // 2 hp every 300 ms for 3 s
 }
 
 TEST_CASE("Items", "misc and readable")
@@ -142,8 +149,11 @@ TEST_CASE("Items", "shield from csv")
     // Changed from 2x5 to 3x3 in Jan 2025 (the Android copy still had the old 2x5).
     CHECK_EQ(shield->getWidth(), (item_size_t)3);
     CHECK_EQ(shield->getHeight(), (item_size_t)3);
-    CHECK_BETWEEN(shield->getArmor(), 1.0, 2.0);
-    CHECK_BETWEEN(shield->getTimeToRaise().getTimeMs(), 1500u, 2000u);
+    CHECK_BETWEEN(shield->getArmor(), 40.0, 60.0);
+    // shield penalties (gear modifiers in %): attacks 15 % slower, walking 10 % slower
+    CHECK_EQ(shield->getModifier(ModifiersTypes::ATTACK_SPEED), (item_mod_t)-15);
+    CHECK_EQ(shield->getModifier(ModifiersTypes::MOVEMENT_SPEED), (item_mod_t)-10);
+    CHECK_BETWEEN(shield->getTimeToRaise().getTimeMs(), 300u, 500u);
 }
 
 TEST_CASE("Items", "penetrator arrow has no effects")
@@ -152,7 +162,8 @@ TEST_CASE("Items", "penetrator arrow has no effects")
     REQUIRE(arr != nullptr);
     CHECK_EQ(arr->getName(), std::string("penetrator"));
     CHECK_BETWEEN(arr->getValue(), 21.0, 37.0);
-    CHECK_BETWEEN(arr->getDamage()->getValue(), 1.5, 2.5);
+    CHECK_BETWEEN(arr->getDamage()->getValue(), 15.0, 20.0);
+    CHECK_APPROX(arr->getBreakChance(), 0.10);
     CHECK(arr->getEffects().empty());
 }
 

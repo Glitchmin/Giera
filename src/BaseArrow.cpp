@@ -21,14 +21,14 @@ shared_ptr<AbstractItem> BaseArrow::generate()
         effects.push_back(ef->generate());
     }
     auto dmg_ptr = make_unique<Damage>(damage.getRandom(),armorPiercing.getRandom(), damageType);
-    return make_shared<Arrow>(width,height,value.getRandom(),name,description,dmg_ptr,effects, arrowType);
+    return make_shared<Arrow>(width,height,value.getRandom(),name,description,dmg_ptr,effects, arrowType, breakChance);
 }
 
 istream& operator>>(istream& is, BaseArrow& it)
 {
 
     int tmp, tmp2, effs_nr;
-    is >> (AbstractBaseItem&)it >> it.damage >> tmp2 >> it.armorPiercing >> effs_nr>>tmp;
+    is >> (AbstractBaseItem&)it >> it.damage >> tmp2 >> it.armorPiercing >> it.breakChance >> effs_nr >> tmp;
     it.damageType = (DamageTypes)tmp2;
     it.arrowType = (ArrowTypes)tmp;
     string filler;

@@ -2,14 +2,21 @@
 #include "Cuboid.h"
 #include "Board.h"
 #include "Player.h"
+#include "BaseItemHandler.h"
+#include "CombatRules.h"
 
 AiCharacter::AiCharacter(CharacterTypes characterType, Position pos, int level) : AbstractCharacter()
 {
+	const auto& rules = CombatRules::get();
 	this->characterType = characterType;
 	this->level = level;
-	hp = 100; //TODO hardcoded for now
-	maxHp = 100; //TODO hardcoded for now
-	rangedCooldown = Time(1200); // enemies shoot slower than the player
+	hp = rules.enemyMaxHp;
+	maxHp = rules.enemyMaxHp;
+	attackRange = rules.enemyAttackRange;
+	stopDistance = rules.enemyStopDistance;
+	walkSpeed = rules.enemyWalkSpeed;
+	meleeMode = true; // enemies fight with melee weapons only
+	weapon = BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, rules.enemyMeleeWeaponId);
 	string path = getTextureFilePath();
 	position = pos;
 	sizeXY = make_pair(.7, .5);
@@ -52,6 +59,16 @@ void AiCharacter::updateBehaviour(Time timeDiff)
 	if (distance > stopDistance) {
 		move(diff * (walkSpeed * timeDiff.getTimeS() / distance));
 	}
+}
+
+shared_ptr<AbstractWeapon> AiCharacter::getSelectedWeapon() const
+{
+	return weapon;
+}
+
+double AiCharacter::getBaseArmor() const
+{
+	return CombatRules::get().enemyArmor;
 }
 
 void AiCharacter::die(){

@@ -7,6 +7,7 @@
 #include <memory>
 #include <optional>
 #include "BoardLoop.h"
+#include "CombatRules.h"
 #include "Platform.h"
 #include "TextureLoader.h"
 
@@ -78,7 +79,13 @@ int main(int argc, char* argv[])
 			inputConfig->setActionType(SDL_SCANCODE_ESCAPE, PlayerActionTypes::CLOSE_WINDOW);
 			inputConfig->setActionType(SDL_SCANCODE_LCTRL, PlayerActionTypes::PARRY);
 			inputConfig->setActionType(SDL_SCANCODE_Q, PlayerActionTypes::CHANGE_WEAPON);
+			inputConfig->setActionType(SDL_SCANCODE_SPACE, PlayerActionTypes::DASH);
+			inputConfig->setActionType(SDL_SCANCODE_1, PlayerActionTypes::USE_SATCHEL_1);
+			inputConfig->setActionType(SDL_SCANCODE_2, PlayerActionTypes::USE_SATCHEL_2);
+			inputConfig->setActionType(SDL_SCANCODE_3, PlayerActionTypes::USE_SATCHEL_3);
+			inputConfig->setActionType(SDL_SCANCODE_4, PlayerActionTypes::USE_SATCHEL_4);
 
+			CombatRules::load(); // assets/rules/Combat.txt
 			auto boardLoop = std::make_unique<BoardLoop>(window, inputConfig);
 			boardLoop->setAutoplay(options.autoplay);
 			Logger::logInfo("window", window->getSize().first, "x", window->getSize().second);

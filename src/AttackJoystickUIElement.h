@@ -54,5 +54,11 @@ protected:
     float xDeflection = 0; /**< Horizontal deflection of the joystick knob. */
     float yDeflection = 0; /**< Vertical deflection of the joystick knob. */
     bool pressed = false; /**< Whether the joystick is currently pressed. */
+    bool fingerDown = false; /**< Pressed by a touch (released when the finger lifts). */
     shared_ptr<Player> player; /**< Reference to the player interacting with the joystick. */
+    static inline const double aimDistance = 20.; /**< metres; the arrow flies towards this point */
+
+    void press(std::pair<int, int> pos);
+    void release();
+    Position aimTarget() const;
 };

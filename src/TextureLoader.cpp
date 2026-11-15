@@ -2,6 +2,8 @@
 #include "TextureLoader.h"
 #include "Texture.h"
 #include <filesystem>
+#include <algorithm>
+#include <cmath>
 
 using std::make_shared;
 using std::to_string;
@@ -61,6 +63,35 @@ shared_ptr<Texture> TextureLoader::makeUniColorTexture(int sizeX, int sizeY, SDL
 	SDL_SetRenderTarget(renderer, oldTarget);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	return make_shared<Texture>(newTx);
+}
+
+shared_ptr<Texture> TextureLoader::makeCircleTexture(int diameter, SDL_Color color)
+{
+	diameter = std::max(2, diameter);
+	SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, diameter, diameter, 32, SDL_PIXELFORMAT_RGBA32);
+	if (surface == nullptr) {
+		return makeUniColorTexture(diameter, diameter, color);
+	}
+	SDL_LockSurface(surface);
+	const double r = diameter / 2.0;
+	for (int y = 0; y < diameter; y++) {
+		Uint32* row = (Uint32*)((Uint8*)surface->pixels + y * surface->pitch);
+		for (int x = 0; x < diameter; x++) {
+			double dx = x + 0.5 - r, dy = y + 0.5 - r;
+			double d = std::sqrt(dx * dx + dy * dy);
+			// dark outline ring, so the dot reads on grass and on dirt
+			bool inside = d <= r - 0.5;
+			bool outline = d > r - 0.5 - std::max(1.0, r * 0.25);
+			SDL_Color c = !inside ? SDL_Color{ 0, 0, 0, 0 } : outline ? SDL_Color{ 20, 20, 20, 200 } : color;
+			row[x] = SDL_MapRGBA(surface->format, c.r, c.g, c.b, c.a);
+		}
+	}
+	SDL_UnlockSurface(surface);
+	SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
+	SDL_Texture* sdlTexture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_SetTextureBlendMode(sdlTexture, SDL_BLENDMODE_BLEND);
+	SDL_FreeSurface(surface);
+	return make_shared<Texture>(sdlTexture);
 }
 
 shared_ptr<Texture> TextureLoader::makeTextTexture(FontTypes fontType, int fontSize, string_view text, SDL_Color color)

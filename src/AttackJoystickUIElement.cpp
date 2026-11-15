@@ -10,28 +10,61 @@
  */
 bool AttackJoystickUIElement::handleMouseInput(MouseEventTypes mouseEventType, std::pair<int, int> pos, Time timeDiff)
 {
-    auto fieldSize = texture->getSize();
     bool ans = false;
     for (auto& child : children) {
         ans = ans || child->handleMouseInput(mouseEventType, pos, timeDiff);
     }
-    // React only to presses (hovering the mouse over the joystick used to move/attack).
     if (mouseEventType == MouseEventTypes::PRESS_LEFT && pxRealPosRect.isPointInside(pos.first, pos.second)) {
-        xDeflection = pos.first - (pxRealPosRect.x + pxRealPosRect.w / 2);
-        yDeflection = pos.second - (pxRealPosRect.y + pxRealPosRect.h / 2);
-        float deflectionsLength = sqrt(xDeflection * xDeflection + yDeflection * yDeflection);
-        xDeflection /= deflectionsLength;
-        yDeflection /= deflectionsLength;
-        pressed = true;
-        updateNeeded = true;
-        player->startAttack(player->getPosition() + Position(20 * xDeflection, 20 * yDeflection, 0));
+        press(pos);
         return true;
     }
+    // Mouse (desktop --touch-ui): button released -> shoot. Fingers are released in handleEvent().
+    if (mouseEventType == MouseEventTypes::RELEASE_LEFT && pressed && !fingerDown) {
+        release();
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Press / hold: aims in the knob direction. A new press starts an attack (melee swing or
+ * drawing the bow); holding keeps re-aiming the bow, or swings again in melee mode.
+ */
+void AttackJoystickUIElement::press(std::pair<int, int> pos)
+{
+    float x = pos.first - (pxRealPosRect.x + pxRealPosRect.w / 2);
+    float y = pos.second - (pxRealPosRect.y + pxRealPosRect.h / 2);
+    float length = sqrt(x * x + y * y);
+    if (length < 1.f) {
+        x = 1.f; // finger exactly in the middle: keep a valid direction
+        y = 0.f;
+        length = 1.f;
+    }
+    xDeflection = x / length;
+    yDeflection = y / length;
+    updateNeeded = true;
+    if (!pressed || !player->isDrawing()) {
+        player->startAttack(aimTarget());
+    }
+    else {
+        player->aimAt(aimTarget());
+    }
+    pressed = true;
+}
+
+/// Finger lifted / mouse released: shoots a drawn bow.
+void AttackJoystickUIElement::release()
+{
     if (pressed) {
-        updateNeeded = true;
+        player->releaseAttack(aimTarget());
     }
     pressed = false;
-    return false;
+    updateNeeded = true;
+}
+
+Position AttackJoystickUIElement::aimTarget() const
+{
+    return player->getPosition() + Position(aimDistance * xDeflection, aimDistance * yDeflection, 0);
 }
 
 /**
@@ -66,12 +99,14 @@ AttackJoystickUIElement::handleEvent(const SDL_Event& e, Time timeDiff, int scre
     for (auto f : fingerPositions) {
         if (pxRealPosRect.isPointInside(f.first, f.second)) {
             atLeastOneFingerInside = true;
-            handleMouseInput(UIElement::MouseEventTypes::PRESS_LEFT, f, timeDiff);
+            fingerDown = true;
+            press(f);
+            break; // one finger steers the attack
         }
     }
-    if (!atLeastOneFingerInside) {
-        pressed = false;
-        updateNeeded = true;
+    if (!atLeastOneFingerInside && fingerDown) {
+        fingerDown = false;
+        release();
     }
     EventHandleResult ret{ false, {} };
     return ret;

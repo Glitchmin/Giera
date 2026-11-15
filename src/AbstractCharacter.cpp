@@ -8,9 +8,10 @@
 #include <algorithm>
 #include <cmath>
 #include <memory>
-#include <AbstractWeapon.h>
-#include <BaseItemHandler.h>
-#include <SpellProjectile.h>
+#include "AbstractWeapon.h"
+#include "ArrowProjectile.h"
+#include "CombatRules.h"
+#include "NormalItems.h"
 
 AbstractCharacter::AbstractCharacter()
 {
@@ -84,8 +85,23 @@ shared_ptr<Inventory> AbstractCharacter::getInventory() const
 
 shared_ptr<AbstractWeapon> AbstractCharacter::getSelectedWeapon() const
 {
-	//TODO probably AbstractCharacter should just have a random weapon
-	return BaseItemHandler::generate<MeleeWeapon>(ItemTypes::MELEE_WEAPON, 0); 
+	// (Used to generate a brand new random sword on every call.)
+	return nullptr; // bare hands
+}
+
+shared_ptr<RangedWeapon> AbstractCharacter::getSelectedBow() const
+{
+	return nullptr;
+}
+
+shared_ptr<Arrow> AbstractCharacter::peekArrow() const
+{
+	return nullptr;
+}
+
+shared_ptr<Arrow> AbstractCharacter::takeArrow()
+{
+	return nullptr;
 }
 
 character_hp_t* AbstractCharacter::getHpPtr()
@@ -99,55 +115,272 @@ character_hp_t* AbstractCharacter::getMaxHpPtr()
 }
 
 /**
- * @brief Starts a ranged shooting attack targeting a specified position.
+ * @brief Attack button pressed.
  *
- * Continuously adds projectiles to the board's projectile list until the maximum of 5 projectiles
- * is reached. Each projectile follows a flight path from the character's position to the target.
- *
- * @param target The position to target for the shooting attack.
- */
-void AbstractCharacter::startShoot(Position& target)
-{
-	// One projectile per shot + a per-character cooldown. Previously this filled the
-	// board up to 5 projectiles in a single call: a 100-damage instant-kill volley,
-	// and the enemy's projectiles in flight blocked the player from shooting at all.
-	auto boardSp = board.lock();
-	if (!boardSp || rangedCooldownLeft.getTimeMs() > 0) {
-		return;
-	}
-	boardSp->addProjectile(make_shared<SpellProjectile>(
-		make_shared<FlightPath>(
-			position,
-			target,
-			1,
-			2 * Calculator::getRandomInt(15, 17)
-		),
-		make_shared<ThrownSpell>(),
-		std::enable_shared_from_this<AbstractCharacter>::weak_from_this()
-	));
-	rangedCooldownLeft = rangedCooldown;
-}
-
-/**
- * @brief Initiates an attack based on the current combat mode (melee or ranged).
- *
- * If the character cannot attack, logs a message and exits. Otherwise, the function starts
- * either a melee or ranged attack depending on the character's combat mode.
+ * In bow mode with a bow and an arrow this starts drawing the bow (the arrow flies on
+ * releaseAttack()); otherwise it is a melee swing - bare-handed if no weapon is equipped.
+ * (The old "ranged" mode cast a spell projectile without needing a bow.)
  *
  * @param target The position to target for the attack.
  */
 void AbstractCharacter::startAttack(Position target)
 {
 	if (!canAttack()) {
-		Logger::logInfo("cannot attack");
+		Logger::logDebug("cannot attack");
 		return;
 	}
-	if (meleeMode) {
-		startMelee(target);
+	if (!meleeMode && canShoot()) {
+		startDrawing(target);
 	}
 	else {
-		startShoot(target);
+		startMelee(target);
 	}
+}
+
+bool AbstractCharacter::canShoot() const
+{
+	return getSelectedBow() != nullptr && peekArrow() != nullptr;
+}
+
+void AbstractCharacter::startDrawing(Position target)
+{
+	if (!canAttack() || !canShoot()) {
+		return;
+	}
+	cancelParry(); // both hands are needed for the bow
+	bowDraw = BowDrawInfo{ 0., target };
+}
+
+void AbstractCharacter::aimAt(Position target)
+{
+	if (bowDraw.has_value()) {
+		bowDraw->target = target;
+	}
+}
+
+void AbstractCharacter::cancelDrawing()
+{
+	bowDraw.reset();
+	clearAimLine(!dead);
+}
+
+/// Where an arrow released right now would land (on the ground), following the same
+/// flight path as the real arrow: a weak draw falls short, and a wall stops the line.
+std::vector<Position> AbstractCharacter::getArrowTrajectory() const
+{
+	std::vector<Position> points;
+	auto bow = getSelectedBow();
+	auto boardSp = board.lock();
+	if (!bowDraw.has_value() || !bow || !boardSp) {
+		return points;
+	}
+	double speed = bow->getArrowVelocity() * bowDraw->progress;
+	if (!(speed > 0.)) {
+		return points;
+	}
+	Position start = position + Position(0, 0, CombatRules::get().arrowSpawnHeight);
+	FlightPath path(start, bowDraw->target, 1, speed);
+	points.push_back(start);
+	// the shooter is ignored, like the real arrow does
+	auto self = std::const_pointer_cast<AbstractCharacter>(shared_from_this());
+	for (int i = 0; i < 600; i++) {
+		Position pos = path.updatePosition(Time(10));
+		if (!std::isfinite(pos.getX()) || !std::isfinite(pos.getY()) || !std::isfinite(pos.getZ())) {
+			break;
+		}
+		if (pos.getZ() < 1.0 && !boardSp->isStepablePosition(pos.grounded())) {
+			break; // a wall (or the map edge) stops the arrow
+		}
+		// the first character in the way stops it too
+		auto hit = boardSp->calculateHit(LineSegment(points.back(), pos), self);
+		if (hit.has_value() && hit->character.has_value()) {
+			// the arc ends where it meets the character (the ground line ends under that point)
+			Position prev = points.back();
+			points.push_back(Position((prev.getX() + pos.getX()) / 2, (prev.getY() + pos.getY()) / 2,
+				std::max(0., (prev.getZ() + pos.getZ()) / 2)));
+			break;
+		}
+		if (pos.getZ() <= 0.) {
+			points.push_back(Position(pos.getX(), pos.getY(), 0.));
+			break;
+		}
+		points.push_back(pos);
+	}
+	return points;
+}
+
+std::optional<Position> AbstractCharacter::getArrowLandingPoint() const
+{
+	auto points = getArrowTrajectory();
+	if (points.empty()) {
+		return std::nullopt;
+	}
+	return points.back().grounded();
+}
+
+bool AbstractCharacter::canReleaseArrow() const
+{
+	return bowDraw.has_value() && bowDraw->progress >= CombatRules::get().minDrawToShoot;
+}
+
+size_t AbstractCharacter::getAimDotCount() const
+{
+	return aimDots.size();
+}
+
+void AbstractCharacter::clearAimLine(bool notify)
+{
+	if (!aimLineDrawable && aimDots.empty()) {
+		return;
+	}
+	if (notify) {
+		notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+	}
+	drawables.erase(std::remove_if(drawables.begin(), drawables.end(), [this](const shared_ptr<Drawable>& d) {
+		return d == aimLineDrawable || std::find(aimDots.begin(), aimDots.end(), d) != aimDots.end();
+		}), drawables.end());
+	aimLineDrawable = nullptr;
+	aimDots.clear();
+	if (notify) {
+		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+	}
+}
+
+/**
+ * Aiming aid while the bow is drawn:
+ *  - a dotted arc along the arrow's real flight (Angry Birds style), green once releasing
+ *    would shoot (draw >= minDrawToShoot), red before that;
+ *  - a dark line on the ground from the character to where the arrow would land.
+ */
+void AbstractCharacter::updateAimLine()
+{
+	auto points = getArrowTrajectory();
+	if (points.size() < 2 || dead) {
+		clearAimLine(!dead);
+		return;
+	}
+	Position from = position.grounded();
+	Position diff = points.back().grounded() - from;
+	double length = diff.getNorm();
+
+	// REMOVED before changing the list, ADDED after (the renderer is a multimap).
+	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+	drawables.erase(std::remove_if(drawables.begin(), drawables.end(), [this](const shared_ptr<Drawable>& d) {
+		return d == aimLineDrawable || std::find(aimDots.begin(), aimDots.end(), d) != aimDots.end();
+		}), drawables.end());
+	aimLineDrawable = nullptr;
+	aimDots.clear();
+
+	if (!aimLineTexture) {
+		aimLineTexture = TextureLoader::makeUniColorTexture(4, 4, { 0, 0, 0, 140 });
+		aimDotReadyTexture = TextureLoader::makeCircleTexture(24, { 90, 230, 90, 235 });
+		aimDotNotReadyTexture = TextureLoader::makeCircleTexture(24, { 230, 60, 50, 235 });
+	}
+
+	// ground track: a thin strip centred between the two points, rotated along the line
+	if (length > 0.05) {
+		aimLineDrawable = make_shared<Drawable>(from + diff * 0.5, aimLineTexture, Drawable::DrawableLayer::SHADOWS,
+			make_pair(0.04, length), 0.);
+		aimLineDrawable->setAngle((float)(std::atan2(diff.getX(), -diff.getY()) * 57.2957795130823));
+		drawables.push_back(aimLineDrawable);
+	}
+
+	// dots every dotSpacing metres along the arc, shrinking towards the end
+	const double dotSpacing = 0.45;
+	const double firstDot = 0.5; // keep the first dot off the character
+	auto texture = canReleaseArrow() ? aimDotReadyTexture : aimDotNotReadyTexture;
+	double travelled = 0., nextDot = firstDot;
+	double total = 0.;
+	for (size_t i = 1; i < points.size(); i++) {
+		total += (points[i] - points[i - 1]).getNorm();
+	}
+	for (size_t i = 1; i < points.size() && aimDots.size() < 60; i++) {
+		double step = (points[i] - points[i - 1]).getNorm();
+		while (step > 0. && travelled + step >= nextDot) {
+			double t = (nextDot - travelled) / step;
+			Position dotPos = points[i - 1] + (points[i] - points[i - 1]) * t;
+			double size = 0.16 - 0.08 * std::min(1., nextDot / std::max(total, 0.01));
+			auto dot = make_shared<Drawable>(dotPos, texture, Drawable::DrawableLayer::ENTITIES,
+				make_pair(size, size), 0.);
+			aimDots.push_back(dot);
+			drawables.push_back(dot);
+			nextDot += dotSpacing;
+		}
+		travelled += step;
+	}
+	notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+}
+
+bool AbstractCharacter::isDrawing() const
+{
+	return bowDraw.has_value();
+}
+
+double AbstractCharacter::getDrawProgress() const
+{
+	return bowDraw.has_value() ? bowDraw->progress : 0.;
+}
+
+bool AbstractCharacter::isAttacking() const
+{
+	return meleeAttackInfo.has_value() || bowDraw.has_value();
+}
+
+/**
+ * @brief Shoots the drawn bow towards @p target.
+ *
+ * Arrow speed and damage scale with the draw progress:
+ *   speed  = bow arrow speed * progress
+ *   damage = (bow damage + arrow damage) * progress
+ * Releasing before CombatRules::minDrawToShoot lowers the bow and keeps the arrow.
+ */
+void AbstractCharacter::releaseAttack(Position target)
+{
+	if (!bowDraw.has_value()) {
+		return;
+	}
+	double progress = bowDraw->progress;
+	bowDraw.reset();
+	clearAimLine(!dead);
+	const auto& rules = CombatRules::get();
+	if (dead || progress < rules.minDrawToShoot) {
+		Logger::logInfo("bow released too early, no shot (draw", progress, ")");
+		return;
+	}
+	auto boardSp = board.lock();
+	auto bow = getSelectedBow();
+	if (!boardSp || !bow || !peekArrow()) {
+		return;
+	}
+	auto arrow = takeArrow();
+	double speed = bow->getArrowVelocity() * progress;
+	HitInfo hit = makeArrowHit(bow, arrow, progress);
+	Position start = position + Position(0, 0, rules.arrowSpawnHeight);
+	Logger::logInfo("arrow shot: draw", progress, "speed", speed, "damage", hit.damage, hit.critical ? "CRIT" : "");
+	boardSp->addProjectile(make_shared<ArrowProjectile>(
+		make_shared<FlightPath>(start, target, 1, speed),
+		arrow, hit,
+		std::enable_shared_from_this<AbstractCharacter>::weak_from_this()));
+}
+
+bool AbstractCharacter::setMeleeMode(bool melee)
+{
+	if (!melee && !getSelectedBow()) {
+		Logger::logInfo("no bow equipped");
+		melee = true;
+	}
+	if (melee != meleeMode) {
+		cancelDrawing();
+	}
+	meleeMode = melee;
+	return meleeMode;
+}
+
+bool AbstractCharacter::toggleWeaponMode()
+{
+	bool melee = setMeleeMode(!meleeMode);
+	Logger::logInfo("weapon mode:", melee ? "melee" : "bow");
+	return melee;
 }
 
 /**
@@ -164,9 +397,11 @@ void AbstractCharacter::startMelee(Position& target) {
 		// Clicking exactly on the character gave a zero-length direction (NaN attack line).
 		direction = Position(1, 0, 0);
 	}
+	const auto& rules = CombatRules::get();
+	cancelParry();
 	meleeAttackInfo = MeleeAttackInfo();
 	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
-	Position attackPosition = direction * (1. / direction.getNorm()) + position;
+	Position attackPosition = direction * (rules.meleeReach / direction.getNorm()) + position;
 	meleeAttackInfo->attackLine = LineSegment(position, attackPosition);
 	Logger::logInfo("attack started", target, position);
 	int attackShadowSize = 100;
@@ -181,8 +416,9 @@ void AbstractCharacter::startMelee(Position& target) {
 	meleeAttackInfo->attackShadowDrawable =
 		make_shared<Drawable>(position, attackShadowTexture, Drawable::DrawableLayer::SHADOWS, make_pair(2, 2), 0.);
 	drawables.push_back(meleeAttackInfo->attackShadowDrawable);
-	meleeAttackInfo->timeToAttack = Time(300);
-	meleeAttackInfo->cooldownAfterAttack = Time(700);
+	auto timings = getMeleeTimings();
+	meleeAttackInfo->timeToAttack = timings.first;
+	meleeAttackInfo->cooldownAfterAttack = timings.second;
 	notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
 }
 
@@ -195,7 +431,54 @@ void AbstractCharacter::startMelee(Position& target) {
  * @param timeDiff The time elapsed since the last update.
  */
 void AbstractCharacter::updateAttack(Time timeDiff) {
-	rangedCooldownLeft -= timeDiff;
+	bool moved = movedSinceLastUpdate;
+	movedSinceLastUpdate = false;
+	const auto& rules = CombatRules::get();
+
+	staggerLeft -= timeDiff;
+	parryCooldownLeft -= timeDiff;
+	dashCooldownLeft -= timeDiff;
+	if (parryWindowLeft.getTimeMs() > 0) {
+		parryWindowLeft -= timeDiff;
+		if (parryWindowLeft.getTimeMs() == 0) {
+			// the window closed without a hit: a missed parry can't be retried at once
+			parryCooldownLeft = Time(rules.parryMissCooldownMs);
+		}
+	}
+	if (dashLeft.getTimeMs() > 0) {
+		Time step = timeDiff < dashLeft ? timeDiff : dashLeft;
+		double distance = rules.dashDistance * step.getTimeMs() / std::max(1u, rules.dashDurationMs);
+		// small steps, so a long frame can't jump over a wall tile
+		int steps = std::max(1, (int)std::ceil(distance / 0.2));
+		for (int i = 0; i < steps; i++) {
+			if (!performMove(dashDirection * (distance / steps))) {
+				dashLeft = Time(0); // hit a wall: the dash ends there
+				break;
+			}
+		}
+		dashLeft -= timeDiff;
+	}
+	updateEffects(timeDiff);
+	if (dead) {
+		return;
+	}
+
+	if (bowDraw.has_value()) {
+		auto bow = getSelectedBow();
+		if (dead || !bow || !peekArrow()) {
+			cancelDrawing(); // bow unequipped / quiver emptied while drawing
+		}
+		else {
+			double rate = (double)timeDiff.getTimeMs() / std::max(1u, getDrawTime().getTimeMs());
+			if (moved) {
+				rate *= CombatRules::get().actionSpeedWhileMoving;
+			}
+			bowDraw->progress = std::min(1.0, bowDraw->progress + rate);
+		}
+	}
+	if (bowDraw.has_value()) {
+		updateAimLine(); // follows the cursor / joystick and the draw strength
+	}
 	// Always finish an ongoing melee swing, even if the weapon mode was switched
 	// mid-swing (before, the character stayed frozen forever in that case).
 	if (meleeAttackInfo.has_value()) {
@@ -252,26 +535,37 @@ void AbstractCharacter::updateMelee(Time& timeDiff, bool& retFlag)
 		}
 		if (hitResult.has_value() && hitResult.value().character.has_value()) {
 			auto enemy = hitResult.value().character.value();
-			auto dealtDamage = Calculator::getIntFromDoubleWithProb(
-				std::max(0., getSelectedWeapon()->getDamage()->getValue() - enemy->getTotalArmor())
-			);
-			Logger::logInfo("updateAttack: dealing damage: ", dealtDamage,
-				"(calc from dmg: ", getSelectedWeapon()->getDamage()->getValue(), " - arm: ", enemy->getTotalArmor(), ")");
-			if (enemy->takeDamage(static_cast<character_hp_t>(dealtDamage))) {
-				Logger::logInfo("killed");
-			}
+			// Last use of meleeAttackInfo in this call: the target may stagger us (shield
+			// block / riposte), which ends this swing.
+			HitInfo hit = makeMeleeHit();
+			auto outcome = enemy->receiveHit(hit);
+			Logger::logInfo("melee hit:", hit.damage, hit.critical ? "CRIT" : "", "-> dealt", outcome.dealt,
+				"(armor", (int)(outcome.reduction * 100), "%)", outcome.parried ? "PARRIED" : "",
+				outcome.shieldBlocked ? "shield block" : "", outcome.killed ? "killed" : "");
 		}
+		retFlag = false;
+		return;
 	}
 	else {
 		meleeAttackInfo->cooldownAfterAttack -= timeDiff;
 		if (meleeAttackInfo->cooldownAfterAttack.getTimeMs() <= 0) {
-			notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
-			drawables.erase((std::find(drawables.begin(), drawables.end(), meleeAttackInfo->attackShadowDrawable)));
-			notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
-			meleeAttackInfo.reset();
+			endMeleeSwing();
 		}
 	}
 	retFlag = false;
+}
+
+void AbstractCharacter::endMeleeSwing()
+{
+	if (!meleeAttackInfo.has_value()) {
+		return;
+	}
+	notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+	drawables.erase(std::remove(drawables.begin(), drawables.end(), meleeAttackInfo->attackShadowDrawable), drawables.end());
+	meleeAttackInfo.reset();
+	if (!dead) {
+		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
+	}
 }
 
 /**
@@ -282,7 +576,30 @@ void AbstractCharacter::updateMelee(Time& timeDiff, bool& retFlag)
  * @return True if the character can move, false otherwise.
  */
 bool AbstractCharacter::canMove() const {
-	return !dead && !meleeAttackInfo.has_value() && !isStunned;
+	return !dead && !meleeAttackInfo.has_value() && !isStaggered() && !isDashing();
+}
+
+void AbstractCharacter::addStuckArrow(shared_ptr<Arrow> arrow) {
+	if (arrow) {
+		stuckArrows.push_back(arrow);
+	}
+}
+
+const vector<shared_ptr<Arrow>>& AbstractCharacter::getStuckArrows() const {
+	return stuckArrows;
+}
+
+void AbstractCharacter::dropStuckArrows() {
+	auto boardSp = board.lock();
+	if (boardSp) {
+		for (auto& arrow : stuckArrows) {
+			// spread them a little around the body
+			Position offset(Calculator::getRandomDouble(-.3, .3), Calculator::getRandomDouble(-.3, .3), 0);
+			Position spot = position + offset;
+			boardSp->dropItem(boardSp->isStepablePosition(spot) ? spot : position, arrow);
+		}
+	}
+	stuckArrows.clear();
 }
 
 bool AbstractCharacter::takeDamage(character_hp_t damage) {
@@ -321,7 +638,8 @@ double AbstractCharacter::getParryCompleteness() const {
  * @return True if the character can attack, false otherwise.
  */
 bool AbstractCharacter::canAttack() const {
-	return !dead && !meleeAttackInfo.has_value() && !isStunned;
+	return !dead && !meleeAttackInfo.has_value() && !bowDraw.has_value() && !isStaggered() && !isDashing()
+		&& !isOccupied();
 }
 
 
@@ -341,20 +659,6 @@ shared_ptr<Shield> AbstractCharacter::getSelectedShield() const {
  */
 Position AbstractCharacter::getShieldPos() const {
 	return Position(position.getX() + 0.1, position.getY() + 0.5, position.getZ() + 0.6);
-}
-
-/**
- * @brief Calculates the total armor value of the character, including the shield if applicable.
- *
- * The armor value depends on whether a shield is selected and the current parry completeness.
- *
- * @return The total armor value of the character.
- */
-double AbstractCharacter::getTotalArmor() const {
-	// TODO body armor part
-	// TODO: Consider allowing parry without a shield (e.g., with a sword).
-	auto shield = getSelectedShield();
-	return (shield ? shield->getArmor() : 0.) * parryCompleteness;
 }
 
 /**
@@ -399,22 +703,36 @@ void AbstractCharacter::parry(Time timeDiff) {
 	if (dead) {
 		return;
 	}
-	if (meleeAttackInfo.has_value()) {
+	if (meleeAttackInfo.has_value() || isStaggered() || isDashing()) {
 		Logger::logDebug("Parry not initialized because of ongoing attack");
 		return;
 	}
-	auto prevParryCompleteness = parryCompleteness;
-	parryCompleteness = std::min(1.0, parryCompleteness + (timeDiff / timeToParry));
-
-	Logger::logDebug("parry started with timeDiff: ", timeDiff, "parryCompl: ", parryCompleteness);
-	if (prevParryCompleteness == 0.) {
+	bool justPressed = !parryHeld;
+	parryHeld = true;
+	auto shield = getSelectedShield();
+	if (!shield) {
+		// No shield: a timed parry. Only the press counts - holding the button does nothing.
+		if (justPressed && parryCooldownLeft.getTimeMs() == 0 && parryWindowLeft.getTimeMs() == 0) {
+			cancelDrawing();
+			parryWindowLeft = Time(CombatRules::get().parryWindowMs);
+			Logger::logDebug("parry window open");
+		}
 		return;
 	}
+	cancelDrawing(); // raising the shield lowers the bow
+	double rate = (double)timeDiff.getTimeMs() / std::max(1u, shield->getTimeToRaise().getTimeMs());
+	if (movedSinceLastUpdate) {
+		rate *= CombatRules::get().actionSpeedWhileMoving;
+	}
+	auto prevParryCompleteness = parryCompleteness;
+	parryCompleteness = std::min(1.0, parryCompleteness + rate);
+
+	Logger::logDebug("parry started with timeDiff: ", timeDiff, "parryCompl: ", parryCompleteness);
 	if (!(prevParryCompleteness != 1. && parryCompleteness == 1.)) {
-		return; // Already completed parry and handled displaying the shield.
+		return; // Not fully raised yet, or already raised and shown.
 	}
 
-	Logger::logDebug("parry completed (1.) with timeDiff: ", timeDiff, "armor: ", getTotalArmor());
+	Logger::logDebug("shield fully raised, armor", getArmorAgainst(DamageTypes::SLASHING));
 	showShieldDrawable();
 }
 
@@ -449,6 +767,7 @@ void AbstractCharacter::removeShieldDrawable() {
  * Logs the cancellation of the parry.
  */
 void AbstractCharacter::cancelParry() {
+	parryHeld = false;
 	if (!parryCompleteness) {
 		return; // Parry already cancelled.
 	}
@@ -475,6 +794,16 @@ void AbstractCharacter::die() {
 		drawables.erase(std::remove(drawables.begin(), drawables.end(), meleeAttackInfo->attackShadowDrawable), drawables.end());
 		meleeAttackInfo.reset();
 	}
+	bowDraw.reset();
+	clearAimLine(false); // the renderer already dropped our drawables above
+	parryHeld = false;
+	parryWindowLeft = Time(0);
+	parryCooldownLeft = Time(0);
+	staggerLeft = Time(0);
+	dashLeft = Time(0);
+	activeEffects.clear();
+	onInterrupted();
+	dropStuckArrows(); // arrows that hit this character can be picked up from the body
 	auto boardSp = board.lock();
 	if (boardSp) {
 		boardSp->getBoardTile(Coordinates(getPosition())).removeCharacter(shared_from_this());
@@ -489,7 +818,9 @@ void AbstractCharacter::revive(Position newPosition) {
 	}
 	dead = false;
 	hp = maxHp;
-	isStunned = false;
+	staggerLeft = Time(0);
+	dashLeft = Time(0);
+	dashCooldownLeft = Time(0);
 	position = newPosition;
 	updateDrawables();
 	updateHitboxes();
@@ -531,17 +862,34 @@ void AbstractCharacter::move(Position moveDifference)
 		//Logger::logInfo("cannot move");
 		return;
 	}
+	if (moveDifference.grounded().getNorm() > 1e-9) {
+		lastMoveDirection = moveDifference.grounded() * (1. / moveDifference.grounded().getNorm());
+	}
+	moveDifference = moveDifference * getMoveSpeedMultiplier();
+	performMove(moveDifference);
+}
+
+bool AbstractCharacter::performMove(Position moveDifference)
+{
+	auto board_sh = board.lock();
+	if (board_sh == nullptr || dead || moveDifference.getNorm() == 0. ||
+		!std::isfinite(moveDifference.getX()) || !std::isfinite(moveDifference.getY())) {
+		return false;
+	}
 	if (board_sh->isStepablePosition(position + moveDifference - Position(sizeXY.first / 2, 0, 0)) &&
 		board_sh->isStepablePosition(position + moveDifference + Position(sizeXY.first / 2, 0, 0))) {
 		notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
 		notifyHittableObservers(HittableEntityObserver::Change::REMOVED);
 		notifyCharacterObservers(CharacterObserver::Change::BEFORE_MOVE);
 		position += moveDifference;
+		movedSinceLastUpdate = true;
 		updateDrawables();
 		updateHitboxes();
 		notifyDrawableObservers(DrawableEntityObserver::Change::ADDED);
 		notifyHittableObservers(HittableEntityObserver::Change::ADDED);
 		notifyCharacterObservers(CharacterObserver::Change::AFTER_MOVE);
+		return true;
 	}
+	return false;
 }
 

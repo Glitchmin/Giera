@@ -33,9 +33,7 @@ void StatChangingEffect::applyStatChange()
 double StatChangingEffect::getCurrentValue()
 {
 	Time fromStart = duration - timeLeft;
-	std::cout << fromStart<<" "<<timeToReachFinal << "\n";
-	if (fromStart > timeToReachFinal) {
-		std::cout << "czek";
+	if (fromStart > timeToReachFinal || timeToReachFinal.getTimeMs() == 0) {
 		return finalPercentValue;
 	}
 	return initialPercentValue +

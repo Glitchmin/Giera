@@ -5,10 +5,12 @@
 #include "TestSupport.h"
 #include "BoardLoop.h"
 #include "Player.h"
+#include "CombatRules.h"
 
 namespace {
 std::unique_ptr<BoardLoop> makeLoop()
 {
+    CombatRules::resetToLoaded(); // the shipped rules, random rolls as in the game
     return std::make_unique<BoardLoop>(giera_test::testWindow(), std::make_shared<InputConfig>());
 }
 
@@ -42,7 +44,7 @@ TEST_CASE("GameLoop", "fighting player kills enemies and they respawn")
 {
     auto loop = makeLoop();
     loop->setAutoplay(true);
-    simulate(*loop, 15000);
+    simulate(*loop, 30000);
     auto& stats = loop->getStats();
     CHECK(stats.enemiesKilled >= 2);
     CHECK(stats.enemiesSpawned >= stats.enemiesKilled);

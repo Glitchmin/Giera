@@ -61,12 +61,22 @@ TEST_CASE("FlightPath", "diagonal throw lands on target")
 
 TEST_CASE("FlightPath", "short game-sized throw")
 {
-    // what AbstractCharacter::startShoot does: mass 1, force 30-34, a few meters
+    // a game-sized throw: mass 1, force ~30, a few meters
     FlightPath path(Position(2, 2, 0), Position(6, 3, 0), 1, 32);
     CHECK(path.willReachTarget());
     Position end = fly(path);
     CHECK_BETWEEN(end.getX(), 5.8, 6.2);
     CHECK_BETWEEN(end.getY(), 2.8, 3.2);
+}
+
+TEST_CASE("FlightPath", "close target below the start is hit, not overshot (regression)")
+{
+    // An arrow leaves the bow at 1 m; a ground target 5 m away needs a downward shot.
+    // Angles used to be limited to 0..45 degrees: the arrow flew flat and landed ~12 m away.
+    FlightPath path(Position(1.5, 1.5, 1.0), Position(6.5, 1.5, 0), 1, 27);
+    CHECK(path.willReachTarget());
+    Position end = fly(path);
+    CHECK_BETWEEN(end.getX(), 6.3, 6.7);
 }
 
 TEST_CASE("FlightPath", "too weak throw does not reach")

@@ -7,6 +7,7 @@ AbstractGearItem::AbstractGearItem(item_size_t width, item_size_t height, int va
 }
 item_mod_t AbstractGearItem::getModifier(ModifiersTypes modifierType) const
 {
-    return modifiers[(int)modifierType];
+    int i = (int)modifierType;
+    return i >= 0 && i < (int)modifiers.size() ? modifiers[i] : 0;
 }
 

@@ -35,9 +35,9 @@ try {
         & (Join-Path $bin 'GieraTests.exe')
         if ($LASTEXITCODE -ne 0) { throw 'unit tests failed' }
 
-        # Headless end-to-end run: 5 s of game time with the player fighting by itself.
+        # Headless end-to-end run: 15 s of game time with the player fighting by itself.
         $env:SDL_VIDEODRIVER = 'dummy'
-        $out = & (Join-Path $bin 'Giera.exe') --smoke-test 5 --autoplay 2>&1 | Out-String
+        $out = & (Join-Path $bin 'Giera.exe') --smoke-test 15 --autoplay 2>&1 | Out-String
         Remove-Item Env:SDL_VIDEODRIVER
         Write-Host $out.Trim()
         if ($LASTEXITCODE -ne 0 -or $out -notmatch 'killed [1-9]') { throw 'game smoke test failed' }

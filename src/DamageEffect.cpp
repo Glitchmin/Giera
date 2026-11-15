@@ -1,5 +1,7 @@
 #include "DamageEffect.h"
 #include "Logger.h"
+#include <algorithm>
+#include <cmath>
 
 using std::move;
 using std::make_shared;
@@ -34,6 +36,32 @@ bool DamageEffect::subtractFromTimeLeft(Time amount)
         damage->multiply(damageIncrease);
     }
     return timeLeft.getTimeMs() == 0;
+}
+
+double DamageEffect::advance(Time amount)
+{
+	// Every tick (each tickrate ms, the last one when the effect ends) deals the current
+	// damage, which is then multiplied by damageIncrease. Several ticks can fall into one
+	// long frame (subtractFromTimeLeft above only handled one).
+	double total = 0.;
+	unsigned int left = amount.getTimeMs();
+	while (left > 0 && timeLeft.getTimeMs() > 0) {
+		unsigned int untilTick = std::min(timeUntilTick.getTimeMs(), timeLeft.getTimeMs());
+		if (left < untilTick) {
+			timeUntilTick -= Time(left);
+			timeLeft -= Time(left);
+			break;
+		}
+		left -= untilTick;
+		timeLeft -= Time(untilTick);
+		total += damage->getValue();
+		damage->multiply(damageIncrease);
+		timeUntilTick = tickrate.getTimeMs() > 0 ? tickrate : timeLeft;
+		if (tickrate.getTimeMs() == 0) {
+			break;
+		}
+	}
+	return total;
 }
 
 double DamageEffect::calculateTotalDamage()

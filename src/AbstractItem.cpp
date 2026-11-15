@@ -59,6 +59,7 @@ optional<pair<Position, pair<double, double>>> AbstractItem::getBoardRect() cons
 void AbstractItem::setBoardRect(optional<pair<Position, pair<double, double>>> boardRect)
 {
     this->boardRect = boardRect;
+    drawable = nullptr; // rebuilt for the new position by updateDrawables()
 }
 
 shared_ptr<Drawable> AbstractItem::getDrawable() {

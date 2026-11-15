@@ -20,6 +20,11 @@ void DrawableBoardEntity::notifyDrawableObservers(DrawableEntityObserver::Change
 
 
 
+void DrawableBoardEntity::clearDrawableObservers()
+{
+    observers.clear();
+}
+
 vector<shared_ptr<Drawable>>& DrawableBoardEntity::getDrawables()
 {
     return drawables;

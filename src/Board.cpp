@@ -1,6 +1,8 @@
 #include "Board.h"
 #include "Player.h"
+#include "NormalItems.h"
 #include <algorithm>
+#include <cmath>
 
 using std::min;
 using std::max;
@@ -40,6 +42,61 @@ void Board::addItem(Coordinates coords, shared_ptr<AbstractItem> item)
 	tiles[coords.getX()][coords.getY()].addItem(item);
 }
 
+void Board::dropItem(Position pos, shared_ptr<AbstractItem> item)
+{
+	if (!item) {
+		return;
+	}
+	double x = std::isfinite(pos.getX()) ? std::clamp(pos.getX(), 0.0, map->getSizeX() - 0.01) : 0.0;
+	double y = std::isfinite(pos.getY()) ? std::clamp(pos.getY(), 0.0, map->getSizeY() - 0.01) : 0.0;
+	// item textures are square
+	item->setBoardRect(optional(make_pair(Position(x, y, 0), make_pair(0.6, 0.6))));
+	item->updateDrawables();
+	item->addDrawableObserver(boardRenderer);
+	tiles[(int)x][(int)y].addItem(item);
+}
+
+vector<shared_ptr<AbstractItem>> Board::getItemsNear(Position pos, double radius)
+{
+	vector<shared_ptr<AbstractItem>> found;
+	if (!std::isfinite(pos.getX()) || !std::isfinite(pos.getY())) {
+		return found;
+	}
+	int minX = max(0, (int)std::floor(pos.getX() - radius));
+	int maxX = min((int)map->getSizeX() - 1, (int)std::floor(pos.getX() + radius));
+	int minY = max(0, (int)std::floor(pos.getY() - radius));
+	int maxY = min((int)map->getSizeY() - 1, (int)std::floor(pos.getY() + radius));
+	for (int x = minX; x <= maxX; x++) {
+		for (int y = minY; y <= maxY; y++) {
+			for (auto& item : tiles[x][y].getItems()) {
+				auto rect = item->getBoardRect();
+				if (rect && (rect->first.grounded() - pos.grounded()).getNorm() <= radius) {
+					found.push_back(item);
+				}
+			}
+		}
+	}
+	return found;
+}
+
+bool Board::removeItemFromGround(shared_ptr<AbstractItem> item)
+{
+	auto rect = item ? item->getBoardRect() : std::nullopt;
+	if (!rect) {
+		return false;
+	}
+	auto& tile = tiles[(int)rect->first.getX()][(int)rect->first.getY()];
+	if (tile.getItems().count(item) == 0) {
+		return false;
+	}
+	item->notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
+	item->clearDrawableObservers();
+	tile.removeItem(item);
+	item->setBoardRect(std::nullopt);
+	item->updateDrawables();
+	return true;
+}
+
 BoardTile& Board::getBoardTile(Coordinates coords)
 {
 	return tiles[coords.getX()][coords.getY()];
@@ -76,6 +133,8 @@ void Board::addProjectile(shared_ptr<AbstractProjectile> proj)
 
 void Board::removeProjectile(int index)
 {
+	auto self = shared_from_this();
+	projectiles[index]->onRemoved(self);
 	projectilesMutex.lock();
 	projectiles[index]->notifyDrawableObservers(DrawableEntityObserver::Change::REMOVED);
 	swap(projectiles[index], projectiles.back());

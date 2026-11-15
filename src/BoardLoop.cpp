@@ -1,8 +1,10 @@
 #include "BoardLoop.h"
 #include "Player.h"
 #include "BaseItemHandler.h"
-#include "FlightPath.h"
-#include "SpellProjectile.h"
+#include "CombatRules.h"
+#include "CombatHudUI.h"
+#include "ActionButton.h"
+#include "FontTypes.h"
 #include "InventoryUI.h"
 #include "InventoryInputHandler.h"
 #include "JoystickUIElement.h"
@@ -147,13 +149,28 @@ void BoardLoop::handleInput(Time timeDiff) {
             boardRenderer->getCamera().setMouseAsSecondaryTarget();
         }
         if (mouseButtonStates[(int)MouseButtonTypes::LEFT] == MouseButtonStateTypes::JUST_PRESSED) {
+            // melee: swing; bow: start drawing (shoots on release)
             player->startAttack(boardRenderer->getCamera().getBoardCursorPosition());
+            attackHeldInWorld = true;
+        }
+    }
+    // Holding the left button aims the drawn bow at the cursor; releasing shoots
+    // (also when the button is released over a UI element).
+    if (attackHeldInWorld) {
+        auto cursor = boardRenderer->getCamera().getBoardCursorPosition();
+        auto leftState = mouseButtonStates[(int)MouseButtonTypes::LEFT];
+        if (leftState == MouseButtonStateTypes::JUST_RELEASED || leftState == MouseButtonStateTypes::NOT_PRESSED) {
+            player->releaseAttack(cursor);
+            attackHeldInWorld = false;
+        }
+        else {
+            player->aimAt(cursor);
         }
     }
 
     bool isUIWindowOpen = playerInventoryUI.has_value();
     bool parryPressed = false;
-    const double step = (double)timeDiff.getTimeMs() * 4.0 / 1000.0;
+    const double step = timeDiff.getTimeS() * CombatRules::get().playerWalkSpeed;
     for (auto& key : keySet) {
         PlayerActionTypes action = inputConfig->getActionType(key);
         switch (action) {
@@ -212,8 +229,20 @@ void BoardLoop::handleInput(Time timeDiff) {
             break;
         case PlAct::CHANGE_WEAPON:
             if (!isUIWindowOpen) {
-                player->meleeMode = !player->meleeMode;
-                Logger::logInfo("weapon mode:", player->meleeMode ? "melee" : "ranged");
+                player->toggleWeaponMode(); // stays in melee if no bow is equipped
+            }
+            break;
+        case PlAct::DASH:
+            if (!isUIWindowOpen) {
+                player->startDash();
+            }
+            break;
+        case PlAct::USE_SATCHEL_1:
+        case PlAct::USE_SATCHEL_2:
+        case PlAct::USE_SATCHEL_3:
+        case PlAct::USE_SATCHEL_4:
+            if (!isUIWindowOpen) {
+                player->eatFromSatchel((int)action - (int)PlAct::USE_SATCHEL_1);
             }
             break;
         default:
@@ -228,6 +257,9 @@ void BoardLoop::toggleInventory()
         closeInventory();
         return;
     }
+    player->cancelDrawing();
+    player->cancelParry();
+    attackHeldInWorld = false;
     auto invUI = std::make_unique<InventoryUI>(
         window, player->getInventory(),
         std::make_shared<InventoryInputHandler>(player->getInventory()));
@@ -269,6 +301,24 @@ void BoardLoop::showTouchControls()
     if (!changeWeaponButton.has_value()) {
         addChangeWeaponButton();
     }
+    if (!dashButton.has_value()) {
+        auto label = TextureLoader::makeTextTexture(FontTypes::SMALL, 48, "DASH", { 255, 255, 255, 255 });
+        auto button = std::make_unique<ActionButton>(
+            ButtonUI(Rect<fr_pos_t>(0.70, 0.35, 0.12, 0.12), label, window.get(), 0.1,
+                ImageResizeTypes::KEEP_ASPECT_RATIO, VerticalAlignmentTypes::CENTER, HorizontalAlignmentTypes::CENTER),
+            [this]() { player->startDash(); });
+        dashButton = button.get();
+        window->addChild(std::move(button));
+    }
+    if (!eatButton.has_value()) {
+        auto icon = TextureLoader::getTexturePtr(std::string(SAVE_FILES_PATH) + "/tx/items/food/food0.png");
+        auto button = std::make_unique<ActionButton>(
+            ButtonUI(Rect<fr_pos_t>(0.70, 0.15, 0.12, 0.12), icon, window.get(), 0.1,
+                ImageResizeTypes::KEEP_ASPECT_RATIO, VerticalAlignmentTypes::CENTER, HorizontalAlignmentTypes::CENTER),
+            [this]() { player->eatAnyFood(); });
+        eatButton = button.get();
+        window->addChild(std::move(button));
+    }
 }
 
 void BoardLoop::hideTouchControls()
@@ -290,6 +340,14 @@ void BoardLoop::hideTouchControls()
     if (changeWeaponButton.has_value()) {
         window->removeChild(changeWeaponButton.value());
         changeWeaponButton = std::nullopt;
+    }
+    if (dashButton.has_value()) {
+        window->removeChild(dashButton.value());
+        dashButton = std::nullopt;
+    }
+    if (eatButton.has_value()) {
+        window->removeChild(eatButton.value());
+        eatButton = std::nullopt;
     }
 }
 
@@ -369,22 +427,51 @@ void BoardLoop::spawnEnemy()
     noEnemyFor = Time(0);
 }
 
+/**
+ * Demo / smoke-test player: shoots fully drawn arrows at the nearest enemy while it is
+ * far away and switches to the sword when it comes into melee range (or the quiver is empty).
+ */
 void BoardLoop::runAutoplay()
 {
-    if (player->isDead() || !player->canAttack()) {
+    if (player->isDead()) {
         return;
     }
     std::shared_ptr<AiCharacter> nearest;
     double best = std::numeric_limits<double>::max();
     for (auto& ai : board->getAiCharacters()) {
-        double d = (ai->getPosition() - player->getPosition()).getNorm();
+        double d = (ai->getPosition() - player->getPosition()).grounded().getNorm();
         if (!ai->isDead() && d < best) {
             best = d;
             nearest = ai;
         }
     }
-    if (nearest) {
-        player->startAttack(nearest->getPosition() + Position(0, 0, 0.5));
+    if (!nearest) {
+        player->cancelDrawing();
+        return;
+    }
+    // aim at the chest so the arrow meets the body before the ground
+    Position target = nearest->getPosition() + Position(0, 0, 0.6);
+    bool close = best < CombatRules::get().meleeReach + 0.6;
+    if (close || !player->canShoot()) {
+        if (!player->meleeMode) {
+            player->setMeleeMode(true);
+        }
+        if (best <= CombatRules::get().meleeReach + 0.2 && player->canAttack()) {
+            player->startAttack(nearest->getPosition());
+        }
+        return;
+    }
+    if (player->meleeMode) {
+        player->setMeleeMode(false);
+    }
+    if (!player->isDrawing()) {
+        player->startAttack(target);
+    }
+    else if (player->getDrawProgress() >= 1.0) {
+        player->releaseAttack(target);
+    }
+    else {
+        player->aimAt(target);
     }
 }
 
@@ -398,6 +485,7 @@ void BoardLoop::update(Time timeDiff)
     }
 
     player->updateAttack(timeDiff);
+    player->pickUpArrows();
     // Iterate over a copy: behaviour code may kill characters.
     auto aiCharacters = board->getAiCharacters();
     for (auto& aiChar : aiCharacters) {
@@ -438,6 +526,9 @@ void BoardLoop::update(Time timeDiff)
 
 void BoardLoop::render(Time timeDiff)
 {
+    if (combatHud.has_value()) {
+        combatHud.value()->refresh();
+    }
     boardRenderer->drawBoard(timeDiff);
     window->renderUI();
     window->updateRenderer();
@@ -460,6 +551,11 @@ BoardLoop::Stats BoardLoop::start(std::optional<Time> runFor)
     const Time frameTime(16);
 
     showTouchControls();
+    if (!combatHud.has_value()) {
+        auto hud = std::make_unique<CombatHudUI>(Rect<fr_pos_t>{ .35, .01, .3, .1 }, window.get(), player);
+        combatHud = hud.get();
+        window->addChild(std::move(hud));
+    }
 
     while (!quitRequested) {
         generalTimer.updateTime();

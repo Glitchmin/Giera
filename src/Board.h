@@ -22,6 +22,12 @@ public:
 	Board();
 	Board(unique_ptr<Map> map, shared_ptr<BoardRenderer> boardRenderer);
 	void addItem(Coordinates coords, shared_ptr<AbstractItem> item);
+	/// Puts an item on the ground exactly at @p pos (clamped into the map).
+	void dropItem(Position pos, shared_ptr<AbstractItem> item);
+	/// Items lying on the ground within @p radius metres of @p pos.
+	vector<shared_ptr<AbstractItem>> getItemsNear(Position pos, double radius);
+	/// Takes an item off the ground (and out of the renderer). @return false if it wasn't there.
+	bool removeItemFromGround(shared_ptr<AbstractItem> item);
 	BoardTile& getBoardTile(Coordinates coords);
 	void addAiCharacter(shared_ptr<AiCharacter> character);
 	void addPlayerCharacter(shared_ptr<Player> player);

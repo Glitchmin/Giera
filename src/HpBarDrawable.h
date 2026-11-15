@@ -8,6 +8,7 @@ public:
     HpBarDrawable(Position pos, AbstractCharacter* ch); 
     void draw(Texture& textureToDrawOn, const double& pixelToMeterRatio) override;
 protected:
+    AbstractCharacter* character;
     character_hp_t* hp;
     character_hp_t* maxHp;
 };
